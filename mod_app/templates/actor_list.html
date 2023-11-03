@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% for actor in actor_list %}
+<div>
+    <h4>{{actor.name}}</h4>
+    <span>Known for: {{actor.known_for.all}} </span>
+    {{ actor.films.all }}
+</div>
+{% endfor %}
+{% endblock %}

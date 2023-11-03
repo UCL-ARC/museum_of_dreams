@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% for film in film_list %}
+<div>
+    <h4>{{film.title}}</h4>
+    <dl>
+    <dt>Release:</dt>
+    <dd>{{film.release_date}}</dd>
+    <dt>Themes:</dt>
+    <dd>{{film.themes}}</dd>
+    <dt>Tags:</dt>
+    <dd>{{film.tags}}</dd>
+    <dt>Summary:</dt>
+    <dd>{{film.summary|truncatewords:50}}</dd>
+    </dl>
+</div>
+{% endfor %}
+{% endblock %}

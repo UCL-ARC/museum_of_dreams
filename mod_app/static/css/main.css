@@ -1,0 +1,22 @@
+html {
+	box-sizing: border-box;
+}
+body {
+	margin: 0;
+}
+
+.title-bar {
+	background-color: var(--dark-grey);
+	padding: 1rem;
+	align-items: center;
+	justify-content: space-between;
+	display: flex;
+
+	.material-symbols-outlined {
+		color: var(--cream);
+	}
+}
+
+.title--explore {
+	color: var(--dark-wine);
+}

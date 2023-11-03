@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>{% block title %}{% endblock %} | Museum of Dreams</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/favicon.svg' %}">
+
+        <!-- css files -->
+        <link rel="stylesheet" href="{% static 'css/main.css' %}">
+        <link rel="stylesheet" href="{% static 'css/palette.css' %}">
+        <link rel="stylesheet" href="{% static 'css/svg-styles.css' %}">
+
+        <link rel="stylesheet" href="">
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    </head>
+    
+    <body>
+        <div class="title-bar">
+            <div class="logo-svg">
+                {% include 'svgs/logo_header.svg' %}
+            </div>
+            <span class="material-symbols-outlined">
+                menu
+                </span>
+        </div>
+        
+        {% block heading %}
+        {% endblock %}
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        
+        {% block content %}
+        {% endblock %}
+        <script src="" async defer></script>
+        <script type="module" src="{% static 'mod_app/first.js' %}"></script>
+    </body>
+    <footer>
+    </footer>
+</html>
