@@ -1,5 +1,7 @@
 /* This file is specifically for svg styling */
+/* Due to OpenProps, make sure you define a width parameter */
 
 .svg_logo-header {
 	height: 10vh;
+	width: 90%;
 }

@@ -1,8 +1,20 @@
+/* This is for universal/ubiquitous styles */
+@import url("imports.css");
+
 html {
 	box-sizing: border-box;
 }
+
 body {
 	margin: 0;
+}
+
+h2,
+h3,
+h4,
+h5 {
+	font-family: "Engebrechtre", display, sans-serif;
+	font-size: 110%;
 }
 
 .title-bar {
@@ -16,7 +28,49 @@ body {
 		color: var(--cream);
 	}
 }
+.title-bar__icons {
+	.material-symbols-outlined {
+		padding-left: 0.5rem;
+	}
+}
 
 .title--explore {
-	color: var(--dark-wine);
+	font-family: "Monoton";
+	color: var(--blood-red);
+}
+
+.tag {
+	display: inline-flex;
+	border-radius: 20px;
+	padding: 0.4rem;
+	border: 1px solid var(--beige);
+	font-family: "Open Sans", sans-serif;
+	font-size: 90%;
+
+	.dot {
+		display: inline-flex;
+		padding-right: 0.1rem;
+		font-size: 150%;
+		line-height: 0;
+		align-items: center;
+	}
+}
+
+.card-area {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(25vw, 1fr));
+	grid-column-gap: 0.5rem;
+	grid-row-gap: 0px;
+
+	.card {
+		display: grid;
+		padding: 1rem;
+		border: 1px solid var(--sand-7);
+		border-radius: 10px;
+		max-width: 40vw;
+
+		.card__info {
+			display: block;
+		}
+	}
 }
