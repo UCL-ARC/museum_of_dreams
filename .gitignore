@@ -37,6 +37,7 @@ db.sqlite3
 venv/
 env/
 ENV/
+.modvenv
 
 # Ignore coverage reports
 htmlcov/
