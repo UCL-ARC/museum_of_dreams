@@ -13,6 +13,7 @@ class Actor(models.Model):
         on_delete=models.SET_DEFAULT,
         default=None,
         blank=True,
+        null=True
     )
     tags = TaggableManager(blank=True)
     about = models.TextField(blank=True)

@@ -15,8 +15,8 @@ class ActorListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         for actor in context["object_list"]:
-            first_three_films = actor.films.all()[:3]
-            actor.known_for = first_three_films
+            first_three_films = list(actor.films.all()[:3])
+            actor.known_for = ", ".join(str(film) for film in first_three_films)
         return context
 
 
@@ -24,3 +24,12 @@ class FilmListView(ListView):
     model = Film
     template_name = "film_list.html"
     paginate_by = 20
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        for film in context["object_list"]:
+            tags = list(film.tags.all())
+            film.tags = tags
+            starring = list(film.actors.all()[:2])
+            film.starring = ", ".join(str(actor) for actor in starring)
+        return context
