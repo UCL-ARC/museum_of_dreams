@@ -71,4 +71,4 @@ pytest_cache/
 .local/
 
 # upper level static (generated from lower - might need to change)
-museum_of_dreams_project/static
+/static
