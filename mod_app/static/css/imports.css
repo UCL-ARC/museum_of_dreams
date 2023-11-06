@@ -1,3 +1,8 @@
+/* Other css files */
+@import url("svg-styles.css");
+@import url("palette.css");
+@import url("carousel.css");
+
 /**************** Google Fonts + MUI **********************/
 /* Gruppo, Josefin Sans, Noto Serif, Open Sans, Playfair Display, Monoton */
 @import url("https://fonts.googleapis.com/css2?family=Gruppo&family=Josefin+Sans&family=Noto+Serif&family=Open+Sans&family=Playfair+Display&family=Monoton&display=swap");
@@ -22,4 +27,12 @@
 	font-family: "Engebrechtre";
 	font-style: bold;
 	src: url("../fonts/engebrechtre/engebrechtre_bd.otf") format("opentype");
+}
+
+/*************** Standing Room Only Font  **************/
+
+@font-face {
+	font-family: "Standing Room Only";
+	src: url("../fonts/standingroomonly/StandingRoomOnlyNF.otf")
+		format("opentype");
 }

@@ -1,4 +1,4 @@
-/* This is for universal/ubiquitous styles */
+/* This file is for universal/ubiquitous styles */
 @import url("imports.css");
 
 html {
@@ -35,8 +35,21 @@ h5 {
 }
 
 .title--explore {
-	font-family: "Monoton";
+	font-family: "Standing Room Only";
 	color: var(--blood-red);
+	background-color: var(--beige);
+	display: flex;
+	/* justify-content: center; */
+	padding: 0.4rem;
+	text-align: center;
+
+	.title__text--explore {
+		/* justify-self: center; */
+		font-size: 3rem;
+		text-wrap: nowrap;
+		/* text-shadow: 2px 2px 4px var(--beige); */
+		text-shadow: 2px 2px 4px #393737, -2px -2px 4px var(--cream);
+	}
 }
 
 .tag {
