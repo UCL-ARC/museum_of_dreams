@@ -1,5 +1,5 @@
 # Byte-compiled / optimized / DLL files
-__pycache__/
+*/__pycache__/
 *.py[cod]
 *$py.class
 *.pyc
@@ -33,7 +33,7 @@ MANIFEST
 local_settings.py
 db.sqlite3
 
-# If your project is in a virtualenv, these files should be ignored
+# virtualenv
 venv/
 env/
 ENV/
@@ -47,7 +47,7 @@ htmlcov/
 /.idea
 
 # Ignore macOS specific files
-.DS_Store
+*.DS_Store
 
 # Ignore system files
 Thumbs.db
@@ -67,8 +67,8 @@ pytest_cache/
 # Ignore pytype output
 .pytype/
 
-# Ignore pycache
-__pycache__/
-
 # Ignore any local development files
 .local/
+
+# upper level static (generated from lower - might need to change)
+museum_of_dreams_project/static
