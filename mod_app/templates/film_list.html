@@ -1,19 +1,34 @@
 {% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans 'Films' %} {% endblock %}
 {% block content %}
 
-{% for film in film_list %}
 <div>
+    List of films on this site
+</div>
+
+<div class="card-area">
+{% for film in film_list %}
+<div class="card card--film">
     <h4>{{film.title}}</h4>
-    <dl>
-    <dt>Release:</dt>
-    <dd>{{film.release_date}}</dd>
-    <dt>Themes:</dt>
-    <dd>{{film.themes}}</dd>
-    <dt>Tags:</dt>
-    <dd>{{film.tags}}</dd>
-    <dt>Summary:</dt>
-    <dd>{{film.summary|truncatewords:50}}</dd>
-    </dl>
+    <div class="card__info">
+        <dl>
+            <dt>Starring:</dt>
+            <dd>{{film.starring}}</dd>
+            <dt>Release:</dt>
+            <dd>{{film.release_date}}</dd>
+            <dt>Themes:</dt>
+            <dd>{{film.themes}}</dd>
+            <dt>Tags:</dt>
+            {% for tag in film.tags %}
+            
+            <dd class="tag"><span class="dot">•</span>{{tag.name}}</dd>
+            {% endfor %}
+            <dt>Summary:</dt>
+            <dd>{{film.summary|truncatewords:50}}</dd>
+        </dl>
+    </div>
 </div>
 {% endfor %}
+</div>
 {% endblock %}

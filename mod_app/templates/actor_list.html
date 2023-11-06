@@ -1,11 +1,20 @@
 {% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans 'Actors' %} {% endblock %}
 {% block content %}
 
-{% for actor in actor_list %}
 <div>
+    List of actors on this site
+</div>
+
+<div class="card-area">
+{% for actor in actor_list %}
+<div class="card card--actor">
     <h4>{{actor.name}}</h4>
-    <span>Known for: {{actor.known_for.all}} </span>
-    {{ actor.films.all }}
+    <div class="card__info">
+        <div>Known for: {{actor.known_for}} </div>
+    </div>
 </div>
 {% endfor %}
+</div>
 {% endblock %}
