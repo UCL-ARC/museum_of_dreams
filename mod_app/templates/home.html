@@ -2,11 +2,23 @@
 {% load i18n %}
 {% block title %}Home {% endblock%}
 {% block heading %}
-<h1 class="title--explore">{% trans "EXPLORE OUR WORLD OF FILMS" %}</h1>
+<div class="title--explore">
+<h1 class="title__text--explore">{% trans "EXPLORE OUR WORLD OF FILMS" %}</h1>
+</div>
 {% endblock %}
 
 {% block content %}
-<div>
+<div class="carousel__wrapper">
+    <div class="carousel">
+        <div class="carousel__slides">
+          <div class="slide">Slide 1</div>
+          <div class="slide">Slide 2</div>
+          <div class="slide">Slide 3</div>
+          <!-- Add more slides as needed -->
+        </div>
+        <button class="carousel__buttons--prev">❮</button>
+        <button class="carousel__buttons--next">❯</button>
+      </div>
 </div>
 
 {% endblock %}
