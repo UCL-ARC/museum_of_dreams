@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-4(a2p@akg1+ns^y&sl2*iw-1d%l2j0wsc@&*+xo#i-d=wanp5_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["52.56.158.72"]  # AWS EC2 public IPv4
 
 
 # Application definition
@@ -77,9 +77,18 @@ WSGI_APPLICATION = "museum_of_dreams_project.wsgi.application"
 
 DATABASES = {
     "default": {
+        # this is used for dev
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "mod-mysql-db",
+        "USER": "modreams",
+        "PASSWORD": "MuseumofDreams",
+        "HOST": "mod-mysql-db.cxbuhtmmygnm.eu-west-2.rds.amazonaws.com",
+        "PORT": "3306",
+    },
+    "local": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
-    }
+    },
 }
 
 
