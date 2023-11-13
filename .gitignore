@@ -73,3 +73,5 @@ pytest_cache/
 
 # upper level static (generated from lower - might need to change)
 /static
+
+secrets.py
