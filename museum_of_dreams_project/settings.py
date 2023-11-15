@@ -27,7 +27,10 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["52.56.158.72"]  # AWS EC2 public IPv4
+ALLOWED_HOSTS = [
+    "52.56.158.72",  # AWS EC2 public IPv4
+    "museumofdreams.eu-west-2.elasticbeanstalk.com",
+]
 
 
 # Application definition
