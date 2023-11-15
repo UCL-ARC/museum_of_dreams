@@ -94,8 +94,8 @@ class Film(models.Model):
         "Location",
         blank=True,
     )
-    setting_location = locations.filter(is_setting=True)
-    filmed_location = locations.filter(is_setting=False)
+    setting_location = locations.all().filter(is_setting=True)
+    filmed_location = locations.all().filter(is_setting=False)
 
     genre = models.ManyToManyField(Tag, related_name="genres")
     themes = models.ManyToManyField(Tag, related_name="themes")
