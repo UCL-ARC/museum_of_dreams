@@ -3,11 +3,7 @@ from .models import Actor, Film
 
 
 class HomeView(TemplateView):
-    import os
-
     template_name = "home.html"
-    pw = os.environ["DB_PASSWORD"]
-    pp = os.environ["PYTHONPATH"]
 
 
 class ActorListView(ListView):
