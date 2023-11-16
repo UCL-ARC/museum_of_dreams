@@ -3,7 +3,11 @@ from .models import Actor, Film
 
 
 class HomeView(TemplateView):
+    import os
+
     template_name = "home.html"
+    pw = os.environ["DB_PASSWORD"]
+    pp = os.environ["PYTHONPATH"]
 
 
 class ActorListView(ListView):
@@ -17,7 +21,8 @@ class ActorListView(ListView):
             first_three_films = list(actor.films.all()[:3])
             actor.known_for = ", ".join(str(film) for film in first_three_films)
         return context
-    
+
+
 class ActorDetailView(DetailView):
     model = Actor
     template_name = "actor_detail.html"
@@ -38,7 +43,8 @@ class FilmListView(ListView):
             film.starring = ", ".join(str(actor) for actor in starring)
             print(starring, "film.actors", film.actors.all())
         return context
-    
+
+
 class FilmDetailView(DetailView):
     model = Film
     template_name = "film_detail.html"
