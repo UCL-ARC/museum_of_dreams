@@ -84,10 +84,11 @@ DATABASES = {
     "default": {
         # this is used for dev
         "ENGINE": "django.db.backends.mysql",
-        "NAME": "mod-mysql-db",
+        "NAME": "mod-mysql-ebdb",
         "USER": "modreams",
-        "PASSWORD": os.environ.get("DB_PASSWORD"),
-        "HOST": "mod-mysql-db.cxbuhtmmygnm.eu-west-2.rds.amazonaws.com",
+        # "PASSWORD": os.environ.get("DB_PASSWORD"),
+        "PASSWORD": "MuseumofDreams",
+        "HOST": "mod-mysql-ebdb.cxbuhtmmygnm.eu-west-2.rds.amazonaws.com",
         "PORT": "3306",
     },
     "local": {
