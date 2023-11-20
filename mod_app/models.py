@@ -76,10 +76,35 @@ class Actor(models.Model):
     about = models.TextField(blank=True)
 
 
+class Crew(models.Model):
+    def __str__(self):
+        return f"{self.name}"
+
+    ROLE_CHOICES = [
+        ("Director", "Director"),
+        ("Screenplay", "Screenplay"),
+        ("Scenography", "Scenography"),
+        ("Photography", "Photography"),
+    ]
+
+    name = models.CharField(max_length=100)
+    roles = models.CharField(max_length=255, choices=ROLE_CHOICES, blank=True)
+
+    def get_roles(self):
+        return self.roles.split(",") if self.roles else []
+
+    def set_roles(self, roles):
+        self.roles = ",".join(roles)
+
+
 class Film(models.Model):
     def __str__(self):
         return f"{self.title}"
 
+    archive_id = models.CharField(max_length=20)
+    archive_company = models.CharField(
+        max_length=20
+    )  # maybe use choices instead if only small selection
     title = models.CharField(max_length=100)
     release_date = models.IntegerField()  # can be more specific and use DateField()
     alt_titles = models.CharField(
@@ -89,6 +114,7 @@ class Film(models.Model):
     )
 
     actors = models.ManyToManyField("Actor", related_name="films", blank=True)
+    crew = models.ManyToManyField("Crew", related_name="films", blank=True)
 
     locations = models.ManyToManyField(
         "Location",
@@ -100,8 +126,10 @@ class Film(models.Model):
         return self.locations.filter(is_setting=True)
 
     @property
-    def filmed_locations(self):
+    def production_country(self):
         return self.locations.filter(is_setting=False)
+
+    production_company = models.CharField(max_length=50)
 
     genre = models.ManyToManyField(Tag, related_name="genres")
     themes = models.ManyToManyField(Tag, related_name="themes")
@@ -143,7 +171,7 @@ class Film(models.Model):
     )
     # files = models.FileField(upload_to=)
 
-    summary = models.TextField(blank=True)
+    synopsis = models.TextField(blank=True)
     comments = models.TextField(blank=True)
 
 
