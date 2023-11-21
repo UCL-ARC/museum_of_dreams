@@ -79,7 +79,16 @@ WSGI_APPLICATION = "museum_of_dreams_project.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-if "RDS_HOSTNAME" in os.environ:
+IS_LOCAL_DEV = os.getenv("LOCAL_DEV", False)
+
+if IS_LOCAL_DEV:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        },
+    }
+else:
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.mysql",
@@ -89,13 +98,6 @@ if "RDS_HOSTNAME" in os.environ:
             "HOST": os.environ["RDS_HOSTNAME"],
             "PORT": os.environ["RDS_PORT"],
         }
-    }
-else:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "db.sqlite3",
-        },
     }
 
 
