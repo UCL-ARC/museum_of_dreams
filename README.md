@@ -136,13 +136,15 @@ On the next page, select the VPC you created, check that public IP is enabled, a
 
 On the next page, select the security group you created for the RDS instance.
 
-On the next page, scroll to the bottom where it should have `Environment Variables`. Add some new ones:
+On the next page, scroll to the `Platform Software` section, it should ask you to define the `WSGI path`, it should be `museum_of_dreams_project.wsgi`.
 
-- RDS_HOSTNAME (this is the endpoint for the RDS instance)
-- RDS_PORT (this should be 3306 unless you changed it)
-- RDS_DB_NAME (this should be ebdb)
-- RDS_USERNAME (this should be the username you chose or admin if you didn't change it)
-- RDS_PASSWORD (this should be the master password you set on the db)
+Next, scroll to the bottom where it should have `Environment Variables`. Add some new ones:
+
+- `RDS_HOSTNAME` (this is the endpoint for the RDS instance)
+- `RDS_PORT` (this should be 3306 unless you changed it)
+- `RDS_DB_NAME` (this should be ebdb)
+- `RDS_USERNAME` (this should be the username you chose or admin if you didn't change it)
+- `RDS_PASSWORD` (this should be the master password you set on the db)
 
 You can review and create the environment. This will take some time.
 
