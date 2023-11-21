@@ -154,6 +154,7 @@ class Film(models.Model):
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
+        related_name="source_material_link",
     )
     video = models.OneToOneField(
         Link,
@@ -161,6 +162,7 @@ class Film(models.Model):
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
+        related_name="video_link",
     )
     additional_links = models.ManyToManyField(
         Link,

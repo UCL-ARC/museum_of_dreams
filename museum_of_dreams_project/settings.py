@@ -79,22 +79,26 @@ WSGI_APPLICATION = "museum_of_dreams_project.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+IS_LOCAL_DEV = os.getenv("LOCAL_DEV", False)
 
-DATABASES = {
-    "default": {
-        # this is used for dev
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": "mod-mysql-db",
-        "USER": "modreams",
-        "PASSWORD": os.environ.get("DB_PASSWORD"),
-        "HOST": "mod-mysql-db.cxbuhtmmygnm.eu-west-2.rds.amazonaws.com",
-        "PORT": "3306",
-    },
-    "local": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    },
-}
+if IS_LOCAL_DEV:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        },
+    }
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.mysql",
+            "NAME": os.environ["RDS_DB_NAME"],
+            "USER": os.environ["RDS_USERNAME"],
+            "PASSWORD": os.environ["RDS_PASSWORD"],
+            "HOST": os.environ["RDS_HOSTNAME"],
+            "PORT": os.environ["RDS_PORT"],
+        }
+    }
 
 
 # Password validation
