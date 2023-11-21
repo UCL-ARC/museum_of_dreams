@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Actor, Film, Location, Analysis, Link, Copy
+from .models import Actor, Film, Location, Analysis, Link, Copy, Tag
 
 
 class FilmInline(admin.StackedInline):
@@ -14,5 +14,5 @@ class ActorAdmin(admin.ModelAdmin):
     inlines = (FilmInline,)
 
 
-admin.site.register([Film, Location, Analysis, Link, Copy])
+admin.site.register([Film, Location, Analysis, Link, Copy, Tag])
 admin.site.register(Actor, ActorAdmin)

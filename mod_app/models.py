@@ -23,6 +23,9 @@ class Link(models.Model):
 
 
 class Copy(Link):
+    class Meta:
+        verbose_name_plural = "Copies"
+
     def __str__(self):
         if self.name:
             return self.name
@@ -55,6 +58,9 @@ class Copy(Link):
 
 
 class Analysis(models.Model):
+    class Meta:
+        verbose_name_plural = "Analyses"
+
     def __str__(self):
         return f"Analysis of {self.film}"
 
