@@ -1,3 +1,4 @@
+#!/bin/bash
 # container_commands:
 #   01_migrate:
 #     command: "source /var/app/venv/*/bin/activate && python manage.py migrate"
@@ -6,8 +7,6 @@
 #   aws:elasticbeanstalk:application:environment:
 #     DJANGO_SETTINGS_MODULE: museum_of_dreams_project.settings
 
-
-#!/bin/bash
 
 source "$PYTHONPATH/activate" && {
     
