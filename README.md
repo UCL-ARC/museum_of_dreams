@@ -140,6 +140,7 @@ On the next page, scroll to the `Platform Software` section, it should ask you t
 
 Next, scroll to the bottom where it should have `Environment Variables`. Add some new ones:
 
+- `DJANGO_SETTINGS_MODULE` (this is the path to your settings.py file <project>/settings.py)
 - `RDS_HOSTNAME` (this is the endpoint for the RDS instance)
 - `RDS_PORT` (this should be 3306 unless you changed it)
 - `RDS_DB_NAME` (this should be ebdb)
