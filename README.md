@@ -77,7 +77,7 @@ else:
 
 This will look for a local variable on your machine called `LOCAL_DEV` (set this up on your local machine when possible) and if it can't find it, it will use the credentials for the AWS RDS instance. This way, the AWS is default, whereas if we try to look for an environment variable on the EBS instance, it doesn't always compute the code correctly and would create a local sqlite3.db instance on the EC2 machine.
 
-## Recreating AWS Setup
+# Recreating AWS Setup
 
 As this website is hosted on AWS you will need an account to access all of these services. There are a few things to set up across different services, namely:
 
@@ -88,14 +88,14 @@ As this website is hosted on AWS you will need an account to access all of these
 - ElasticBeanstalk
 - CodePipeline
 
-### VPC
+## VPC
 
 Go to the VPC console. Click on `Your VPCs` or `VPCs`.
 Create a new VPC with at least two subnets (probably preferably in the European Region).
 From the menu on the left, select `Route Tables`. Create one for each subnet (this is best practice)
 From the menu on the left, select `Internet Gateways`.Create and attach an Internet Gateway to the VPC you created. This will allow the app to access the internet.
 
-### IAM Roles
+## IAM Roles
 
 Go to the IAM console. Under the `Access Management` heading on the left, select `Roles`.
 Create a new Role and attach the following policies:
@@ -108,7 +108,7 @@ Create a new Role and attach the following policies:
 
 These will allow for communication betweeen the ElasticBeanstalk application, the EC2 instances it will create to host the application and the RDS database.
 
-### RDS
+## RDS
 
 Go to the RDS console. Select `Databases` and then `Create new database`.
 Choose standard create and MySQL (not the Aurora one unless you have a spare £800). Choose the free tier. Choose an appropriate identifier for the db and the same for the credentials.
@@ -122,7 +122,7 @@ Under `Additional Configurations` you should see `initial db name`, this should 
 
 Create the db and wait for it to spin up.
 
-### ElasticBeanstalk
+## ElasticBeanstalk
 
 We'll be using ElasticBeanstalk (EBS) to host our application as the process is a bit more streamlined than with just creating an EC2 instance since EBS allows for more abstraction and less manual config.
 
@@ -136,17 +136,19 @@ On the next page, select the VPC you created, check that public IP is enabled, a
 
 On the next page, select the security group you created for the RDS instance.
 
-On the next page, scroll to the bottom where it should have `Environment Variables`. Add some new ones:
+On the next page, scroll to the `Platform Software` section, it should ask you to define the `WSGI path`, it should be `museum_of_dreams_project.wsgi`.
 
-- RDS_HOSTNAME (this is the endpoint for the RDS instance)
-- RDS_PORT (this should be 3306 unless you changed it)
-- RDS_DB_NAME (this should be ebdb)
-- RDS_USERNAME (this should be the username you chose or admin if you didn't change it)
-- RDS_PASSWORD (this should be the master password you set on the db)
+Next, scroll to the bottom where it should have `Environment Variables`. Add some new ones:
+
+- `RDS_HOSTNAME` (this is the endpoint for the RDS instance)
+- `RDS_PORT` (this should be 3306 unless you changed it)
+- `RDS_DB_NAME` (this should be ebdb)
+- `RDS_USERNAME` (this should be the username you chose or admin if you didn't change it)
+- `RDS_PASSWORD` (this should be the master password you set on the db)
 
 You can review and create the environment. This will take some time.
 
-### Security Groups
+## Security Groups
 
 Whilst the environment is being created, you can check if the security group you defined is available in the VPC console. It will be in `Security Groups` under the `Security` tab in the left hand menu.
 
@@ -154,7 +156,7 @@ If it's available, click on it and scroll to the bottom to edit inbound rules. A
 
 Ensure that the security group you defined on the RDS instance (and then selected in the EBS setup) has been set for MySQL connections.
 
-### CodePipeline
+## CodePipeline
 
 This step assumes you have code on GitHub for the web app. Go to the CodePipeline console and then `Pipelines`. Create a new pipeline. Choose V2 and create a new service role and name it. Everything else on this page can be left as default.
 
