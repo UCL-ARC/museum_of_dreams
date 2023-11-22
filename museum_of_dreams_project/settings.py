@@ -12,7 +12,10 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 
-# from . import secrets
+IS_LOCAL_DEV = os.getenv("LOCAL_DEV", False)
+
+if IS_LOCAL_DEV:
+    from . import secrets
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,7 +25,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY")
+if IS_LOCAL_DEV:
+    SECRET_KEY = secrets.secret_key
+else:
+    SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -30,6 +36,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     "3.11.242.245",  # AWS EC2 public IPv4
     "museumofdreams.eu-west-2.elasticbeanstalk.com",
+    "127.0.0.1",
 ]
 
 
@@ -79,7 +86,7 @@ WSGI_APPLICATION = "museum_of_dreams_project.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-IS_LOCAL_DEV = os.getenv("LOCAL_DEV", False)
+
 
 if IS_LOCAL_DEV:
     DATABASES = {
