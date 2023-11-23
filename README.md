@@ -29,7 +29,33 @@ python manage.py createsuperuser
 
 You need to have a `LOCAL_DEV=true` variable set in your venv for local development. You can do this by running `export LOCAL_DEV=true` or by adding it to the end of your `activate` file in your `bin` folder of your venv.
 
+### Running tests
+
+Running tests is not advised on AWS as you should only push to the respective branches when you've finished testing locally.
+To run the tests locally, run
+
+```
+python manage.py test mod_app
+```
+
 ---
+
+### If starting from scratch (not cloning repo)
+
+Set up the project using the standard django method
+
+```
+mkdir museum_of_dreams_project
+cd museum_of_dreams_project
+
+python3 -m venv modvenv
+source modvenv/bin/activate
+pip install django
+
+django-admin startproject mod-app
+cd mod-app
+python manage.py runserver
+```
 
 For AWS, you should create a `.ebextensions` folder in the top level of the project (it should be same level as `manage.py` and `requirements.txt`). In this folder create `01_packages.config` with the following contents:
 
@@ -178,9 +204,13 @@ If the repo is under an organisation, try typing the name as `<org name>/<repo n
 After this, move on to the deploy step (skip build) and choose deploy and select the EBS environment you created.
 This will automatically pull in changes to the branch you select and deploy them to the environment.
 
+_**NB**_
+
+If you have more than one environment (one for prod, one for staging for eg.), you should have separate pipelines for each. The current CodePipelines pull from `main` for production and `development` for staging.
+
 ## Logging into the Admin
 
-Once you've set everything up, check you can access the website at the domain you set (or through the EBS console: `Go to environment`). If this seems to be in order, go to the EC2 console and find the associated instance for your EBS environment. Click `connect` and you're free to connect through the browser (default method). Once you're in the shell, you'll need to navigate to the app and create a superuser so you can log in to the admin site.
+Once you've set everything up, check you can access the website at the domain you set (or through the EBS console: `Go to environment` button). If this seems to be in order, go to the EC2 console and find the associated instance for your EBS environment. Click `connect` and you're free to connect through the browser (default method). Once you're in the shell, you'll need to navigate to the app and create a superuser so you can log in to the admin site.
 
 ```
 cd /var/app
