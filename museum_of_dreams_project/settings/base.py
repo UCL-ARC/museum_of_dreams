@@ -12,8 +12,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 
-IS_LOCAL_DEV = os.getenv("LOCAL_DEV", False)
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -70,10 +68,6 @@ WSGI_APPLICATION = "museum_of_dreams_project.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-IS_LOCAL_DEV = os.getenv("LOCAL_DEV", False)
-
-# if IS_LOCAL_DEV:
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
