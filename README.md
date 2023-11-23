@@ -1,6 +1,8 @@
 # Museum of Dreams Website Project
 
-This website is hosted at http://museumofdreams.eu-west-2.elasticbeanstalk.com/
+The production website is hosted at http://museumofdreamworlds.eu-west-2.elasticbeanstalk.com/
+
+The staging one is http://museumofdreams.eu-west-2.elasticbeanstalk.com/
 
 Development should be done locally and staged to the website. At present this is not a production version.
 
