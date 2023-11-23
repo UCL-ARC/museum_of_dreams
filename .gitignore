@@ -1,0 +1,77 @@
+# Byte-compiled / optimized / DLL files
+# */__pycache__/
+__pycache__
+*.py[cod]
+*$py.class
+*.pyc
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Django generated files
+*.log
+local_settings.py
+db.sqlite3
+
+# virtualenv
+venv/
+env/
+ENV/
+.modvenv
+
+# Ignore coverage reports
+htmlcov/
+
+# Ignore the development environment
+/.vscode
+/.idea
+
+# Ignore macOS specific files
+*.DS_Store
+
+# Ignore system files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Ignore Python coverage data
+.coverage
+
+# Ignore pytest cache
+.cache/
+pytest_cache/
+
+# Ignore mypy cache
+.mypy_cache/
+
+# Ignore pytype output
+.pytype/
+
+# Ignore any local development files
+.local/
+
+# upper level static (generated from lower - might need to change)
+/static
+
+secrets.py

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans 'Films' %} {% endblock %}
+{% block content %}
+
+<div>
+    List of films on this site
+</div>
+
+<div class="card-area">
+{% for film in film_list %}
+<div class="card card--film">
+    <h4 class="card__heading"><a href="{% url 'film_detail' pk=film.pk %}">{{film.title}}</a></h4>
+    <div class="card__info">
+        <dl>
+            <dt>Starring:</dt>
+            <dd>{{film.starring}}</dd>
+            <dt>Release:</dt>
+            <dd>{{film.release_date}}</dd>
+            <dt>Themes:</dt>
+            <dd>{{film.themes.all}}</dd>
+            <dt>Genre:</dt>
+            <dd class="tag"><span class="dot">•</span>{{genre.name}}</dd>
+            <dt>Summary:</dt>
+            <dd>{{film.summary|truncatewords:50}}</dd>
+        </dl>
+        <button href="{% url 'film_detail' pk=film.pk %}"> view full details </button>
+    </div>
+</div>
+{% endfor %}
+</div>
+{% endblock %}

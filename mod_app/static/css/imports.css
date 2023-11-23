@@ -1,0 +1,38 @@
+/* Other css files */
+@import url("svg-styles.css");
+@import url("palette.css");
+@import url("carousel.css");
+
+/**************** Google Fonts + MUI **********************/
+/* Gruppo, Josefin Sans, Noto Serif, Open Sans, Playfair Display, Monoton */
+@import url("https://fonts.googleapis.com/css2?family=Gruppo&family=Josefin+Sans&family=Noto+Serif&family=Open+Sans&family=Playfair+Display&family=Monoton&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0");
+
+/**************** Engebrechtre Font *******************/
+@font-face {
+	font-family: "Engebrechtre";
+	src: url("../fonts/engebrechtre/engebrechtre_rg.otf") format("opentype");
+}
+@font-face {
+	font-family: "Engebrechtre";
+	font-style: italic;
+	src: url("../fonts/engebrechtre/engebrechtre_rg_it.otf") format("opentype");
+}
+@font-face {
+	font-family: "Engebrechtre";
+	font-style: bold, italic;
+	src: url("../fonts/engebrechtre/engebrechtre_bd_it.otf") format("opentype");
+}
+@font-face {
+	font-family: "Engebrechtre";
+	font-style: bold;
+	src: url("../fonts/engebrechtre/engebrechtre_bd.otf") format("opentype");
+}
+
+/*************** Standing Room Only Font  **************/
+
+@font-face {
+	font-family: "Standing Room Only";
+	src: url("../fonts/standingroomonly/StandingRoomOnlyNF.otf")
+		format("opentype");
+}
