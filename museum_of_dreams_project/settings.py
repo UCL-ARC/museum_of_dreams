@@ -2,7 +2,7 @@ import os
 
 IS_LOCAL_DEV = os.environ.get("LOCAL_DEV", "False")
 
-if IS_LOCAL_DEV:
-    from .settings.local import *
+if IS_LOCAL_DEV == True:
+    from .settings_files.local import *
 else:
-    from .settings.aws import *
+    from .settings_files.aws import *
