@@ -1,17 +1,28 @@
 from django.test import TestCase
-from models import Film, Actor
+from mod_app.models import Film, Actor
 
 
-class FilmTestCase(TestCase):
+class TestFilm(TestCase):
     def setUp(self):
         Film.objects.create(
             title="test film",
             release_date=2023,
         )
 
-    def test_basic_film_creation(self):
+    def test_film_creation(self):
         film = Film.objects.get(title="test film")
 
         self.assertTrue(film)
         self.assertEqual(film.title, "test film")
         self.assertEqual(film.release_date, 2023)
+
+
+class TestActor(TestCase):
+    def setUp(self):
+        Actor.objects.create(name="test actor")
+
+    def test_actor_creation(self):
+        actor = Actor.objects.get(name="test actor")
+
+        self.assertTrue(actor)
+        self.assertEqual(actor.name, "test actor")

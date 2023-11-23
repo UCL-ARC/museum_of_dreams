@@ -35,7 +35,7 @@ Running tests is not advised on AWS as you should only push to the respective br
 To run the tests locally, run
 
 ```
-python manage.py test mod_app
+python manage.py test mod_app/tests
 ```
 
 ---
