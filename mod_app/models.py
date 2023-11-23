@@ -124,7 +124,6 @@ class Film(models.Model):
         help_text="Links to where the copies can be found",
         related_name="copies",
         blank=True,
-        null=True,
     )
     source_material = models.OneToOneField(
         Link,
@@ -147,7 +146,6 @@ class Film(models.Model):
         help_text="Links to other things",
         related_name="other_links",
         blank=True,
-        null=True,
     )
     # files = models.FileField(upload_to=)
 
