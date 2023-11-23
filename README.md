@@ -29,10 +29,10 @@ python manage.py migrate
 python manage.py createsuperuser
 ```
 
-We have separate settings files for AWS and local development, on AWS the environment variable should be set (see ElasticBeanstalk section) and for local, you should add the following to your activate script for your venv
+We have separate settings files for AWS and local development, on AWS the environment variable should be set (see ElasticBeanstalk section) and for local, you should set a `LOCAL_DEV=true` variable set in your venv. You can do this by running the following or by adding it to the end of your `activate` file in your `bin` folder of your venv.
 
 ```
-export DJANGO_SETTINGS_MODULE=museum_of_dreams_project.settings.local
+export LOCAL_DEV=true
 ```
 
 ### Secrets
