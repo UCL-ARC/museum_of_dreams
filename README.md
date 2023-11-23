@@ -6,20 +6,30 @@ Development should be done locally and staged to the website. At present this is
 
 ## Local Development
 
-Set up the project using the standard django method
+Clone the repo into an appropriate folder (eg. `museum_of_dreams_project`). Create a venv at the top level and start it
 
 ```
-mkdir museum_of_dreams_project
-cd museum_of_dreams_project
-
 python3 -m venv modvenv
 source modvenv/bin/activate
-pip install django
+```
 
-django-admin startproject mod-app
-cd mod-app
+Install the requirements and launch the app
+
+```
+pip install -r requirements-base.txt
 python manage.py runserver
 ```
+
+If it's your first time initialising the app on your machine, you may need to run migrations and create a superuser
+
+```
+python manage.py migrate
+python manage.py createsuperuser
+```
+
+You need to have a `LOCAL_DEV=true` variable set in your venv for local development. You can do this by running `export LOCAL_DEV=true` or by adding a `postactivate` file to your `bin` folder of your venv with the same command as the content.
+
+---
 
 For AWS, you should create a `.ebextensions` folder in the top level of the project (it should be same level as `manage.py` and `requirements.txt`). In this folder create `01_packages.config` with the following contents:
 
