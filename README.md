@@ -27,7 +27,7 @@ python manage.py migrate
 python manage.py createsuperuser
 ```
 
-You need to have a `LOCAL_DEV=true` variable set in your venv for local development. You can do this by running `export LOCAL_DEV=true` or by adding a `postactivate` file to your `bin` folder of your venv with the same command as the content.
+You need to have a `LOCAL_DEV=true` variable set in your venv for local development. You can do this by running `export LOCAL_DEV=true` or by adding it to the end of your `activate` file in your `bin` folder of your venv.
 
 ---
 
