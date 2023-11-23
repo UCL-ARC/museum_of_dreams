@@ -32,6 +32,7 @@ ALLOWED_HOSTS = [
     "35.179.22.251",
     "museumofdreams.eu-west-2.elasticbeanstalk.com",
     "museumofdreamworlds.eu-west-2.elasticbeanstalk.com",
+    "localhost",
 ]
 
 
