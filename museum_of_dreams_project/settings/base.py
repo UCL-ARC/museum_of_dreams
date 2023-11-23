@@ -14,9 +14,6 @@ from pathlib import Path
 
 IS_LOCAL_DEV = os.getenv("LOCAL_DEV", False)
 
-if IS_LOCAL_DEV:
-    from . import secrets
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -24,23 +21,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-if IS_LOCAL_DEV:
-    SECRET_KEY = secrets.secret_key
-else:
-    SECRET_KEY = os.environ.get("SECRET_KEY")
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = [
-    "3.11.242.245",  # AWS EC2 public IPv4 for prod
-    "35.179.22.251",
-    "museumofdreams.eu-west-2.elasticbeanstalk.com",
-    "museumofdreamworlds.eu-west-2.elasticbeanstalk.com",
-    "localhost",
-]
-
 
 # Application definition
 
@@ -90,24 +72,7 @@ WSGI_APPLICATION = "museum_of_dreams_project.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 IS_LOCAL_DEV = os.getenv("LOCAL_DEV", False)
 
-if IS_LOCAL_DEV:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "db.sqlite3",
-        },
-    }
-else:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.mysql",
-            "NAME": os.environ["RDS_DB_NAME"],
-            "USER": os.environ["RDS_USERNAME"],
-            "PASSWORD": os.environ["RDS_PASSWORD"],
-            "HOST": os.environ["RDS_HOSTNAME"],
-            "PORT": os.environ["RDS_PORT"],
-        }
-    }
+# if IS_LOCAL_DEV:
 
 
 # Password validation

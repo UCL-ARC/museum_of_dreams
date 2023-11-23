@@ -30,6 +30,11 @@ python manage.py createsuperuser
 ```
 
 You need to have a `LOCAL_DEV=true` variable set in your venv for local development. You can do this by running `export LOCAL_DEV=true` or by adding it to the end of your `activate` file in your `bin` folder of your venv.
+You should also do the same with the following command to use the right set of settings.
+
+```
+export DJANGO_SETTINGS_MODULE=museum_of_dreams_project.settings.local
+```
 
 ### Secrets
 
@@ -188,7 +193,7 @@ On the next page, scroll to the `Platform Software` section, it should ask you t
 
 Next, scroll to the bottom where it should have `Environment Variables`. Add some new ones:
 
-- `DJANGO_SETTINGS_MODULE` (this is the path to your settings.py file <project>/settings.py)
+- `DJANGO_SETTINGS_MODULE` (this is the path to your settings/aws.py file <project>.settings.aws)
 - `RDS_HOSTNAME` (this is the endpoint for the RDS instance)
 - `RDS_PORT` (this should be 3306 unless you changed it)
 - `RDS_DB_NAME` (this should be ebdb)
