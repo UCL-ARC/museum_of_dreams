@@ -31,6 +31,16 @@ python manage.py createsuperuser
 
 You need to have a `LOCAL_DEV=true` variable set in your venv for local development. You can do this by running `export LOCAL_DEV=true` or by adding it to the end of your `activate` file in your `bin` folder of your venv.
 
+### Secrets
+
+There is an example secrets file you can copy which has an example key. You can use this key (change the line in settings to use `secrets_example`) or generate your own with
+
+```
+from django.core.management.utils import get_random_secret_key
+
+print(get_random_secret_key())
+```
+
 ### Running tests
 
 Running tests is not advised on AWS as you should only push to the respective branches when you've finished testing locally.
