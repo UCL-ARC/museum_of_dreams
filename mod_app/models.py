@@ -23,6 +23,9 @@ class Link(models.Model):
 
 
 class Copy(Link):
+    class Meta:
+        verbose_name_plural = "Copies"
+
     def __str__(self):
         if self.name:
             return self.name
@@ -55,6 +58,9 @@ class Copy(Link):
 
 
 class Analysis(models.Model):
+    class Meta:
+        verbose_name_plural = "Analyses"
+
     def __str__(self):
         return f"Analysis of {self.film}"
 
@@ -118,7 +124,6 @@ class Film(models.Model):
         help_text="Links to where the copies can be found",
         related_name="copies",
         blank=True,
-        null=True,
     )
     source_material = models.OneToOneField(
         Link,
@@ -141,7 +146,6 @@ class Film(models.Model):
         help_text="Links to other things",
         related_name="other_links",
         blank=True,
-        null=True,
     )
     # files = models.FileField(upload_to=)
 
