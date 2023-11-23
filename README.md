@@ -171,7 +171,9 @@ Ensure that the security group you defined on the RDS instance (and then selecte
 
 This step assumes you have code on GitHub for the web app. Go to the CodePipeline console and then `Pipelines`. Create a new pipeline. Choose V2 and create a new service role and name it. Everything else on this page can be left as default.
 
-Choose GitHub v2 for the source, and then select the repo and branch. You may need to sign in to your GH account. If the repo is under an organisation, try typing the name as `<org name>/<repo name>`. If you don't have permissions, you should contact your administrator or relevant AWS advisor to set up a GitHub App to ensure it doesn't disrupt other connections.
+Choose GitHub v2 for the source, and then select the repo and branch. You may need to create a new connection and sign in to your GH account. Otherwise, select the connection to your GH account.
+
+If the repo is under an organisation, try typing the name as `<org name>/<repo name>`. **If you don't have permissions, you should contact your administrator or relevant AWS advisor to set up a GitHub App to ensure it doesn't disrupt other connections.**
 
 After this, move on to the deploy step (skip build) and choose deploy and select the EBS environment you created.
 This will automatically pull in changes to the branch you select and deploy them to the environment.
