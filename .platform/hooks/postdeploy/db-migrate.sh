@@ -9,7 +9,7 @@ if [ -f /var/app/current/manage.py ]; then
     python manage.py migrate
 
     # Collect static files
-    python manage.py collectstatic
+    python manage.py collectstatic --no-input
 else
     echo "manage.py not found."
     exit 1
