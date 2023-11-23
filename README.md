@@ -165,3 +165,29 @@ Choose GitHub v2 for the source, and then select the repo and branch. You may ne
 
 After this, move on to the deploy step (skip build) and choose deploy and select the EBS environment you created.
 This will automatically pull in changes to the branch you select and deploy them to the environment.
+
+## Logging into the Admin
+
+Once you've set everything up, check you can access the website at the domain you set (or through the EBS console: `Go to environment`). If this seems to be in order, go to the EC2 console and find the associated instance for your EBS environment. Click `connect` and you're free to connect through the browser (default method). Once you're in the shell, you'll need to navigate to the app and create a superuser so you can log in to the admin site.
+
+```
+cd /var/app
+source venv/staging-LQM1lest/bin/activate
+cd current
+```
+
+We have to expose the variables from the EBS environment to the shell we're in
+
+```
+export $(/opt/elasticbeanstalk/bin/get-config --output YAML environment |  sed -r 's/: /=/' | xargs)
+```
+
+If this is the first time setting up this app, you may need to run the migrations (this should be handled automatically in future with the `db-migrate.config` file in `.ebextensions`)
+
+```
+python manage.py migrate
+python manage.py collectstatic
+python manage.py createsuperuser
+```
+
+Follow the steps to create a superuser and then you should be able to log into the admin inerface
