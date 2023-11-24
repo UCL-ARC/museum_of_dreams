@@ -90,47 +90,34 @@ Also create `db-migrate.config` with the following contents:
 
 ```
 container_commands:
-  01_migrate:
-    command: "source /var/app/venv/*/bin/activate && python manage.py migrate"
+  01_migrate_and_collectstatic:
+    test: "[ -f /var/app/current/manage.py ]"
+    command: "python manage.py migrate && python manage.py collectstatic --no-input && echo db-migrate has run"
     leader_only: true
-  02_collectstatic:
-    command: "python manage.py collectstatic"
-    leader_only: true
+    ignoreErrors: true
 option_settings:
   aws:elasticbeanstalk:application:environment:
     DJANGO_SETTINGS_MODULE: museum_of_dreams_project.settings
+  aws:elasticbeanstalk:environment:proxy:staticfiles:
+    /static: static
 
 ```
 
 This will allow migrations and `collectstatic` to automatically run when the app is deployed.
 
-In `settings.py` you should change the section on `DATABASES` to look like this:
+In `settings.py` you should import the relevant settings file for the platform:
 
 ```
 IS_LOCAL_DEV = os.getenv("LOCAL_DEV", False)
 
-if IS_LOCAL_DEV:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "db.sqlite3",
-        },
-    }
+if IS_LOCAL_DEV == True:
+    from .settings_files.local import *
 else:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.mysql",
-            "NAME": os.environ["RDS_DB_NAME"],
-            "USER": os.environ["RDS_USERNAME"],
-            "PASSWORD": os.environ["RDS_PASSWORD"],
-            "HOST": os.environ["RDS_HOSTNAME"],
-            "PORT": os.environ["RDS_PORT"],
-        }
-    }
+    from .settings_files.aws import *
 
 ```
 
-This will look for a local variable on your machine called `LOCAL_DEV` (set this up on your local machine when possible) and if it can't find it, it will use the credentials for the AWS RDS instance. This way, the AWS is default, whereas if we try to look for an environment variable on the EBS instance, it doesn't always compute the code correctly and would create a local sqlite3.db instance on the EC2 machine.
+This will look for a local variable on your machine called `LOCAL_DEV` (set this up on your local machine when possible) and if it can't find it, it will use the settings for the AWS RDS instance. This way, the AWS is default, whereas if we try to look for an environment variable on the EBS instance, it doesn't always compute the code correctly and would create a local sqlite3.db instance on the EC2 machine.
 
 # Recreating AWS Setup
 
