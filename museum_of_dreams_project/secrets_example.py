@@ -1,2 +1,1 @@
-secret_key = ""
-db_pw = ""
+secret_key = "not_a_secret"
