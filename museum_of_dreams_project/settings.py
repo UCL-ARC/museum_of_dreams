@@ -13,3 +13,4 @@ else:
         "STATIC_URL:",
         os.environ.get("STATIC_URL"),
     )
+    print("AWS STATIC", STATIC_ROOT, STATIC_URL)
