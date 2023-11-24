@@ -4,8 +4,6 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 
 DEBUG = False
 
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
-
 
 ALLOWED_HOSTS = [
     "3.11.242.245",  # AWS EC2 public IPv4 for prod
