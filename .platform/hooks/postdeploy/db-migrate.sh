@@ -1,4 +1,4 @@
-# #!/bin/bash
+#!/bin/bash
 # if [ -f /var/app/current/manage.py ]; then
 #     # Start venv
 #     cd /var/app
