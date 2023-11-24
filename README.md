@@ -119,6 +119,61 @@ else:
 
 This will look for a local variable on your machine called `LOCAL_DEV` (set this up on your local machine when possible) and if it can't find it, it will use the settings for the AWS RDS instance. This way, the AWS is default, whereas if we try to look for an environment variable on the EBS instance, it doesn't always compute the code correctly and would create a local sqlite3.db instance on the EC2 machine.
 
+The `settings_files.local` should look like
+
+```
+from .base import *
+
+from .. import secrets
+
+
+SECRET_KEY = secrets.secret_key
+
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "localhost",
+]
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    },
+}
+
+```
+
+and the one for AWS like
+
+```
+from .base import *
+
+SECRET_KEY = os.environ.get("SECRET_KEY")
+
+DEBUG = False
+
+STATIC_ROOT = "static"
+
+
+ALLOWED_HOSTS = [
+    "3.11.242.245",  # AWS EC2 public IPv4 for prod
+    "35.179.22.251",  # dev
+    "museumofdreams.eu-west-2.elasticbeanstalk.com",
+    "museumofdreamworlds.eu-west-2.elasticbeanstalk.com",
+]
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": os.environ["RDS_DB_NAME"],
+        "USER": os.environ["RDS_USERNAME"],
+        "PASSWORD": os.environ["RDS_PASSWORD"],
+        "HOST": os.environ["RDS_HOSTNAME"],
+        "PORT": os.environ["RDS_PORT"],
+    }
+}
+```
+
 # Recreating AWS Setup
 
 As this website is hosted on AWS you will need an account to access all of these services. There are a few things to set up across different services, namely:
