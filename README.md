@@ -1,10 +1,55 @@
 # Museum of Dreams Website Project
 
-This website is hosted at http://museumofdreams.eu-west-2.elasticbeanstalk.com/
+The production website is hosted at http://museumofdreamworlds.eu-west-2.elasticbeanstalk.com/
+
+The staging one is http://museumofdreams.eu-west-2.elasticbeanstalk.com/
 
 Development should be done locally and staged to the website. At present this is not a production version.
 
 ## Local Development
+
+Clone the repo into an appropriate folder (eg. `museum_of_dreams_project`). Create a venv at the top level and start it
+
+```
+python3 -m venv modvenv
+source modvenv/bin/activate
+```
+
+Install the requirements and launch the app
+
+```
+pip install -r requirements-base.txt
+python manage.py runserver
+```
+
+If it's your first time initialising the app on your machine, you may need to run migrations and create a superuser
+
+```
+python manage.py migrate
+python manage.py createsuperuser
+```
+
+We have separate settings files for AWS and local development, on AWS the environment variable should be set (see ElasticBeanstalk section) and for local, you should set a `LOCAL_DEV=true` variable set in your venv. You can do this by running the following or by adding it to the end of your `activate` file in your `bin` folder of your venv. **Do not set this on AWS**
+
+```
+export LOCAL_DEV=true
+```
+
+_*NB*_
+AWS looks for a file called `settings.py` which is why we import the relevant config into that file from the `settings_files` folder
+
+### Running tests
+
+Running tests is not advised on AWS as you should only push to the respective branches when you've finished testing locally.
+To run the tests locally, run
+
+```
+python manage.py test mod_app/tests
+```
+
+---
+
+### If starting from scratch (not cloning repo)
 
 Set up the project using the standard django method
 
@@ -35,47 +80,89 @@ Also create `db-migrate.config` with the following contents:
 
 ```
 container_commands:
-  01_migrate:
-    command: "source /var/app/venv/*/bin/activate && python manage.py migrate"
+  01_migrate_and_collectstatic:
+    test: "[ -f /var/app/current/manage.py ]"
+    command: "python manage.py migrate && python manage.py collectstatic --no-input && echo db-migrate has run"
     leader_only: true
-  02_collectstatic:
-    command: "python manage.py collectstatic"
-    leader_only: true
+    ignoreErrors: true
 option_settings:
   aws:elasticbeanstalk:application:environment:
     DJANGO_SETTINGS_MODULE: museum_of_dreams_project.settings
+  aws:elasticbeanstalk:environment:proxy:staticfiles:
+    /static: static
 
 ```
 
 This will allow migrations and `collectstatic` to automatically run when the app is deployed.
 
-In `settings.py` you should change the section on `DATABASES` to look like this:
+In `settings.py` you should import the relevant settings file for the platform:
 
 ```
 IS_LOCAL_DEV = os.getenv("LOCAL_DEV", False)
 
 if IS_LOCAL_DEV:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "db.sqlite3",
-        },
-    }
+    from .settings_files.local import *
 else:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.mysql",
-            "NAME": os.environ["RDS_DB_NAME"],
-            "USER": os.environ["RDS_USERNAME"],
-            "PASSWORD": os.environ["RDS_PASSWORD"],
-            "HOST": os.environ["RDS_HOSTNAME"],
-            "PORT": os.environ["RDS_PORT"],
-        }
-    }
+    from .settings_files.aws import *
 
 ```
 
-This will look for a local variable on your machine called `LOCAL_DEV` (set this up on your local machine when possible) and if it can't find it, it will use the credentials for the AWS RDS instance. This way, the AWS is default, whereas if we try to look for an environment variable on the EBS instance, it doesn't always compute the code correctly and would create a local sqlite3.db instance on the EC2 machine.
+This will look for a local variable on your machine called `LOCAL_DEV` (set this up on your local machine when possible) and if it can't find it, it will use the settings for the AWS RDS instance. This way, the AWS is default, whereas if we try to look for an environment variable on the EBS instance, it doesn't always compute the code correctly and would create a local sqlite3.db instance on the EC2 machine.
+
+The `settings_files.local` should look like
+
+```
+from .base import *
+
+from .. import secrets
+
+
+SECRET_KEY = secrets.secret_key
+
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "localhost",
+]
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    },
+}
+
+```
+
+and the one for AWS like
+
+```
+from .base import *
+
+SECRET_KEY = os.environ.get("SECRET_KEY")
+
+DEBUG = False
+
+STATIC_ROOT = "static"
+
+
+ALLOWED_HOSTS = [
+    "3.11.242.245",  # AWS EC2 public IPv4 for prod
+    "35.179.22.251",  # dev
+    "museumofdreams.eu-west-2.elasticbeanstalk.com",
+    "museumofdreamworlds.eu-west-2.elasticbeanstalk.com",
+]
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": os.environ["RDS_DB_NAME"],
+        "USER": os.environ["RDS_USERNAME"],
+        "PASSWORD": os.environ["RDS_PASSWORD"],
+        "HOST": os.environ["RDS_HOSTNAME"],
+        "PORT": os.environ["RDS_PORT"],
+    }
+}
+```
 
 # Recreating AWS Setup
 
@@ -140,6 +227,7 @@ On the next page, scroll to the `Platform Software` section, it should ask you t
 
 Next, scroll to the bottom where it should have `Environment Variables`. Add some new ones:
 
+- `DJANGO_SETTINGS_MODULE` (this is the path to your settings/aws.py file <project>.settings.aws)
 - `RDS_HOSTNAME` (this is the endpoint for the RDS instance)
 - `RDS_PORT` (this should be 3306 unless you changed it)
 - `RDS_DB_NAME` (this should be ebdb)
@@ -160,7 +248,39 @@ Ensure that the security group you defined on the RDS instance (and then selecte
 
 This step assumes you have code on GitHub for the web app. Go to the CodePipeline console and then `Pipelines`. Create a new pipeline. Choose V2 and create a new service role and name it. Everything else on this page can be left as default.
 
-Choose GitHub v2 for the source, and then select the repo and branch. You may need to sign in to your GH account. If the repo is under an organisation, try typing the name as `<org name>/<repo name>`. If you don't have permissions, you should contact your administrator or relevant AWS advisor to set up a GitHub App to ensure it doesn't disrupt other connections.
+Choose GitHub v2 for the source, and then select the repo and branch. You may need to create a new connection and sign in to your GH account. Otherwise, select the connection to your GH account.
+
+If the repo is under an organisation, try typing the name as `<org name>/<repo name>`. **If you don't have permissions, you should contact your administrator or relevant AWS advisor to set up a GitHub App to ensure it doesn't disrupt other connections.**
 
 After this, move on to the deploy step (skip build) and choose deploy and select the EBS environment you created.
 This will automatically pull in changes to the branch you select and deploy them to the environment.
+
+_**NB**_
+
+If you have more than one environment (one for prod, one for staging for eg.), you should have separate pipelines for each. The current CodePipelines pull from `main` for production and `development` for staging.
+
+## Logging into the Admin
+
+Once you've set everything up, check you can access the website at the domain you set (or through the EBS console: `Go to environment` button). If this seems to be in order, go to the EC2 console and find the associated instance for your EBS environment. Click `connect` and you're free to connect through the browser (default method). Once you're in the shell, you'll need to navigate to the app and create a superuser so you can log in to the admin site.
+
+```
+cd /var/app
+source venv/staging-LQM1lest/bin/activate
+cd current
+```
+
+We have to expose the variables from the EBS environment to the shell we're in
+
+```
+export $(/opt/elasticbeanstalk/bin/get-config --output YAML environment |  sed -r 's/: /=/' | xargs)
+```
+
+If this is the first time setting up this app, you may need to run the migrations (this should be handled automatically in future with the `db-migrate.config` file in `.ebextensions`)
+
+```
+python manage.py migrate
+python manage.py collectstatic
+python manage.py createsuperuser
+```
+
+Follow the steps to create a superuser and then you should be able to log into the admin inerface
