@@ -1,9 +1,7 @@
 from .base import *
 
-from .. import secrets
 
-
-SECRET_KEY = secrets.secret_key
+SECRET_KEY = "notasecret"
 
 ALLOWED_HOSTS = [
     "127.0.0.1",
