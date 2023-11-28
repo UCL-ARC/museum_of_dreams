@@ -116,20 +116,9 @@ class Film(models.Model):
     )
     release_date = models.IntegerField()  # can be more specific and use DateField()
 
-    locations = models.ManyToManyField(
-        "Location",
-        blank=True,
-    )
-
-    @property
-    def setting_locations(self):
-        return self.locations.filter(is_setting=True)
-
-    @property
-    def production_country(self):
-        return self.locations.filter(is_setting=False)
-
+    production_country = models.CharField(max_length=50, blank=True, null=True)
     production_company = models.CharField(max_length=50, blank=True, null=True)
+
     synopsis = models.TextField(blank=True)
 
     source_material = models.OneToOneField(
@@ -141,7 +130,7 @@ class Film(models.Model):
         related_name="source_material_link",
     )
     genre = models.ManyToManyField(Tag, related_name="genres")
-    # category?
+    bfi_category = models.CharField(max_length=100, blank=True, null=True)
 
     actors = models.ManyToManyField(
         "Actor", related_name="films", blank=True, verbose_name="Cast"
@@ -154,8 +143,6 @@ class Film(models.Model):
     )
 
     # Technical section
-
-    # themes = models.ManyToManyField(Tag, related_name="themes")
 
     duration = models.IntegerField(
         blank=True,
