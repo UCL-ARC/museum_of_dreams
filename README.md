@@ -29,15 +29,6 @@ python manage.py migrate
 python manage.py createsuperuser
 ```
 
-We have separate settings files for AWS and local development, on AWS the environment variable should be set (see ElasticBeanstalk section) and for local, you should set a `LOCAL_DEV=true` variable set in your venv. You can do this by running the following or by adding it to the end of your `activate` file in your `bin` folder of your venv. **Do not set this on AWS**
-
-```
-export LOCAL_DEV=true
-```
-
-_*NB*_
-AWS looks for a file called `settings.py` which is why we import the relevant config into that file from the `settings_files` folder
-
 ### Running tests
 
 Running tests is not advised on AWS as you should only push to the respective branches when you've finished testing locally.
@@ -95,29 +86,16 @@ option_settings:
 
 This will allow migrations and `collectstatic` to automatically run when the app is deployed.
 
-In `settings.py` you should import the relevant settings file for the platform:
+### Settings
 
-```
-IS_LOCAL_DEV = os.getenv("LOCAL_DEV", False)
-
-if IS_LOCAL_DEV:
-    from .settings_files.local import *
-else:
-    from .settings_files.aws import *
-
-```
-
-This will look for a local variable on your machine called `LOCAL_DEV` (set this up on your local machine when possible) and if it can't find it, it will use the settings for the AWS RDS instance. This way, the AWS is default, whereas if we try to look for an environment variable on the EBS instance, it doesn't always compute the code correctly and would create a local sqlite3.db instance on the EC2 machine.
-
-The `settings_files.local` should look like
+We have separate settings files for AWS and local development.
+The `settings/local` should look like
 
 ```
 from .base import *
 
-from .. import secrets
 
-
-SECRET_KEY = secrets.secret_key
+SECRET_KEY = "notasecret"
 
 ALLOWED_HOSTS = [
     "127.0.0.1",
@@ -133,7 +111,7 @@ DATABASES = {
 
 ```
 
-and the one for AWS like
+and `settings/aws` like
 
 ```
 from .base import *
@@ -163,6 +141,8 @@ DATABASES = {
     }
 }
 ```
+
+You also need to point `wsgi.py` and `asgi.py` to the AWS settings file
 
 # Recreating AWS Setup
 
