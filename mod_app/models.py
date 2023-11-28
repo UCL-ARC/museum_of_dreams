@@ -107,20 +107,14 @@ class Film(models.Model):
     def __str__(self):
         return f"{self.title}"
 
-    archive_id = models.CharField(max_length=20)
-    archive_company = models.CharField(
-        max_length=20
-    )  # maybe use choices instead if only small selection
     title = models.CharField(max_length=100)
-    release_date = models.IntegerField()  # can be more specific and use DateField()
     alt_titles = models.CharField(
         max_length=200,
         blank=True,
         null=True,
+        help_text="Comma separated values, can be 'Original: Filmname,' or 'Filmname (Original),'",
     )
-
-    actors = models.ManyToManyField("Actor", related_name="films", blank=True)
-    crew = models.ManyToManyField("Crew", related_name="films", blank=True)
+    release_date = models.IntegerField()  # can be more specific and use DateField()
 
     locations = models.ManyToManyField(
         "Location",
@@ -135,24 +129,9 @@ class Film(models.Model):
     def production_country(self):
         return self.locations.filter(is_setting=False)
 
-    production_company = models.CharField(max_length=50)
+    production_company = models.CharField(max_length=50, blank=True, null=True)
+    synopsis = models.TextField(blank=True)
 
-    genre = models.ManyToManyField(Tag, related_name="genres")
-    themes = models.ManyToManyField(Tag, related_name="themes")
-
-    run_time = models.IntegerField(
-        blank=True,
-        null=True,
-        verbose_name="Run time in Minutes",
-        help_text="Enter the run time in minutes.",
-    )
-
-    copies = models.ManyToManyField(
-        Copy,
-        help_text="Links to where the copies can be found",
-        related_name="copies",
-        blank=True,
-    )
     source_material = models.OneToOneField(
         Link,
         help_text="Link to the source material",
@@ -161,6 +140,39 @@ class Film(models.Model):
         on_delete=models.SET_NULL,
         related_name="source_material_link",
     )
+    genre = models.ManyToManyField(Tag, related_name="genres")
+    # category?
+
+    actors = models.ManyToManyField(
+        "Actor", related_name="films", blank=True, verbose_name="Cast"
+    )
+    crew = models.ManyToManyField("Crew", related_name="films", blank=True)
+
+    intertitle_text = models.CharField(max_length=255, blank=True, null=True)
+    intertitle_photo = models.ImageField(
+        upload_to="intertitles/", blank=True, null=True
+    )
+
+    # Technical section
+
+    # themes = models.ManyToManyField(Tag, related_name="themes")
+
+    duration = models.IntegerField(
+        blank=True,
+        null=True,
+        verbose_name="Run time in Minutes",
+        help_text="Enter the run time in minutes.",
+    )
+    # element
+    # format
+
+    copies = models.ManyToManyField(
+        Copy,
+        help_text="Links to where the copies can be found",
+        related_name="copies",
+        blank=True,
+    )
+
     video = models.OneToOneField(
         Link,
         help_text="Link to the video file",
@@ -175,9 +187,12 @@ class Film(models.Model):
         related_name="other_links",
         blank=True,
     )
+    # archive_id = models.CharField(max_length=20)
+    # archive_company = models.CharField(
+    #     max_length=20
+    # )  # maybe use choices instead if only small selection
     # files = models.FileField(upload_to=)
 
-    synopsis = models.TextField(blank=True)
     comments = models.TextField(blank=True)
 
 
