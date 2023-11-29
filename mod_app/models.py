@@ -1,6 +1,8 @@
 from django.db import models
 from django.db.models.signals import m2m_changed
 
+from ckeditor.fields import RichTextField
+
 
 class Tag(models.Model):
     def __str__(self):
@@ -64,7 +66,7 @@ class Analysis(models.Model):
     def __str__(self):
         return f"Analysis of {self.film}"
 
-    text = models.TextField()
+    content = RichTextField()
     film = models.ForeignKey(
         "Film", on_delete=models.DO_NOTHING, related_name="analyses"
     )
