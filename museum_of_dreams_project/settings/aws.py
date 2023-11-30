@@ -8,8 +8,6 @@ STATIC_ROOT = "static"
 
 
 ALLOWED_HOSTS = [
-    "3.11.242.245",  # AWS EC2 public IPv4 for prod
-    "35.179.22.251",  # dev
     "museumofdreams.eu-west-2.elasticbeanstalk.com",
     "museumofdreamworlds.eu-west-2.elasticbeanstalk.com",
 ]
