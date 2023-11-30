@@ -1,5 +1,5 @@
 from django.test import TestCase
-from mod_app.models import Film, Actor
+from mod_app.models import Actor, Film
 
 
 class TestFilm(TestCase):
