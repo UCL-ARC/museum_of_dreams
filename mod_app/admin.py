@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib import admin
-from .models import Actor, Film, Location, Analysis, Link, Copy, Tag
+from .models import Actor, Film, Location, Analysis, Link, Copy, Tag, Crew
 
 
 class FilmInline(admin.StackedInline):
@@ -28,7 +28,7 @@ class AnalysisAdmin(admin.ModelAdmin):
     form = AnalysisAdminForm
 
 
-admin.site.register([Film, Location, Link, Copy, Tag])
+admin.site.register([Film, Location, Link, Copy, Tag, Crew])
 
 # Customised
 admin.site.register(Actor, ActorAdmin)

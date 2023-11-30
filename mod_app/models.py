@@ -85,6 +85,9 @@ class Actor(models.Model):
 
 
 class Crew(models.Model):
+    class Meta:
+        verbose_name_plural = "Crew Members"
+
     def __str__(self):
         return f"{self.name}"
 
@@ -132,7 +135,9 @@ class Film(models.Model):
         related_name="source_material_link",
     )
     genre = models.ManyToManyField(Tag, related_name="genres")
-    bfi_category = models.CharField(max_length=100, blank=True, null=True)
+    bfi_category = models.CharField(
+        max_length=100, blank=True, null=True
+    )  # can use choices if preset
 
     actors = models.ManyToManyField(
         "Actor", related_name="films", blank=True, verbose_name="Cast"
@@ -152,8 +157,33 @@ class Film(models.Model):
         verbose_name="Run time in Minutes",
         help_text="Enter the run time in minutes.",
     )
+    current_length = models.IntegerField(
+        blank=True,
+        null=True,
+        verbose_name="Run time in Minutes",
+        help_text="Enter the run time in minutes.",
+    )
     # element
-    # format
+    # support
+    format_type = models.CharField(
+        max_length=255, blank=True, null=True, verbose_name="format"
+    )
+
+    rollers = models.IntegerField(
+        blank=True,
+        null=True,
+        verbose_name="Number of  rollers",
+    )
+
+    is_in_colour = models.BooleanField(
+        default=False,
+        help_text="Select true if in colour and false if black and white (default)",
+    )
+    collection = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True,
+    )  # could do this as choices potentially, maybe put on copy model
 
     copies = models.ManyToManyField(
         Copy,
@@ -161,6 +191,8 @@ class Film(models.Model):
         related_name="copies",
         blank=True,
     )
+
+    entry_date = models.DateField(blank=True, null=True)  # maybe put on copy model
 
     video = models.OneToOneField(
         Link,
