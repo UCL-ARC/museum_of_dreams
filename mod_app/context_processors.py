@@ -8,7 +8,7 @@ def admin_custom_titles(request):
     site_title = "Museum of Dreamworlds Admin Site"
     index_title = "Admin"
 
-    if current_site.domain.startswith("museumofdreams"):
+    if "museumofdreamworlds" not in current_site.domain:
         site_header = "Administration for Museum of Dreams (staging)"
         site_title = "Museum of Dreams Staging Admin Site"
         index_title = "Admin"
