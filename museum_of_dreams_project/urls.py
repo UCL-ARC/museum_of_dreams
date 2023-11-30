@@ -22,18 +22,12 @@ from django_distill import distill_path
 
 from mod_app import views
 
-admin.site.site_header = "Administration for Museum of Dreams"
-admin.site.site_title = "Museum of Dreams Admin Site"
-admin.site.index_title = "Admin"
 
 urlpatterns = [
     path("admin/", admin.site.urls, name=admin),
     distill_path("", views.HomeView.as_view(), name="home", distill_file="index.html"),
-
     distill_path("actors/list", views.ActorListView.as_view(), name="actor_list"),
     distill_path("actors/<pk>", views.ActorDetailView.as_view(), name="actor_detail"),
-
     distill_path("films/list", views.FilmListView.as_view(), name="film_list"),
     distill_path("films/<pk>", views.FilmDetailView.as_view(), name="film_detail"),
-    
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

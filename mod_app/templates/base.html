@@ -40,7 +40,7 @@
             {% block non_production_message %}
                 {% if not request.get_host|lower == 'museumofdreamworlds.eu-west-2.elasticbeanstalk.com' %}
                     <span style="color: yellow; padding: 10px;">
-                        NON PROD
+                        STAGING
                     </span>
                 {% endif %}
             {% endblock %}
