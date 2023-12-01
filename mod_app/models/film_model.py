@@ -184,15 +184,3 @@ class Film(models.Model):
     comments = models.TextField(blank=True)
 
     # bibliographies...how?
-
-
-def update_actors_films(sender, instance, action, reverse, pk_set, **kwargs):
-    from mod_app.models import Actor
-
-    if action == "post_add" and not reverse:
-        for pk in pk_set:
-            actor = Actor.objects.get(pk=pk)
-            actor.films.add(instance)
-
-
-m2m_changed.connect(update_actors_films, sender=Film.actors.through)
