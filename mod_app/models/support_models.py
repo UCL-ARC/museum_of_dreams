@@ -14,13 +14,20 @@ class Link(models.Model):
     def __str__(self):
         return self.path
 
-    path = models.URLField()
+    url = models.URLField()
     description = models.CharField(
         max_length=250,
         help_text="short description of what the link is to (optional)",
         blank=True,
         null=True,
     )
+
+
+class FileLink(Link):
+    def upload_to(instance, filename):
+        return f"files/{instance.related_name}/{filename}"
+
+    file = models.FileField(upload_to=upload_to, blank=True, null=True)
 
 
 class Copy(Link):

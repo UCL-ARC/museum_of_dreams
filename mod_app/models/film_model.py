@@ -2,7 +2,7 @@ from django.db import models
 from django.db.models.signals import m2m_changed
 
 
-from mod_app.models.support_models import Link, Tag, Copy
+from mod_app.models.support_models import Link, Tag, Copy, FileLink
 
 
 class Film(models.Model):
@@ -16,7 +16,7 @@ class Film(models.Model):
         null=True,
         help_text="Comma separated values, can be 'Original: Filmname,' or 'Filmname (Original),'",
     )
-    release_date = models.IntegerField()  # can be more specific and use DateField()
+    release_date = models.IntegerField()
 
     production_country = models.CharField(max_length=50, blank=True, null=True)
     production_company = models.CharField(max_length=50, blank=True, null=True)
@@ -43,7 +43,7 @@ class Film(models.Model):
 
     intertitle_text = models.CharField(max_length=255, blank=True, null=True)
     intertitle_photo = models.ImageField(
-        upload_to="intertitles/", blank=True, null=True
+        upload_to="images/intertitles/", blank=True, null=True
     )
 
     # Technical section
@@ -51,17 +51,34 @@ class Film(models.Model):
     duration = models.IntegerField(
         blank=True,
         null=True,
-        verbose_name="Run time in Minutes",
         help_text="Enter the run time in minutes.",
     )
     current_length = models.IntegerField(
         blank=True,
         null=True,
-        verbose_name="Run time in Minutes",
         help_text="Enter the run time in minutes.",
     )
-    # element
-    # support
+
+    ELEMENT_CHOICES = [
+        ("pos", "Scene positive"),
+        ("ctn", "Negative coutertype"),
+        ("intn", "Internegative"),
+        ("lav", "Intermediate positive scene (lavender)"),
+        ("olay", "Titles"),
+    ]
+
+    element = models.CharField(
+        max_length=10,
+        choices=ELEMENT_CHOICES,
+        default="pos",
+    )
+
+    support = models.CharField(
+        max_length=10,
+        choices=[("S", "Safety"), ("N", "Nitrate")],
+        default="S",
+    )
+
     format_type = models.CharField(
         max_length=255, blank=True, null=True, verbose_name="format"
     )
@@ -69,12 +86,13 @@ class Film(models.Model):
     rollers = models.IntegerField(
         blank=True,
         null=True,
-        verbose_name="Number of  rollers",
+        verbose_name="Number of rollers",
     )
 
     is_in_colour = models.BooleanField(
         default=False,
-        help_text="Select true if in colour and false if black and white (default)",
+        verbose_name="in colour?",
+        help_text="Check box in colour and leave blank if black and white (default)",
     )
     collection = models.CharField(
         max_length=255,
@@ -91,6 +109,8 @@ class Film(models.Model):
 
     entry_date = models.DateField(blank=True, null=True)  # maybe put on copy model
 
+    # Non filmic section / extras
+
     video = models.OneToOneField(
         Link,
         help_text="Link to the video file",
@@ -105,13 +125,65 @@ class Film(models.Model):
         related_name="other_links",
         blank=True,
     )
+    scripts = models.ManyToManyField(
+        FileLink,
+        help_text="Link to or upload script file(s)",
+        related_name="scripts",
+        blank=True,
+    )
+    press_books = models.ManyToManyField(
+        FileLink,
+        help_text="Link to or upload press book file(s)",
+        related_name="press_books",
+        blank=True,
+    )
+    programmes = models.ManyToManyField(
+        FileLink,
+        help_text="Link to or upload programme file(s)",
+        related_name="programmes",
+        blank=True,
+    )
+    pub_mat = models.ManyToManyField(
+        FileLink,
+        verbose_name="Publicity Materials",
+        help_text="Link to or upload publicity material file(s)",
+        related_name="pub_material",
+        blank=True,
+    )
+
+    stills = models.ManyToManyField(
+        FileLink,
+        help_text="Link to or upload stills",
+        related_name="stills",
+        blank=True,
+    )
+    postcards = models.ManyToManyField(
+        FileLink,
+        help_text="Link to or upload postcards",
+        related_name="postcards",
+        blank=True,
+    )
+    posters = models.ManyToManyField(
+        FileLink,
+        help_text="Link to or upload posters",
+        related_name="posters",
+        blank=True,
+    )
+    drawings = models.ManyToManyField(
+        FileLink,
+        help_text="Link to or upload drawings",
+        related_name="drawings",
+        blank=True,
+    )
+
     # archive_id = models.CharField(max_length=20)
     # archive_company = models.CharField(
     #     max_length=20
     # )  # maybe use choices instead if only small selection
-    # files = models.FileField(upload_to=)
 
     comments = models.TextField(blank=True)
+
+    # bibliographies...how?
 
 
 def update_actors_films(sender, instance, action, reverse, pk_set, **kwargs):
