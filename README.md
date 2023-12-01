@@ -8,16 +8,12 @@ Development should be done locally and staged to the website. At present this is
 
 ## Getting Started
 
-To work on this project as is, clone the repo into an appropriate folder (eg. `museum_of_dreams_project`). Create a venv at the top level and start it
+To work on this project as is, clone the repo into an appropriate folder (eg. `museum_of_dreams_project`). Create a venv at the top level and start it. Then install the requirements and launch the app
 
 ```
 python3 -m venv modvenv
 source modvenv/bin/activate
-```
 
-Install the requirements and launch the app
-
-```
 pip install -r requirements-base.txt
 python manage.py runserver
 ```
