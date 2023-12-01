@@ -32,7 +32,7 @@ This will allow migrations and `collectstatic` to automatically run when the app
 ## Settings
 
 We have separate settings files for AWS and local development.
-See [settings/local.py](museum_of_dreams_project/settings/local.py) and [settings/aws.py](museum_of_dreams_project/settings/aws.py) for the contents
+See [settings/local.py](museum_of_dreams_project/settings/local.py) and [settings/aws.py](museum_of_dreams_project/settings/aws.py) for the contents. There is a staging.py which is for the staging environment on AWS to define a separate host.
 
 You also need to point `wsgi.py` and `asgi.py` to the AWS settings file
 

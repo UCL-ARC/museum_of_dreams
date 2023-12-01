@@ -22,6 +22,14 @@ from django_distill import distill_path
 
 from mod_app import views
 
+if settings.ENVIRONMENT == "production":
+    admin.site.site_header = "Administration for Museum of Dreamworlds Site"
+    admin.site.site_title = "Museum of Dreamworlds Admin Site"
+    admin.site.index_title = "Admin"
+else:
+    admin.site.site_header = "Administration for Museum of Dreams (staging)"
+    admin.site.site_title = "Museum of Dreams Staging Admin Site"
+    admin.site.index_title = "Admin (staging)"
 
 urlpatterns = [
     path("admin/", admin.site.urls, name=admin),

@@ -21,6 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+ENVIRONMENT = "local"
 
 # Application definition
 
@@ -44,7 +45,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "mod_app.middleware.AdminTitlesMiddleware",
 ]
 
 ROOT_URLCONF = "museum_of_dreams_project.urls"

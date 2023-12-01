@@ -6,9 +6,9 @@ DEBUG = False
 
 STATIC_ROOT = "static"
 
+ENVIRONMENT = "production"
 
 ALLOWED_HOSTS = [
-    "museumofdreams.eu-west-2.elasticbeanstalk.com",
     "museumofdreamworlds.eu-west-2.elasticbeanstalk.com",
 ]
 
