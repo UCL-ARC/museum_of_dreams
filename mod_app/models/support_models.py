@@ -86,7 +86,7 @@ class Actor(models.Model):
     birth_place = models.ForeignKey(
         "Location", on_delete=models.SET_DEFAULT, default=None, blank=True, null=True
     )
-    tags = models.ManyToManyField(Tag, related_name="actor_tags")
+    tags = models.ManyToManyField(Tag, related_name="actor_tags", blank=True)
     about = models.TextField(blank=True)
 
 

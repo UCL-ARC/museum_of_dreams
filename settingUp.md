@@ -25,80 +25,14 @@ packages:
 
 This will address issues with setting up the mysql db.
 
-Also create `db-migrate.config` with the following contents:
-
-```
-container_commands:
-  01_migrate_and_collectstatic:
-    test: "[ -f /var/app/current/manage.py ]"
-    command: "python manage.py migrate && python manage.py collectstatic --no-input && echo db-migrate has run"
-    leader_only: true
-    ignoreErrors: true
-option_settings:
-  aws:elasticbeanstalk:application:environment:
-    DJANGO_SETTINGS_MODULE: museum_of_dreams_project.settings
-  aws:elasticbeanstalk:environment:proxy:staticfiles:
-    /static: static
-
-```
+Also create [db-migrate.config](.ebextensions/db-migrate.config).
 
 This will allow migrations and `collectstatic` to automatically run when the app is deployed.
 
 ## Settings
 
 We have separate settings files for AWS and local development.
-The `settings/local` should look like
-
-```
-from .base import *
-
-
-SECRET_KEY = "notasecret"
-
-ALLOWED_HOSTS = [
-    "127.0.0.1",
-    "localhost",
-]
-
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    },
-}
-
-```
-
-and `settings/aws` like
-
-```
-from .base import *
-
-SECRET_KEY = os.environ.get("SECRET_KEY")
-
-DEBUG = False
-
-STATIC_ROOT = "static"
-
-
-ALLOWED_HOSTS = [
-    "3.11.242.245",  # AWS EC2 public IPv4 for prod
-    "35.179.22.251",  # dev
-    "museumofdreams.eu-west-2.elasticbeanstalk.com",
-    "museumofdreamworlds.eu-west-2.elasticbeanstalk.com",
-]
-
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": os.environ["RDS_DB_NAME"],
-        "USER": os.environ["RDS_USERNAME"],
-        "PASSWORD": os.environ["RDS_PASSWORD"],
-        "HOST": os.environ["RDS_HOSTNAME"],
-        "PORT": os.environ["RDS_PORT"],
-    }
-}
-```
+See [settings/local.py](museum_of_dreams_project/settings/local.py) and [settings/aws.py](museum_of_dreams_project/settings/aws.py) for the contents
 
 You also need to point `wsgi.py` and `asgi.py` to the AWS settings file
 
