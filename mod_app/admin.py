@@ -1,10 +1,15 @@
 from django import forms
 from django.contrib import admin
+from django.db import models
 
 from .models import *
+from ckeditor.widgets import CKEditorWidget
 
 
 class FilmAdmin(admin.ModelAdmin):
+    formfield_overrides = {
+        models.TextField: {"widget": CKEditorWidget},
+    }
     fieldsets = (
         (
             "Main Information (Filmic Section)",
