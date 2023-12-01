@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib import admin
 
-from .models import Actor, Analysis, Crew, FileLink, Film, Location, Tag
+from .models import *
 
 
 class FilmAdmin(admin.ModelAdmin):
@@ -87,7 +87,7 @@ class AnalysisAdmin(admin.ModelAdmin):
     form = AnalysisAdminForm
 
 
-admin.site.register([Location, Tag, Crew, FileLink])
+admin.site.register([Location, Tag, Copy, Crew, FileLink])
 
 # Customised
 admin.site.register(Actor, ActorAdmin)
