@@ -7,6 +7,7 @@ if [ -f /var/app/current/manage.py ]; then
 
     # Run migrations
     python manage.py migrate
+    echo `python manage.py showmigrations`
 
     # Collect static files
     python manage.py collectstatic --no-input

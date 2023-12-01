@@ -37,7 +37,13 @@
                     {% include 'svgs/logo_header.svg' %}
                 </div>
             </a>
-            
+            {% block non_production_message %}
+                {% if not request.get_host|lower == 'museumofdreamworlds.eu-west-2.elasticbeanstalk.com' %}
+                    <span style="color: yellow; padding: 10px;">
+                        STAGING
+                    </span>
+                {% endif %}
+            {% endblock %}
             <div class="title-bar__icons">
                 {% comment %} <div class="toggle-container">
                     <span class="toggle-label">Toggle Dark Mode:</span>
@@ -45,13 +51,18 @@
                       <input type="checkbox" id="toggle">
                     </label>
                   </div> {% endcomment %}
+                <a href="{% url 'home' %}">
                 <span class="material-symbols-outlined">
                     search
                 </span>
-                <span class="material-symbols-outlined">
+                </a>
+                <span class="material-symbols-outlined" id="menu-icon">
                     menu
                 </span>
-               
+                <div class="drawer" id="drawer">
+                    <!-- Content of your drawer goes here -->
+                    <p>This is the drawer content.</p>
+                </div>
             </div>
         </div>
         
@@ -77,10 +88,8 @@
             {% comment %} <div class="footer__nav--top-row"> {% endcomment %}
                 <ul class="footer__nav--top-row">
                     <li><h5>Explore</h5></li>
-                    <li><a href="#">Films</a></li>
-                    <li><a href="#">Actors </a></li>
-                    <li><a href="#">Locations</a></li>
-                    <li><a href="#">Tags</a></li>
+                    <li><a href="{% url 'film_list' %}">Films</a></li>
+                    <li><a href="{% url 'actor_list' %}">Actors </a></li>
                     <li><a href="#">Search</a></li>
                 </ul>
             {% comment %} </div> {% endcomment %}

@@ -21,6 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+ENVIRONMENT = "local"
 
 # Application definition
 
@@ -32,6 +33,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "mod_app",
+    "ckeditor",
     "django_distill",
 ]
 
