@@ -44,6 +44,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "mod_app.middleware.AdminTitlesMiddleware",
 ]
 
 ROOT_URLCONF = "museum_of_dreams_project.urls"
