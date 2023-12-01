@@ -23,7 +23,7 @@ The IAM configuration is that laid out in the [IAM Roles section](settingUp.md) 
 
 There are two RDS instances, one for staging (`mod-mysql-dev-db`) and one for prod (`mod-mysql-ebdb-prod`).
 
-They are almost identical in their setup but production but the production availability zone is `eu-west-2c` and staging is `eu-west-2a` and they have different secondary security groups to connect with their respectove environments - `rds-ec2-1` for production and `ec2-rds-1` for staging.
+They are almost identical in their setup but the production availability zone is `eu-west-2c` and staging is `eu-west-2a` and they have different secondary security groups to connect with their respective environments - `rds-ec2-1` for production and `ec2-rds-1` for staging.
 
 Please note that the subnets in the RDS console are `RDS-Pvt-subnet`
 
