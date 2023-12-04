@@ -1,0 +1,25 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.0.1
+    hooks:
+      - id: trailing-whitespace
+        exclude: (static|vendor|admin|images|svgs)/.*\.(js|svg)$
+      - id: end-of-file-fixer
+        exclude: (static|vendor|admin|images|svgs)/.*\.(js|svg)$
+      - id: check-yaml
+
+  # - repo: https://github.com/pre-commit/mirrors-eslint
+  #   rev: v7.32.0
+  #   hooks:
+  #     - id: eslint
+  #       files: static/*.js?$
+
+  - repo: https://github.com/psf/black
+    rev: 23.3.0
+    hooks:
+      - id: black
+
+  - repo: https://github.com/rtts/djhtml
+    rev: 3.0.6
+    hooks:
+      - id: djhtml

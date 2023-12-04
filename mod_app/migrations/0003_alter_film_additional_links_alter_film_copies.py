@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("mod_app", "0002_link_alter_analysis_options_film_alt_titles_and_more"),
     ]

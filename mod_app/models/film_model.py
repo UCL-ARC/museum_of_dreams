@@ -1,8 +1,7 @@
 from django.db import models
 from django.db.models.signals import m2m_changed
 
-
-from mod_app.models.support_models import Link, Tag, Copy, FileLink
+from mod_app.models.support_models import Copy, FileLink, Link, Tag
 
 
 class Film(models.Model):

@@ -1,5 +1,5 @@
 from .film_model import Film
-from .support_models import Actor, Analysis, Crew, Copy, FileLink, Link, Tag, Location
+from .support_models import Actor, Analysis, Copy, Crew, FileLink, Link, Location, Tag
 
 __all__ = [
     "Actor",
