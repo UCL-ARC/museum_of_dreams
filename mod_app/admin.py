@@ -34,18 +34,7 @@ class FilmAdmin(admin.ModelAdmin):
         (
             "Technical Section",
             {
-                "fields": (
-                    "duration",
-                    "current_length",
-                    "element",
-                    "support",
-                    "format_type",
-                    "rollers",
-                    "is_in_colour",
-                    "collection",
-                    "copies",
-                    "entry_date",
-                ),
+                "fields": ("copies",),
             },
         ),
         (
