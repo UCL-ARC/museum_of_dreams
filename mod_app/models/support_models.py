@@ -11,9 +11,9 @@ class Tag(models.Model):
 
 class Link(models.Model):
     def __str__(self):
-        return self.path
+        return self.url
 
-    url = models.URLField()
+    url = models.URLField(blank=True)
     description = models.CharField(
         max_length=250,
         help_text="short description of what the link is to (optional)",
@@ -60,7 +60,8 @@ class Copy(Link):
     )
 
     condition_comments = models.TextField(
-        help_text="Use this to expand on the condition, particularly if 'Other'"
+        help_text="Use this to expand on the condition, particularly if 'Other'",
+        blank=True,
     )
 
 
