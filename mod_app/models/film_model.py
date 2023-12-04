@@ -48,66 +48,12 @@ class Film(models.Model):
 
     # Technical section
 
-    duration = models.IntegerField(
-        blank=True,
-        null=True,
-        help_text="Enter the run time in minutes.",
-    )
-    current_length = models.IntegerField(
-        blank=True,
-        null=True,
-        help_text="Enter the run time in minutes.",
-    )
-
-    ELEMENT_CHOICES = [
-        ("pos", "Scene positive"),
-        ("ctn", "Negative coutertype"),
-        ("intn", "Internegative"),
-        ("lav", "Intermediate positive scene (lavender)"),
-        ("olay", "Titles"),
-    ]
-
-    element = models.CharField(
-        max_length=10,
-        choices=ELEMENT_CHOICES,
-        default="pos",
-    )
-
-    support = models.CharField(
-        max_length=10,
-        choices=[("S", "Safety"), ("N", "Nitrate")],
-        default="S",
-    )
-
-    format_type = models.CharField(
-        max_length=255, blank=True, null=True, verbose_name="format"
-    )
-
-    rollers = models.IntegerField(
-        blank=True,
-        null=True,
-        verbose_name="Number of rollers",
-    )
-
-    is_in_colour = models.BooleanField(
-        default=False,
-        verbose_name="in colour?",
-        help_text="Check box in colour and leave blank if black and white (default)",
-    )
-    collection = models.CharField(
-        max_length=255,
-        blank=True,
-        null=True,
-    )  # could do this as choices potentially, maybe put on copy model
-
     copies = models.ManyToManyField(
         Copy,
         help_text="Links to where the copies can be found",
         related_name="copies",
         blank=True,
     )
-
-    entry_date = models.DateField(blank=True, null=True)  # maybe put on copy model
 
     # Non filmic section / extras
 

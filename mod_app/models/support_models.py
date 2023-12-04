@@ -12,9 +12,9 @@ class Tag(models.Model):
 
 class Link(models.Model):
     def __str__(self):
-        return self.path
+        return self.url
 
-    url = models.URLField()
+    url = models.URLField(blank=True)
     description = models.CharField(
         max_length=250,
         help_text="short description of what the link is to (optional)",
@@ -61,8 +61,63 @@ class Copy(Link):
     )
 
     condition_comments = models.TextField(
-        help_text="Use this to expand on the condition, particularly if 'Other'"
+        blank=True,
+        help_text="Use this to expand on the condition, particularly if 'Other'",
     )
+
+    entry_date = models.DateField(blank=True, null=True)  # maybe put on copy model
+
+    duration = models.IntegerField(
+        blank=True,
+        null=True,
+        help_text="Enter the run time in minutes.",
+    )
+    current_length = models.IntegerField(
+        blank=True,
+        null=True,
+        help_text="Enter the run time in minutes.",
+    )
+
+    ELEMENT_CHOICES = [
+        ("pos", "Scene positive"),
+        ("ctn", "Negative coutertype"),
+        ("intn", "Internegative"),
+        ("lav", "Intermediate positive scene (lavender)"),
+        ("olay", "Titles"),
+    ]
+
+    element = models.CharField(
+        max_length=10,
+        choices=ELEMENT_CHOICES,
+        default="pos",
+    )
+
+    support = models.CharField(
+        max_length=10,
+        choices=[("S", "Safety"), ("N", "Nitrate")],
+        default="S",
+    )
+
+    format_type = models.CharField(
+        max_length=255, blank=True, null=True, verbose_name="format"
+    )
+
+    rollers = models.IntegerField(
+        blank=True,
+        null=True,
+        verbose_name="Number of rollers",
+    )
+
+    is_in_colour = models.BooleanField(
+        default=False,
+        verbose_name="in colour?",
+        help_text="Check box in colour and leave blank if black and white (default)",
+    )
+    collection = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True,
+    )  # could do this as choices potentially
 
 
 class Analysis(models.Model):
