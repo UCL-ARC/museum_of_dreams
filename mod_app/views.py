@@ -1,4 +1,5 @@
-from django.views.generic import ListView, TemplateView, DetailView
+from django.views.generic import DetailView, ListView, TemplateView
+
 from .models import Actor, Film
 
 

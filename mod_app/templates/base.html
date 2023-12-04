@@ -29,7 +29,7 @@
         <link rel="stylesheet" href="">
 
     </head>
-    
+
     <body>
         <div class="title-bar">
             <a href="{% url 'home' %}">
@@ -52,9 +52,9 @@
                     </label>
                   </div> {% endcomment %}
                 <a href="{% url 'home' %}">
-                <span class="material-symbols-outlined">
-                    search
-                </span>
+                    <span class="material-symbols-outlined">
+                        search
+                    </span>
                 </a>
                 <span class="material-symbols-outlined" id="menu-icon">
                     menu
@@ -65,15 +65,15 @@
                 </div>
             </div>
         </div>
-        
+
         {% block heading %}
         {% endblock %}
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
         <main>
-        {% block content %}
-        {% endblock %}
+            {% block content %}
+            {% endblock %}
         </main>
         <script src="" async defer></script>
         <script type="module" src="{% static 'js/main.js' %}"></script>
@@ -86,21 +86,21 @@
         </a>
         <div class="footer__nav">
             {% comment %} <div class="footer__nav--top-row"> {% endcomment %}
-                <ul class="footer__nav--top-row">
-                    <li><h5>Explore</h5></li>
-                    <li><a href="{% url 'film_list' %}">Films</a></li>
-                    <li><a href="{% url 'actor_list' %}">Actors </a></li>
-                    <li><a href="#">Search</a></li>
-                </ul>
+            <ul class="footer__nav--top-row">
+                <li><h5>Explore</h5></li>
+                <li><a href="{% url 'film_list' %}">Films</a></li>
+                <li><a href="{% url 'actor_list' %}">Actors </a></li>
+                <li><a href="#">Search</a></li>
+            </ul>
             {% comment %} </div> {% endcomment %}
             {% comment %} <div class="footer__nav--bottom-row"> {% endcomment %}
-                <ul class="footer__nav--bottom-row">
-                    <li><h5>About</h5></li>
-                    <li><a href="#">About us</a></li>
-                    <li><a href="#">Blog </a></li>
-                    <li><a href="#">Collaborators</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
+            <ul class="footer__nav--bottom-row">
+                <li><h5>About</h5></li>
+                <li><a href="#">About us</a></li>
+                <li><a href="#">Blog </a></li>
+                <li><a href="#">Collaborators</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
 
             {% comment %} </div> {% endcomment %}
 

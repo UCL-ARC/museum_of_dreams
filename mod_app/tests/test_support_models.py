@@ -1,6 +1,7 @@
 from django.db import models
 from django.test import TestCase
-from mod_app.models import Actor, Film, Tag, Link, Copy, Analysis, Crew, Location
+
+from mod_app.models import Actor, Analysis, Copy, Crew, Film, Link, Location, Tag
 
 
 class TestActor(TestCase):

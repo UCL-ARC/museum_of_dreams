@@ -3,25 +3,21 @@ repos:
     rev: v4.0.1
     hooks:
       - id: trailing-whitespace
+        exclude: (static|vendor|admin|images|svgs)/.*\.(js|svg)$
       - id: end-of-file-fixer
+        exclude: (static|vendor|admin|images|svgs)/.*\.(js|svg)$
       - id: check-yaml
-      - id: check-added-large-files
 
-  - repo: https://github.com/pre-commit/mirrors-eslint
-    rev: v7.32.0
-    hooks:
-      - id: eslint
-        files: \.js?$
+  # - repo: https://github.com/pre-commit/mirrors-eslint
+  #   rev: v7.32.0
+  #   hooks:
+  #     - id: eslint
+  #       files: static/*.js?$
 
   - repo: https://github.com/psf/black
     rev: 23.3.0
     hooks:
       - id: black
-
-  - repo: https://github.com/timothycrosley/isort
-    rev: 5.12.0
-    hooks:
-      - id: isort
 
   - repo: https://github.com/rtts/djhtml
     rev: 3.0.6
