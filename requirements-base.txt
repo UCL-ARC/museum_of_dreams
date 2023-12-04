@@ -1,4 +1,4 @@
-asdf==2.15.1
+asdf>=2.15.0
 asdf-standard==1.0.3
 asdf-transform-schemas==0.3.0
 asdf-unit-schemas==0.1.0
