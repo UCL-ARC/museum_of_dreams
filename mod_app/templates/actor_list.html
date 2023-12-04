@@ -3,18 +3,18 @@
 {% block title %}{% trans 'Actors' %} {% endblock %}
 {% block content %}
 
-<div>
-    List of actors on this site
-</div>
-
-<div class="card-area">
-{% for actor in actor_list %}
-<div class="card card--actor">
-    <h4 class="card__heading">{{actor.name}}</h4>
-    <div class="card__info">
-        <div>Known for: {{actor.known_for}} </div>
+    <div>
+        List of actors on this site
     </div>
-</div>
-{% endfor %}
-</div>
+
+    <div class="card-area">
+        {% for actor in actor_list %}
+            <div class="card card--actor">
+                <h4 class="card__heading">{{actor.name}}</h4>
+                <div class="card__info">
+                    <div>Known for: {{actor.known_for}} </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

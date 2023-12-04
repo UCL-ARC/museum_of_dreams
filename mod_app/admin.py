@@ -1,9 +1,9 @@
+from ckeditor.widgets import CKEditorWidget
 from django import forms
 from django.contrib import admin
 from django.db import models
 
 from .models import *
-from ckeditor.widgets import CKEditorWidget
 
 
 class FilmAdmin(admin.ModelAdmin):
