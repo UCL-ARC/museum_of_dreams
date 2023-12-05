@@ -1,9 +1,11 @@
 import { logToConsole } from "../second.js";
 import { setTagColours } from "./dynamicTagColours.js";
 import { prevSlide, nextSlide } from "./carousel.js";
+import { toggleMenuDrawer } from "./menuDrawer.js";
 
-logToConsole("from the first");
+logToConsole("js ready");
 setTagColours();
+toggleMenuDrawer();
 
 document.addEventListener("DOMContentLoaded", function () {
 	// const lightDarkToggle = document.querySelector(".toggle-container");
