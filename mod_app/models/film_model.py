@@ -1,7 +1,6 @@
 from django.db import models
-from django.db.models.signals import m2m_changed
 
-from mod_app.models.support_models import Copy, FileLink, Link, Tag
+from mod_app.models.support_models import FileLink, Link, Tag
 
 
 class Film(models.Model):
@@ -31,18 +30,25 @@ class Film(models.Model):
         related_name="source_material_link",
     )
     genre = models.ManyToManyField(Tag, related_name="genres", blank=True)
+
     bfi_category = models.CharField(
         max_length=100, blank=True, null=True
     )  # can use choices if preset
 
-    actors = models.ManyToManyField(
-        "Actor", related_name="films", blank=True, verbose_name="Cast"
+    actors = models.CharField(
+        max_length=255, blank=True, null=True, verbose_name="Cast"
     )
-    crew = models.ManyToManyField("Crew", related_name="films", blank=True)
+    crew = models.CharField(
+        max_length=255, blank=True, null=True, verbose_name="Credits"
+    )
 
-    intertitle_text = models.CharField(max_length=255, blank=True, null=True)
-    intertitle_photo = models.ImageField(
-        upload_to="images/intertitles/", blank=True, null=True
+    video = models.OneToOneField(
+        Link,
+        help_text="Link to the video file",
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="video_link",
     )
 
     # Technical section
@@ -67,7 +73,7 @@ class Film(models.Model):
     ]
 
     element = models.CharField(
-        max_length=1,
+        max_length=4,
         choices=ELEMENT_CHOICES,
         default="pos",
     )
@@ -93,31 +99,40 @@ class Film(models.Model):
         verbose_name="in colour?",
         help_text="Check box in colour and leave blank if black and white (default)",
     )
+    COLLECTION_CHOICES = [
+        ("tv", "Television"),
+        ("feat", "Feature Films and Short Fiction"),
+        ("silent", "Silent Film"),
+        ("moving", "Artists' Moving Image"),
+        ("nonfic", "Non-fiction"),
+        ("special", "Special Collections"),
+    ]
     collection = models.CharField(
+        max_length=7, default="silent", choices=COLLECTION_CHOICES
+    )
+    PRINT_STAT_CHOICES = [
+        ("good", "Good"),
+        ("reasonable", "Reasonable"),
+        ("poor", "Poor"),
+        ("fragile", "Fragile"),
+        ("other", "Other"),
+    ]
+    print_status = models.CharField(max_length=255, blank=True)
+    print_status_comments = models.CharField(
         max_length=255,
         blank=True,
-        null=True,
-    )  # could do this as choices potentially, maybe put on copy model
-
-    copies = models.ManyToManyField(
-        Copy,
-        help_text="Links to where the copies can be found",
-        related_name="copies",
-        blank=True,
+        help_text="Optional comments about the print's status",
     )
 
-    entry_date = models.DateField(blank=True, null=True)  # maybe put on copy model
+    entry_date = models.DateField(blank=True, null=True)
 
     # Non filmic section / extras
 
-    video = models.OneToOneField(
-        Link,
-        help_text="Link to the video file",
-        blank=True,
-        null=True,
-        on_delete=models.SET_NULL,
-        related_name="video_link",
+    intertitle_text = models.CharField(max_length=255, blank=True, null=True)
+    intertitle_photo = models.ImageField(
+        upload_to="images/intertitles/", blank=True, null=True
     )
+
     additional_links = models.ManyToManyField(
         Link,
         help_text="Links to other things",

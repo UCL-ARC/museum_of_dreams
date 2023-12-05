@@ -7,6 +7,7 @@ from .models import *
 
 
 class FilmAdmin(admin.ModelAdmin):
+    search_fields = [""]
     formfield_overrides = {
         models.TextField: {"widget": CKEditorWidget},
     }
@@ -26,8 +27,7 @@ class FilmAdmin(admin.ModelAdmin):
                     "bfi_category",
                     "actors",
                     "crew",
-                    "intertitle_text",
-                    "intertitle_photo",
+                    "video",
                 ),
             },
         ),
@@ -43,7 +43,8 @@ class FilmAdmin(admin.ModelAdmin):
                     "rollers",
                     "is_in_colour",
                     "collection",
-                    "copies",
+                    "print_status",
+                    "print_status_comments",
                     "entry_date",
                 ),
             },
@@ -52,7 +53,8 @@ class FilmAdmin(admin.ModelAdmin):
             "Additional Information (non filmic)",
             {
                 "fields": (
-                    "video",
+                    "intertitle_text",
+                    "intertitle_photo",
                     "additional_links",
                     "scripts",
                     "press_books",
@@ -69,16 +71,6 @@ class FilmAdmin(admin.ModelAdmin):
     )
 
 
-# this allows adding of films from an actor's page
-class FilmInline(admin.TabularInline):
-    model = Film.actors.through
-    extra = 1
-
-
-class ActorAdmin(admin.ModelAdmin):
-    inlines = (FilmInline,)
-
-
 class AnalysisAdminForm(forms.ModelForm):
     class Meta:
         model = Analysis
@@ -92,9 +84,8 @@ class AnalysisAdmin(admin.ModelAdmin):
     form = AnalysisAdminForm
 
 
-admin.site.register([Location, Tag, Copy, Crew, FileLink])
+admin.site.register([Location, Tag, FileLink])
 
 # Customised
-admin.site.register(Actor, ActorAdmin)
 admin.site.register(Analysis, AnalysisAdmin)
 admin.site.register(Film, FilmAdmin)
