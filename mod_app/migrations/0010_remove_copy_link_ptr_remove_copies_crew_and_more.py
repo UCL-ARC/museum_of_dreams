@@ -17,6 +17,27 @@ class Migration(migrations.Migration):
             model_name="location",
             name="associated_actors",
         ),
+        migrations.RemoveField(
+            model_name="film",
+            name="crew",
+        ),
+        migrations.RemoveField(
+            model_name="film",
+            name="actors",
+        ),
+        migrations.RemoveField(
+            model_name="analysis",
+            name="film",
+        ),
+        migrations.DeleteModel(
+            name="Actor",
+        ),
+        migrations.DeleteModel(
+            name="Copy",
+        ),
+        migrations.DeleteModel(
+            name="Crew",
+        ),
         migrations.AddField(
             model_name="analysis",
             name="tags",
@@ -34,7 +55,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="film",
             name="print_status",
-            field=models.CharField(blank=True, max_length=255),
+            field=models.CharField(blank=True, max_length=255, null=True),
         ),
         migrations.AddField(
             model_name="film",
@@ -44,14 +65,6 @@ class Migration(migrations.Migration):
                 help_text="Optional comments about the print's status",
                 max_length=255,
             ),
-        ),
-        migrations.RemoveField(
-            model_name="analysis",
-            name="film",
-        ),
-        migrations.RemoveField(
-            model_name="film",
-            name="actors",
         ),
         migrations.AlterField(
             model_name="film",
@@ -68,10 +81,6 @@ class Migration(migrations.Migration):
                 default="silent",
                 max_length=7,
             ),
-        ),
-        migrations.RemoveField(
-            model_name="film",
-            name="crew",
         ),
         migrations.AlterField(
             model_name="film",
@@ -109,15 +118,6 @@ class Migration(migrations.Migration):
                 blank=True, help_text="url to the item you'd like to link"
             ),
         ),
-        migrations.DeleteModel(
-            name="Actor",
-        ),
-        migrations.DeleteModel(
-            name="Copy",
-        ),
-        migrations.DeleteModel(
-            name="Crew",
-        ),
         migrations.AddField(
             model_name="analysis",
             name="film",
@@ -127,9 +127,11 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name="film",
-            name="actors",
+            name="cast",
             field=models.CharField(
-                blank=True, max_length=255, null=True, verbose_name="Cast"
+                blank=True,
+                max_length=255,
+                null=True,
             ),
         ),
         migrations.AddField(

@@ -9,11 +9,11 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name="actor",
-            name="tags",
-            field=models.ManyToManyField(
-                blank=True, related_name="actor_tags", to="mod_app.tag"
-            ),
-        ),
+        # migrations.AlterField(
+        #     model_name="actor",
+        #     name="tags",
+        #     field=models.ManyToManyField(
+        #         blank=True, related_name="actor_tags", to="mod_app.tag"
+        #     ),
+        # ),
     ]
