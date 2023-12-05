@@ -30,7 +30,7 @@ class Film(models.Model):
         on_delete=models.SET_NULL,
         related_name="source_material_link",
     )
-    genre = models.ManyToManyField(Tag, related_name="genres")
+    genre = models.ManyToManyField(Tag, related_name="genres", blank=True)
     bfi_category = models.CharField(
         max_length=100, blank=True, null=True
     )  # can use choices if preset
@@ -67,13 +67,13 @@ class Film(models.Model):
     ]
 
     element = models.CharField(
-        max_length=10,
+        max_length=1,
         choices=ELEMENT_CHOICES,
         default="pos",
     )
 
     support = models.CharField(
-        max_length=10,
+        max_length=1,
         choices=[("S", "Safety"), ("N", "Nitrate")],
         default="S",
     )
