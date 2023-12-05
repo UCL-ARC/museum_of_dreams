@@ -17,7 +17,7 @@ class FilmListView(ListView):
         for film in context["object_list"]:
             # themes = list(film.themes.all())
             # film.themes = themes
-            starring = list(film.actors.all()[:2])
+            starring = list(film.cast.all()[:2])
             film.starring = ", ".join(str(actor) for actor in starring)
             # print(starring, "film.actors", film.actors.all())
         return context
