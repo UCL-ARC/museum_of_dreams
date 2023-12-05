@@ -67,7 +67,7 @@ class Film(models.Model):
     ]
 
     element = models.CharField(
-        max_length=1,
+        max_length=4,
         choices=ELEMENT_CHOICES,
         default="pos",
     )
