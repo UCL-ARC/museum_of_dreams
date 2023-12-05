@@ -20,6 +20,19 @@ class Link(models.Model):
         blank=True,
         null=True,
     )
+    TYPE_CHOICES = [
+        ("scripts", "Scripts"),
+        ("press_books", "Press Books"),
+        ("programmes", "Programmes"),
+        ("pub_mat", "Publicity Materials"),
+        ("stills", "Stills"),
+        ("postcards", "Postcards"),
+        ("posters", "Posters"),
+        ("drawings", "Drawings"),
+        ("video", "Video"),
+        ("other", "Other"),
+    ]
+    link_type = models.CharField(max_length=50, default="other", choices=TYPE_CHOICES)
 
 
 class FileLink(Link):
@@ -38,13 +51,11 @@ class Analysis(models.Model):
 
     content = RichTextField(null=True)
 
-    film = models.ManyToManyField("Film", related_name="films", blank=True, null=True)
+    film = models.ManyToManyField("Film", related_name="films", blank=True)
 
-    topics = models.ManyToManyField(Tag, related_name="topics", blank=True, null=True)
+    topics = models.ManyToManyField(Tag, related_name="topics", blank=True)
 
-    tags = models.ManyToManyField(
-        Tag, related_name="analysis_tags", blank=True, null=True
-    )
+    tags = models.ManyToManyField(Tag, related_name="analysis_tags", blank=True)
 
 
 class Location(models.Model):
