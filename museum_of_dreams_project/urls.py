@@ -31,9 +31,15 @@ else:
     admin.site.site_title = "Museum of Dreams Staging Admin Site"
     admin.site.index_title = "Admin (staging)"
 
-urlpatterns = [
-    path("admin/", admin.site.urls, name=admin),
-    distill_path("", views.HomeView.as_view(), name="home", distill_file="index.html"),
-    distill_path("films/list", views.FilmListView.as_view(), name="film_list"),
-    distill_path("films/<pk>", views.FilmDetailView.as_view(), name="film_detail"),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns = (
+    [
+        path("admin/", admin.site.urls, name=admin),
+        distill_path(
+            "", views.HomeView.as_view(), name="home", distill_file="index.html"
+        ),
+        distill_path("films/list", views.FilmListView.as_view(), name="film_list"),
+        distill_path("films/<pk>", views.FilmDetailView.as_view(), name="film_detail"),
+    ]
+    + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+)
