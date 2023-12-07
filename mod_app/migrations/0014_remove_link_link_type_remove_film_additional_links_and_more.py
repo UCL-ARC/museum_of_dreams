@@ -10,15 +10,7 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        # migrations.RemoveField(
-        #     model_name="film",
-        #     name="additional_links",
-        # ),
-        migrations.RemoveField(
-            model_name="film",
-            name="video",
-        ),
-        migrations.AddField(
+        migrations.AlterField(
             model_name="film",
             name="additional_links",
             field=models.ForeignKey(
@@ -30,7 +22,7 @@ class Migration(migrations.Migration):
                 to="mod_app.link",
             ),
         ),
-        migrations.AddField(
+        migrations.AlterField(
             model_name="film",
             name="video",
             field=models.OneToOneField(
