@@ -20,26 +20,53 @@ class Link(models.Model):
         blank=True,
         null=True,
     )
-    TYPE_CHOICES = [
-        ("scripts", "Scripts"),
-        ("press_books", "Press Books"),
-        ("programmes", "Programmes"),
-        ("pub_mat", "Publicity Materials"),
-        ("stills", "Stills"),
-        ("postcards", "Postcards"),
-        ("posters", "Posters"),
-        ("drawings", "Drawings"),
-        ("video", "Video"),
-        ("other", "Other"),
-    ]
-    link_type = models.CharField(max_length=50, default="other", choices=TYPE_CHOICES)
 
 
 class FileLink(Link):
     def upload_to(instance, filename):
-        return f"files/{instance.related_name}/{filename}"
+        return f"files/{instance.__class__.__name__}/{filename}"
 
     file = models.FileField(upload_to=upload_to, blank=True, null=True)
+
+
+class Script(FileLink):
+    class Meta:
+        verbose_name = "Script"
+
+
+class PressBook(FileLink):
+    class Meta:
+        verbose_name = "Press Book"
+
+
+class Programme(FileLink):
+    class Meta:
+        verbose_name = "Programme"
+
+
+class Publicity(FileLink):
+    class Meta:
+        verbose_name = "Publicity Material"
+
+
+class Still(FileLink):
+    class Meta:
+        verbose_name = "Still"
+
+
+class Postcard(FileLink):
+    class Meta:
+        verbose_name = "Postcard"
+
+
+class Poster(FileLink):
+    class Meta:
+        verbose_name = "Poster"
+
+
+class Drawing(FileLink):
+    class Meta:
+        verbose_name = "Drawing"
 
 
 class Analysis(models.Model):

@@ -22,27 +22,6 @@ class LinkAdminForm(forms.ModelForm):
     class Meta:
         model = Link
         fields = "__all__"
-        # widgets = {
-        #     "link_type": forms.HiddenInput(),
-        # }
-
-    def __init__(self, *args, **kwargs):
-        # Extract field name from request or provide a default
-        field_name = kwargs.pop("field_name", "default_field_name")
-        print(field_name)
-        super().__init__(*args, **kwargs)
-
-        # Set initial value for link_type based on the field_name
-        self.fields["link_type"].initial = field_name
-
-
-class FileLinkAdminForm(LinkAdminForm):
-    class Meta:
-        model = FileLink
-        fields = "__all__"
-        # widgets = {
-        #     "link_type": forms.HiddenInput(),
-        # }
 
 
 @admin.register(Link)
@@ -51,31 +30,54 @@ class LinkAdmin(admin.ModelAdmin):
     form = LinkAdminForm
 
 
+@admin.register(Script)
+class ScriptAdmin(admin.ModelAdmin):
+    search_fields = ["description", "url"]
+
+
+@admin.register(PressBook)
+class PressBookAdmin(admin.ModelAdmin):
+    search_fields = ["description", "url"]
+
+
+@admin.register(Publicity)
+class PublicityAdmin(admin.ModelAdmin):
+    search_fields = ["description", "url"]
+
+
+@admin.register(Programme)
+class ProgrammeAdmin(admin.ModelAdmin):
+    search_fields = ["description", "url"]
+
+
+@admin.register(Still)
+class StillAdmin(admin.ModelAdmin):
+    search_fields = ["description", "url"]
+
+
+@admin.register(Postcard)
+class PostcardAdmin(admin.ModelAdmin):
+    search_fields = ["description", "url"]
+
+
+@admin.register(Poster)
+class PosterAdmin(admin.ModelAdmin):
+    search_fields = ["description", "url"]
+
+
+@admin.register(Drawing)
+class DrawingAdmin(admin.ModelAdmin):
+    search_fields = ["description", "url"]
+
+
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
     search_fields = ["name"]
 
 
-@admin.register(FileLink)
-class FileLinkAdmin(admin.ModelAdmin):
-    form = FileLinkAdminForm
-    search_fields = ["description", "url"]
-
-    # def get_form(self, request, obj=None, **kwargs):
-    #     form = super().get_form(request, obj, **kwargs)
-
-    #     if obj is None:
-    #         url_parts = request.path.split("/")
-    #         field_name = url_parts[-2]
-
-    #         if field_name:
-    #             form.base_fields["link_type"].initial = field_name
-
-    #     return form
-
-
 @admin.register(Film)
 class FilmAdmin(admin.ModelAdmin):
+    list_display = ["title", "release_date", "synopsis", "comments"]
     autocomplete_fields = [
         "genre",
         "additional_links",
@@ -102,9 +104,8 @@ class FilmAdmin(admin.ModelAdmin):
                     "production_country",
                     "production_company",
                     "synopsis",
-                    "source_material",
+                    "source",
                     "genre",
-                    "bfi_category",
                     "cast",
                     "crew",
                     "video",
@@ -114,27 +115,22 @@ class FilmAdmin(admin.ModelAdmin):
         (
             "Technical Section",
             {
+                "classes": ("grp-collapse grp-open",),
                 "fields": (
                     "duration",
                     "current_length",
-                    "element",
                     "support",
                     "format_type",
-                    "rollers",
                     "is_in_colour",
-                    "collection",
-                    "print_status",
-                    "print_status_comments",
-                    "entry_date",
+                    "print_comments",
                 ),
             },
         ),
         (
             "Additional Information (non filmic)",
             {
+                "classes": ("grp-collapse grp-open",),
                 "fields": (
-                    "intertitle_text",
-                    "intertitle_photo",
                     "additional_links",
                     "scripts",
                     "press_books",
@@ -150,27 +146,27 @@ class FilmAdmin(admin.ModelAdmin):
         ),
     )
 
-    def formfield_for_manytomany(self, db_field, request, **kwargs):
-        film_id = request.resolver_match.kwargs.get("object_id")
+    # def formfield_for_manytomany(self, db_field, request, **kwargs):
+    #     film_id = request.resolver_match.kwargs.get("object_id")
 
-        fields_to_filter = [
-            "additional_links",
-            "scripts",
-            "press_books",
-            "programmes",
-            "pub_mat",
-            "stills",
-            "postcards",
-            "posters",
-            "drawings",
-        ]
-        # filter so only for this film instance shows
-        if db_field.name in fields_to_filter:
-            kwargs["queryset"] = FileLink.objects.filter(
-                **{f"{db_field.related_query_name()}__id": film_id}
-            )
+    #     fields_to_filter = [
+    #         "additional_links",
+    #         "scripts",
+    #         "press_books",
+    #         "programmes",
+    #         "pub_mat",
+    #         "stills",
+    #         "postcards",
+    #         "posters",
+    #         "drawings",
+    #     ]
+    #     # filter so only for this film instance shows
+    #     if db_field.name in fields_to_filter:
+    #         kwargs["queryset"] = FileLink.objects.filter(
+    #             **{f"{db_field.related_query_name()}__id": film_id}
+    #         )
 
-        return super().formfield_for_manytomany(db_field, request, **kwargs)
+    #     return super().formfield_for_manytomany(db_field, request, **kwargs)
 
 
 class AnalysisAdminForm(forms.ModelForm):
@@ -185,10 +181,3 @@ class AnalysisAdminForm(forms.ModelForm):
 @admin.register(Analysis)
 class AnalysisAdmin(admin.ModelAdmin):
     form = AnalysisAdminForm
-
-
-# admin.site.register([Location])
-
-# Customised
-# admin.site.register(Analysis, AnalysisAdmin)
-# admin.site.register(Film, FilmAdmin)

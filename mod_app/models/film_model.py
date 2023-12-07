@@ -1,6 +1,18 @@
 from django.db import models
 
-from mod_app.models.support_models import FileLink, Link, Tag
+from mod_app.models.support_models import (
+    Drawing,
+    FileLink,
+    Link,
+    Postcard,
+    Poster,
+    PressBook,
+    Programme,
+    Publicity,
+    Script,
+    Still,
+    Tag,
+)
 
 
 class Film(models.Model):
@@ -21,13 +33,13 @@ class Film(models.Model):
 
     synopsis = models.TextField(blank=True)
 
-    source_material = models.OneToOneField(
+    source = models.OneToOneField(
         Link,
         help_text="Link to the source material",
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
-        related_name="source_material_link",
+        related_name="source_link",
     )
     genre = models.ManyToManyField(Tag, related_name="genres", blank=True)
 
@@ -46,7 +58,6 @@ class Film(models.Model):
 
     video = models.OneToOneField(
         Link,
-        limit_choices_to={"link_type": "video"},
         help_text="Link to the video file",
         blank=True,
         null=True,
@@ -66,139 +77,101 @@ class Film(models.Model):
         null=True,
         help_text="Enter the run time in minutes.",
     )
-
-    ELEMENT_CHOICES = [
-        ("pos", "Scene positive"),
-        ("ctn", "Negative coutertype"),
-        ("intn", "Internegative"),
-        ("lav", "Intermediate positive scene (lavender)"),
-        ("olay", "Titles"),
-    ]
-
-    element = models.CharField(
-        max_length=4,
-        choices=ELEMENT_CHOICES,
-        default="pos",
-    )
-
     support = models.CharField(
         max_length=1,
-        choices=[("S", "Safety"), ("N", "Nitrate")],
-        default="S",
+        choices=[("V", "Viewable"), ("M", "Master")],
+        default="V",
     )
-
     format_type = models.CharField(
         max_length=255, blank=True, null=True, verbose_name="format"
     )
-
-    rollers = models.IntegerField(
-        blank=True,
-        null=True,
-        verbose_name="Number of rollers",
-    )
-
     is_in_colour = models.BooleanField(
         default=False,
         verbose_name="in colour?",
         help_text="Check box in colour and leave blank if black and white (default)",
     )
-    COLLECTION_CHOICES = [
-        ("tv", "Television"),
-        ("feat", "Feature Films and Short Fiction"),
-        ("silent", "Silent Film"),
-        ("moving", "Artists' Moving Image"),
-        ("nonfic", "Non-fiction"),
-        ("special", "Special Collections"),
-    ]
-    collection = models.CharField(
-        max_length=7, default="silent", choices=COLLECTION_CHOICES
-    )
-    PRINT_STAT_CHOICES = [
-        ("good", "Good"),
-        ("reasonable", "Reasonable"),
-        ("poor", "Poor"),
-        ("fragile", "Fragile"),
-        ("other", "Other"),
-    ]
-    print_status = models.CharField(max_length=255, blank=True, null=True)
-    print_status_comments = models.CharField(
+    print_comments = models.TextField(
         max_length=255,
         blank=True,
-        help_text="Optional comments about the print's status",
+        help_text="Optional notes about the print/s",
+        verbose_name="Notes on Prints",
     )
-
-    entry_date = models.DateField(blank=True, null=True)
 
     # Non filmic section / extras
 
-    intertitle_text = models.CharField(max_length=255, blank=True, null=True)
-    intertitle_photo = models.ImageField(
-        upload_to="images/intertitles/", blank=True, null=True
-    )
-    additional_links = models.ManyToManyField(
+    additional_links = models.ForeignKey(
         Link,
-        limit_choices_to={"link_type": "other"},
+        on_delete=models.SET_NULL,
         help_text="Links to other things",
         related_name="other_links",
         blank=True,
+        null=True,
     )
-    scripts = models.ManyToManyField(
-        FileLink,
-        limit_choices_to={"link_type": "scripts"},
+    scripts = models.ForeignKey(
+        Script,
+        on_delete=models.SET_NULL,
         help_text="Link to or upload script file(s)",
         related_name="scripts",
         blank=True,
+        null=True,
     )
-    press_books = models.ManyToManyField(
-        FileLink,
-        limit_choices_to={"link_type": "press_books"},
+    press_books = models.ForeignKey(
+        PressBook,
+        on_delete=models.SET_NULL,
         help_text="Link to or upload press book file(s)",
         related_name="press_books",
         blank=True,
+        null=True,
     )
-    programmes = models.ManyToManyField(
-        FileLink,
-        limit_choices_to={"link_type": "programmes"},
+    programmes = models.ForeignKey(
+        Programme,
+        on_delete=models.SET_NULL,
         help_text="Link to or upload programme file(s)",
         related_name="programmes",
         blank=True,
+        null=True,
     )
-    pub_mat = models.ManyToManyField(
-        FileLink,
-        limit_choices_to={"link_type": "pub_mat"},
+    pub_mat = models.ForeignKey(
+        Publicity,
+        on_delete=models.SET_NULL,
         verbose_name="Publicity Materials",
         help_text="Link to or upload publicity material file(s)",
         related_name="pub_material",
         blank=True,
+        null=True,
     )
 
-    stills = models.ManyToManyField(
-        FileLink,
-        limit_choices_to={"link_type": "stills"},
+    stills = models.ForeignKey(
+        Still,
+        on_delete=models.SET_NULL,
         help_text="Link to or upload stills",
         related_name="stills",
         blank=True,
+        null=True,
     )
-    postcards = models.ManyToManyField(
-        FileLink,
-        limit_choices_to={"link_type": "postcards"},
+    postcards = models.ForeignKey(
+        Postcard,
+        on_delete=models.SET_NULL,
         help_text="Link to or upload postcards",
         related_name="postcards",
         blank=True,
+        null=True,
     )
-    posters = models.ManyToManyField(
-        FileLink,
-        limit_choices_to={"link_type": "posters"},
+    posters = models.ForeignKey(
+        Poster,
+        on_delete=models.SET_NULL,
         help_text="Link to or upload posters",
         related_name="posters",
         blank=True,
+        null=True,
     )
-    drawings = models.ManyToManyField(
-        FileLink,
-        limit_choices_to={"link_type": "drawings"},
+    drawings = models.ForeignKey(
+        Drawing,
+        on_delete=models.SET_NULL,
         help_text="Link to or upload drawings",
         related_name="drawings",
         blank=True,
+        null=True,
     )
 
     # archive_id = models.CharField(max_length=20)
