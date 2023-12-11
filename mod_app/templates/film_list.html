@@ -14,13 +14,13 @@
                 <div class="card__info">
                     <dl>
                         <dt>Starring:</dt>
-                        <dd>{{film.starring}}</dd>
+                        <dd>{{film.cast}}</dd>
                         <dt>Release:</dt>
                         <dd>{{film.release_date}}</dd>
-                        <dt>Themes:</dt>
-                        <dd>{{film.themes.all}}</dd>
                         <dt>Genre:</dt>
-                        <dd class="tag"><span class="dot">•</span>{{genre.name}}</dd>
+                        {% for g in film.genre.all %}
+                            <dd class="tag"><span class="dot">•</span>{{g.name}}</dd>
+                        {% endfor %}
                         <dt>Summary:</dt>
                         <dd>{{film.summary|truncatewords:50}}</dd>
                     </dl>

@@ -12,15 +12,15 @@ class FilmListView(ListView):
     template_name = "film_list.html"
     paginate_by = 20
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        for film in context["object_list"]:
-            # themes = list(film.themes.all())
-            # film.themes = themes
-            starring = list(film.cast.all()[:2])
-            film.starring = ", ".join(str(actor) for actor in starring)
-            # print(starring, "film.actors", film.actors.all())
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     for film in context["object_list"]:
+    #         # themes = list(film.themes.all())
+    #         # film.themes = themes
+    #         # starring = list(film.cast)
+    #         # film.starring = ", ".join(str(actor) for actor in starring)
+    #         # print(starring, "film.actors", film.actors.all())
+    #     return context
 
 
 class FilmDetailView(DetailView):
