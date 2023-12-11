@@ -25,6 +25,19 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterField(
             model_name="film",
+            name="source",
+            field=models.OneToOneField(
+                help_text="Link to the source material",
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                limit_choices_to={"source_link__isnull": False},
+                related_name="source_link",
+                to="mod_app.link",
+            ),
+        ),
+        migrations.AlterField(
+            model_name="film",
             name="video",
             field=models.OneToOneField(
                 blank=True,
