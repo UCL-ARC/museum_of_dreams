@@ -39,6 +39,7 @@ class Film(models.Model):
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
+        limit_choices_to={"source_link__isnull": False},
         related_name="source_link",
     )
     genre = models.ManyToManyField(Tag, related_name="genres", blank=True)
@@ -176,11 +177,26 @@ class Film(models.Model):
         null=True,
     )
 
-    # archive_id = models.CharField(max_length=20)
-    # archive_company = models.CharField(
-    #     max_length=20
-    # )  # maybe use choices instead if only small selection
-
     comments = models.TextField(blank=True)
 
     # bibliographies...how?
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        # Update related models with ForeignKey to Film
+        related_models = [
+            Drawing,
+            Postcard,
+            Poster,
+            PressBook,
+            Programme,
+            Publicity,
+            Script,
+            Still,
+        ]
+
+        for related_model in related_models:
+            print("in save:", related_model.objects.filter(film__id=self.id))
+            # Update the related model instances
+            related_model.objects.filter(film__id=self.id).update(film=self)
