@@ -157,38 +157,39 @@ class FilmAdmin(admin.ModelAdmin):
         ),
     )
 
-    def handle_related_model(self, db_field, request, model_name, instance_id):
-        related_model = globals()[model_name]
-        if instance_id:
-            if related_model.objects.all().exists():
-                queryset = related_model.objects.filter(film__id=instance_id)
+    # def handle_related_model(self, db_field, request, model_name, instance_id):
+    #     related_model = globals()[model_name]
+    #     print(Programme.objects.filter(film__id=instance_id))
+    #     if instance_id:
+    #         if related_model.objects.all().exists():
+    #             queryset = related_model.objects.filter(film__id=instance_id)
 
-                return queryset
-            else:
-                return related_model.objects.none()
-        else:
-            return db_field.related_model.objects.none()
+    #             return queryset
+    #         else:
+    #             return related_model.objects.none()
+    #     else:
+    #         return db_field.related_model.objects.none()
 
-    def formfield_for_foreignkey(self, db_field, request, **kwargs):
-        filelink_fields = {
-            "scripts": "Script",
-            "press_books": "PressBook",
-            "programmes": "Programme",
-            "pub_mat": "Publicity",
-            "stills": "Still",
-            "postcards": "Postcard",
-            "posters": "Poster",
-            "drawings": "Drawing",
-        }
-        instance_id = request.resolver_match.kwargs.get("object_id")
-        for fl in filelink_fields:
-            if db_field.name == fl:
-                print(fl)
-                kwargs["queryset"] = self.handle_related_model(
-                    db_field, request, filelink_fields[fl], instance_id
-                )
+    # def formfield_for_foreignkey(self, db_field, request, **kwargs):
+    #     filelink_fields = {
+    #         # "scripts": "Script",
+    #         # "press_books": "PressBook",
+    #         "programmes": "Programme",
+    #         "pub_mat": "Publicity",
+    #         "stills": "Still",
+    #         "postcards": "Postcard",
+    #         "posters": "Poster",
+    #         "drawings": "Drawing",
+    #     }
+    #     instance_id = request.resolver_match.kwargs.get("object_id")
+    #     for fl in filelink_fields:
+    #         if db_field.name == fl:
+    #             print(fl)
+    #             kwargs["queryset"] = self.handle_related_model(
+    #                 db_field, request, filelink_fields[fl], instance_id
+    #             )
 
-        return super().formfield_for_foreignkey(db_field, request, **kwargs)
+    #     return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
 
 class AnalysisAdminForm(forms.ModelForm):
