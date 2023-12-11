@@ -6,18 +6,6 @@ from django.db import models
 from .models import *
 
 
-# class FilmInline(admin.StackedInline):
-#     model = Film.actors.through
-#     extra = 1
-
-#     def __str__(self):
-#         return self.film.title
-
-
-# class ActorAdmin(admin.ModelAdmin):
-#     inlines = (FilmInline,)
-
-
 class LinkAdminForm(forms.ModelForm):
     class Meta:
         model = Link
@@ -75,20 +63,43 @@ class TagAdmin(admin.ModelAdmin):
     search_fields = ["name"]
 
 
+from django.utils.html import format_html
+
+
 @admin.register(Film)
 class FilmAdmin(admin.ModelAdmin):
-    list_display = ["title", "release_date", "synopsis", "comments"]
+    list_display = [
+        "title",
+        "alt_titles",
+        "release_date",
+        "safe_synopsis",
+        "safe_comments",
+    ]
+
+    # these fields show html tags from the ckeditor otherwise
+    def safe_synopsis(self, obj):
+        return format_html(obj.synopsis)
+
+    safe_synopsis.allow_tags = True
+    safe_synopsis.short_description = "Synopsis"
+
+    def safe_comments(self, obj):
+        return format_html(obj.comments)
+
+    safe_comments.allow_tags = True
+    safe_comments.short_description = "Comments"
+
     autocomplete_fields = [
         "genre",
         "additional_links",
-        "scripts",
-        "press_books",
-        "programmes",
-        "pub_mat",
-        "stills",
-        "postcards",
-        "posters",
-        "drawings",
+        # "scripts",
+        # "press_books",
+        # "programmes",
+        # "pub_mat",
+        # "stills",
+        # "postcards",
+        # "posters",
+        # "drawings",
     ]
     formfield_overrides = {
         models.TextField: {"widget": CKEditorWidget},
@@ -146,27 +157,38 @@ class FilmAdmin(admin.ModelAdmin):
         ),
     )
 
-    # def formfield_for_manytomany(self, db_field, request, **kwargs):
-    #     film_id = request.resolver_match.kwargs.get("object_id")
+    def handle_related_model(self, db_field, request, model_name, instance_id):
+        related_model = globals()[model_name]
+        if instance_id:
+            if related_model.objects.all().exists():
+                queryset = related_model.objects.filter(film__id=instance_id)
 
-    #     fields_to_filter = [
-    #         "additional_links",
-    #         "scripts",
-    #         "press_books",
-    #         "programmes",
-    #         "pub_mat",
-    #         "stills",
-    #         "postcards",
-    #         "posters",
-    #         "drawings",
-    #     ]
-    #     # filter so only for this film instance shows
-    #     if db_field.name in fields_to_filter:
-    #         kwargs["queryset"] = FileLink.objects.filter(
-    #             **{f"{db_field.related_query_name()}__id": film_id}
-    #         )
+                return queryset
+            else:
+                return related_model.objects.none()
+        else:
+            return db_field.related_model.objects.none()
 
-    #     return super().formfield_for_manytomany(db_field, request, **kwargs)
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        filelink_fields = {
+            "scripts": "Script",
+            "press_books": "PressBook",
+            "programmes": "Programme",
+            "pub_mat": "Publicity",
+            "stills": "Still",
+            "postcards": "Postcard",
+            "posters": "Poster",
+            "drawings": "Drawing",
+        }
+        instance_id = request.resolver_match.kwargs.get("object_id")
+        for fl in filelink_fields:
+            if db_field.name == fl:
+                print(fl)
+                kwargs["queryset"] = self.handle_related_model(
+                    db_field, request, filelink_fields[fl], instance_id
+                )
+
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
 
 class AnalysisAdminForm(forms.ModelForm):

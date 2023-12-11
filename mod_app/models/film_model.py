@@ -59,6 +59,7 @@ class Film(models.Model):
     video = models.OneToOneField(
         Link,
         help_text="Link to the video file",
+        limit_choices_to={"video_link__isnull": False},
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
@@ -104,6 +105,7 @@ class Film(models.Model):
         on_delete=models.SET_NULL,
         help_text="Links to other things",
         related_name="other_links",
+        limit_choices_to={"other_links__isnull": False},
         blank=True,
         null=True,
     )
