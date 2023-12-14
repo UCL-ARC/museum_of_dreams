@@ -161,7 +161,7 @@ class FilmAdmin(admin.ModelAdmin):
             "Additional Information (non filmic)",
             {
                 "classes": ("grp-collapse grp-open",),
-                # "fields": ("additional_links",),
+                "fields": ("additional_links",),
             },
         ),
         (
