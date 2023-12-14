@@ -11,7 +11,10 @@ class Tag(models.Model):
 
 class Link(models.Model):
     def __str__(self):
-        return self.url
+        if self.url:
+            return self.url
+        else:
+            return self.description
 
     url = models.URLField(blank=True, help_text="url to the item you'd like to link")
     description = models.CharField(

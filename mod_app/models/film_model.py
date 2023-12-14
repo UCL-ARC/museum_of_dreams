@@ -33,7 +33,7 @@ class Film(models.Model):
 
     synopsis = models.TextField(blank=True)
 
-    source = models.OneToOneField(
+    source = models.ForeignKey(  # make m2m
         Link,
         help_text="Link to the source material",
         blank=True,
@@ -41,24 +41,21 @@ class Film(models.Model):
         on_delete=models.SET_NULL,
         limit_choices_to={"source_link__isnull": False},
         related_name="source_link",
-    )
+    )  # this isn't working on frontend save
     genre = models.ManyToManyField(Tag, related_name="genres", blank=True)
 
     bfi_category = models.CharField(
         max_length=100, blank=True, null=True
     )  # can use choices if preset
 
-    cast = models.CharField(
-        max_length=255,
+    cast = models.TextField(
         blank=True,
         null=True,
     )
-    crew = models.CharField(
-        max_length=255, blank=True, null=True, verbose_name="Credits"
-    )
+    crew = models.TextField(blank=True, null=True, verbose_name="Credits")
 
     video = models.OneToOneField(
-        Link,
+        FileLink,
         help_text="Link to the video file",
         limit_choices_to={"video_link__isnull": False},
         blank=True,
@@ -86,14 +83,13 @@ class Film(models.Model):
     )
     format_type = models.CharField(
         max_length=255, blank=True, null=True, verbose_name="format"
-    )
+    )  # use choices + other
     is_in_colour = models.BooleanField(
         default=False,
         verbose_name="in colour?",
         help_text="Check box in colour and leave blank if black and white (default)",
     )
     print_comments = models.TextField(
-        max_length=255,
         blank=True,
         help_text="Optional notes about the print/s",
         verbose_name="Notes on Prints",
@@ -178,25 +174,4 @@ class Film(models.Model):
     )
 
     comments = models.TextField(blank=True)
-
-    # bibliographies...how?
-
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-
-        # Update related models with ForeignKey to Film
-        related_models = [
-            Drawing,
-            Postcard,
-            Poster,
-            PressBook,
-            Programme,
-            Publicity,
-            Script,
-            Still,
-        ]
-
-        for related_model in related_models:
-            print("in save:", related_model.objects.filter(film__id=self.id))
-            # Update the related model instances
-            related_model.objects.filter(film__id=self.id).update(film=self)
+    temporary_images = models.ImageField(blank=True)
