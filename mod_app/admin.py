@@ -7,12 +7,6 @@ from django.db import models
 from .models import *
 
 
-class LinkAdminForm(forms.ModelForm):
-    class Meta:
-        model = Link
-        fields = "__all__"
-
-
 class SourceAdminForm(forms.ModelForm):
     class Meta:
         model = Source
@@ -22,7 +16,6 @@ class SourceAdminForm(forms.ModelForm):
 @admin.register(Link)
 class LinkAdmin(admin.ModelAdmin):
     search_fields = ["description", "url"]
-    # form = LinkAdminForm
 
 
 @admin.register(Source)
@@ -198,7 +191,7 @@ class FilmAdmin(admin.ModelAdmin):
                 "classes": ("grp-collapse grp-open",),
                 "fields": (
                     "comments",
-                    "temporary_images",
+                    # "temporary_images",
                 ),
             },
         ),
