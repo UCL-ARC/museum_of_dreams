@@ -9,6 +9,8 @@ if [ -f /var/app/current/manage.py ]; then
     python manage.py migrate mod_app 0009
     echo `python manage.py showmigrations`
     python manage.py migrate mod_app 0010a --fake
+    python manage.py migrate mod_app 0010b --fake
+
     echo `python manage.py showmigrations`
     python manage.py migrate
     echo `python manage.py showmigrations`
