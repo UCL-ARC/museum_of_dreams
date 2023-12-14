@@ -5,7 +5,7 @@ from mod_app.models import Film
 
 class TestFilm(TestCase):
     def setUp(self):
-        Film.objects.create(
+        self.film = Film.objects.create(
             title="test film",
             release_date=2023,
         )
