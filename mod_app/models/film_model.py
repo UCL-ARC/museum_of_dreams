@@ -10,6 +10,7 @@ from mod_app.models.support_models import (
     Programme,
     Publicity,
     Script,
+    Source,
     Still,
     Tag,
 )
@@ -33,15 +34,13 @@ class Film(models.Model):
 
     synopsis = models.TextField(blank=True)
 
-    source = models.ForeignKey(  # make m2m
-        Link,
+    source = models.ManyToManyField(
+        Source,
         help_text="Link to the source material",
         blank=True,
-        null=True,
-        on_delete=models.SET_NULL,
-        limit_choices_to={"source_link__isnull": False},
+        limit_choices_to={"is_source": True},
         related_name="source_link",
-    )  # this isn't working on frontend save
+    )
     genre = models.ManyToManyField(Tag, related_name="genres", blank=True)
 
     bfi_category = models.CharField(
@@ -54,9 +53,9 @@ class Film(models.Model):
     )
     crew = models.TextField(blank=True, null=True, verbose_name="Credits")
 
-    video = models.OneToOneField(
+    video = models.ForeignKey(
         FileLink,
-        help_text="Link to the video file",
+        help_text="Link or upload the video file",
         limit_choices_to={"video_link__isnull": False},
         blank=True,
         null=True,
@@ -69,12 +68,12 @@ class Film(models.Model):
     duration = models.IntegerField(
         blank=True,
         null=True,
-        help_text="Enter the run time in minutes.",
+        help_text="Enter the original run time in minutes.",
     )
     current_length = models.IntegerField(
         blank=True,
         null=True,
-        help_text="Enter the run time in minutes.",
+        help_text="Enter the run time of the BFI copy in minutes.",
     )
     support = models.CharField(
         max_length=1,
@@ -97,80 +96,61 @@ class Film(models.Model):
 
     # Non filmic section / extras
 
-    additional_links = models.ForeignKey(
+    additional_links = models.ManyToManyField(
         Link,
-        on_delete=models.SET_NULL,
         help_text="Links to other things",
         related_name="other_links",
-        limit_choices_to={"other_links__isnull": False},
         blank=True,
-        null=True,
     )
-    scripts = models.ForeignKey(
+    scripts = models.ManyToManyField(
         Script,
-        on_delete=models.SET_NULL,
         help_text="Link to or upload script file(s)",
         related_name="scripts",
         blank=True,
-        null=True,
     )
-    press_books = models.ForeignKey(
+    press_books = models.ManyToManyField(
         PressBook,
-        on_delete=models.SET_NULL,
         help_text="Link to or upload press book file(s)",
         related_name="press_books",
         blank=True,
-        null=True,
     )
-    programmes = models.ForeignKey(
+    programmes = models.ManyToManyField(
         Programme,
-        on_delete=models.SET_NULL,
         help_text="Link to or upload programme file(s)",
         related_name="programmes",
         blank=True,
-        null=True,
     )
-    pub_mat = models.ForeignKey(
+    pub_mat = models.ManyToManyField(
         Publicity,
-        on_delete=models.SET_NULL,
         verbose_name="Publicity Materials",
         help_text="Link to or upload publicity material file(s)",
         related_name="pub_material",
         blank=True,
-        null=True,
     )
 
-    stills = models.ForeignKey(
+    stills = models.ManyToManyField(
         Still,
-        on_delete=models.SET_NULL,
         help_text="Link to or upload stills",
         related_name="stills",
         blank=True,
-        null=True,
     )
-    postcards = models.ForeignKey(
+    postcards = models.ManyToManyField(
         Postcard,
-        on_delete=models.SET_NULL,
         help_text="Link to or upload postcards",
         related_name="postcards",
         blank=True,
-        null=True,
     )
-    posters = models.ForeignKey(
+    posters = models.ManyToManyField(
         Poster,
-        on_delete=models.SET_NULL,
         help_text="Link to or upload posters",
         related_name="posters",
         blank=True,
-        null=True,
     )
-    drawings = models.ForeignKey(
+    drawings = models.ManyToManyField(
         Drawing,
-        on_delete=models.SET_NULL,
         help_text="Link to or upload drawings",
         related_name="drawings",
         blank=True,
-        null=True,
     )
 
     comments = models.TextField(blank=True)

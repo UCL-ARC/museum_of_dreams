@@ -3,6 +3,7 @@ from django import forms
 from django.contrib import admin
 from django.db import models
 
+
 from .models import *
 
 
@@ -12,10 +13,28 @@ class LinkAdminForm(forms.ModelForm):
         fields = "__all__"
 
 
+class SourceAdminForm(forms.ModelForm):
+    class Meta:
+        model = Source
+        fields = "__all__"
+
+
 @admin.register(Link)
 class LinkAdmin(admin.ModelAdmin):
     search_fields = ["description", "url"]
-    form = LinkAdminForm
+    # form = LinkAdminForm
+
+
+@admin.register(Source)
+class SourceAdmin(admin.ModelAdmin):
+    search_fields = ["description", "url"]
+    form = SourceAdminForm
+    readonly_fields = ("is_source",)
+
+
+@admin.register(FileLink)
+class FileLinkAdmin(admin.ModelAdmin):
+    search_fields = ["description", "url"]
 
 
 @admin.register(Script)
@@ -69,11 +88,14 @@ from django.utils.html import format_html
 @admin.register(Film)
 class FilmAdmin(admin.ModelAdmin):
     list_display = [
+        "video",
         "title",
         "alt_titles",
         "release_date",
-        "safe_synopsis",
-        "safe_comments",
+        "production_country",
+        "production_company",
+        "safe_synopsis",  # make as preview
+        "safe_comments",  # make as preview
     ]
 
     # these fields show html tags from the ckeditor otherwise
@@ -91,15 +113,16 @@ class FilmAdmin(admin.ModelAdmin):
 
     autocomplete_fields = [
         "genre",
+        "source",
         "additional_links",
-        # "scripts",
-        # "press_books",
-        # "programmes",
-        # "pub_mat",
-        # "stills",
-        # "postcards",
-        # "posters",
-        # "drawings",
+        "scripts",
+        "press_books",
+        "programmes",
+        "pub_mat",
+        "stills",
+        "postcards",
+        "posters",
+        "drawings",
     ]
     formfield_overrides = {
         models.TextField: {"widget": CKEditorWidget},
@@ -108,6 +131,7 @@ class FilmAdmin(admin.ModelAdmin):
         (
             "Main Information (Filmic Section)",
             {
+                "classes": ("grp-collapse grp-open",),
                 "fields": (
                     "title",
                     "release_date",
@@ -141,55 +165,44 @@ class FilmAdmin(admin.ModelAdmin):
             "Additional Information (non filmic)",
             {
                 "classes": ("grp-collapse grp-open",),
+                "fields": ("additional_links",),
+            },
+        ),
+        (
+            "Printed Materials",
+            {
+                "classes": ("grp-collapse grp-open",),
                 "fields": (
-                    "additional_links",
                     "scripts",
                     "press_books",
                     "programmes",
                     "pub_mat",
+                ),
+            },
+        ),
+        (
+            "Visual Resources",
+            {
+                "classes": ("grp-collapse grp-open",),
+                "fields": (
                     "stills",
                     "postcards",
                     "posters",
                     "drawings",
+                ),
+            },
+        ),
+        (
+            "Comments and Temporary Images",
+            {
+                "classes": ("grp-collapse grp-open",),
+                "fields": (
                     "comments",
+                    "temporary_images",
                 ),
             },
         ),
     )
-
-    # def handle_related_model(self, db_field, request, model_name, instance_id):
-    #     related_model = globals()[model_name]
-    #     print(Programme.objects.filter(film__id=instance_id))
-    #     if instance_id:
-    #         if related_model.objects.all().exists():
-    #             queryset = related_model.objects.filter(film__id=instance_id)
-
-    #             return queryset
-    #         else:
-    #             return related_model.objects.none()
-    #     else:
-    #         return db_field.related_model.objects.none()
-
-    # def formfield_for_foreignkey(self, db_field, request, **kwargs):
-    #     filelink_fields = {
-    #         # "scripts": "Script",
-    #         # "press_books": "PressBook",
-    #         "programmes": "Programme",
-    #         "pub_mat": "Publicity",
-    #         "stills": "Still",
-    #         "postcards": "Postcard",
-    #         "posters": "Poster",
-    #         "drawings": "Drawing",
-    #     }
-    #     instance_id = request.resolver_match.kwargs.get("object_id")
-    #     for fl in filelink_fields:
-    #         if db_field.name == fl:
-    #             print(fl)
-    #             kwargs["queryset"] = self.handle_related_model(
-    #                 db_field, request, filelink_fields[fl], instance_id
-    #             )
-
-    #     return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
 
 class AnalysisAdminForm(forms.ModelForm):

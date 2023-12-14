@@ -25,6 +25,13 @@ class Link(models.Model):
     )
 
 
+class Source(Link):
+    class Meta:
+        verbose_name = "Source"
+
+    is_source = models.BooleanField(default=True)
+
+
 class FileLink(Link):
     def upload_to(instance, filename):
         return f"files/{instance.__class__.__name__}/{filename}"
