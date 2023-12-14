@@ -8,30 +8,30 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name="film",
-            name="collection",
-        ),
-        migrations.RemoveField(
-            model_name="film",
-            name="element",
-        ),
-        migrations.RemoveField(
-            model_name="film",
-            name="entry_date",
-        ),
-        migrations.RemoveField(
-            model_name="film",
-            name="intertitle_photo",
-        ),
-        migrations.RemoveField(
-            model_name="film",
-            name="intertitle_text",
-        ),
-        migrations.RemoveField(
-            model_name="film",
-            name="rollers",
-        ),
+        # migrations.RemoveField(
+        #     model_name="film",
+        #     name="collection",
+        # ),
+        # migrations.RemoveField(
+        #     model_name="film",
+        #     name="element",
+        # ),
+        # migrations.RemoveField(
+        #     model_name="film",
+        #     name="entry_date",
+        # ),
+        # migrations.RemoveField(
+        #     model_name="film",
+        #     name="intertitle_photo",
+        # ),
+        # migrations.RemoveField(
+        #     model_name="film",
+        #     name="intertitle_text",
+        # ),
+        # migrations.RemoveField(
+        #     model_name="film",
+        #     name="rollers",
+        # ),
         migrations.RemoveField(
             model_name="film",
             name="source_material",
