@@ -154,4 +154,4 @@ class Film(models.Model):
     )
 
     comments = models.TextField(blank=True)
-    temporary_images = models.ImageField(blank=True)
+    temporary_images = models.ImageField(blank=True, upload_to="temp/")

@@ -231,7 +231,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="film",
             name="temporary_images",
-            field=models.ImageField(blank=True, upload_to=""),
+            field=models.ImageField(blank=True, upload_to="temp/"),
         ),
         migrations.RemoveField(
             model_name="film",
