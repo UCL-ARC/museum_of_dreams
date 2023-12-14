@@ -6,20 +6,12 @@ import django.db.models.deletion
 import mod_app.models.support_models
 
 
-def delete_all_links(apps, schema_editor):
-    Link = apps.get_model("mod_app", "Link")
-    FileLink = apps.get_model("mod_app", "FileLink")
-    Link.objects.all().delete()
-    FileLink.objects.all().delete()
-
-
 class Migration(migrations.Migration):
     initial = True
 
     dependencies = []
 
     operations = [
-        migrations.RunPython(delete_all_links, migrations.RunPython.noop),
         migrations.CreateModel(
             name="Film",
             fields=[
@@ -220,16 +212,6 @@ class Migration(migrations.Migration):
                     models.ManyToManyField(blank=True, to="mod_app.film"),
                 ),
             ],
-        ),
-        migrations.AddField(
-            model_name="film",
-            name="additional_links",
-            field=models.ManyToManyField(
-                blank=True,
-                help_text="Links to other things",
-                related_name="other_links",
-                to="mod_app.link",
-            ),
         ),
         migrations.AddField(
             model_name="film",
@@ -443,19 +425,6 @@ class Migration(migrations.Migration):
                 limit_choices_to={"is_source": True},
                 related_name="source_link",
                 to="mod_app.source",
-            ),
-        ),
-        migrations.AddField(
-            model_name="film",
-            name="video",
-            field=models.ForeignKey(
-                blank=True,
-                help_text="Link or upload the video file",
-                limit_choices_to={"video_link__isnull": False},
-                null=True,
-                on_delete=django.db.models.deletion.SET_NULL,
-                related_name="video_link",
-                to="mod_app.filelink",
             ),
         ),
         migrations.AddField(
