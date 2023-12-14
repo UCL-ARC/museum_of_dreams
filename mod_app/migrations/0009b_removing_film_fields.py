@@ -32,8 +32,8 @@ class Migration(migrations.Migration):
         #     model_name="film",
         #     name="rollers",
         # ),
-        migrations.RemoveField(
-            model_name="film",
-            name="source_material",
-        ),
+        # migrations.RemoveField(
+        #     model_name="film",
+        #     name="source_material",
+        # ),
     ]
