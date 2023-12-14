@@ -524,7 +524,6 @@ class Migration(migrations.Migration):
             field=models.ForeignKey(
                 blank=True,
                 help_text="Link or upload the video file",
-                limit_choices_to={"video_link__isnull": False},
                 null=True,
                 on_delete=django.db.models.deletion.SET_NULL,
                 related_name="video_link",

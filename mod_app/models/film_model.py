@@ -56,7 +56,6 @@ class Film(models.Model):
     video = models.ForeignKey(
         FileLink,
         help_text="Link or upload the video file",
-        limit_choices_to={"video_link__isnull": False},
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
@@ -80,6 +79,12 @@ class Film(models.Model):
         choices=[("V", "Viewable"), ("M", "Master")],
         default="V",
     )
+    FORMAT_CHOICES = {
+        (9.5, "9.5 mm"),
+        (16, "16 mm"),
+        (35, "35 mm"),
+        (70, "70 mm"),
+    }
     format_type = models.CharField(
         max_length=255, blank=True, null=True, verbose_name="format"
     )  # use choices + other
