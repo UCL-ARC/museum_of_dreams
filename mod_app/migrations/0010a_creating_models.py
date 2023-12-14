@@ -148,45 +148,45 @@ class Migration(migrations.Migration):
         #     },
         #     bases=("mod_app.filelink",),
         # ),
-        migrations.CreateModel(
-            name="Source",
-            fields=[
-                (
-                    "link_ptr",
-                    models.OneToOneField(
-                        auto_created=True,
-                        on_delete=django.db.models.deletion.CASCADE,
-                        parent_link=True,
-                        primary_key=True,
-                        serialize=False,
-                        to="mod_app.link",
-                    ),
-                ),
-                ("is_source", models.BooleanField(default=True)),
-            ],
-            options={
-                "verbose_name": "Source",
-            },
-            bases=("mod_app.link",),
-        ),
-        migrations.CreateModel(
-            name="Still",
-            fields=[
-                (
-                    "filelink_ptr",
-                    models.OneToOneField(
-                        auto_created=True,
-                        on_delete=django.db.models.deletion.CASCADE,
-                        parent_link=True,
-                        primary_key=True,
-                        serialize=False,
-                        to="mod_app.filelink",
-                    ),
-                ),
-            ],
-            options={
-                "verbose_name": "Still",
-            },
-            bases=("mod_app.filelink",),
-        ),
+        # migrations.CreateModel(
+        #     name="Source",
+        #     fields=[
+        #         (
+        #             "link_ptr",
+        #             models.OneToOneField(
+        #                 auto_created=True,
+        #                 on_delete=django.db.models.deletion.CASCADE,
+        #                 parent_link=True,
+        #                 primary_key=True,
+        #                 serialize=False,
+        #                 to="mod_app.link",
+        #             ),
+        #         ),
+        #         ("is_source", models.BooleanField(default=True)),
+        #     ],
+        #     options={
+        #         "verbose_name": "Source",
+        #     },
+        #     bases=("mod_app.link",),
+        # ),
+        # migrations.CreateModel(
+        #     name="Still",
+        #     fields=[
+        #         (
+        #             "filelink_ptr",
+        #             models.OneToOneField(
+        #                 auto_created=True,
+        #                 on_delete=django.db.models.deletion.CASCADE,
+        #                 parent_link=True,
+        #                 primary_key=True,
+        #                 serialize=False,
+        #                 to="mod_app.filelink",
+        #             ),
+        #         ),
+        #     ],
+        #     options={
+        #         "verbose_name": "Still",
+        #     },
+        #     bases=("mod_app.filelink",),
+        # ),
     ]
