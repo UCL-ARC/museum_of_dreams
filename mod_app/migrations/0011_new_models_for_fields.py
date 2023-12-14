@@ -228,11 +228,6 @@ class Migration(migrations.Migration):
                 to="mod_app.link",
             ),
         ),
-        migrations.AddField(
-            model_name="film",
-            name="temporary_images",
-            field=models.ImageField(blank=True, upload_to="temp/"),
-        ),
         migrations.RemoveField(
             model_name="film",
             name="additional_links",
