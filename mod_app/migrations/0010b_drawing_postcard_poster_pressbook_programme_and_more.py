@@ -38,11 +38,11 @@ class Migration(migrations.Migration):
         #         verbose_name="Notes on Prints",
         #     ),
         # ),
-        migrations.AddField(
-            model_name="film",
-            name="temporary_images",
-            field=models.ImageField(blank=True, upload_to="temp/"),
-        ),
+        # migrations.AddField(
+        #     model_name="film",
+        #     name="temporary_images",
+        #     field=models.ImageField(blank=True, upload_to="temp/"),
+        # ),
         migrations.RemoveField(
             model_name="analysis",
             name="film",
