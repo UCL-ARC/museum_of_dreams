@@ -29,15 +29,15 @@ class Migration(migrations.Migration):
         #     name="cast",
         #     field=models.TextField(blank=True, null=True),
         # ),
-        migrations.AddField(
-            model_name="film",
-            name="print_comments",
-            field=models.TextField(
-                blank=True,
-                help_text="Optional notes about the print/s",
-                verbose_name="Notes on Prints",
-            ),
-        ),
+        # migrations.AddField(
+        #     model_name="film",
+        #     name="print_comments",
+        #     field=models.TextField(
+        #         blank=True,
+        #         help_text="Optional notes about the print/s",
+        #         verbose_name="Notes on Prints",
+        #     ),
+        # ),
         migrations.AddField(
             model_name="film",
             name="temporary_images",
@@ -103,24 +103,24 @@ class Migration(migrations.Migration):
                 blank=True, help_text="url to the item you'd like to link"
             ),
         ),
-        # migrations.AddField(
-        #     model_name="film",
-        #     name="source",
-        #     field=models.ManyToManyField(
-        #         blank=True,
-        #         help_text="Link to the source material",
-        #         limit_choices_to={"is_source": True},
-        #         related_name="source_link",
-        #         to="mod_app.source",
-        #     ),
-        # ),
-        # migrations.AddField(
-        #     model_name="analysis",
-        #     name="film",
-        #     field=models.ManyToManyField(
-        #         blank=True, related_name="films", to="mod_app.film"
-        #     ),
-        # ),
+        migrations.AddField(
+            model_name="film",
+            name="source",
+            field=models.ManyToManyField(
+                blank=True,
+                help_text="Link to the source material",
+                limit_choices_to={"is_source": True},
+                related_name="source_link",
+                to="mod_app.source",
+            ),
+        ),
+        migrations.AddField(
+            model_name="analysis",
+            name="film",
+            field=models.ManyToManyField(
+                blank=True, related_name="films", to="mod_app.film"
+            ),
+        ),
         migrations.AddField(
             model_name="film",
             name="crew",
