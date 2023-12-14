@@ -6,10 +6,6 @@ if [ -f /var/app/current/manage.py ]; then
     cd current
 
     # Run migrations
-    python manage.py migrate mod_app 0001
-    python manage.py migrate mod_app zero
-    echo `python manage.py showmigrations`
-
     python manage.py migrate
     echo `python manage.py showmigrations`
 
