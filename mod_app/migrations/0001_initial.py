@@ -6,12 +6,20 @@ import django.db.models.deletion
 import mod_app.models.support_models
 
 
+def delete_all_links(apps, schema_editor):
+    Link = apps.get_model("mod_app", "Link")
+    FileLink = apps.get_model("mod_app", "FileLink")
+    Link.objects.all().delete()
+    FileLink.objects.all().delete()
+
+
 class Migration(migrations.Migration):
     initial = True
 
     dependencies = []
 
     operations = [
+        migrations.RunPython(delete_all_links, migrations.RunPython.noop),
         migrations.CreateModel(
             name="Film",
             fields=[
