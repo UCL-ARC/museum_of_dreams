@@ -35,6 +35,7 @@ else:
 urlpatterns = (
     [
         path("grappelli/", include("grappelli.urls")),
+        path("ckeditor/", include("ckeditor_uploader.urls")),
         path("admin/", admin.site.urls, name=admin),
         distill_path(
             "", views.HomeView.as_view(), name="home", distill_file="index.html"
