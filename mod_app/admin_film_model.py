@@ -87,7 +87,7 @@ class FilmAdmin(admin.ModelAdmin):
                     "synopsis",
                     ("source", "genre"),
                     ("cast", "crew"),
-                    "video",
+                    ("video", "bfi_category"),
                 ),
             },
         ),
