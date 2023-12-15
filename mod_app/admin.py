@@ -17,6 +17,15 @@ class AnalysisAdminForm(forms.ModelForm):
         }
 
 
+class TRAnalysisInline(admin.TabularInline):
+    model = Analysis.teaching_resources.through
+    extra = 1
+    classes = [
+        "grp-collapse",
+        "grp-open",
+    ]
+
+
 class TRAdminForm(forms.ModelForm):
     class Meta:
         model = TeachingResources
@@ -73,8 +82,10 @@ class AnalysisAdmin(admin.ModelAdmin):
 @admin.register(TeachingResources)
 class TeachingResourcesAdmin(AnalysisAdmin):
     form = TRAdminForm
+    inlines = [TRAnalysisInline]
     autocomplete_fields = ["films", "topics", "tags"]
     list_display = [
+        "dynamic_title",
         "related_films",
         "list_topics",
         "list_tags",

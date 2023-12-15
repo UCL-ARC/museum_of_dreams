@@ -4,11 +4,31 @@ from django.db import models
 from django.template.defaultfilters import truncatechars_html
 from django.utils.html import format_html
 
+
 from .models import *
+
+
+class FilmAnalysisInline(admin.TabularInline):
+    model = Analysis.films.through
+    extra = 1
+    classes = [
+        "grp-collapse",
+        "grp-open",
+    ]
+
+
+class TRInline(admin.TabularInline):
+    model = TeachingResources.films.through
+    extra = 1
+    classes = [
+        "grp-collapse",
+        "grp-open",
+    ]
 
 
 @admin.register(Film)
 class FilmAdmin(admin.ModelAdmin):
+    inlines = [FilmAnalysisInline, TRInline]
     list_display = [
         "title",
         "temporary_images",
