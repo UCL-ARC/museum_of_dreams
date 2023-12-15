@@ -15,6 +15,7 @@ from mod_app.models import (
     Postcard,
     Poster,
     Drawing,
+    TeachingResources,
 )
 
 
@@ -88,11 +89,27 @@ class TestAnalysis(TestCase):
     def test_analysis_creation(self):
         film = Film.objects.create(title="film title", release_date="1999")
         analysis = Analysis.objects.create(content="long, detailed analysis of film")
-        analysis.film.add(film)
+        tr = TeachingResources.objects.create(title="teaching resource")
+        analysis.films.add(film)
+        analysis.teaching_resources.add(tr)
 
         self.assertTrue(analysis)
         self.assertEqual(analysis.content, "long, detailed analysis of film")
-        self.assertEqual(analysis.film.first(), film)
+        self.assertEqual(analysis.films.first(), film)
+        self.assertEqual(analysis.teaching_resources.first(), tr)
+
+
+class TestTeachingResource(TestCase):
+    def test_tr_creation(self):
+        film = Film.objects.create(title="film title", release_date="1999")
+        analysis = Analysis.objects.create()
+        tr = TeachingResources.objects.create(title="teaching resource")
+        tr.films.add(film)
+        analysis.teaching_resources.add(tr)
+
+        self.assertTrue(tr)
+        self.assertEqual(tr.films.first(), film)
+        self.assertEqual(tr.analysis_tr.first(), analysis)
 
 
 class TestLocation(TestCase):
