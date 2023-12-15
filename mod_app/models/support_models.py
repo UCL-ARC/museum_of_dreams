@@ -84,15 +84,29 @@ class Analysis(models.Model):
         verbose_name_plural = "Analyses"
 
     def __str__(self):
-        return f"Analysis of {self.film}"
+        if self.film:
+            return f"Analysis of {self.film}"
+        else:
+            return self.title
 
-    content = RichTextField(null=True)
+    title = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True,
+        help_text="Optional title for the analysis if you don't want it to be 'Analysis of <<film>>'",
+    )
+
+    content = RichTextField(null=True, blank=True)
 
     film = models.ManyToManyField("Film", related_name="films", blank=True)
 
     topics = models.ManyToManyField(Tag, related_name="topics", blank=True)
 
     tags = models.ManyToManyField(Tag, related_name="analysis_tags", blank=True)
+
+    holdings = models.CharField(max_length=400, blank=True, null=True)
+
+    work_history = models.TextField(blank=True)
 
 
 class Location(models.Model):
