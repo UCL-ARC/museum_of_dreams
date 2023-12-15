@@ -93,7 +93,7 @@ class Analysis(models.Model):
         max_length=255,
         blank=True,
         null=True,
-        help_text="Optional title for the analysis if you don't want it to be 'Analysis of <<film>>'",
+        help_text="Optional title for the analysis if you don't want it to be 'Analysis of (film)'",
     )
 
     content = RichTextField(null=True, blank=True)

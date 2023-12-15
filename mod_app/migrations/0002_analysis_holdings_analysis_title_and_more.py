@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
             name="title",
             field=models.CharField(
                 blank=True,
-                help_text="Optional title for the analysis if you don't want it to be 'Analysis of <<film>>'",
+                help_text="Optional title for the analysis if you don't want it to be 'Analysis of (film)'",
                 max_length=255,
                 null=True,
             ),
