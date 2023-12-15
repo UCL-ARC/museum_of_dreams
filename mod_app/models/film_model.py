@@ -84,10 +84,15 @@ class Film(models.Model):
         (16, "16 mm"),
         (35, "35 mm"),
         (70, "70 mm"),
+        ("other", "Other"),
     }
     format_type = models.CharField(
-        max_length=255, blank=True, null=True, verbose_name="format"
-    )  # use choices + other
+        max_length=5, default="other", verbose_name="format", choices=FORMAT_CHOICES
+    )
+    format_other = models.CharField(
+        max_length=255, blank=True, null=True, help_text="Use this if you chose 'other'"
+    )
+
     is_in_colour = models.BooleanField(
         default=False,
         verbose_name="in colour?",
