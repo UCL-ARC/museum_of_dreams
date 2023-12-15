@@ -83,13 +83,14 @@ from django.utils.html import format_html
 class FilmAdmin(admin.ModelAdmin):
     list_display = [
         "title",
+        "temporary_images",
         "video",
         "alt_titles",
         "release_date",
         "production_country",
         "production_company",
-        "safe_synopsis",  # make as preview
-        "safe_comments",  # make as preview
+        "safe_synopsis",
+        "safe_comments",
     ]
 
     # these fields show html tags from the ckeditor otherwise
@@ -213,3 +214,4 @@ class AnalysisAdminForm(forms.ModelForm):
 @admin.register(Analysis)
 class AnalysisAdmin(admin.ModelAdmin):
     form = AnalysisAdminForm
+    autocomplete_fields = ["film", "topics", "tags"]
