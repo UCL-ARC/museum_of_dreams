@@ -15,7 +15,7 @@
                 <th>Release Date</th>
                 <th>Genre</th>
                 <th>Summary</th>
-                <th>Go to page</th>
+                <th>See in full</th>
             </tr>
         </thead>
         <tbody>
@@ -30,9 +30,9 @@
                         {% endfor %}
                     </td>
                     <td>{{film.summary|truncatewords:50}}</td>
-                    <td><a href="{% url 'film_detail' pk=film.pk %}" target="_blank">
+                    <td><a href="{% url 'film_detail' pk=film.pk %}">
                         <span class="material-symbols-outlined">
-                            open_in_new
+                            open_in_full
                         </span>
                     </a></td>
                 </tr>
