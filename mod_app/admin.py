@@ -121,6 +121,7 @@ class FilmAdmin(admin.ModelAdmin):
         "posters",
         "drawings",
     ]
+    search_fields = ["title", "alt_titles"]
     formfield_overrides = {
         models.TextField: {"widget": CKEditorWidget},
     }
