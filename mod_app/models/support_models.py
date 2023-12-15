@@ -84,8 +84,9 @@ class Analysis(models.Model):
         verbose_name_plural = "Analyses"
 
     def __str__(self):
-        if self.film:
-            return f"Analysis of {self.film}"
+        if self.films:
+            films = self.films.all()
+            return f"Analysis of {films}"
         else:
             return self.title
 
@@ -98,7 +99,7 @@ class Analysis(models.Model):
 
     content = RichTextField(null=True, blank=True)
 
-    film = models.ManyToManyField("Film", related_name="films", blank=True)
+    films = models.ManyToManyField("Film", related_name="films", blank=True)
 
     topics = models.ManyToManyField(Tag, related_name="topics", blank=True)
 

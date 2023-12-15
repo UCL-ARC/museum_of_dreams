@@ -35,4 +35,9 @@ class Migration(migrations.Migration):
             name="content",
             field=ckeditor.fields.RichTextField(blank=True, null=True),
         ),
+        migrations.RenameField(
+            model_name="analysis",
+            old_name="film",
+            new_name="films",
+        ),
     ]

@@ -215,4 +215,36 @@ class AnalysisAdminForm(forms.ModelForm):
 @admin.register(Analysis)
 class AnalysisAdmin(admin.ModelAdmin):
     form = AnalysisAdminForm
-    autocomplete_fields = ["film", "topics", "tags"]
+    autocomplete_fields = ["films", "topics", "tags"]
+    list_display = [
+        "title",
+        "related_films",
+        "list_topics",
+        "list_tags",
+        "safe_content",
+    ]
+
+    def related_films(self, obj):
+        films = obj.films.all()[:3]
+        return ", ".join(str(f) for f in films)
+
+    related_films.short_description = "Films"
+
+    def list_topics(self, obj):
+        topics = obj.topics.all()
+        return ", ".join(str(t) for t in topics)
+
+    list_topics.short_description = "Topics"
+
+    def list_tags(self, obj):
+        tags = obj.tags.all()
+        return ", ".join(str(t) for t in tags)
+
+    list_tags.short_description = "Tags"
+
+    def safe_content(self, obj):
+        truncated_content = truncatechars_html(obj.content, 200)
+        return format_html(truncated_content)
+
+    safe_content.allow_tags = True
+    safe_content.short_description = "Content"
