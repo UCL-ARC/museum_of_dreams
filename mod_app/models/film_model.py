@@ -79,12 +79,12 @@ class Film(models.Model):
         choices=[("V", "Viewable"), ("M", "Master")],
         default="V",
     )
-    FORMAT_CHOICES = {
-        (9.5, "9.5 mm"),
-        (16, "16 mm"),
-        (35, "35 mm"),
-        (70, "70 mm"),
-    }
+    # FORMAT_CHOICES = {
+    #     (9.5, "9.5 mm"),
+    #     (16, "16 mm"),
+    #     (35, "35 mm"),
+    #     (70, "70 mm"),
+    # }
     format_type = models.CharField(
         max_length=255, blank=True, null=True, verbose_name="format"
     )  # use choices + other
