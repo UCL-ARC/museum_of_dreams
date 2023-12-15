@@ -1,4 +1,3 @@
-from ckeditor.fields import RichTextField
 from django.db import models
 
 
@@ -77,37 +76,6 @@ class Poster(FileLink):
 class Drawing(FileLink):
     class Meta:
         verbose_name = "Drawing"
-
-
-class Analysis(models.Model):
-    class Meta:
-        verbose_name_plural = "Analyses"
-
-    def __str__(self):
-        if self.films:
-            films = self.films.all()
-            return f"Analysis of {films}"
-        else:
-            return self.title
-
-    title = models.CharField(
-        max_length=255,
-        blank=True,
-        null=True,
-        help_text="Optional title for the analysis if you don't want it to be 'Analysis of (film)'",
-    )
-
-    content = RichTextField(null=True, blank=True)
-
-    films = models.ManyToManyField("Film", related_name="films", blank=True)
-
-    topics = models.ManyToManyField(Tag, related_name="topics", blank=True)
-
-    tags = models.ManyToManyField(Tag, related_name="analysis_tags", blank=True)
-
-    holdings = models.CharField(max_length=400, blank=True, null=True)
-
-    work_history = models.TextField(blank=True)
 
 
 class Location(models.Model):

@@ -212,17 +212,32 @@ class AnalysisAdminForm(forms.ModelForm):
         }
 
 
+class TRAdminForm(forms.ModelForm):
+    class Meta:
+        model = TeachingResources
+        fields = "__all__"
+        widgets = {
+            "material": forms.Textarea(attrs={"class": "ckeditor"}),
+        }
+
+
 @admin.register(Analysis)
 class AnalysisAdmin(admin.ModelAdmin):
     form = AnalysisAdminForm
-    autocomplete_fields = ["films", "topics", "tags"]
+    autocomplete_fields = ["films", "topics", "tags", "teaching_resources"]
     list_display = [
-        "title",
+        "dynamic_title",
         "related_films",
         "list_topics",
         "list_tags",
         "safe_content",
     ]
+
+    def dynamic_title(self, obj):
+        return obj.__str__()
+
+    dynamic_title.short_description = "Title"
+    dynamic_title.admin_order_field = "title"
 
     def related_films(self, obj):
         films = obj.films.all()[:3]
@@ -248,3 +263,15 @@ class AnalysisAdmin(admin.ModelAdmin):
 
     safe_content.allow_tags = True
     safe_content.short_description = "Content"
+
+
+@admin.register(TeachingResources)
+class TeachingResourcesAdmin(AnalysisAdmin):
+    form = TRAdminForm
+    autocomplete_fields = ["films", "topics", "tags"]
+    list_display = [
+        "related_films",
+        "list_topics",
+        "list_tags",
+    ]
+    search_fields = ["title", "tags", "topics"]

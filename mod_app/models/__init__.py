@@ -1,6 +1,5 @@
 from .film_model import Film
 from .support_models import (
-    Analysis,
     FileLink,
     Link,
     Location,
@@ -14,6 +13,10 @@ from .support_models import (
     Postcard,
     Poster,
     Drawing,
+)
+from .teaching_analysis_models import (
+    Analysis,
+    TeachingResources,
 )
 
 __all__ = [
@@ -32,4 +35,5 @@ __all__ = [
     "Postcard",
     "Poster",
     "Drawing",
+    "TeachingResources",
 ]
