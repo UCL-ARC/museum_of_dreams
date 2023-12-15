@@ -25,7 +25,7 @@ class Analysis(models.Model):
 
     content = RichTextField(null=True, blank=True)
 
-    films = models.ManyToManyField("Film", related_name="analysis_films", blank=True)
+    films = models.ManyToManyField("Film", related_name="analyses", blank=True)
 
     topics = models.ManyToManyField(Tag, related_name="analysis_topics", blank=True)
 
@@ -36,7 +36,7 @@ class Analysis(models.Model):
     work_history = models.TextField(blank=True)
 
     teaching_resources = models.ManyToManyField(
-        "TeachingResources", related_name="analysis_tr", blank=True
+        "TeachingResources", related_name="analyses", blank=True
     )
 
 
@@ -59,7 +59,7 @@ class TeachingResources(models.Model):
     )
     material = RichTextField(null=True, blank=True)
 
-    films = models.ManyToManyField("Film", related_name="tr_films", blank=True)
+    films = models.ManyToManyField("Film", related_name="trs", blank=True)
 
     topics = models.ManyToManyField(Tag, related_name="tr_topics", blank=True)
 

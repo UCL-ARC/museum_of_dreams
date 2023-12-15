@@ -84,6 +84,8 @@ class Location(models.Model):
 
     address = models.CharField(max_length=200)
     # could use a geo package for more specific stuff, might help with google maps
-    associated_films = models.ManyToManyField("Film", blank=True)
+    associated_films = models.ManyToManyField(
+        "Film", blank=True, related_name="locations"
+    )
 
     is_setting = models.BooleanField(default=False)
