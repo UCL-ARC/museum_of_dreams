@@ -1,14 +1,35 @@
 from .film_model import Film
-from .support_models import Actor, Analysis, Copy, Crew, FileLink, Link, Location, Tag
+from .support_models import (
+    Analysis,
+    FileLink,
+    Link,
+    Location,
+    Tag,
+    Script,
+    PressBook,
+    Programme,
+    Publicity,
+    Source,
+    Still,
+    Postcard,
+    Poster,
+    Drawing,
+)
 
 __all__ = [
-    "Actor",
     "Analysis",
-    "Copy",
-    "Crew",
     "FileLink",
     "Film",
     "Link",
     "Location",
     "Tag",
+    "Script",
+    "PressBook",
+    "Programme",
+    "Publicity",
+    "Source",
+    "Still",
+    "Postcard",
+    "Poster",
+    "Drawing",
 ]

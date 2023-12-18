@@ -11,9 +11,12 @@ class Tag(models.Model):
 
 class Link(models.Model):
     def __str__(self):
-        return self.url
+        if self.url:
+            return self.url
+        else:
+            return self.description
 
-    url = models.URLField(blank=True)
+    url = models.URLField(blank=True, help_text="url to the item you'd like to link")
     description = models.CharField(
         max_length=250,
         help_text="short description of what the link is to (optional)",
@@ -22,47 +25,58 @@ class Link(models.Model):
     )
 
 
+class Source(Link):
+    class Meta:
+        verbose_name = "Source"
+
+    is_source = models.BooleanField(default=True)
+
+
 class FileLink(Link):
     def upload_to(instance, filename):
-        return f"files/{instance.related_name}/{filename}"
+        return f"files/{instance.__class__.__name__}/{filename}"
 
     file = models.FileField(upload_to=upload_to, blank=True, null=True)
 
 
-class Copy(Link):
+class Script(FileLink):
     class Meta:
-        verbose_name_plural = "Copies"
+        verbose_name = "Script"
 
-    def __str__(self):
-        if self.name:
-            return self.name
-        else:
-            return super().__str__()
 
-    name = models.CharField(
-        max_length=100,
-        help_text="optional name/title for the copy",
-        blank=True,
-    )
+class PressBook(FileLink):
+    class Meta:
+        verbose_name = "Press Book"
 
-    CONDITION_CHOICES = [
-        ("good", "Good"),
-        ("reasonable", "Reasonable"),
-        ("poor", "Poor"),
-        ("fragile", "Fragile"),
-        ("other", "Other"),
-    ]
 
-    condition = models.CharField(
-        max_length=10,
-        choices=CONDITION_CHOICES,
-        default="reasonable",
-    )
+class Programme(FileLink):
+    class Meta:
+        verbose_name = "Programme"
 
-    condition_comments = models.TextField(
-        help_text="Use this to expand on the condition, particularly if 'Other'",
-        blank=True,
-    )
+
+class Publicity(FileLink):
+    class Meta:
+        verbose_name = "Publicity Material"
+
+
+class Still(FileLink):
+    class Meta:
+        verbose_name = "Still"
+
+
+class Postcard(FileLink):
+    class Meta:
+        verbose_name = "Postcard"
+
+
+class Poster(FileLink):
+    class Meta:
+        verbose_name = "Poster"
+
+
+class Drawing(FileLink):
+    class Meta:
+        verbose_name = "Drawing"
 
 
 class Analysis(models.Model):
@@ -73,45 +87,12 @@ class Analysis(models.Model):
         return f"Analysis of {self.film}"
 
     content = RichTextField(null=True)
-    film = models.ForeignKey(
-        "Film", on_delete=models.DO_NOTHING, related_name="analyses"
-    )
 
+    film = models.ManyToManyField("Film", related_name="films", blank=True)
 
-class Actor(models.Model):
-    def __str__(self):
-        return f"{self.name}"
+    topics = models.ManyToManyField(Tag, related_name="topics", blank=True)
 
-    name = models.CharField(max_length=100)
-    birth_place = models.ForeignKey(
-        "Location", on_delete=models.SET_DEFAULT, default=None, blank=True, null=True
-    )
-    tags = models.ManyToManyField(Tag, related_name="actor_tags", blank=True)
-    about = models.TextField(blank=True)
-
-
-class Crew(models.Model):
-    class Meta:
-        verbose_name_plural = "Crew Members"
-
-    def __str__(self):
-        return f"{self.name}"
-
-    ROLE_CHOICES = [
-        ("Director", "Director"),
-        ("Screenplay", "Screenplay"),
-        ("Scenography", "Scenography"),
-        ("Photography", "Photography"),
-    ]
-
-    name = models.CharField(max_length=100)
-    roles = models.CharField(max_length=255, choices=ROLE_CHOICES, blank=True)
-
-    def get_roles(self):
-        return self.roles.split(",") if self.roles else []
-
-    def set_roles(self, roles):
-        self.roles = ",".join(roles)
+    tags = models.ManyToManyField(Tag, related_name="analysis_tags", blank=True)
 
 
 class Location(models.Model):
@@ -120,7 +101,6 @@ class Location(models.Model):
 
     address = models.CharField(max_length=200)
     # could use a geo package for more specific stuff, might help with google maps
-    associated_actors = models.ManyToManyField("Actor", blank=True)
     associated_films = models.ManyToManyField("Film", blank=True)
 
     is_setting = models.BooleanField(default=False)

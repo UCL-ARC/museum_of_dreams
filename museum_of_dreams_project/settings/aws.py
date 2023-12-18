@@ -5,6 +5,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = False
 
 STATIC_ROOT = "static"
+MEDIA_ROOT = "media"
 
 ENVIRONMENT = "production"
 

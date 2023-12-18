@@ -15,6 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf import settings
+from django.conf.urls import include
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
@@ -31,11 +32,16 @@ else:
     admin.site.site_title = "Museum of Dreams Staging Admin Site"
     admin.site.index_title = "Admin (staging)"
 
-urlpatterns = [
-    path("admin/", admin.site.urls, name=admin),
-    distill_path("", views.HomeView.as_view(), name="home", distill_file="index.html"),
-    distill_path("actors/list", views.ActorListView.as_view(), name="actor_list"),
-    distill_path("actors/<pk>", views.ActorDetailView.as_view(), name="actor_detail"),
-    distill_path("films/list", views.FilmListView.as_view(), name="film_list"),
-    distill_path("films/<pk>", views.FilmDetailView.as_view(), name="film_detail"),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns = (
+    [
+        path("grappelli/", include("grappelli.urls")),
+        path("admin/", admin.site.urls, name=admin),
+        distill_path(
+            "", views.HomeView.as_view(), name="home", distill_file="index.html"
+        ),
+        distill_path("films/list", views.FilmListView.as_view(), name="film_list"),
+        distill_path("films/<pk>", views.FilmDetailView.as_view(), name="film_detail"),
+    ]
+    + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+)
