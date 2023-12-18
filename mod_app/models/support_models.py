@@ -1,3 +1,5 @@
+from uuid import uuid4
+import uuid
 from django.db import models
 
 
@@ -8,7 +10,10 @@ class Tag(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
 
-class Link(models.Model):
+class BaseLinkModel(models.Model):
+    class Meta:
+        abstract = True
+
     def __str__(self):
         if self.url:
             return self.url
@@ -22,20 +27,38 @@ class Link(models.Model):
         blank=True,
         null=True,
     )
+    film = models.ForeignKey(
+        "Film", on_delete=models.CASCADE, related_name="%(class)ss", null=True
+    )
 
 
-class Source(Link):
+class OtherLink(BaseLinkModel):
+    class Meta:
+        verbose_name = "Other Link"
+
+    is_other = models.BooleanField(default=True)
+
+
+class Source(BaseLinkModel):
     class Meta:
         verbose_name = "Source"
 
     is_source = models.BooleanField(default=True)
 
 
-class FileLink(Link):
+class FileLink(BaseLinkModel):
+    class Meta:
+        abstract = True
+
     def upload_to(instance, filename):
         return f"files/{instance.__class__.__name__}/{filename}"
 
     file = models.FileField(upload_to=upload_to, blank=True, null=True)
+
+
+class Video(FileLink):
+    class Meta:
+        verbose_name = "Video"
 
 
 class Script(FileLink):

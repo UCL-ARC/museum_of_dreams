@@ -1,17 +1,7 @@
 from django.db import models
 
 from mod_app.models.support_models import (
-    Drawing,
     FileLink,
-    Link,
-    Postcard,
-    Poster,
-    PressBook,
-    Programme,
-    Publicity,
-    Script,
-    Source,
-    Still,
     Tag,
 )
 
@@ -34,13 +24,13 @@ class Film(models.Model):
 
     synopsis = models.TextField(blank=True)
 
-    source = models.ManyToManyField(
-        Source,
-        help_text="Link to the source material",
-        blank=True,
-        limit_choices_to={"is_source": True},
-        related_name="film_source",
-    )
+    # source = models.ManyToManyField(
+    #     Source,
+    #     help_text="Link to the source material",
+    #     blank=True,
+    #     limit_choices_to={"is_source": True},
+    #     related_name="film_source",
+    # )
     genre = models.ManyToManyField(Tag, related_name="films", blank=True)
 
     bfi_category = models.CharField(
@@ -53,14 +43,14 @@ class Film(models.Model):
     )
     crew = models.TextField(blank=True, null=True, verbose_name="Credits")
 
-    video = models.ForeignKey(
-        FileLink,
-        help_text="Link or upload the video file",
-        blank=True,
-        null=True,
-        on_delete=models.SET_NULL,
-        related_name="film_video",
-    )
+    # video = models.ForeignKey(
+    #     FileLink,
+    #     help_text="Link or upload the video file",
+    #     blank=True,
+    #     null=True,
+    #     on_delete=models.SET_NULL,
+    #     related_name="film_video",
+    # )
 
     # Technical section
 
@@ -106,62 +96,62 @@ class Film(models.Model):
 
     # Non filmic section / extras
 
-    additional_links = models.ManyToManyField(
-        Link,
-        help_text="Links to other things",
-        related_name="other_film_links",
-        blank=True,
-    )
-    scripts = models.ManyToManyField(
-        Script,
-        help_text="Link to or upload script file(s)",
-        related_name="film",
-        blank=True,
-    )
-    press_books = models.ManyToManyField(
-        PressBook,
-        help_text="Link to or upload press book file(s)",
-        related_name="film",
-        blank=True,
-    )
-    programmes = models.ManyToManyField(
-        Programme,
-        help_text="Link to or upload programme file(s)",
-        related_name="film",
-        blank=True,
-    )
-    pub_mat = models.ManyToManyField(
-        Publicity,
-        verbose_name="Publicity Materials",
-        help_text="Link to or upload publicity material file(s)",
-        related_name="film",
-        blank=True,
-    )
+    # additional_links = models.ManyToManyField(
+    #     Link,
+    #     help_text="Links to other things",
+    #     related_name="other_film_links",
+    #     blank=True,
+    # )
+    # scripts = models.ManyToManyField(
+    #     Script,
+    #     help_text="Link to or upload script file(s)",
+    #     related_name="film",
+    #     blank=True,
+    # )
+    # press_books = models.ManyToManyField(
+    #     PressBook,
+    #     help_text="Link to or upload press book file(s)",
+    #     related_name="film",
+    #     blank=True,
+    # )
+    # programmes = models.ManyToManyField(
+    #     Programme,
+    #     help_text="Link to or upload programme file(s)",
+    #     related_name="film",
+    #     blank=True,
+    # )
+    # pub_mat = models.ManyToManyField(
+    #     Publicity,
+    #     verbose_name="Publicity Materials",
+    #     help_text="Link to or upload publicity material file(s)",
+    #     related_name="film",
+    #     blank=True,
+    # )
 
-    stills = models.ManyToManyField(
-        Still,
-        help_text="Link to or upload stills",
-        related_name="film",
-        blank=True,
-    )
-    postcards = models.ManyToManyField(
-        Postcard,
-        help_text="Link to or upload postcards",
-        related_name="film",
-        blank=True,
-    )
-    posters = models.ManyToManyField(
-        Poster,
-        help_text="Link to or upload posters",
-        related_name="film",
-        blank=True,
-    )
-    drawings = models.ManyToManyField(
-        Drawing,
-        help_text="Link to or upload drawings",
-        related_name="film",
-        blank=True,
-    )
+    # stills = models.ManyToManyField(
+    #     Still,
+    #     help_text="Link to or upload stills",
+    #     related_name="film",
+    #     blank=True,
+    # )
+    # postcards = models.ManyToManyField(
+    #     Postcard,
+    #     help_text="Link to or upload postcards",
+    #     related_name="film",
+    #     blank=True,
+    # )
+    # posters = models.ManyToManyField(
+    #     Poster,
+    #     help_text="Link to or upload posters",
+    #     related_name="film",
+    #     blank=True,
+    # )
+    # drawings = models.ManyToManyField(
+    #     Drawing,
+    #     help_text="Link to or upload drawings",
+    #     related_name="film",
+    #     blank=True,
+    # )
 
     comments = models.TextField(blank=True)
     temporary_images = models.TextField(blank=True)

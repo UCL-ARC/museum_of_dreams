@@ -6,7 +6,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("mod_app", "0001_initial"),
+        ("mod_app", "0001c_new_link_models"),
     ]
 
     operations = [

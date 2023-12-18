@@ -1,7 +1,7 @@
 from .film_model import Film
 from .support_models import (
+    BaseLinkModel,
     FileLink,
-    Link,
     Location,
     Tag,
     Script,
@@ -23,7 +23,7 @@ __all__ = [
     "Analysis",
     "FileLink",
     "Film",
-    "Link",
+    "BaseLinkModel",
     "Location",
     "Tag",
     "Script",
