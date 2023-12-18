@@ -1,29 +1,21 @@
 from django.db import models
 from django.test import TestCase
 
-from mod_app.models import Actor, Analysis, Copy, Crew, Film, Link, Location, Tag
-
-
-class TestActor(TestCase):
-    def setUp(self):
-        Actor.objects.create(name="test actor")
-        Film.objects.create(
-            title="test film",
-            release_date=2023,
-        )
-
-    def test_actor_creation(self):
-        actor = Actor.objects.get(name="test actor")
-
-        self.assertTrue(actor)
-        self.assertEqual(actor.name, "test actor")
-
-    def test_actor_film_link(self):
-        actor = Actor.objects.get(name="test actor")
-        film = Film.objects.get(title="test film")
-
-        actor.films.add(film)
-        self.assertQuerySetEqual(film.actors.all(), [actor])
+from mod_app.models import (
+    Analysis,
+    Film,
+    Link,
+    Location,
+    Tag,
+    Script,
+    PressBook,
+    Programme,
+    Publicity,
+    Still,
+    Postcard,
+    Poster,
+    Drawing,
+)
 
 
 class TestTag(TestCase):
@@ -37,42 +29,70 @@ class TestTag(TestCase):
 class TestLink(TestCase):
     def test_link_creation(self):
         url = models.URLField("some_url.com")
-        link = Link.objects.create(path=url, description="testing link creation")
+        link = Link.objects.create(url=url, description="testing link creation")
 
         self.assertTrue(link)
-        self.assertEqual(link.path, url)
+        self.assertEqual(link.url, url)
         self.assertEqual(link.description, "testing link creation")
-        self.assertIsInstance(link.path, models.URLField)
+        self.assertIsInstance(link.url, models.URLField)
 
 
-class TestCopy(TestCase):
-    def test_copy_creation(self):
-        copy = Copy.objects.create(name="test copy")
+from django.core.files.uploadedfile import SimpleUploadedFile
 
-        self.assertTrue(copy)
-        self.assertEqual(copy.name, "test copy")
-        self.assertEqual(copy.condition, "reasonable")
+
+class TestFileLinkModels(TestCase):
+    filelink_models = [
+        Script,
+        PressBook,
+        Programme,
+        Publicity,
+        Still,
+        Postcard,
+        Poster,
+        Drawing,
+    ]
+
+    def create_instance(self, model_class):
+        # Create an instance of the specified model with file, url, and description
+        return model_class.objects.create(
+            file=SimpleUploadedFile(
+                "test_file.txt", b"File content goes here.", content_type="text/plain"
+            ),
+            url="https://example.com",
+            description="A test filelink.",
+        )
+
+    def test_filelink_creation(self):
+        for model_class in self.filelink_models:
+            instance = self.create_instance(model_class)
+
+            self.assertTrue(instance)
+            self.assertEqual(instance.url, "https://example.com")
+            self.assertEqual(instance.description, "A test filelink.")
+
+    def test_upload_to_function(self):
+        for model_class in self.filelink_models:
+            instance = self.create_instance(model_class)
+            expected_path = f"files/{model_class.__name__}/test_file"
+
+            self.assertIn(expected_path, instance.file.name)
+
+    def tearDown(self):
+        for model_class in self.filelink_models:
+            instances = model_class.objects.all()
+            for instance in instances:
+                instance.file.delete()
 
 
 class TestAnalysis(TestCase):
     def test_analysis_creation(self):
         film = Film.objects.create(title="film title", release_date="1999")
-        analysis = Analysis.objects.create(
-            content="long, detailed analysis of film", film=film
-        )
+        analysis = Analysis.objects.create(content="long, detailed analysis of film")
+        analysis.film.add(film)
 
         self.assertTrue(analysis)
         self.assertEqual(analysis.content, "long, detailed analysis of film")
-        self.assertEqual(analysis.film, film)
-
-
-class TestCrew(TestCase):
-    def test_crew_creation(self):
-        crew = Crew.objects.create(name="crew member")
-
-        self.assertTrue(crew)
-        self.assertEqual(crew.name, "crew member")
-        self.assertFalse(crew.roles)
+        self.assertEqual(analysis.film.first(), film)
 
 
 class TestLocation(TestCase):

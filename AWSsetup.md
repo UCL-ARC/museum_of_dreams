@@ -1,4 +1,4 @@
-# Current State of Affairs
+# Current Setup
 
 Currently the AWS system is set up such that:
 
@@ -45,3 +45,20 @@ The advised configurations are `db site` and `mod dev setup with db`. The differ
 As outlined above, production uses the `rds-ec2-1` security group. This should have rules to allow connections for MYSQL from the same security group (this is why we attach it to the RDS instance) and also one of these from the scaling group security group attached to the prod site environment.
 
 The staging security group `ec2-rds-1` follows the same pattern.
+
+
+## Restoring DB instances
+
+If ever you need to spin up a new verison of the db, this should be done from *backups*, **not** snapshots as snapshots do not allow you to set an initial db name, which is necessary for EBS to connect to the RDS.
+
+# Accessing the db through an EC2 shell
+
+The following commands are important to run anytime you have to use the shell to manually run commands (this shouldn't be often!)
+
+```
+cd /var/app
+source venv/staging-LQM1lest/bin/activate
+cd current
+
+export $(/opt/elasticbeanstalk/bin/get-config --output YAML environment |  sed -r 's/: /=/' | xargs)
+```

@@ -1,7 +1,19 @@
 from django.db import models
-from django.db.models.signals import m2m_changed
 
-from mod_app.models.support_models import Copy, FileLink, Link, Tag
+from mod_app.models.support_models import (
+    Drawing,
+    FileLink,
+    Link,
+    Postcard,
+    Poster,
+    PressBook,
+    Programme,
+    Publicity,
+    Script,
+    Source,
+    Still,
+    Tag,
+)
 
 
 class Film(models.Model):
@@ -22,27 +34,32 @@ class Film(models.Model):
 
     synopsis = models.TextField(blank=True)
 
-    source_material = models.OneToOneField(
-        Link,
+    source = models.ManyToManyField(
+        Source,
         help_text="Link to the source material",
         blank=True,
-        null=True,
-        on_delete=models.SET_NULL,
-        related_name="source_material_link",
+        limit_choices_to={"is_source": True},
+        related_name="source_link",
     )
     genre = models.ManyToManyField(Tag, related_name="genres", blank=True)
+
     bfi_category = models.CharField(
         max_length=100, blank=True, null=True
     )  # can use choices if preset
 
-    actors = models.ManyToManyField(
-        "Actor", related_name="films", blank=True, verbose_name="Cast"
+    cast = models.TextField(
+        blank=True,
+        null=True,
     )
-    crew = models.ManyToManyField("Crew", related_name="films", blank=True)
+    crew = models.TextField(blank=True, null=True, verbose_name="Credits")
 
-    intertitle_text = models.CharField(max_length=255, blank=True, null=True)
-    intertitle_photo = models.ImageField(
-        upload_to="images/intertitles/", blank=True, null=True
+    video = models.ForeignKey(
+        FileLink,
+        help_text="Link or upload the video file",
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="video_link",
     )
 
     # Technical section
@@ -50,74 +67,40 @@ class Film(models.Model):
     duration = models.IntegerField(
         blank=True,
         null=True,
-        help_text="Enter the run time in minutes.",
+        help_text="Enter the original run time in minutes.",
     )
     current_length = models.IntegerField(
         blank=True,
         null=True,
-        help_text="Enter the run time in minutes.",
+        help_text="Enter the run time of the BFI copy in minutes.",
     )
-
-    ELEMENT_CHOICES = [
-        ("pos", "Scene positive"),
-        ("ctn", "Negative coutertype"),
-        ("intn", "Internegative"),
-        ("lav", "Intermediate positive scene (lavender)"),
-        ("olay", "Titles"),
-    ]
-
-    element = models.CharField(
-        max_length=4,
-        choices=ELEMENT_CHOICES,
-        default="pos",
-    )
-
     support = models.CharField(
         max_length=1,
-        choices=[("S", "Safety"), ("N", "Nitrate")],
-        default="S",
+        choices=[("V", "Viewable"), ("M", "Master")],
+        default="V",
     )
-
+    # FORMAT_CHOICES = {
+    #     (9.5, "9.5 mm"),
+    #     (16, "16 mm"),
+    #     (35, "35 mm"),
+    #     (70, "70 mm"),
+    # }
     format_type = models.CharField(
         max_length=255, blank=True, null=True, verbose_name="format"
-    )
-
-    rollers = models.IntegerField(
-        blank=True,
-        null=True,
-        verbose_name="Number of rollers",
-    )
-
+    )  # use choices + other
     is_in_colour = models.BooleanField(
         default=False,
         verbose_name="in colour?",
         help_text="Check box in colour and leave blank if black and white (default)",
     )
-    collection = models.CharField(
-        max_length=255,
+    print_comments = models.TextField(
         blank=True,
-        null=True,
-    )  # could do this as choices potentially, maybe put on copy model
-
-    copies = models.ManyToManyField(
-        Copy,
-        help_text="Links to where the copies can be found",
-        related_name="copies",
-        blank=True,
+        help_text="Optional notes about the print/s",
+        verbose_name="Notes on Prints",
     )
-
-    entry_date = models.DateField(blank=True, null=True)  # maybe put on copy model
 
     # Non filmic section / extras
 
-    video = models.OneToOneField(
-        Link,
-        help_text="Link to the video file",
-        blank=True,
-        null=True,
-        on_delete=models.SET_NULL,
-        related_name="video_link",
-    )
     additional_links = models.ManyToManyField(
         Link,
         help_text="Links to other things",
@@ -125,25 +108,25 @@ class Film(models.Model):
         blank=True,
     )
     scripts = models.ManyToManyField(
-        FileLink,
+        Script,
         help_text="Link to or upload script file(s)",
         related_name="scripts",
         blank=True,
     )
     press_books = models.ManyToManyField(
-        FileLink,
+        PressBook,
         help_text="Link to or upload press book file(s)",
         related_name="press_books",
         blank=True,
     )
     programmes = models.ManyToManyField(
-        FileLink,
+        Programme,
         help_text="Link to or upload programme file(s)",
         related_name="programmes",
         blank=True,
     )
     pub_mat = models.ManyToManyField(
-        FileLink,
+        Publicity,
         verbose_name="Publicity Materials",
         help_text="Link to or upload publicity material file(s)",
         related_name="pub_material",
@@ -151,35 +134,29 @@ class Film(models.Model):
     )
 
     stills = models.ManyToManyField(
-        FileLink,
+        Still,
         help_text="Link to or upload stills",
         related_name="stills",
         blank=True,
     )
     postcards = models.ManyToManyField(
-        FileLink,
+        Postcard,
         help_text="Link to or upload postcards",
         related_name="postcards",
         blank=True,
     )
     posters = models.ManyToManyField(
-        FileLink,
+        Poster,
         help_text="Link to or upload posters",
         related_name="posters",
         blank=True,
     )
     drawings = models.ManyToManyField(
-        FileLink,
+        Drawing,
         help_text="Link to or upload drawings",
         related_name="drawings",
         blank=True,
     )
 
-    # archive_id = models.CharField(max_length=20)
-    # archive_company = models.CharField(
-    #     max_length=20
-    # )  # maybe use choices instead if only small selection
-
     comments = models.TextField(blank=True)
-
-    # bibliographies...how?
+    temporary_images = models.ImageField(blank=True, upload_to="temp/")
