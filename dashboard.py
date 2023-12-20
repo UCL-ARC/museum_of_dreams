@@ -18,18 +18,6 @@ class CustomIndexDashboard(Dashboard):
     Custom index dashboard for museumofdream(world)s
     """
 
-    # class Media:
-    #     css = {
-    #         "all": (
-    #             "admin/custom.css",
-    #             # 'css/mystyles.css',
-    #         ),
-    #     }
-    # js = (
-    #     'js/mydashboard.js',
-    #     'js/myscript.js',
-    # )
-
     def init_with_context(self, context):
         site_name = get_admin_site_name(context)
 
@@ -100,7 +88,8 @@ class CustomIndexDashboard(Dashboard):
             )
         )
 
-        # # append another link list module for "support".
+        # # append another link list module for "support"
+        # # this needs some extra setup, possibly Pillow
         # self.children.append(
         #     modules.LinkList(
         #         _("Media Management"),
@@ -139,16 +128,6 @@ class CustomIndexDashboard(Dashboard):
                 ],
             )
         )
-
-        # # append a feed module
-        # self.children.append(
-        #     modules.Feed(
-        #         _("Latest Django News"),
-        #         column=2,
-        #         feed_url="http://www.djangoproject.com/rss/weblog/",
-        #         limit=5,
-        #     )
-        # )
 
         # append a recent actions module
         self.children.append(
