@@ -36,14 +36,10 @@ class OtherLink(BaseLinkModel):
     class Meta:
         verbose_name = "Other Link"
 
-    is_other = models.BooleanField(default=True)
-
 
 class Source(BaseLinkModel):
     class Meta:
         verbose_name = "Source"
-
-    is_source = models.BooleanField(default=True)
 
 
 class FileLink(BaseLinkModel):

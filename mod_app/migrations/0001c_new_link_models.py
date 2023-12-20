@@ -87,7 +87,6 @@ class Migration(migrations.Migration):
                         null=True,
                     ),
                 ),
-                ("is_other", models.BooleanField(default=True)),
                 (
                     "film",
                     models.ForeignKey(
@@ -423,7 +422,6 @@ class Migration(migrations.Migration):
                         null=True,
                     ),
                 ),
-                ("is_source", models.BooleanField(default=True)),
                 (
                     "film",
                     models.ForeignKey(

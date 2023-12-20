@@ -13,6 +13,8 @@ from .support_models import (
     Postcard,
     Poster,
     Drawing,
+    OtherLink,
+    Video,
 )
 from .teaching_analysis_models import (
     Analysis,
@@ -36,4 +38,6 @@ __all__ = [
     "Poster",
     "Drawing",
     "TeachingResources",
+    "OtherLink",
+    "Video",
 ]
