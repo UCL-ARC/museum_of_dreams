@@ -47,7 +47,6 @@ class FilmAdmin(admin.ModelAdmin):
         css = {
             "all": ("admin/css/custom.css",),
         }
-        js = ("admin/js/reclass_inlines.js",)
 
     autocomplete_fields = ["genre"]
     search_fields = ["title", "alt_titles"]
