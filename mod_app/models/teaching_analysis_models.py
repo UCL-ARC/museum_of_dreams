@@ -62,7 +62,7 @@ class TeachingResources(models.Model):
         else:
             return f"Teaching Resource {self.pk}"
 
-    title = title = models.CharField(
+    title = models.CharField(
         max_length=255,
         blank=True,
         null=True,
