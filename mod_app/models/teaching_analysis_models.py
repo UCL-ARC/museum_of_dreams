@@ -41,6 +41,9 @@ class Analysis(models.Model):
 
 
 class TeachingResources(models.Model):
+    class Meta:
+        verbose_name_plural = "Teaching Resources"
+
     def __str__(self):
         if self.title:
             return self.title

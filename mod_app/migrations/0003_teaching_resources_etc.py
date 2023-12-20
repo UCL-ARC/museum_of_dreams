@@ -74,4 +74,8 @@ class Migration(migrations.Migration):
                 null=True,
             ),
         ),
+        migrations.AlterModelOptions(
+            name="teachingresources",
+            options={"verbose_name_plural": "Teaching Resources"},
+        ),
     ]
