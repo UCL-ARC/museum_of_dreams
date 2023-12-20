@@ -14,7 +14,7 @@ from mod_app.admin.link_admin import (
     ProgrammeInline,
     PublicityInline,
     ScriptInline,
-    SourceInlineForm,
+    SourceInline,
     StillInline,
     VideoInline,
 )
@@ -41,45 +41,35 @@ class TRInline(admin.TabularInline):
     ]
 
 
-SourceInlineFormSet = forms.inlineformset_factory(
-    Film, Source, extra=1, fields=["url", "description"]
-)
-
-
-class FilmAdminForm(forms.ModelForm):
-    sources_inline = (
-        SourceInlineFormSet()
-    )  # if this works might need to change the init of the formset to filter for the film instance
-
-    class Meta:
-        model = Film
-        fields = "__all__"
-
-
 @admin.register(Film)
 class FilmAdmin(admin.ModelAdmin):
-    form = FilmAdminForm
+    class Media:
+        css = {
+            "all": ("admin/css/custom.css",),
+        }
+        js = ("admin/js/reclass_inlines.js",)
+
     autocomplete_fields = ["genre"]
     search_fields = ["title", "alt_titles"]
     formfield_overrides = {
         models.TextField: {"widget": CKEditorWidget},
     }
 
-    # inlines = [
-    #     FilmAnalysisInline,
-    #     TRInline,
-    #     # SourceInline,
-    #     OtherLinkInline,
-    #     VideoInline,
-    #     # ScriptInline,
-    #     # PressBookInline,
-    #     ProgrammeInline,
-    #     PublicityInline,
-    #     StillInline,
-    #     PostcardInline,
-    #     PosterInline,
-    #     DrawingInline,
-    # ]
+    inlines = [
+        FilmAnalysisInline,
+        TRInline,
+        SourceInline,
+        OtherLinkInline,
+        VideoInline,
+        ScriptInline,
+        PressBookInline,
+        ProgrammeInline,
+        PublicityInline,
+        StillInline,
+        PostcardInline,
+        PosterInline,
+        DrawingInline,
+    ]
     list_display = [
         "title",
         "temporary_images",
@@ -107,80 +97,70 @@ class FilmAdmin(admin.ModelAdmin):
     safe_comments.allow_tags = True
     safe_comments.short_description = "Comments"
 
-    # fieldsets = (
-    #     (
-    #         "Main Information (Filmic Section)",
-    #         {
-    #             "classes": ("grp-collapse grp-open",),
-    #             "fields": (
-    #                 "title",
-    #                 "alt_titles",
-    #                 "release_date",
-    #                 ("production_country", "production_company"),
-    #                 "synopsis",
-    #                 ("cast", "crew"),
-    #                 ("genre", "bfi_category"),
-    #                 # ("sources", "videos"),
-    #                 # "sources_inline",
-    #             ),
-    #             # "inlines": [SourceInline],
-    #         },
-    #         # SourceInline,
-    #     ),
-    #     (
-    #         "Technical Section",
-    #         {
-    #             "classes": ("grp-collapse grp-open",),
-    #             "fields": (
-    #                 ("duration", "current_length"),
-    #                 ("support", "is_in_colour"),
-    #                 ("format_type", "format_other"),
-    #                 "print_comments",
-    #             ),
-    #         },
-    #     ),
-    #     (
-    #         "Additional Information (non filmic)",
-    #         {
-    #             "classes": ("grp-collapse grp-open",),
-    #             "fields": [],
-    #             # "inlines": [OtherLinkInline],
-    #         },
-    #     ),
-    #     (
-    #         "Printed Materials",
-    #         {
-    #             "classes": ("grp-collapse grp-open",),
-    #             "fields": [],
-    #             # "inlines": [
-    #             #     ScriptInline,
-    #             #     PressBookInline,
-    #             #     ProgrammeInline,
-    #             #     PublicityInline,
-    #             # ],
-    #         },
-    #     ),
-    #     (
-    #         "Visual Resources",
-    #         {
-    #             "classes": ("grp-collapse grp-open",),
-    #             "fields": [],
-    #             # "inlines": [
-    #             #     StillInline,
-    #             #     PostcardInline,
-    #             #     PosterInline,
-    #             #     DrawingInline,
-    #             # ],
-    #         },
-    #     ),
-    #     (
-    #         "Comments and Temporary Images",
-    #         {
-    #             "classes": ("grp-collapse grp-open",),
-    #             "fields": (
-    #                 "comments",
-    #                 "temporary_images",
-    #             ),
-    #         },
-    #     ),
-    # )
+    fieldsets = (
+        (
+            "Main Information (Filmic Section)",
+            {
+                "classes": ("grp-collapse grp-open",),
+                "fields": (
+                    "title",
+                    "alt_titles",
+                    "release_date",
+                    ("production_country", "production_company"),
+                    "synopsis",
+                    ("cast", "crew"),
+                    ("genre", "bfi_category"),
+                ),
+            },
+        ),
+        (None, {"classes": ("placeholder sources-group",), "fields": ()}),
+        (None, {"classes": ("placeholder videos-group",), "fields": ()}),
+        (
+            "Technical Section",
+            {
+                "classes": ("grp-collapse grp-open",),
+                "fields": (
+                    ("duration", "current_length"),
+                    ("support", "is_in_colour"),
+                    ("format_type", "format_other"),
+                    "print_comments",
+                ),
+            },
+        ),
+        (
+            "Printed Materials",
+            {"fields": []},
+        ),
+        (None, {"classes": ("placeholder scripts-group",), "fields": ()}),
+        (None, {"classes": ("placeholder pressbooks-group",), "fields": ()}),
+        (None, {"classes": ("placeholder programmes-group",), "fields": ()}),
+        (None, {"classes": ("placeholder publicitys-group",), "fields": ()}),
+        (
+            "Visual Resources",
+            {"fields": []},
+        ),
+        (None, {"classes": ("placeholder stills-group",), "fields": ()}),
+        (None, {"classes": ("placeholder postcards-group",), "fields": ()}),
+        (None, {"classes": ("placeholder posters-group",), "fields": ()}),
+        (None, {"classes": ("placeholder drawings-group",), "fields": ()}),
+        (
+            "Additional Information (non filmic)",
+            {"fields": []},
+        ),
+        (None, {"classes": ("placeholder otherlinks-group",), "fields": ()}),
+        (None, {"classes": ("placeholder Analysis_films-group",), "fields": ()}),
+        (
+            None,
+            {"classes": ("placeholder TeachingResources_films-group",), "fields": ()},
+        ),
+        (
+            "Comments and Temporary Images",
+            {
+                "classes": ("grp-collapse grp-open",),
+                "fields": (
+                    "comments",
+                    "temporary_images",
+                ),
+            },
+        ),
+    )

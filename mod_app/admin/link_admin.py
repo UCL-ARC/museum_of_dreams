@@ -1,4 +1,3 @@
-from django import forms
 from django.contrib import admin
 from django.forms import inlineformset_factory
 
@@ -6,75 +5,13 @@ from django.forms import inlineformset_factory
 from ..models import *
 
 
-class SourceInlineForm(forms.ModelForm):
-    class Meta:
-        model = Source
-        fields = "__all__"
-
-
-class ScriptInline(forms.ModelForm):
-    class Meta:
-        model = Source
-        fields = "__all__"
-
-
-class PressBookInline(forms.ModelForm):
-    class Meta:
-        model = Source
-        fields = "__all__"
-
-
-class ProgrammeInline(admin.TabularInline):
-    model = Programme
+class SourceInline(admin.TabularInline):
+    model = Source
     extra = 1
     classes = [
+        "inline-inline",
         "grp-collapse",
-        "grp-open",
-    ]
-
-
-class PublicityInline(admin.TabularInline):
-    model = Publicity
-    extra = 1
-    classes = [
-        "grp-collapse",
-        "grp-open",
-    ]
-
-
-class StillInline(admin.TabularInline):
-    model = Still
-    extra = 1
-    classes = [
-        "grp-collapse",
-        "grp-open",
-    ]
-
-
-class PostcardInline(admin.TabularInline):
-    model = Postcard
-    extra = 1
-    classes = [
-        "grp-collapse",
-        "grp-open",
-    ]
-
-
-class PosterInline(admin.TabularInline):
-    model = Poster
-    extra = 1
-    classes = [
-        "grp-collapse",
-        "grp-open",
-    ]
-
-
-class DrawingInline(admin.TabularInline):
-    model = Drawing
-    extra = 1
-    classes = [
-        "grp-collapse",
-        "grp-open",
+        "grp-closed",
     ]
 
 
@@ -82,18 +19,99 @@ class VideoInline(admin.TabularInline):
     model = Video
     extra = 1
     classes = [
+        "inline-inline",
         "grp-collapse",
-        "grp-open",
+        "grp-closed",
     ]
-    insert_after = "bfi_category"
+
+
+class ScriptInline(admin.TabularInline):
+    model = Script
+    extra = 1
+    classes = [
+        "inline-inline",
+        "grp-collapse",
+        "grp-closed",
+    ]
+
+
+class PressBookInline(admin.TabularInline):
+    model = PressBook
+    extra = 1
+    classes = [
+        "inline-inline",
+        "grp-collapse",
+        "grp-closed",
+    ]
+
+
+class ProgrammeInline(admin.TabularInline):
+    model = Programme
+    extra = 1
+    classes = [
+        "inline-inline",
+        "grp-collapse",
+        "grp-closed",
+    ]
+
+
+class PublicityInline(admin.TabularInline):
+    model = Publicity
+    extra = 1
+    classes = [
+        "inline-inline",
+        "grp-collapse",
+        "grp-closed",
+    ]
+
+
+class StillInline(admin.TabularInline):
+    model = Still
+    extra = 1
+    classes = [
+        "inline-inline",
+        "grp-collapse",
+        "grp-closed",
+    ]
+
+
+class PostcardInline(admin.TabularInline):
+    model = Postcard
+    extra = 1
+    classes = [
+        "inline-inline",
+        "grp-collapse",
+        "grp-closed",
+    ]
+
+
+class PosterInline(admin.TabularInline):
+    model = Poster
+    extra = 1
+    classes = [
+        "inline-inline",
+        "grp-collapse",
+        "grp-closed",
+    ]
+
+
+class DrawingInline(admin.TabularInline):
+    model = Drawing
+    extra = 1
+    classes = [
+        "inline-inline",
+        "grp-collapse",
+        "grp-closed",
+    ]
 
 
 class OtherLinkInline(admin.TabularInline):
     model = OtherLink
     extra = 1
     classes = [
+        "inline-inline",
         "grp-collapse",
-        "grp-open",
+        "grp-closed",
     ]
 
 

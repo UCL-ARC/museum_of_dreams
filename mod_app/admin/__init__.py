@@ -7,7 +7,7 @@ from .teaching_analysis_admin import (
     TeachingResourcesAdmin,
 )
 from .link_admin import (
-    SourceInlineForm,
+    SourceInline,
     SourceAdmin,
     ScriptAdmin,
     ScriptInline,
@@ -40,7 +40,7 @@ __all__ = [
     "TRAnalysisInline",
     "TRAdminForm",
     "TeachingResourcesAdmin",
-    "SourceInlineForm",
+    "SourceInline",
     "SourceAdmin",
     "ScriptAdmin",
     "ScriptInline",

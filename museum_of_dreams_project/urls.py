@@ -35,6 +35,7 @@ else:
 urlpatterns = (
     [
         path("grappelli/", include("grappelli.urls")),
+        path("grappelli-docs/", include("grappelli.urls_docs")),
         path("ckeditor/", include("ckeditor_uploader.urls")),
         path("admin/", admin.site.urls, name=admin),
         distill_path(
