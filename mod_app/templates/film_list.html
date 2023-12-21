@@ -11,30 +11,49 @@
         <thead>
             <tr>
                 <th>Title</th>
+                <th>Alternative Titles</th>
                 <th>Starring</th>
                 <th>Release Date</th>
+                <th>Production Country</th>
+                <th>Production Company</th>
                 <th>Genre</th>
                 <th>Summary</th>
-                <th>Go to page</th>
+                {% comment %} <th>Open page</th> {% endcomment %}
             </tr>
         </thead>
         <tbody>
             {% for film in film_list %}
                 <tr>
-                    <td><a href="{% url 'film_detail' pk=film.pk %}">{{film.title}}</a></td>
-                    <td>{{film.cast}}</td>
+                    <td>
+                        {% if film.videos %}
+                            <a href="{{film.videos.first.url}}" target="_blank" class="material-symbols-outlined">
+                                theaters
+                            </a>
+                        {% endif %}
+
+                        <a href="{% url 'film_detail' pk=film.pk %}">{{film.title}}</a>
+                    </td>
+                    <td>{{film.alt_titles | safe}}</td>
+                    <td class="cast">{{film.cast | safe | truncatewords_html:10}}</td>
                     <td>{{film.release_date}}</td>
+                    <td>{{film.production_country}}</td>
+                    <td>{{film.production_company}}</td>
                     <td>
                         {% for g in film.genre.all %}
                             <span class="tag"><span class="dot">•</span>{{g.name}}</span>
                         {% endfor %}
                     </td>
-                    <td>{{film.summary|truncatewords:50}}</td>
-                    <td><a href="{% url 'film_detail' pk=film.pk %}" target="_blank">
+                    <td class="synopsis">{{film.synopsis|safe|truncatewords_html:50}}
+                        <a href="{% url 'film_detail' pk=film.pk %}"> see more
+                            <span class="material-symbols-outlined open-icon">
+                                open_in_full
+                            </span>
+                        </a></td>
+                    {% comment %} <td><a href="{% url 'film_detail' pk=film.pk %}" >
                         <span class="material-symbols-outlined">
-                            open_in_new
+                            open_in_full
                         </span>
-                    </a></td>
+                    </a></td> {% endcomment %}
                 </tr>
             {% endfor %}
         </tbody>

@@ -2,6 +2,7 @@
 @import url("svg-styles.css");
 @import url("palette.css");
 @import url("carousel.css");
+@import url("film.css");
 
 /**************** Google Fonts + MUI **********************/
 /* Gruppo, Josefin Sans, Noto Serif, Open Sans, Playfair Display, Monoton */
@@ -10,29 +11,29 @@
 
 /**************** Engebrechtre Font *******************/
 @font-face {
-	font-family: "Engebrechtre";
-	src: url("../fonts/engebrechtre/engebrechtre_rg.otf") format("opentype");
+  font-family: "Engebrechtre";
+  src: url("../fonts/engebrechtre/engebrechtre_rg.otf") format("opentype");
 }
 @font-face {
-	font-family: "Engebrechtre";
-	font-style: italic;
-	src: url("../fonts/engebrechtre/engebrechtre_rg_it.otf") format("opentype");
+  font-family: "Engebrechtre";
+  font-style: italic;
+  src: url("../fonts/engebrechtre/engebrechtre_rg_it.otf") format("opentype");
 }
 @font-face {
-	font-family: "Engebrechtre";
-	font-style: bold, italic;
-	src: url("../fonts/engebrechtre/engebrechtre_bd_it.otf") format("opentype");
+  font-family: "Engebrechtre";
+  font-style: bold, italic;
+  src: url("../fonts/engebrechtre/engebrechtre_bd_it.otf") format("opentype");
 }
 @font-face {
-	font-family: "Engebrechtre";
-	font-style: bold;
-	src: url("../fonts/engebrechtre/engebrechtre_bd.otf") format("opentype");
+  font-family: "Engebrechtre";
+  font-style: bold;
+  src: url("../fonts/engebrechtre/engebrechtre_bd.otf") format("opentype");
 }
 
 /*************** Standing Room Only Font  **************/
 
 @font-face {
-	font-family: "Standing Room Only";
-	src: url("../fonts/standingroomonly/StandingRoomOnlyNF.otf")
-		format("opentype");
+  font-family: "Standing Room Only";
+  src: url("../fonts/standingroomonly/StandingRoomOnlyNF.otf")
+    format("opentype");
 }
