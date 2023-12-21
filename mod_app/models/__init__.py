@@ -20,9 +20,11 @@ from .teaching_analysis_models import (
     Analysis,
     TeachingResources,
 )
+from bibliography_model import BibliographyItem
 
 __all__ = [
     "Analysis",
+    "BibliographyItem",
     "FileLink",
     "Film",
     "BaseLinkModel",
