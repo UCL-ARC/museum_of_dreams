@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 
 from mod_app.models.support_models import (
     Tag,
@@ -14,6 +15,11 @@ from mod_app.models.support_models import (
     Still,
     Postcard,
 )
+
+
+def validate_format_other(value, format_type):
+    if format_type == "other" and not value:
+        raise ValidationError("Please provide format details; you've selected 'other' ")
 
 
 class Film(models.Model):
@@ -79,10 +85,17 @@ class Film(models.Model):
         ("other", "Other"),
     }
     format_type = models.CharField(
-        max_length=5, default="other", verbose_name="format", choices=FORMAT_CHOICES
+        max_length=5,
+        default="other",
+        verbose_name="format",
+        choices=FORMAT_CHOICES,
     )
     format_other = models.CharField(
-        max_length=255, blank=True, null=True, help_text="Use this if you chose 'other'"
+        max_length=255,
+        blank=True,
+        null=True,
+        help_text="Use this if you chose 'other'",
+        validators=[validate_format_other],
     )
 
     is_in_colour = models.BooleanField(
