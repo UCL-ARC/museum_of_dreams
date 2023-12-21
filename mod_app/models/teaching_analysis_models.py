@@ -4,17 +4,25 @@ from django.db import models
 from mod_app.models.support_models import Tag
 
 
+def display_list(list):
+    if len(list) > 1:
+        display_list = ", ".join(str(f) for f in list[:-1]) + f", and {list[-1]}"
+    else:
+        display_list = str(list[0])
+    return display_list
+
+
 class Analysis(models.Model):
     class Meta:
         verbose_name_plural = "Analyses"
 
     def __str__(self):
-        if self.films:
-            films = self.films.all()
-            flist = ", ".join(str(f) for f in films)
-            return f"Analysis of {flist}"
-        else:
+        if self.title:
             return self.title
+        else:
+            films = self.films.all()
+            flist = display_list(films)
+            return f"Analysis of {flist}"
 
     title = models.CharField(
         max_length=255,
@@ -41,17 +49,20 @@ class Analysis(models.Model):
 
 
 class TeachingResources(models.Model):
+    class Meta:
+        verbose_name_plural = "Teaching Resources"
+
     def __str__(self):
         if self.title:
             return self.title
         elif self.films:
             films = self.films.all()
-            flist = ", ".join(str(f) for f in films)
+            flist = display_list(films)
             return f"Teaching Resources for {flist}"
         else:
             return f"Teaching Resource {self.pk}"
 
-    title = title = models.CharField(
+    title = models.CharField(
         max_length=255,
         blank=True,
         null=True,

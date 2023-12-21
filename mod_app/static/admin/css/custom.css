@@ -1,0 +1,8 @@
+/* custom styling */
+
+.inline-inline {
+  & * {
+    font-size: 92%;
+    padding: 0.1rem;
+  }
+}

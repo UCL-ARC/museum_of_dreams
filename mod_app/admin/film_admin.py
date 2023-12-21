@@ -1,11 +1,26 @@
 from ckeditor.widgets import CKEditorWidget
+from django import forms
 from django.contrib import admin
 from django.db import models
 from django.template.defaultfilters import truncatechars_html
 from django.utils.html import format_html
 
+from mod_app.admin.link_admin import (
+    DrawingInline,
+    OtherLinkInline,
+    PostcardInline,
+    PosterInline,
+    PressBookInline,
+    ProgrammeInline,
+    PublicityInline,
+    ScriptInline,
+    SourceInline,
+    StillInline,
+    VideoInline,
+)
 
-from .models import *
+
+from ..models import *
 
 
 class FilmAnalysisInline(admin.TabularInline):
@@ -28,11 +43,36 @@ class TRInline(admin.TabularInline):
 
 @admin.register(Film)
 class FilmAdmin(admin.ModelAdmin):
-    inlines = [FilmAnalysisInline, TRInline]
+    class Media:
+        css = {
+            "all": ("admin/css/custom.css",),
+        }
+
+    autocomplete_fields = ["genre"]
+    search_fields = ["title", "alt_titles"]
+    formfield_overrides = {
+        models.TextField: {"widget": CKEditorWidget},
+    }
+
+    inlines = [
+        FilmAnalysisInline,
+        TRInline,
+        SourceInline,
+        OtherLinkInline,
+        VideoInline,
+        ScriptInline,
+        PressBookInline,
+        ProgrammeInline,
+        PublicityInline,
+        StillInline,
+        PostcardInline,
+        PosterInline,
+        DrawingInline,
+    ]
     list_display = [
         "title",
         "temporary_images",
-        "video",
+        # "video",
         "alt_titles",
         "release_date",
         "production_country",
@@ -56,24 +96,6 @@ class FilmAdmin(admin.ModelAdmin):
     safe_comments.allow_tags = True
     safe_comments.short_description = "Comments"
 
-    autocomplete_fields = [
-        "genre",
-        "source",
-        "additional_links",
-        "scripts",
-        "press_books",
-        "programmes",
-        "pub_mat",
-        "stills",
-        "postcards",
-        "posters",
-        "drawings",
-        "video",
-    ]
-    search_fields = ["title", "alt_titles"]
-    formfield_overrides = {
-        models.TextField: {"widget": CKEditorWidget},
-    }
     fieldsets = (
         (
             "Main Information (Filmic Section)",
@@ -85,12 +107,13 @@ class FilmAdmin(admin.ModelAdmin):
                     "release_date",
                     ("production_country", "production_company"),
                     "synopsis",
-                    ("source", "genre"),
                     ("cast", "crew"),
-                    ("video", "bfi_category"),
+                    ("genre", "bfi_category"),
                 ),
             },
         ),
+        (None, {"classes": ("placeholder sources-group",), "fields": ()}),
+        (None, {"classes": ("placeholder videos-group",), "fields": ()}),
         (
             "Technical Section",
             {
@@ -104,31 +127,30 @@ class FilmAdmin(admin.ModelAdmin):
             },
         ),
         (
-            "Additional Information (non filmic)",
-            {
-                "classes": ("grp-collapse grp-open",),
-                "fields": ("additional_links",),
-            },
-        ),
-        (
             "Printed Materials",
-            {
-                "classes": ("grp-collapse grp-open",),
-                "fields": (
-                    ("scripts", "press_books"),
-                    ("programmes", "pub_mat"),
-                ),
-            },
+            {"fields": []},
         ),
+        (None, {"classes": ("placeholder scripts-group",), "fields": ()}),
+        (None, {"classes": ("placeholder pressbooks-group",), "fields": ()}),
+        (None, {"classes": ("placeholder programmes-group",), "fields": ()}),
+        (None, {"classes": ("placeholder publicitys-group",), "fields": ()}),
         (
             "Visual Resources",
-            {
-                "classes": ("grp-collapse grp-open",),
-                "fields": (
-                    ("stills", "postcards"),
-                    ("posters", "drawings"),
-                ),
-            },
+            {"fields": []},
+        ),
+        (None, {"classes": ("placeholder stills-group",), "fields": ()}),
+        (None, {"classes": ("placeholder postcards-group",), "fields": ()}),
+        (None, {"classes": ("placeholder posters-group",), "fields": ()}),
+        (None, {"classes": ("placeholder drawings-group",), "fields": ()}),
+        (
+            "Additional Information (non filmic)",
+            {"fields": []},
+        ),
+        (None, {"classes": ("placeholder otherlinks-group",), "fields": ()}),
+        (None, {"classes": ("placeholder Analysis_films-group",), "fields": ()}),
+        (
+            None,
+            {"classes": ("placeholder TeachingResources_films-group",), "fields": ()},
         ),
         (
             "Comments and Temporary Images",

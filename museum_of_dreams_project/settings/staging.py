@@ -6,3 +6,4 @@ DEBUG = True
 ALLOWED_HOSTS = [
     "museumofdreams.eu-west-2.elasticbeanstalk.com",
 ]
+GRAPPELLI_ADMIN_TITLE = "Museum of Dreams"

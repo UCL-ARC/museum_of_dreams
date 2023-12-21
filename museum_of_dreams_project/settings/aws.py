@@ -23,3 +23,4 @@ DATABASES = {
         "PORT": os.environ["RDS_PORT"],
     }
 }
+GRAPPELLI_ADMIN_TITLE = "Museum of Dreamworlds"
