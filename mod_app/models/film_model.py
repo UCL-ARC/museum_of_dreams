@@ -95,7 +95,6 @@ class Film(models.Model):
         blank=True,
         null=True,
         help_text="Use this if you chose 'other'",
-        validators=[validate_format_other],
     )
 
     is_in_colour = models.BooleanField(
@@ -149,3 +148,7 @@ class Film(models.Model):
 
     comments = models.TextField(blank=True)
     temporary_images = models.TextField(blank=True)
+
+    def save(self, *args, **kwargs):
+        validate_format_other(self.format_other, self.format_type)
+        return super().save(*args, **kwargs)

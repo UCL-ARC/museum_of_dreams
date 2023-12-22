@@ -27,15 +27,4 @@ class Migration(migrations.Migration):
                 ("full_citation", ckeditor.fields.RichTextField(null=True)),
             ],
         ),
-        migrations.AlterField(
-            model_name="film",
-            name="format_other",
-            field=models.CharField(
-                blank=True,
-                help_text="Use this if you chose 'other'",
-                max_length=255,
-                null=True,
-                validators=[mod_app.models.film_model.validate_format_other],
-            ),
-        ),
     ]
