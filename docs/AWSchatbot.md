@@ -12,7 +12,7 @@ You can follow the instructions on [AWS for setting up slack chatbot notificatio
 
 You will need to create a SNS topic and a Chatbot client (briefly outlined below) with full details in the instructions mentioned above.
 
-Go to the [Amazon SNS Dashboard](https://eu-west-2.console.aws.amazon.com/sns/v3/home?region=eu-west-2#/dashboard) and select Topics from the lefthand menu. Create a new topic, this is what you'll use to allow the Amazon services to link to the chatbot. A standard type is fine. You will later need to edit the access policy for the codestar service and include the topic ARN but the predefined one should be fine to start. All other settings can be left as is.
+Go to the [Amazon SNS Dashboard](https://eu-west-2.console.aws.amazon.com/sns/v3/home?region=eu-west-2#/dashboard) and select Topics from the lefthand menu. Create a new topic, this is what you'll use to allow the Amazon services to link to the chatbot. A standard type is fine. You will later need to edit the access policy for the codestar service (and any others) but the predefined one should be fine to start. All other settings can be left as is. [This link](https://docs.aws.amazon.com/dtconsole/latest/userguide/set-up-sns.html) has full details on changes to the access policy
 
 
 Go to the [Chatbot Dashboard](https://us-east-2.console.aws.amazon.com/chatbot/home?region=eu-west-2#/chat-clients) and if there are no configured clients for Slack, create a new client configuration for Slack and link it to the channel you've just created, you may need to sign in to Slack.
