@@ -11,50 +11,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name="film",
-            name="additional_links",
-        ),
-        migrations.RemoveField(
-            model_name="film",
-            name="drawings",
-        ),
-        migrations.RemoveField(
-            model_name="film",
-            name="postcards",
-        ),
-        migrations.RemoveField(
-            model_name="film",
-            name="posters",
-        ),
-        migrations.RemoveField(
-            model_name="film",
-            name="press_books",
-        ),
-        migrations.RemoveField(
-            model_name="film",
-            name="programmes",
-        ),
-        migrations.RemoveField(
-            model_name="film",
-            name="pub_mat",
-        ),
-        migrations.RemoveField(
-            model_name="film",
-            name="scripts",
-        ),
-        migrations.RemoveField(
-            model_name="film",
-            name="source",
-        ),
-        migrations.RemoveField(
-            model_name="film",
-            name="stills",
-        ),
-        migrations.RemoveField(
-            model_name="film",
-            name="video",
-        ),
         migrations.CreateModel(
             name="Drawing",
             fields=[
