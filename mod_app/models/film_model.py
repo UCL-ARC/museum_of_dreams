@@ -1,3 +1,4 @@
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 from django.core.exceptions import ValidationError
 
@@ -146,8 +147,8 @@ class Film(models.Model):
     def drawings(self):
         return Drawing.objects.filter(film=self)
 
-    comments = models.TextField(blank=True)
-    temporary_images = models.TextField(blank=True)
+    comments = RichTextUploadingField(blank=True)
+    temporary_images = RichTextUploadingField(blank=True)
 
     def save(self, *args, **kwargs):
         validate_format_other(self.format_other, self.format_type)

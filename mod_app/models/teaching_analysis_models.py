@@ -1,4 +1,4 @@
-from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 
 from mod_app.models.support_models import Tag
@@ -31,7 +31,7 @@ class Analysis(models.Model):
         help_text="Optional title for the analysis if you don't want it to be 'Analysis of (film)'",
     )
 
-    content = RichTextField(null=True, blank=True)
+    content = RichTextUploadingField(null=True, blank=True)
 
     films = models.ManyToManyField("Film", related_name="analyses", blank=True)
 
@@ -68,7 +68,7 @@ class TeachingResources(models.Model):
         null=True,
         help_text="Optional title",
     )
-    material = RichTextField(null=True, blank=True)
+    material = RichTextUploadingField(null=True, blank=True)
 
     films = models.ManyToManyField("Film", related_name="trs", blank=True)
 
