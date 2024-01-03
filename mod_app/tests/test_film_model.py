@@ -8,7 +8,6 @@ class TestFilm(TestCase):
         self.film = Film.objects.create(
             title="test film",
             release_date=2023,
-            format_other="test content",
         )
 
     def test_film_creation(self):

@@ -86,7 +86,7 @@ class Film(models.Model):
     }
     format_type = models.CharField(
         max_length=5,
-        default="other",
+        default=35,
         verbose_name="format",
         choices=FORMAT_CHOICES,
     )
