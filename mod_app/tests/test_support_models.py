@@ -1,5 +1,7 @@
 from django.db import models
 from django.test import TestCase
+from django.core.files.uploadedfile import SimpleUploadedFile
+
 
 from mod_app.models import (
     Analysis,
@@ -15,6 +17,8 @@ from mod_app.models import (
     Poster,
     Drawing,
     TeachingResources,
+    OtherLink,
+    Source,
 )
 
 
@@ -26,18 +30,24 @@ class TestTag(TestCase):
         self.assertEqual(tag.name, "test tag")
 
 
-class TestLink(TestCase):
+class TestBaseLinkModels(TestCase):
+    baselink_models = [OtherLink, Source]
+    url = models.URLField("some-url.com")
+
+    def create_instance(self, model_class):
+        return model_class.objects.create(
+            url=self.url,
+            description="testing links.",
+        )
+
     def test_link_creation(self):
-        url = models.URLField("some_url.com")
-        link = Link.objects.create(url=url, description="testing link creation")
+        for model_class in self.baselink_models:
+            instance = self.create_instance(model_class)
 
-        self.assertTrue(link)
-        self.assertEqual(link.url, url)
-        self.assertEqual(link.description, "testing link creation")
-        self.assertIsInstance(link.url, models.URLField)
-
-
-from django.core.files.uploadedfile import SimpleUploadedFile
+            self.assertTrue(instance)
+            self.assertEqual(instance.url, self.url)
+            self.assertEqual(instance.description, "testing links.")
+            self.assertIsInstance(instance.url, models.URLField)
 
 
 class TestFileLinkModels(TestCase):
@@ -98,7 +108,7 @@ class TestAnalysis(TestCase):
         self.assertEqual(analysis.teaching_resources.first(), tr)
 
 
-class TestTeachingResource(TestCase):
+class TestTeachingResources(TestCase):
     def test_tr_creation(self):
         film = Film.objects.create(title="film title", release_date="1999")
         analysis = Analysis.objects.create()
@@ -108,7 +118,7 @@ class TestTeachingResource(TestCase):
 
         self.assertTrue(tr)
         self.assertEqual(tr.films.first(), film)
-        self.assertEqual(tr.analysis_tr.first(), analysis)
+        self.assertEqual(tr.analyses.first(), analysis)
 
 
 class TestLocation(TestCase):
