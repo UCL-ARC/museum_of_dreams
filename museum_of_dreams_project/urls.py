@@ -44,6 +44,7 @@ urlpatterns = (
             "", views.HomeView.as_view(), name="home", distill_file="index.html"
         ),
         path("favicon.ico", RedirectView.as_view(url="static/admin/img/favicon.ico")),
+        path("mentions-api", views.MentionsApiView.as_view(), name="mentions_api"),
         distill_path("films/list", views.FilmListView.as_view(), name="film_list"),
         distill_path("films/<pk>", views.FilmDetailView.as_view(), name="film_detail"),
     ]

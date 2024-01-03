@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -115,7 +116,16 @@ CKEDITOR_UPLOAD_PATH = "editor/"
 
 CKEDITOR_CONFIGS = {
     "default": {
-        "extraPlugins": "uploadimage",
+        "extraPlugins": "uploadimage,mentions,autocomplete,textmatch,ajax,textwatcher",
+        "mentions": {
+            "feed": "/mentions-api?query={encodedQuery}",
+            "minChars": 2,
+            "itemTemplate": '<li data-id="{{id}}" data-value="{{id}}">{{ full_citation }}</li>',
+            "denotationChar": "@",
+            "denotationCharSubset": "short_citation",
+            "marker": "@",
+        },
+        "uiColor": "#CCEAEE",
     },
 }
 

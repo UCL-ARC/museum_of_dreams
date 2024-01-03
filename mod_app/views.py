@@ -1,6 +1,8 @@
 from django.views.generic import DetailView, ListView, TemplateView
+from django.http import JsonResponse
+from django.views import View
 
-from .models import Film
+from .models import Film, BibliographyItem
 
 
 class HomeView(TemplateView):
@@ -27,3 +29,20 @@ class FilmDetailView(DetailView):
     model = Film
     template_name = "film_detail.html"
     context_object_name = "film"
+
+
+class MentionsApiView(View):
+    def get(self, request, *args, **kwargs):
+        query = request.GET.get("query", "")
+        # search by full citation but return short one
+        queryset = BibliographyItem.objects.filter(full_citation__icontains=query)
+        mentions_data = [
+            {
+                "id": item.id,
+                "short_citation": item.short_citation,
+                "full_citation": item.full_citation,
+            }
+            for item in queryset
+        ]
+        print(mentions_data)
+        return JsonResponse(mentions_data, safe=False)
