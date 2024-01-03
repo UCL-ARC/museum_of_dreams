@@ -82,6 +82,7 @@ class CustomIndexDashboard(Dashboard):
                         models=(
                             "mod_app.models.support_models.OtherLink",
                             "mod_app.models.support_models.Tag",
+                            "mod_app.models.bibliography_model.*",
                         ),
                     ),
                 ],
