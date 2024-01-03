@@ -20,6 +20,8 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 from django_distill import distill_path
+from django.views.generic.base import RedirectView
+
 
 from mod_app import views
 
@@ -41,6 +43,7 @@ urlpatterns = (
         distill_path(
             "", views.HomeView.as_view(), name="home", distill_file="index.html"
         ),
+        path("favicon.ico", RedirectView.as_view(url="static/admin/img/favicon.ico")),
         distill_path("films/list", views.FilmListView.as_view(), name="film_list"),
         distill_path("films/<pk>", views.FilmDetailView.as_view(), name="film_detail"),
     ]
