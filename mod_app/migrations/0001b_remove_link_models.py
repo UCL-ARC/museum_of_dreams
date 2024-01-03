@@ -9,17 +9,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.DeleteModel(name="Link"),
-        migrations.DeleteModel(name="Drawing"),
-        migrations.DeleteModel(name="Postcard"),
-        migrations.DeleteModel(name="Poster"),
-        migrations.DeleteModel(name="PressBook"),
-        migrations.DeleteModel(name="Programme"),
-        migrations.DeleteModel(name="Publicity"),
-        migrations.DeleteModel(name="Script"),
-        migrations.DeleteModel(name="Still"),
-        migrations.DeleteModel(name="Source"),
-        migrations.DeleteModel(name="FileLink"),
         migrations.RemoveField(
             model_name="film",
             name="additional_links",
@@ -64,4 +53,15 @@ class Migration(migrations.Migration):
             model_name="film",
             name="video",
         ),
+        migrations.DeleteModel(name="Link"),
+        migrations.DeleteModel(name="Drawing"),
+        migrations.DeleteModel(name="Postcard"),
+        migrations.DeleteModel(name="Poster"),
+        migrations.DeleteModel(name="PressBook"),
+        migrations.DeleteModel(name="Programme"),
+        migrations.DeleteModel(name="Publicity"),
+        migrations.DeleteModel(name="Script"),
+        migrations.DeleteModel(name="Still"),
+        migrations.DeleteModel(name="Source"),
+        migrations.DeleteModel(name="FileLink"),
     ]
