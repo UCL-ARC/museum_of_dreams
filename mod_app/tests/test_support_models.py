@@ -4,7 +4,6 @@ from django.test import TestCase
 from mod_app.models import (
     Analysis,
     Film,
-    Link,
     Location,
     Tag,
     Script,
