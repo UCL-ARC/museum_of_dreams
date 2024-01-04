@@ -1,6 +1,8 @@
 from django.views.generic import DetailView, ListView, TemplateView
 from django.http import JsonResponse
 from django.views import View
+from django.template.defaultfilters import striptags
+
 
 from .models import Film, BibliographyItem
 
@@ -40,7 +42,9 @@ class MentionsApiView(View):
             {
                 "id": item.id,
                 "short_citation": item.short_citation,
-                "full_citation": item.full_citation,
+                "full_citation": striptags(item.full_citation)
+                .replace("&nbsp;", " ")
+                .replace("&amp;", "&"),  # making plain text
             }
             for item in queryset
         ]

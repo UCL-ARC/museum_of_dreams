@@ -1,5 +1,4 @@
 from ckeditor.widgets import CKEditorWidget
-from django import forms
 from django.contrib import admin
 from django.db import models
 from django.template.defaultfilters import truncatechars_html
@@ -18,6 +17,7 @@ from mod_app.admin.link_admin import (
     StillInline,
     VideoInline,
 )
+from ..views import MentionsApiView
 
 
 from ..models import *
@@ -47,11 +47,16 @@ class FilmAdmin(admin.ModelAdmin):
         css = {
             "all": ("admin/css/custom.css",),
         }
+        js = ("admin/js/mentionsPluginConfig.js",)
 
     autocomplete_fields = ["genre"]
     search_fields = ["title", "alt_titles"]
     formfield_overrides = {
-        models.TextField: {"widget": CKEditorWidget},
+        models.TextField: {
+            "widget": CKEditorWidget(
+                extra_plugins=["mentions"],
+            ),
+        },
     }
 
     inlines = [

@@ -1,3 +1,4 @@
+from ckeditor.widgets import CKEditorWidget
 from django import forms
 from django.contrib import admin
 from django.template.defaultfilters import truncatechars_html
@@ -13,7 +14,7 @@ class AnalysisAdminForm(forms.ModelForm):
         model = Analysis
         fields = "__all__"
         widgets = {
-            "content": forms.Textarea(attrs={"class": "ckeditor"}),
+            "content": CKEditorWidget(),
         }
 
 
@@ -31,12 +32,18 @@ class TRAdminForm(forms.ModelForm):
         model = TeachingResources
         fields = "__all__"
         widgets = {
-            "material": forms.Textarea(attrs={"class": "ckeditor"}),
+            "material": CKEditorWidget(),
         }
 
 
 @admin.register(Analysis)
 class AnalysisAdmin(admin.ModelAdmin):
+    class Media:
+        css = {
+            "all": ("admin/css/custom.css",),
+        }
+        js = ("admin/js/mentionsPluginConfig.js",)
+
     form = AnalysisAdminForm
     autocomplete_fields = ["films", "topics", "tags", "teaching_resources"]
     list_display = [
@@ -81,6 +88,12 @@ class AnalysisAdmin(admin.ModelAdmin):
 
 @admin.register(TeachingResources)
 class TeachingResourcesAdmin(AnalysisAdmin):
+    class Media:
+        css = {
+            "all": ("admin/css/custom.css",),
+        }
+        js = ("admin/js/mentionsPluginConfig.js",)
+
     form = TRAdminForm
     inlines = [TRAnalysisInline]
     autocomplete_fields = ["films", "topics", "tags"]

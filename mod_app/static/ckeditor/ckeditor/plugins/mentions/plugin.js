@@ -3,8 +3,6 @@
  * CKEditor 4 LTS ("Long Term Support") is available under the terms of the Extended Support Model.
  */
 
-"use strict";
-
 (function () {
   CKEDITOR._.mentions = {
     cache: {},
@@ -58,7 +56,6 @@
    */
   function Mentions(editor, config) {
     var feed = config.feed;
-
     /**
      * Indicates that a mentions instance is case-sensitive for simple items feed, i.e. an array feed.
      *
@@ -266,6 +263,7 @@
 
         CKEDITOR.ajax.load(encodedUrl, function (data) {
           var items = JSON.parse(data);
+          console.log("items from feed:", items);
 
           // Cache URL responses for performance improvement (#1969).
           if (mentions.cache && items !== null) {
