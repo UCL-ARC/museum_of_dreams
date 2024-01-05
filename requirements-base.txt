@@ -4,6 +4,7 @@ asdf-transform-schemas==0.3.0
 asdf-unit-schemas==0.1.0
 asgiref==3.7.2
 attrs==23.1.0
+beautifulsoup4==4.12.2
 black==22.12.0
 blinker==1.6.2
 certifi==2023.7.22

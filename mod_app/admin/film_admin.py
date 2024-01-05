@@ -101,6 +101,7 @@ class FilmAdmin(admin.ModelAdmin):
     safe_comments.allow_tags = True
     safe_comments.short_description = "Comments"
 
+    readonly_fields = ("bibliography",)
     fieldsets = (
         (
             "Main Information (Filmic Section)",
@@ -165,6 +166,14 @@ class FilmAdmin(admin.ModelAdmin):
                     "comments",
                     "temporary_images",
                 ),
+            },
+        ),
+        (
+            "Bibliography",
+            {
+                "classes": ("grp-collapse",),
+                "fields": ("bibliography",),
+                "description": "Note: This section updates on save, and some items may not be visible immediately.",
             },
         ),
     )

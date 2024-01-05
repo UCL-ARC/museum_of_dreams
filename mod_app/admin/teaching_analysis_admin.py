@@ -46,6 +46,7 @@ class AnalysisAdmin(admin.ModelAdmin):
 
     form = AnalysisAdminForm
     autocomplete_fields = ["films", "topics", "tags", "teaching_resources"]
+    readonly_fields = ("bibliography",)
     list_display = [
         "dynamic_title",
         "related_films",

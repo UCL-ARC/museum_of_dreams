@@ -16,6 +16,8 @@ from mod_app.models.support_models import (
     Still,
     Postcard,
 )
+from .bibliography_model import BibliographyItem
+from mod_app.utils.extract_citations import update_bibliography
 
 
 def validate_format_other(value, format_type):
@@ -150,6 +152,10 @@ class Film(models.Model):
     comments = RichTextUploadingField(blank=True)
     temporary_images = RichTextUploadingField(blank=True)
 
+    bibliography = models.ManyToManyField(BibliographyItem, related_name="films")
+
     def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
         validate_format_other(self.format_other, self.format_type)
-        return super().save(*args, **kwargs)
+
+        update_bibliography(self, self.print_comments)
