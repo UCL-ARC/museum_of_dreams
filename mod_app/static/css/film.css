@@ -96,7 +96,7 @@
     content: "";
     position: absolute;
     left: 7px;
-    height: 85%;
+    height: 90%;
     width: 2px;
     background-color: var(--cream);
   }
@@ -110,6 +110,6 @@
 
 .tab-content {
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--cream);
   margin-left: 20vw;
 }

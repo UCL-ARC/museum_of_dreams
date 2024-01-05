@@ -112,13 +112,29 @@ footer {
 .drawer {
   position: fixed;
   top: 0;
-  right: -300px; /* Set initial position off-screen */
-  width: 300px;
+  right: -30vw; /* Set initial position off-screen */
+  width: 30vw;
   height: 100%;
-  background-color: #f0f0f0;
+  background-color: var(--dark-grey);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   transition: right 0.3s ease;
-  padding: 20px;
+  padding: 0.2rem;
+
+  #drawer__button--close {
+    background-color: var(--dark-grey);
+    border: 1px solid var(--blood-red);
+    color: var(--cream);
+    float: right;
+    font-size: 70%;
+  }
+  .drawer__list-nav {
+    margin-top: 1.5rem;
+    list-style-type: none;
+    padding-left: 0.5rem;
+    > li {
+      margin-bottom: 1.5rem;
+    }
+  }
 }
 
 .drawer.open {
@@ -207,4 +223,8 @@ footer {
   background-position: 0 var(--size), top left, 0 calc(100% - var(--size)),
     bottom left, 0 var(--size);
   padding: calc(var(--size) * 2) calc(var(--size) * 1.5);
+}
+
+.no-list-style {
+  list-style-type: none;
 }

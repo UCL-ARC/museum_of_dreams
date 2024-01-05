@@ -29,5 +29,5 @@ def extract_short_citations(field):
         if tag.text.strip() in existing_short_citations
     ]
 
-    print("matching short citations found:", matching_tags)
+    # print("matching short citations found:", matching_tags)
     return matching_tags

@@ -59,45 +59,57 @@
                 </span>
                 <div class="drawer" id="drawer">
                     <!-- Content of your drawer goes here -->
-                    <p>This is the drawer content.</p>
+                    <button id="drawer__button--close">x</button>
+                    <ul class="drawer__list-nav">
+                        <li>
+                            <a href="{% url 'film_list' %}">
+                                Films</a></li>
+                        <li><a href="{% url 'analysis_list' %}">
+                            Analyses: Critical Essays and Discussions</a></li>
+                        <li><a href="{% url 'bibliography' %}">
+                            Bibliography</a><?li>
+                            <li><a href="{% url 'tr_list' %}">
+                                Teaching Resources Available</a></li>
+                        </ul>
+
+                    </div>
                 </div>
             </div>
-        </div>
 
-        {% block heading %}
-        {% endblock %}
+            {% block heading %}
+            {% endblock %}
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        <main>
-            {% block content %}
-            {% endblock %}
-        </main>
-        <script src="" async defer></script>
-        <script type="module" src="{% static 'js/main.js' %}"></script>
-    </body>
-    <footer class="filmstrip">
-        <a href="{% url 'home' %}">
-            <div class="footer__logo-svg">
-                {% include 'svgs/logo_stacked_film.svg' %}
+            <main>
+                {% block content %}
+                {% endblock %}
+            </main>
+            <script src="" async defer></script>
+            <script type="module" src="{% static 'js/main.js' %}"></script>
+        </body>
+        <footer class="filmstrip">
+            <a href="{% url 'home' %}">
+                <div class="footer__logo-svg">
+                    {% include 'svgs/logo_stacked_film.svg' %}
+                </div>
+            </a>
+            <div class="footer__nav">
+                <ul class="footer__nav--top-row">
+                    <li><h5>Explore</h5></li>
+                    <li><a href="{% url 'film_list' %}">Films</a></li>
+                    <li><a href="#">Search</a></li>
+                </ul>
+
+                <ul class="footer__nav--bottom-row">
+                    <li><h5>About</h5></li>
+                    <li><a href="#">About us</a></li>
+                    <li><a href="#">Blog </a></li>
+                    <li><a href="#">Collaborators</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+
+
             </div>
-        </a>
-        <div class="footer__nav">
-            <ul class="footer__nav--top-row">
-                <li><h5>Explore</h5></li>
-                <li><a href="{% url 'film_list' %}">Films</a></li>
-                <li><a href="#">Search</a></li>
-            </ul>
-
-            <ul class="footer__nav--bottom-row">
-                <li><h5>About</h5></li>
-                <li><a href="#">About us</a></li>
-                <li><a href="#">Blog </a></li>
-                <li><a href="#">Collaborators</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-
-
-        </div>
-    </footer>
-</html>
+        </footer>
+    </html>

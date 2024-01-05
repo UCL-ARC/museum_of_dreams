@@ -121,7 +121,11 @@
             </div>
 
             <div id="bibliography-content" class="tab-content-item" hidden>
-                {% comment %} essays and other links {% endcomment %}
+                <ul>
+                    {% for item in film.bibliography.all %}
+                        <li>{{item.full_citation|safe}}</li>
+                    {% endfor %}
+                </ul>
             </div>
 
         </div>

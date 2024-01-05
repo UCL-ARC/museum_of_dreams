@@ -1,10 +1,11 @@
+from typing import Any
 from django.views.generic import DetailView, ListView, TemplateView
 from django.http import JsonResponse
 from django.views import View
 from django.template.defaultfilters import striptags
 
 
-from .models import Film, BibliographyItem
+from .models import Film, BibliographyItem, Analysis, TeachingResources
 
 
 class HomeView(TemplateView):
@@ -49,3 +50,33 @@ class MentionsApiView(View):
             for item in queryset
         ]
         return JsonResponse(mentions_data, safe=False)
+
+
+class AnalysisListView(ListView):
+    model = Analysis
+    template_name = "analysis_list.html"
+    paginate_by = 20
+
+
+class AnalysisDetailView(DetailView):
+    model = Analysis
+    template_name = "analysis_detail.html"
+    context_object_name = "analysis"
+
+
+class TRListView(ListView):
+    model = TeachingResources
+    template_name = "tr_list.html"
+    paginate_by = 20
+
+
+class TRDetailView(DetailView):
+    model = TeachingResources
+    template_name = "tr_detail.html"
+    context_object_name = "tr"
+
+
+class BibliographyListView(ListView):
+    model = BibliographyItem
+    template_name = "bibliography.html"
+    paginate_by = 20

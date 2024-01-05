@@ -45,8 +45,42 @@ urlpatterns = (
         ),
         path("favicon.ico", RedirectView.as_view(url="static/admin/img/favicon.ico")),
         path("mentions-api", views.MentionsApiView.as_view(), name="mentions_api"),
-        distill_path("films/list", views.FilmListView.as_view(), name="film_list"),
-        distill_path("films/<pk>", views.FilmDetailView.as_view(), name="film_detail"),
+        # website pages
+        distill_path(
+            "films/list",
+            views.FilmListView.as_view(),
+            name="film_list",
+        ),
+        distill_path(
+            "films/<pk>",
+            views.FilmDetailView.as_view(),
+            name="film_detail",
+        ),
+        distill_path(
+            "analyses/list",
+            views.AnalysisListView.as_view(),
+            name="analysis_list",
+        ),
+        distill_path(
+            "analyses/<pk>",
+            views.AnalysisDetailView.as_view(),
+            name="analysis_detail",
+        ),
+        distill_path(
+            "teaching-resources/list",
+            views.TRListView.as_view(),
+            name="tr_list",
+        ),
+        distill_path(
+            "teaching-resources/<pk>",
+            views.TRDetailView.as_view(),
+            name="tr_detail",
+        ),
+        distill_path(
+            "bibliography",
+            views.BibliographyListView.as_view(),
+            name="bibliography",
+        ),
     ]
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
