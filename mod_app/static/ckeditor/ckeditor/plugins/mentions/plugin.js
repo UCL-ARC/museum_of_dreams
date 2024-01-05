@@ -263,7 +263,6 @@
 
         CKEDITOR.ajax.load(encodedUrl, function (data) {
           var items = JSON.parse(data);
-          console.log("items from feed:", items);
 
           // Cache URL responses for performance improvement (#1969).
           if (mentions.cache && items !== null) {

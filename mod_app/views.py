@@ -48,5 +48,4 @@ class MentionsApiView(View):
             }
             for item in queryset
         ]
-        print(mentions_data)
         return JsonResponse(mentions_data, safe=False)
