@@ -13,7 +13,9 @@ class Migration(migrations.Migration):
             model_name="analysis",
             name="bibliography",
             field=models.ManyToManyField(
-                related_name="analyses", to="mod_app.bibliographyitem"
+                related_name="analyses",
+                to="mod_app.bibliographyitem",
+                help_text="This field updates on save, and some items may not be visible immediately",
             ),
         ),
         migrations.AddField(
@@ -27,7 +29,9 @@ class Migration(migrations.Migration):
             model_name="teachingresources",
             name="bibliography",
             field=models.ManyToManyField(
-                related_name="teaching_resources", to="mod_app.bibliographyitem"
+                related_name="teaching_resources",
+                to="mod_app.bibliographyitem",
+                help_text="This field updates on save, and some items may not be visible immediately",
             ),
         ),
     ]
