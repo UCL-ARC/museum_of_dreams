@@ -3,12 +3,15 @@ from ..models.bibliography_model import BibliographyItem
 
 
 def update_bibliography(self, field):
-    short_citations = extract_short_citations(field)
-    # for each citation found add the bit item to the bibliography
-    for short_citation in short_citations:
-        bibitem = BibliographyItem.objects.filter(short_citation=short_citation).first()
-        if bibitem:
-            self.bibliography.add(bibitem)
+    if field:
+        short_citations = extract_short_citations(field)
+        # for each citation found add the bit item to the bibliography
+        for short_citation in short_citations:
+            bibitem = BibliographyItem.objects.filter(
+                short_citation=short_citation
+            ).first()
+            if bibitem:
+                self.bibliography.add(bibitem)
 
 
 def extract_short_citations(field):
