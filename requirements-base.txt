@@ -8,7 +8,6 @@ beautifulsoup4==4.12.2
 black==22.12.0
 blinker==1.6.2
 boto3==1.34.13
-botocore==1.34.13
 certifi==2023.7.22
 cffi==1.15.1
 cfgv==3.3.1
