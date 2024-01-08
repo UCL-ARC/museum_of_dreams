@@ -1,8 +1,6 @@
 from django.db import models
 from ckeditor.fields import RichTextField
 
-from mod_app.models import *
-
 
 class BibliographyItem(models.Model):
     """These should be automatically added to relevant bibliographies by the extract_citations.py file"""
