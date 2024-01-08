@@ -20,6 +20,7 @@ class TestBibliographyItems(TestCase):
         self.film = Film.objects.create(
             title="test film",
             print_comments=f"This is a test citation <strong>{self.bib_item2.short_citation}</strong>",
+            release_date=2020,
         )
 
     def test_bib_item_creation(self):
