@@ -99,7 +99,7 @@ class FilmAdmin(admin.ModelAdmin):
     safe_comments.short_description = "Comments"
 
     def preview_video(self, obj):
-        if obj.videos:
+        if obj.videos.first():
             if obj.videos.first().file:
                 return format_html(
                     '<video width="150" height="120" controls><source src="{}" type="video/mp4"></video>',
