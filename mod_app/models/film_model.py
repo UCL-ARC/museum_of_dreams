@@ -154,8 +154,11 @@ class Film(models.Model):
 
     bibliography = models.ManyToManyField(BibliographyItem, related_name="films")
 
+    def clean(self, *args, **kwargs):
+        super().clean(*args, **kwargs)
+        validate_format_other(self.format_other, self.format_type)
+
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        validate_format_other(self.format_other, self.format_type)
 
         update_bibliography(self, self.print_comments)
