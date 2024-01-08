@@ -1,4 +1,4 @@
-name: JSHint
+name: ESLint
 
 on:
   push:
@@ -6,20 +6,18 @@ on:
   pull_request:
 
 jobs:
-  jshint:
+  eslint:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 14
+      - name: Install dependencies
+        run: npm install
 
-    - name: Install JSHint
-      run: npm install jshint --save-dev
-
-    - name: Run JSHint
-      run: npx jshint .
+      - name: Run ESLint
+        run: npx eslint .
