@@ -73,7 +73,7 @@ tifffile==2023.8.12
 tomli==2.0.1
 typing_extensions==4.8.0
 tzdata==2023.3
-urllib3==2.0.4
+urllib3==1.26.7
 virtualenv==20.17.1
 Werkzeug==2.3.7
 WTForms==3.0.1
