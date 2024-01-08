@@ -74,7 +74,7 @@ class FilmAdmin(admin.ModelAdmin):
     list_display = [
         "title",
         "temporary_images",
-        # "video",
+        "preview_video",
         "alt_titles",
         "release_date",
         "production_country",
@@ -97,6 +97,22 @@ class FilmAdmin(admin.ModelAdmin):
 
     safe_comments.allow_tags = True
     safe_comments.short_description = "Comments"
+
+    def preview_video(self, obj):
+        if obj.videos:
+            if obj.videos.first().file:
+                return format_html(
+                    '<video width="150" height="120" controls><source src="{}" type="video/mp4"></video>',
+                    obj.videos.first().file.url,
+                )
+            else:
+                return format_html(
+                    '<video width="150" height="120" controls ><source src="{}" type="video/mp4"></video>',
+                    obj.videos.first(),
+                )
+            # previously tried to use youtube but that seems to be more tricky than expected and may not be used
+        else:
+            return "-"
 
     readonly_fields = ("bibliography",)
     fieldsets = (
