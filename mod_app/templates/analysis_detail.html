@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ analysis.title }} (Analysis) {% endblock %}
+{% block content %}
+    <div class="content-wrapper">
+        <div class="columnar-area">
+            <div>
+                <button>Download PDF</button>
+            </div>
+            <div id="analysis-info">
+                <div id="topics">
+                </div>
+                <div id="tags">
+                </div>
+                <div id="holdings">
+                </div>
+                <div id="work-history">
+                </div>
+
+            </div>
+
+            <div id="analyses">
+            {% comment %} stack of analyses that can be navigated through? viewed one would need to be the current one, the other info would need to update as well {% endcomment %}
+            </div>
+
+            <div id="bibliography">
+            {% comment %} this should expand on click for easier reading {% endcomment %}
+            </div>
+
+        </div>
+        <div class="related-items">
+            <div id="teaching-resources">
+            </div>
+            <div id="films">
+            </div>
+        </div>
+    </div>
+{% endblock %}

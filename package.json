@@ -1,0 +1,30 @@
+{
+  "name": "museum_of_dreams_project",
+  "version": "1.0.0",
+  "description": "The production website is hosted at http://museumofdreamworlds.eu-west-2.elasticbeanstalk.com/ and built from the `main` branch",
+  "directories": {
+    "doc": "docs"
+  },
+  "dependencies": {
+    "fuse.js": "^7.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.56.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UCL-ARC/museum_of_dreams.git"
+  },
+  "keywords": [
+    "film"
+  ],
+  "author": "Amanda Ho-Lyn",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/UCL-ARC/museum_of_dreams/issues"
+  },
+  "homepage": "https://github.com/UCL-ARC/museum_of_dreams#readme"
+}

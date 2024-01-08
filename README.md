@@ -38,6 +38,8 @@ python manage.py test mod_app/tests
 
 ### See these other files for recreating the setup etc.
 
-#### [Setting up from scratch](settingUp.md)
+#### [Setting up from scratch](docs/fullSetup.md)
 
-#### [Current AWS Settings](AWSsetup.md)
+#### [Current AWS Settings](docs/AWScurrentSetup.md)
+
+#### [AWS chatbot](docs/AWSchatbot.md)

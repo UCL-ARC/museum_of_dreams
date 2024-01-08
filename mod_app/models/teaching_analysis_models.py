@@ -1,7 +1,10 @@
-from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 
-from mod_app.models.support_models import Tag
+from ..utils.extract_citations import update_bibliography
+
+from .support_models import Tag
+from .bibliography_model import BibliographyItem
 
 
 def display_list(list):
@@ -31,7 +34,7 @@ class Analysis(models.Model):
         help_text="Optional title for the analysis if you don't want it to be 'Analysis of (film)'",
     )
 
-    content = RichTextField(null=True, blank=True)
+    content = RichTextUploadingField(null=True, blank=True)
 
     films = models.ManyToManyField("Film", related_name="analyses", blank=True)
 
@@ -46,6 +49,16 @@ class Analysis(models.Model):
     teaching_resources = models.ManyToManyField(
         "TeachingResources", related_name="analyses", blank=True
     )
+    bibliography = models.ManyToManyField(
+        BibliographyItem,
+        related_name="analyses",
+        help_text="This field updates on save, and some items may not be visible immediately",
+    )
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        update_bibliography(self, self.content)
 
 
 class TeachingResources(models.Model):
@@ -68,10 +81,21 @@ class TeachingResources(models.Model):
         null=True,
         help_text="Optional title",
     )
-    material = RichTextField(null=True, blank=True)
+    material = RichTextUploadingField(null=True, blank=True)
 
     films = models.ManyToManyField("Film", related_name="trs", blank=True)
 
     topics = models.ManyToManyField(Tag, related_name="tr_topics", blank=True)
 
     tags = models.ManyToManyField(Tag, related_name="tr_tags", blank=True)
+
+    bibliography = models.ManyToManyField(
+        BibliographyItem,
+        related_name="teaching_resources",
+        help_text="This field updates on save, and some items may not be visible immediately",
+    )
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        update_bibliography(self, self.material)

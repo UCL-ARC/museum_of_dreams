@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans 'Analyses' %} {% endblock %}
+{% block content %}
+
+
+    <h3>
+        Critical discussions and essays on this site
+    </h3>
+
+
+    <div class="card-area">
+        {% for analysis in analysis_list %}
+            <div class="card card--analysis">
+                <h4 class="card__heading"><a href="{% url 'analysis_detail' pk=analysis.pk %}">{{analysis.title}}</a></h4>
+                <div class="card__info">
+                    <dl>
+                        <dt>{{analysis.content|safe|truncatewords:50}} </dt>
+                        <dt>Topics:</dt>
+                        {% for topic in analysis.topics.all %}
+                            <dd class="tag"><span class="dot">•</span>{{topic.name}}</dd>
+                        {% endfor %}
+                        <dt>Tags:</dt>
+                        {% for tag in analysis.tags.all %}
+                            <dd class="tag"><span class="dot">•</span>{{tag.name}}</dd>
+                        {% endfor %}
+                        <dt>Related films:</dt>
+                        {% for film in analysis.films.all %}
+                            <dd>{{film.title}}</dd>
+                        {% endfor %}
+                    </dl>
+                    <button href="{% url 'analysis_detail' pk=analysis.pk %}"> view full details </button>
+                </div>
+
+        {% endfor %}
+
+
+{% endblock %}

@@ -24,13 +24,13 @@ class Migration(migrations.Migration):
             name="format_type",
             field=models.CharField(
                 choices=[
-                    (35, "35 mm"),
-                    (16, "16 mm"),
-                    (70, "70 mm"),
                     (9.5, "9.5 mm"),
+                    (16, "16 mm"),
+                    (35, "35 mm"),
+                    (70, "70 mm"),
                     ("other", "Other"),
                 ],
-                default="other",
+                default=35,
                 max_length=5,
                 verbose_name="format",
             ),

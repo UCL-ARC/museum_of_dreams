@@ -6,6 +6,7 @@ from .teaching_analysis_admin import (
     TRAdminForm,
     TeachingResourcesAdmin,
 )
+from .bibliography_admin import BibliographyItemAdmin
 from .link_admin import (
     SourceInline,
     SourceAdmin,
@@ -32,6 +33,7 @@ from .link_admin import (
 )
 
 __all__ = [
+    "BibliographyItemAdmin",
     "FilmAdmin",
     "FilmAnalysisInline",
     "TRInline",

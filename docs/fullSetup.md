@@ -95,7 +95,7 @@ On the next page, select the VPC you created, check that public IP is enabled, a
 
 On the next page, select the security group you created for the RDS instance.
 
-On the next page, scroll to the `Platform Software` section, it should ask you to define the `WSGI path`, it should be `museum_of_dreams_project.wsgi`.
+On the next page, turn off (uncheck) managed updates (these so far have only caused issues when they run and fail) and scroll to the `Platform Software` section, it should ask you to define the `WSGI path`, it should be `museum_of_dreams_project.wsgi`.
 
 Next, scroll to the bottom where it should have `Environment Variables`. Add some new ones:
 

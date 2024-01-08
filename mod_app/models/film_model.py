@@ -1,3 +1,4 @@
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 from django.core.exceptions import ValidationError
 
@@ -15,6 +16,8 @@ from mod_app.models.support_models import (
     Still,
     Postcard,
 )
+from .bibliography_model import BibliographyItem
+from mod_app.utils.extract_citations import update_bibliography
 
 
 def validate_format_other(value, format_type):
@@ -78,15 +81,15 @@ class Film(models.Model):
         default="V",
     )
     FORMAT_CHOICES = {
-        (9.5, "9.5 mm"),
-        (16, "16 mm"),
-        (35, "35 mm"),
-        (70, "70 mm"),
+        ("9.5", "9.5 mm"),
+        ("16", "16 mm"),
+        ("35", "35 mm"),
+        ("70", "70 mm"),
         ("other", "Other"),
     }
     format_type = models.CharField(
         max_length=5,
-        default="other",
+        default="35",
         verbose_name="format",
         choices=FORMAT_CHOICES,
     )
@@ -95,7 +98,6 @@ class Film(models.Model):
         blank=True,
         null=True,
         help_text="Use this if you chose 'other'",
-        validators=[validate_format_other],
     )
 
     is_in_colour = models.BooleanField(
@@ -147,5 +149,16 @@ class Film(models.Model):
     def drawings(self):
         return Drawing.objects.filter(film=self)
 
-    comments = models.TextField(blank=True)
-    temporary_images = models.TextField(blank=True)
+    comments = RichTextUploadingField(blank=True)
+    temporary_images = RichTextUploadingField(blank=True)
+
+    bibliography = models.ManyToManyField(BibliographyItem, related_name="films")
+
+    def clean(self, *args, **kwargs):
+        super().clean(*args, **kwargs)
+        validate_format_other(self.format_other, self.format_type)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        update_bibliography(self, self.print_comments)
