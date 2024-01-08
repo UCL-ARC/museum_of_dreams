@@ -17,7 +17,6 @@ from mod_app.admin.link_admin import (
     StillInline,
     VideoInline,
 )
-from ..views import MentionsApiView
 
 
 from ..models import *
@@ -53,9 +52,7 @@ class FilmAdmin(admin.ModelAdmin):
     search_fields = ["title", "alt_titles"]
     formfield_overrides = {
         models.TextField: {
-            "widget": CKEditorWidget(
-                extra_plugins=["mentions"],
-            ),
+            "widget": CKEditorWidget(),
         },
     }
 
