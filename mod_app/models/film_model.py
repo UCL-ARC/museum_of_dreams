@@ -1,20 +1,12 @@
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 from django.core.exceptions import ValidationError
 
 from mod_app.models.support_models import (
     Tag,
-    Source,
-    Video,
-    Drawing,
-    Poster,
-    OtherLink,
-    Script,
-    PressBook,
-    Programme,
-    Publicity,
-    Still,
-    Postcard,
 )
+from .bibliography_model import BibliographyItem
+from mod_app.utils.extract_citations import update_bibliography
 
 
 def validate_format_other(value, format_type):
@@ -40,10 +32,6 @@ class Film(models.Model):
 
     synopsis = models.TextField(blank=True)
 
-    @property
-    def sources(self):
-        return Source.objects.filter(film=self)
-
     genre = models.ManyToManyField(Tag, related_name="films", blank=True)
 
     bfi_category = models.CharField(
@@ -55,10 +43,6 @@ class Film(models.Model):
         null=True,
     )
     crew = models.TextField(blank=True, null=True, verbose_name="Credits")
-
-    @property
-    def videos(self):
-        return Video.objects.filter(film=self)
 
     # Technical section
 
@@ -78,15 +62,15 @@ class Film(models.Model):
         default="V",
     )
     FORMAT_CHOICES = {
-        (9.5, "9.5 mm"),
-        (16, "16 mm"),
-        (35, "35 mm"),
-        (70, "70 mm"),
+        ("9.5", "9.5 mm"),
+        ("16", "16 mm"),
+        ("35", "35 mm"),
+        ("70", "70 mm"),
         ("other", "Other"),
     }
     format_type = models.CharField(
         max_length=5,
-        default="other",
+        default="35",
         verbose_name="format",
         choices=FORMAT_CHOICES,
     )
@@ -95,7 +79,6 @@ class Film(models.Model):
         blank=True,
         null=True,
         help_text="Use this if you chose 'other'",
-        validators=[validate_format_other],
     )
 
     is_in_colour = models.BooleanField(
@@ -109,43 +92,19 @@ class Film(models.Model):
         verbose_name="Notes on Prints",
     )
 
-    # Non filmic section / extras
+    # non-filmic section contains support models
+    # comments + extras
 
-    @property
-    def additional_links(self):
-        return OtherLink.objects.filter(film=self)
+    comments = RichTextUploadingField(blank=True)
+    temporary_images = RichTextUploadingField(blank=True)
 
-    @property
-    def scripts(self):
-        return Script.objects.filter(film=self)
+    bibliography = models.ManyToManyField(BibliographyItem, related_name="films")
 
-    @property
-    def pressbooks(self):
-        return PressBook.objects.filter(film=self)
+    def clean(self, *args, **kwargs):
+        super().clean(*args, **kwargs)
+        validate_format_other(self.format_other, self.format_type)
 
-    @property
-    def programmes(self):
-        return Programme.objects.filter(film=self)
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
 
-    @property
-    def pub_mats(self):
-        return Publicity.objects.filter(film=self)
-
-    @property
-    def stills(self):
-        return Still.objects.filter(film=self)
-
-    @property
-    def postcards(self):
-        return Postcard.objects.filter(film=self)
-
-    @property
-    def posters(self):
-        return Poster.objects.filter(film=self)
-
-    @property
-    def drawings(self):
-        return Drawing.objects.filter(film=self)
-
-    comments = models.TextField(blank=True)
-    temporary_images = models.TextField(blank=True)
+        update_bibliography(self, self.print_comments)

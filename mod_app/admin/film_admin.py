@@ -1,5 +1,4 @@
 from ckeditor.widgets import CKEditorWidget
-from django import forms
 from django.contrib import admin
 from django.db import models
 from django.template.defaultfilters import truncatechars_html
@@ -20,7 +19,7 @@ from mod_app.admin.link_admin import (
 )
 
 
-from ..models import *
+from ..models import Analysis, TeachingResources, Film
 
 
 class FilmAnalysisInline(admin.TabularInline):
@@ -47,11 +46,14 @@ class FilmAdmin(admin.ModelAdmin):
         css = {
             "all": ("admin/css/custom.css",),
         }
+        js = ("admin/js/mentionsPluginConfig.js",)
 
     autocomplete_fields = ["genre"]
     search_fields = ["title", "alt_titles"]
     formfield_overrides = {
-        models.TextField: {"widget": CKEditorWidget},
+        models.TextField: {
+            "widget": CKEditorWidget(),
+        },
     }
 
     inlines = [
@@ -72,7 +74,7 @@ class FilmAdmin(admin.ModelAdmin):
     list_display = [
         "title",
         "temporary_images",
-        # "video",
+        "preview_video",
         "alt_titles",
         "release_date",
         "production_country",
@@ -96,6 +98,23 @@ class FilmAdmin(admin.ModelAdmin):
     safe_comments.allow_tags = True
     safe_comments.short_description = "Comments"
 
+    def preview_video(self, obj):
+        if obj.videos.first():
+            if obj.videos.first().file:
+                return format_html(
+                    '<video width="150" height="120" controls><source src="{}" type="video/mp4"></video>',
+                    obj.videos.first().file.url,
+                )
+            else:
+                return format_html(
+                    '<video width="150" height="120" controls ><source src="{}" type="video/mp4"></video>',
+                    obj.videos.first(),
+                )
+            # previously tried to use youtube but that seems to be more tricky than expected and may not be used
+        else:
+            return "-"
+
+    readonly_fields = ("bibliography",)
     fieldsets = (
         (
             "Main Information (Filmic Section)",
@@ -160,6 +179,14 @@ class FilmAdmin(admin.ModelAdmin):
                     "comments",
                     "temporary_images",
                 ),
+            },
+        ),
+        (
+            "Bibliography",
+            {
+                "classes": ("grp-collapse",),
+                "fields": ("bibliography",),
+                "description": "Note: This section updates on save, and some items may not be visible immediately.",
             },
         ),
     )
