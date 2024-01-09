@@ -47,7 +47,7 @@ urlpatterns = (
         path("mentions-api", views.MentionsApiView.as_view(), name="mentions_api"),
         # website pages
         distill_path(
-            "films/list",
+            "films",
             views.FilmListView.as_view(),
             name="film_list",
         ),
@@ -57,7 +57,7 @@ urlpatterns = (
             name="film_detail",
         ),
         distill_path(
-            "analyses/list",
+            "analyses",
             views.AnalysisListView.as_view(),
             name="analysis_list",
         ),
