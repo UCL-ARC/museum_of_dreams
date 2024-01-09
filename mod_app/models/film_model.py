@@ -43,10 +43,6 @@ class Film(models.Model):
 
     synopsis = models.TextField(blank=True)
 
-    @property
-    def sources(self):
-        return Source.objects.filter(film=self)
-
     genre = models.ManyToManyField(Tag, related_name="films", blank=True)
 
     bfi_category = models.CharField(
@@ -58,10 +54,6 @@ class Film(models.Model):
         null=True,
     )
     crew = models.TextField(blank=True, null=True, verbose_name="Credits")
-
-    @property
-    def linked_videos(self):
-        return Video.objects.filter(film=self)
 
     # Technical section
 
@@ -112,42 +104,6 @@ class Film(models.Model):
     )
 
     # Non filmic section / extras
-
-    @property
-    def additional_links(self):
-        return OtherLink.objects.filter(film=self)
-
-    @property
-    def scripts(self):
-        return Script.objects.filter(film=self)
-
-    @property
-    def pressbooks(self):
-        return PressBook.objects.filter(film=self)
-
-    @property
-    def programmes(self):
-        return Programme.objects.filter(film=self)
-
-    @property
-    def pub_mats(self):
-        return Publicity.objects.filter(film=self)
-
-    @property
-    def stills(self):
-        return Still.objects.filter(film=self)
-
-    @property
-    def postcards(self):
-        return Postcard.objects.filter(film=self)
-
-    @property
-    def posters(self):
-        return Poster.objects.filter(film=self)
-
-    @property
-    def drawings(self):
-        return Drawing.objects.filter(film=self)
 
     comments = RichTextUploadingField(blank=True)
     temporary_images = RichTextUploadingField(blank=True)
