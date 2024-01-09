@@ -4,17 +4,6 @@ from django.core.exceptions import ValidationError
 
 from mod_app.models.support_models import (
     Tag,
-    Source,
-    Video,
-    Drawing,
-    Poster,
-    OtherLink,
-    Script,
-    PressBook,
-    Programme,
-    Publicity,
-    Still,
-    Postcard,
 )
 from .bibliography_model import BibliographyItem
 from mod_app.utils.extract_citations import update_bibliography
@@ -103,7 +92,8 @@ class Film(models.Model):
         verbose_name="Notes on Prints",
     )
 
-    # Non filmic section / extras
+    # non-filmic section contains support models
+    # comments + extras
 
     comments = RichTextUploadingField(blank=True)
     temporary_images = RichTextUploadingField(blank=True)
