@@ -19,7 +19,7 @@ from mod_app.admin.link_admin import (
 )
 
 
-from ..models import *
+from ..models import Analysis, TeachingResources, Film
 
 
 class FilmAnalysisInline(admin.TabularInline):
