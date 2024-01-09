@@ -60,7 +60,7 @@ class Film(models.Model):
     crew = models.TextField(blank=True, null=True, verbose_name="Credits")
 
     @property
-    def videos(self):
+    def linked_videos(self):
         return Video.objects.filter(film=self)
 
     # Technical section
