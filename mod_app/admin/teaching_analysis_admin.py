@@ -4,9 +4,7 @@ from django.contrib import admin
 from django.template.defaultfilters import truncatechars_html
 from django.utils.html import format_html
 
-from ..models import *
-from .link_admin import *
-from .film_admin import *
+from ..models import Analysis, TeachingResources
 
 
 class AnalysisAdminForm(forms.ModelForm):
@@ -98,6 +96,8 @@ class TeachingResourcesAdmin(AnalysisAdmin):
     form = TRAdminForm
     inlines = [TRAnalysisInline]
     autocomplete_fields = ["films", "topics", "tags"]
+    readonly_fields = ("bibliography",)
+
     list_display = [
         "dynamic_title",
         "related_films",

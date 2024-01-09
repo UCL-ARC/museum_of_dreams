@@ -97,7 +97,9 @@ class TestFileLinkModels(TestCase):
 class TestAnalysis(TestCase):
     def test_analysis_creation(self):
         film = Film.objects.create(title="film title", release_date="1999")
-        analysis = Analysis.objects.create(content="long, detailed analysis of film")
+        analysis = Analysis.objects.create(
+            title="a1", content="long, detailed analysis of film"
+        )
         tr = TeachingResources.objects.create(title="teaching resource")
         analysis.films.add(film)
         analysis.teaching_resources.add(tr)
@@ -111,7 +113,7 @@ class TestAnalysis(TestCase):
 class TestTeachingResources(TestCase):
     def test_tr_creation(self):
         film = Film.objects.create(title="film title", release_date="1999")
-        analysis = Analysis.objects.create()
+        analysis = Analysis.objects.create(title="test analysis")
         tr = TeachingResources.objects.create(title="teaching resource")
         tr.films.add(film)
         analysis.teaching_resources.add(tr)

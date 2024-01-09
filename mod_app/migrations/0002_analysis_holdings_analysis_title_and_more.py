@@ -2,6 +2,7 @@
 
 import ckeditor.fields
 from django.db import migrations, models
+import mod_app.models.teaching_analysis_models
 
 
 class Migration(migrations.Migration):
@@ -19,10 +20,8 @@ class Migration(migrations.Migration):
             model_name="analysis",
             name="title",
             field=models.CharField(
-                blank=True,
-                help_text="Optional title for the analysis if you don't want it to be 'Analysis of (film)'",
                 max_length=255,
-                null=True,
+                default=mod_app.models.teaching_analysis_models.Analysis.default_title,
             ),
         ),
         migrations.AddField(

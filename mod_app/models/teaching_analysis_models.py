@@ -20,19 +20,12 @@ class Analysis(models.Model):
         verbose_name_plural = "Analyses"
 
     def __str__(self):
-        if self.title:
-            return self.title
-        else:
-            films = self.films.all()
-            flist = display_list(films)
-            return f"Analysis of {flist}"
+        return self.title
 
-    title = models.CharField(
-        max_length=255,
-        blank=True,
-        null=True,
-        help_text="Optional title for the analysis if you don't want it to be 'Analysis of (film)'",
-    )
+    def default_title():
+        return f"Analysis {Analysis.objects.count() + 1}"
+
+    title = models.CharField(max_length=255, default=default_title)
 
     content = RichTextUploadingField(null=True, blank=True)
 
@@ -66,21 +59,12 @@ class TeachingResources(models.Model):
         verbose_name_plural = "Teaching Resources"
 
     def __str__(self):
-        if self.title:
-            return self.title
-        elif self.films:
-            films = self.films.all()
-            flist = display_list(films)
-            return f"Teaching Resources for {flist}"
-        else:
-            return f"Teaching Resource {self.pk}"
+        return self.title
 
-    title = models.CharField(
-        max_length=255,
-        blank=True,
-        null=True,
-        help_text="Optional title",
-    )
+    def default_title():
+        return f"Teaching Resources bundle{TeachingResources.objects.count() + 1}"
+
+    title = models.CharField(max_length=255, default=default_title)
     material = RichTextUploadingField(null=True, blank=True)
 
     films = models.ManyToManyField("Film", related_name="trs", blank=True)
