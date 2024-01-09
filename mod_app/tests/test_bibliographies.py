@@ -15,7 +15,7 @@ class TestBibliographyItems(TestCase):
         )
         self.analysis = Analysis.objects.create(
             title="test analysis",
-            content=f"This is a test citation <strong>{self.bib_item.short_citation}</strong>",
+            content=f"This is a test citation <strong class='bib-mention'>{self.bib_item.short_citation}</strong>",
         )
         self.film = Film.objects.create(
             title="test film",
