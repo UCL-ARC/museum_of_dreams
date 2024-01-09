@@ -1,8 +1,7 @@
 from .film_model import Film
 from .support_models import (
-    Analysis,
+    BaseLinkModel,
     FileLink,
-    Link,
     Location,
     Tag,
     Script,
@@ -14,13 +13,21 @@ from .support_models import (
     Postcard,
     Poster,
     Drawing,
+    OtherLink,
+    Video,
 )
+from .teaching_analysis_models import (
+    Analysis,
+    TeachingResources,
+)
+from .bibliography_model import BibliographyItem
 
 __all__ = [
     "Analysis",
+    "BibliographyItem",
     "FileLink",
     "Film",
-    "Link",
+    "BaseLinkModel",
     "Location",
     "Tag",
     "Script",
@@ -32,4 +39,7 @@ __all__ = [
     "Postcard",
     "Poster",
     "Drawing",
+    "TeachingResources",
+    "OtherLink",
+    "Video",
 ]

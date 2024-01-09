@@ -1,10 +1,11 @@
 from django.db import models
 from django.test import TestCase
+from django.core.files.uploadedfile import SimpleUploadedFile
+
 
 from mod_app.models import (
     Analysis,
     Film,
-    Link,
     Location,
     Tag,
     Script,
@@ -15,6 +16,9 @@ from mod_app.models import (
     Postcard,
     Poster,
     Drawing,
+    TeachingResources,
+    OtherLink,
+    Source,
 )
 
 
@@ -26,18 +30,24 @@ class TestTag(TestCase):
         self.assertEqual(tag.name, "test tag")
 
 
-class TestLink(TestCase):
+class TestBaseLinkModels(TestCase):
+    baselink_models = [OtherLink, Source]
+    url = models.URLField("some-url.com")
+
+    def create_instance(self, model_class):
+        return model_class.objects.create(
+            url=self.url,
+            description="testing links.",
+        )
+
     def test_link_creation(self):
-        url = models.URLField("some_url.com")
-        link = Link.objects.create(url=url, description="testing link creation")
+        for model_class in self.baselink_models:
+            instance = self.create_instance(model_class)
 
-        self.assertTrue(link)
-        self.assertEqual(link.url, url)
-        self.assertEqual(link.description, "testing link creation")
-        self.assertIsInstance(link.url, models.URLField)
-
-
-from django.core.files.uploadedfile import SimpleUploadedFile
+            self.assertTrue(instance)
+            self.assertEqual(instance.url, self.url)
+            self.assertEqual(instance.description, "testing links.")
+            self.assertIsInstance(instance.url, models.URLField)
 
 
 class TestFileLinkModels(TestCase):
@@ -87,12 +97,30 @@ class TestFileLinkModels(TestCase):
 class TestAnalysis(TestCase):
     def test_analysis_creation(self):
         film = Film.objects.create(title="film title", release_date="1999")
-        analysis = Analysis.objects.create(content="long, detailed analysis of film")
-        analysis.film.add(film)
+        analysis = Analysis.objects.create(
+            title="a1", content="long, detailed analysis of film"
+        )
+        tr = TeachingResources.objects.create(title="teaching resource")
+        analysis.films.add(film)
+        analysis.teaching_resources.add(tr)
 
         self.assertTrue(analysis)
         self.assertEqual(analysis.content, "long, detailed analysis of film")
-        self.assertEqual(analysis.film.first(), film)
+        self.assertEqual(analysis.films.first(), film)
+        self.assertEqual(analysis.teaching_resources.first(), tr)
+
+
+class TestTeachingResources(TestCase):
+    def test_tr_creation(self):
+        film = Film.objects.create(title="film title", release_date="1999")
+        analysis = Analysis.objects.create(title="test analysis")
+        tr = TeachingResources.objects.create(title="teaching resource")
+        tr.films.add(film)
+        analysis.teaching_resources.add(tr)
+
+        self.assertTrue(tr)
+        self.assertEqual(tr.films.first(), film)
+        self.assertEqual(tr.analyses.first(), analysis)
 
 
 class TestLocation(TestCase):

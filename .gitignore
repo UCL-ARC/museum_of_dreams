@@ -76,3 +76,8 @@ pytest_cache/
 /media
 
 secrets.py
+
+# ESLint
+node_modules/
+.eslintcache
+package-lock.json

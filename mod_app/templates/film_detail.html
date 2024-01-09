@@ -5,8 +5,165 @@
     <div>
         <h1>{{film.title}}</h1>
         <p>{{film.alt_titles}}</p>
+        <p>{{film.release_date}}</p>
 
     </div>
 
+    <div class="tab-container">
+
+        <div class="tab-titles">
+
+            <label class="tab-title" for="filmic-tab">Filmic Information
+                <input type="radio" id="filmic-tab" name="tab-group" checked>
+            </label>
+
+
+            <label class="tab-title" for="technical-tab">Technical
+                <input type="radio" id="technical-tab" name="tab-group">
+            </label>
+
+
+            <label class="tab-title" for="nonfilmic-tab">Non Filmic
+                <input type="radio" id="nonfilmic-tab" name="tab-group">
+            </label>
+
+            <label class="tab-title" for="bibliography-tab">Bibliography
+                <input type="radio" id="bibliography-tab" name="tab-group">
+            </label>
+        </div>
+
+        <div class="tab-content">
+
+            <div id="filmic-content" class="tab-content-item">
+                <div>
+                    <div class="top-level">
+                        <div class="video">
+                            <video controls>
+                                <source src="{{film.videos.first.url}}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                        <dl class="triple-c">
+                            <dt>Production Country:
+                                {{ film.production_country }}</dt>
+
+                            <dt>Production Company:
+                                {{ film.production_company }}</dt>
+
+                            <dt>BFI Category:
+                                {{ film.bfi_category }}</dt>
+
+                            <dt>Source: {% for source in film.sources.all %}<a href="{{source.url}}">
+                                {{source.description}} </a>
+                            {% endfor %}</dt>
+                        </dl>
+                    </div>
+                    <dl class="genres">Genres:
+                        {% for g in film.genre.all %}
+                            <span class="tag"><span class="dot">•</span>{{g.name}}</span>
+                        {% endfor %}
+                    </dl>
+                </div>
+                <div class="synopsis">
+                    <h3>Synopsis</h3>
+
+                    {{film.synopsis|safe}}
+                </div>
+                <hr>
+                <div class="cast-credits">
+                    <div class="column">
+                        <h3>Cast</h3>
+                        {{film.cast | safe }}
+                    </div>
+
+                    <div class="column">
+                        <h3>Credits</h3>
+                        {{film.crew | safe }}
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="technical-content" class="tab-content-item" hidden>
+                <div>
+                    <dl class="short-technical-info">
+                        <dt>Duration: {{film.duration}}</dt>
+                        <dt>Current length: {{film.current_length}}</dt>
+                        <dt>Support: {{film.support}}</dt>
+                        <dt>{% if film.is_in_colour %}Colour {% else %} Black and White{% endif %}</dt>
+                        <dt>Format: {{film.format_type}}</dt>{% if film.format_other %}<dd>{{film.format_other}}</dd>{% endif %}
+                    </dl>
+                    <dt>Comments on the print:</dt>
+                    <dd>{{film.print_comments|safe}}</dd>
+                </div>
+                <hr>
+                <div>
+                    <h2>Printed Materials</h2>
+                {% comment %} maybe have a "stack" for each that expands when clicked on? {% endcomment %}
+                </div>
+                <hr>
+                <div>
+                    <h2>Visual Resources</h2>
+                    {% comment %} as above {% endcomment %}
+                </div>
+            </div>
+
+            <div id="nonfilmic-content" class="tab-content-item" hidden>
+                <h2>Critical Essays and Discussions</h2>
+                {% for a in film.analyses.all %}
+                    <div>
+                        <h4>{{a.title}}</h4>
+                        {{a.content|safe}}
+                    </div>
+                {% endfor %}
+                <h3>You may also want to look at...</h3>
+                {% comment %} essays and other links {% endcomment %}
+            </div>
+
+            <div id="bibliography-content" class="tab-content-item" hidden>
+                <ul>
+                    {% for item in film.bibliography.all %}
+                        <li>{{item.full_citation|safe}}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+
+    <script>
+
+        const radioButtons = document.querySelectorAll('input[name="tab-group"]');
+
+    // Attach a change event listener to each radio button
+        radioButtons.forEach(function (radio) {
+            radio.addEventListener('change', function () {
+                const checkedId = document.querySelector('input[name="tab-group"]:checked').id;
+
+                const firstWord = checkedId.split('-')[0];
+
+                document.querySelectorAll('.tab-content-item').forEach(function (item) {
+                    item.style.display = 'none';
+                });
+
+                document.getElementById(`${firstWord}-content`).style.display = 'block';
+
+                changeTabTitleColour(firstWord)
+            });
+        });
+
+        function changeTabTitleColour(name){
+            const selectedTab = document.getElementById(`${name}-tab`)
+            document.querySelectorAll(".tab-title").forEach(function (item) {
+                item.style.color = 'var(--cream)';
+                item.style.borderLeft = 'none'
+            });
+            selectedTab.parentNode.style.color = 'var(--curtain-red)'
+            selectedTab.parentNode.style.borderLeft = '2px solid var(--curtain-red)'
+
+        }
+
+    </script>
 
 {% endblock %}

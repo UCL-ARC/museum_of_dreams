@@ -4,7 +4,6 @@ on:
   push:
     branches: ["main", "development"]
   pull_request:
-    branches: ["main", "development"]
 
 jobs:
   linter:
@@ -52,4 +51,4 @@ jobs:
           python manage.py migrate
       - name: Run Tests
         run: |
-          python manage.py test
+          python manage.py test mod_app/tests
