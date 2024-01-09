@@ -18,7 +18,7 @@
                 <th>Production Company</th>
                 <th>Genre</th>
                 <th>Summary</th>
-                {% comment %} <th>Open page</th> {% endcomment %}
+                <th>See in full</th>
             </tr>
         </thead>
         <tbody>
@@ -50,6 +50,7 @@
                             </span>
                         </a></td>
                     {% comment %} <td><a href="{% url 'film_detail' pk=film.pk %}" >
+
                         <span class="material-symbols-outlined">
                             open_in_full
                         </span>
