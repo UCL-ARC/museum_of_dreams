@@ -2,6 +2,7 @@
 
 from django.db import migrations, models
 import ckeditor.fields
+import mod_app.models.teaching_analysis_models
 
 
 class Migration(migrations.Migration):
@@ -68,10 +69,12 @@ class Migration(migrations.Migration):
             model_name="teachingresources",
             name="title",
             field=models.CharField(
-                blank=True,
-                help_text="Optional title",
                 max_length=255,
-                null=True,
+                default=mod_app.models.teaching_analysis_models.TeachingResources.default_title,
             ),
+        ),
+        migrations.AlterModelOptions(
+            name="teachingresources",
+            options={"verbose_name_plural": "Teaching Resources"},
         ),
     ]

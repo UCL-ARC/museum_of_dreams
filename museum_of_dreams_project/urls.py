@@ -20,6 +20,8 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 from django_distill import distill_path
+from django.views.generic.base import RedirectView
+
 
 from mod_app import views
 
@@ -35,13 +37,50 @@ else:
 urlpatterns = (
     [
         path("grappelli/", include("grappelli.urls")),
+        path("grappelli-docs/", include("grappelli.urls_docs")),
         path("ckeditor/", include("ckeditor_uploader.urls")),
         path("admin/", admin.site.urls, name=admin),
         distill_path(
             "", views.HomeView.as_view(), name="home", distill_file="index.html"
         ),
-        distill_path("films/list", views.FilmListView.as_view(), name="film_list"),
-        distill_path("films/<pk>", views.FilmDetailView.as_view(), name="film_detail"),
+        path("favicon.ico", RedirectView.as_view(url="static/admin/img/favicon.ico")),
+        path("mentions-api", views.MentionsApiView.as_view(), name="mentions_api"),
+        # website pages
+        distill_path(
+            "films",
+            views.FilmListView.as_view(),
+            name="film_list",
+        ),
+        distill_path(
+            "films/<pk>",
+            views.FilmDetailView.as_view(),
+            name="film_detail",
+        ),
+        distill_path(
+            "analyses",
+            views.AnalysisListView.as_view(),
+            name="analysis_list",
+        ),
+        distill_path(
+            "analyses/<pk>",
+            views.AnalysisDetailView.as_view(),
+            name="analysis_detail",
+        ),
+        distill_path(
+            "teaching-resources/list",
+            views.TRListView.as_view(),
+            name="tr_list",
+        ),
+        distill_path(
+            "teaching-resources/<pk>",
+            views.TRDetailView.as_view(),
+            name="tr_detail",
+        ),
+        distill_path(
+            "bibliography",
+            views.BibliographyListView.as_view(),
+            name="bibliography",
+        ),
     ]
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

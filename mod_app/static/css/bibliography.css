@@ -1,0 +1,22 @@
+.bibliography__area {
+  margin: 2rem 1rem;
+}
+.bibliography__item {
+  margin-bottom: 1rem;
+  display: flex;
+  columns: 2;
+
+  > :first-child {
+    flex: 0 0 75%; /* shorthand for flex-grow, flex-shrink, and flex-basis */
+  }
+
+  > :last-child {
+    flex: 1; /* The second column takes the remaining space */
+  }
+}
+.bib__ref-list {
+  font-size: 0.7rem;
+}
+.bib__ref-list a {
+  color: var(--beige);
+}

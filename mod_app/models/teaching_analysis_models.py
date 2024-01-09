@@ -1,7 +1,18 @@
-from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 
-from mod_app.models.support_models import Tag
+from ..utils.extract_citations import update_bibliography
+
+from .support_models import Tag
+from .bibliography_model import BibliographyItem
+
+
+def display_list(list):
+    if len(list) > 1:
+        display_list = ", ".join(str(f) for f in list[:-1]) + f", and {list[-1]}"
+    else:
+        display_list = str(list[0])
+    return display_list
 
 
 class Analysis(models.Model):
@@ -9,21 +20,14 @@ class Analysis(models.Model):
         verbose_name_plural = "Analyses"
 
     def __str__(self):
-        if self.films:
-            films = self.films.all()
-            flist = ", ".join(str(f) for f in films)
-            return f"Analysis of {flist}"
-        else:
-            return self.title
+        return self.title
 
-    title = models.CharField(
-        max_length=255,
-        blank=True,
-        null=True,
-        help_text="Optional title for the analysis if you don't want it to be 'Analysis of (film)'",
-    )
+    def default_title():
+        return f"Analysis {Analysis.objects.count() + 1}"
 
-    content = RichTextField(null=True, blank=True)
+    title = models.CharField(max_length=255, default=default_title)
+
+    content = RichTextUploadingField(null=True, blank=True)
 
     films = models.ManyToManyField("Film", related_name="analyses", blank=True)
 
@@ -38,29 +42,44 @@ class Analysis(models.Model):
     teaching_resources = models.ManyToManyField(
         "TeachingResources", related_name="analyses", blank=True
     )
+    bibliography = models.ManyToManyField(
+        BibliographyItem,
+        related_name="analyses",
+        help_text="This field updates on save, and some items may not be visible immediately",
+    )
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        update_bibliography(self, self.content)
 
 
 class TeachingResources(models.Model):
-    def __str__(self):
-        if self.title:
-            return self.title
-        elif self.films:
-            films = self.films.all()
-            flist = ", ".join(str(f) for f in films)
-            return f"Teaching Resources for {flist}"
-        else:
-            return f"Teaching Resource {self.pk}"
+    class Meta:
+        verbose_name_plural = "Teaching Resources"
 
-    title = title = models.CharField(
-        max_length=255,
-        blank=True,
-        null=True,
-        help_text="Optional title",
-    )
-    material = RichTextField(null=True, blank=True)
+    def __str__(self):
+        return self.title
+
+    def default_title():
+        return f"Teaching Resources bundle{TeachingResources.objects.count() + 1}"
+
+    title = models.CharField(max_length=255, default=default_title)
+    material = RichTextUploadingField(null=True, blank=True)
 
     films = models.ManyToManyField("Film", related_name="trs", blank=True)
 
     topics = models.ManyToManyField(Tag, related_name="tr_topics", blank=True)
 
     tags = models.ManyToManyField(Tag, related_name="tr_tags", blank=True)
+
+    bibliography = models.ManyToManyField(
+        BibliographyItem,
+        related_name="teaching_resources",
+        help_text="This field updates on save, and some items may not be visible immediately",
+    )
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        update_bibliography(self, self.material)

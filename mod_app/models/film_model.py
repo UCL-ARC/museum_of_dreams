@@ -1,19 +1,17 @@
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
+from django.core.exceptions import ValidationError
 
 from mod_app.models.support_models import (
-    Drawing,
-    FileLink,
-    Link,
-    Postcard,
-    Poster,
-    PressBook,
-    Programme,
-    Publicity,
-    Script,
-    Source,
-    Still,
     Tag,
 )
+from .bibliography_model import BibliographyItem
+from mod_app.utils.extract_citations import update_bibliography
+
+
+def validate_format_other(value, format_type):
+    if format_type == "other" and not value:
+        raise ValidationError("Please provide format details; you've selected 'other' ")
 
 
 class Film(models.Model):
@@ -34,13 +32,6 @@ class Film(models.Model):
 
     synopsis = models.TextField(blank=True)
 
-    source = models.ManyToManyField(
-        Source,
-        help_text="Link to the source material",
-        blank=True,
-        limit_choices_to={"is_source": True},
-        related_name="film_source",
-    )
     genre = models.ManyToManyField(Tag, related_name="films", blank=True)
 
     bfi_category = models.CharField(
@@ -52,15 +43,6 @@ class Film(models.Model):
         null=True,
     )
     crew = models.TextField(blank=True, null=True, verbose_name="Credits")
-
-    video = models.ForeignKey(
-        FileLink,
-        help_text="Link or upload the video file",
-        blank=True,
-        null=True,
-        on_delete=models.SET_NULL,
-        related_name="film_video",
-    )
 
     # Technical section
 
@@ -80,17 +62,23 @@ class Film(models.Model):
         default="V",
     )
     FORMAT_CHOICES = {
-        (9.5, "9.5 mm"),
-        (16, "16 mm"),
-        (35, "35 mm"),
-        (70, "70 mm"),
+        ("9.5", "9.5 mm"),
+        ("16", "16 mm"),
+        ("35", "35 mm"),
+        ("70", "70 mm"),
         ("other", "Other"),
     }
     format_type = models.CharField(
-        max_length=5, default="other", verbose_name="format", choices=FORMAT_CHOICES
+        max_length=5,
+        default="35",
+        verbose_name="format",
+        choices=FORMAT_CHOICES,
     )
     format_other = models.CharField(
-        max_length=255, blank=True, null=True, help_text="Use this if you chose 'other'"
+        max_length=255,
+        blank=True,
+        null=True,
+        help_text="Use this if you chose 'other'",
     )
 
     is_in_colour = models.BooleanField(
@@ -104,64 +92,19 @@ class Film(models.Model):
         verbose_name="Notes on Prints",
     )
 
-    # Non filmic section / extras
+    # non-filmic section contains support models
+    # comments + extras
 
-    additional_links = models.ManyToManyField(
-        Link,
-        help_text="Links to other things",
-        related_name="other_film_links",
-        blank=True,
-    )
-    scripts = models.ManyToManyField(
-        Script,
-        help_text="Link to or upload script file(s)",
-        related_name="film",
-        blank=True,
-    )
-    press_books = models.ManyToManyField(
-        PressBook,
-        help_text="Link to or upload press book file(s)",
-        related_name="film",
-        blank=True,
-    )
-    programmes = models.ManyToManyField(
-        Programme,
-        help_text="Link to or upload programme file(s)",
-        related_name="film",
-        blank=True,
-    )
-    pub_mat = models.ManyToManyField(
-        Publicity,
-        verbose_name="Publicity Materials",
-        help_text="Link to or upload publicity material file(s)",
-        related_name="film",
-        blank=True,
-    )
+    comments = RichTextUploadingField(blank=True)
+    temporary_images = RichTextUploadingField(blank=True)
 
-    stills = models.ManyToManyField(
-        Still,
-        help_text="Link to or upload stills",
-        related_name="film",
-        blank=True,
-    )
-    postcards = models.ManyToManyField(
-        Postcard,
-        help_text="Link to or upload postcards",
-        related_name="film",
-        blank=True,
-    )
-    posters = models.ManyToManyField(
-        Poster,
-        help_text="Link to or upload posters",
-        related_name="film",
-        blank=True,
-    )
-    drawings = models.ManyToManyField(
-        Drawing,
-        help_text="Link to or upload drawings",
-        related_name="film",
-        blank=True,
-    )
+    bibliography = models.ManyToManyField(BibliographyItem, related_name="films")
 
-    comments = models.TextField(blank=True)
-    temporary_images = models.TextField(blank=True)
+    def clean(self, *args, **kwargs):
+        super().clean(*args, **kwargs)
+        validate_format_other(self.format_other, self.format_type)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        update_bibliography(self, self.print_comments)
