@@ -12,7 +12,9 @@
     <div class="card-area">
         {% for analysis in analysis_list %}
             <div class="card card--analysis">
-                <h4 class="card__heading"><a href="{% url 'analysis_detail' pk=analysis.pk %}">{{analysis.title}}</a></h4>
+                <h4 class="card__heading"><a
+                    href="{% url 'analysis_detail' pk=analysis.pk %}"
+                >{{analysis.title}}</a></h4>
                 <div class="card__info">
                     <dl>
                         <dt>{{analysis.content|safe|truncatewords:50}} </dt>
@@ -29,7 +31,8 @@
                             <dd>{{film.title}}</dd>
                         {% endfor %}
                     </dl>
-                    <button href="{% url 'analysis_detail' pk=analysis.pk %}"> view full details </button>
+                    <button>
+                        <a href="{% url 'analysis_detail' pk=analysis.pk %}"> view full details </a></button>
                 </div>
 
         {% endfor %}
