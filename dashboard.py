@@ -52,6 +52,7 @@ class CustomIndexDashboard(Dashboard):
                         models=(
                             "mod_app.models.film_model.*",
                             "mod_app.models.teaching_analysis_models.*",
+                            "mod_app.models.bibliography_model.*",
                         ),
                     ),
                     modules.ModelList(
@@ -82,7 +83,6 @@ class CustomIndexDashboard(Dashboard):
                         models=(
                             "mod_app.models.support_models.OtherLink",
                             "mod_app.models.support_models.Tag",
-                            "mod_app.models.bibliography_model.*",
                         ),
                     ),
                 ],
