@@ -101,8 +101,8 @@ class FilmAdmin(admin.ModelAdmin):
     def safe_temporary_images(self, obj):
         return format_html(obj.temporary_images)
 
-    safe_comments.allow_tags = True
-    safe_comments.short_description = "Temporary Images"
+    safe_temporary_images.allow_tags = True
+    safe_temporary_images.short_description = "Temporary Images"
 
     def preview_video(self, obj):
         if obj.videos.first():
