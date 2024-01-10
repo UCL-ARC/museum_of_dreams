@@ -18,7 +18,7 @@ def extract_short_citations(field):
     # extract short_citations using BeautifulSoup
     field_soup = BeautifulSoup(field, "html.parser")
 
-    strong_tags = field_soup.find_all("strong", class_="bib-mention")
+    strong_tags = field_soup.find_all("strong")
 
     # Retrieve existing short_citations from BibItem
     existing_short_citations = set(
