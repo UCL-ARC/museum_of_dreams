@@ -535,7 +535,6 @@ class Migration(migrations.Migration):
                 help_text="Links to other things",
                 related_name="other_links",
                 to="mod_app.link",
-                on_delete=django.db.models.deletion.SET_NULL,
             ),
         ),
         migrations.AddField(

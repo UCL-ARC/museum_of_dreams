@@ -73,7 +73,7 @@ class FilmAdmin(admin.ModelAdmin):
     ]
     list_display = [
         "title",
-        "temporary_images",
+        "safe_temporary_images",
         "preview_video",
         "alt_titles",
         "release_date",
@@ -97,6 +97,12 @@ class FilmAdmin(admin.ModelAdmin):
 
     safe_comments.allow_tags = True
     safe_comments.short_description = "Comments"
+
+    def safe_temporary_images(self, obj):
+        return format_html(obj.temporary_images)
+
+    safe_comments.allow_tags = True
+    safe_comments.short_description = "Temporary Images"
 
     def preview_video(self, obj):
         if obj.videos.first():
