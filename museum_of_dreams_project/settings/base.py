@@ -128,7 +128,7 @@ CKEDITOR_CONFIGS = {
             ]
         ),
         "removePlugins": "exportpdf",
-        "uiColor": "#CCEAEE",
+        "uiColor": "#fcf5e7",
     },
 }
 
