@@ -12,6 +12,25 @@ class Migration(migrations.Migration):
     dependencies = []
 
     operations = [
+        #            migrations.RunSQL(
+        #            sql="""
+        #            DROP TABLE IF EXISTS mod_app_location;
+        #            DROP TABLE IF EXISTS mod_app_tag;
+        #            DROP TABLE IF EXISTS mod_app_film;
+        #            DROP TABLE IF EXISTS mod_app_drawing;
+        #            DROP TABLE IF EXISTS mod_app_postcard;
+        #            DROP TABLE IF EXISTS mod_app_poster;
+        #            DROP TABLE IF EXISTS mod_app_pressbook;
+        #            DROP TABLE IF EXISTS mod_app_programme;
+        #            DROP TABLE IF EXISTS mod_app_publicity;
+        #            DROP TABLE IF EXISTS mod_app_script;
+        #            DROP TABLE IF EXISTS mod_app_still;
+        #            DROP TABLE IF EXISTS mod_app_source;
+        #            DROP TABLE IF EXISTS mod_app_filelink;
+        #            DROP TABLE IF EXISTS mod_app_link;
+        #            """,
+        #            reverse_sql=migrations.RunSQL.noop,
+        #        ),
         migrations.CreateModel(
             name="Film",
             fields=[
@@ -516,6 +535,7 @@ class Migration(migrations.Migration):
                 help_text="Links to other things",
                 related_name="other_links",
                 to="mod_app.link",
+                on_delete=django.db.models.deletion.SET_NULL,
             ),
         ),
         migrations.AddField(

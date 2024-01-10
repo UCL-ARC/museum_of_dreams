@@ -53,7 +53,6 @@ class Migration(migrations.Migration):
             model_name="film",
             name="video",
         ),
-        migrations.DeleteModel(name="Link"),
         migrations.DeleteModel(name="Drawing"),
         migrations.DeleteModel(name="Postcard"),
         migrations.DeleteModel(name="Poster"),
@@ -64,4 +63,5 @@ class Migration(migrations.Migration):
         migrations.DeleteModel(name="Still"),
         migrations.DeleteModel(name="Source"),
         migrations.DeleteModel(name="FileLink"),
+        migrations.DeleteModel(name="Link"),
     ]
