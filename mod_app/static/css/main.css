@@ -50,6 +50,7 @@ footer {
   .footer__nav {
     display: flex;
     flex-direction: row;
+    color: var(--cream);
   }
   .footer__nav ul {
     list-style-type: none;
