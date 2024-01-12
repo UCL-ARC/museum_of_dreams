@@ -26,3 +26,4 @@ class BibliographyItemAdmin(admin.ModelAdmin):
 
     safe_citation.allow_tags = True
     safe_citation.short_description = "Full Citation"
+    safe_citation.admin_order_field = "full_citation"
