@@ -111,19 +111,14 @@ class CustomIndexDashboard(Dashboard):
                 _("Support"),
                 column=3,
                 children=[
+                    # {
+                    #     "title": _("Grappelli Documentation"),
+                    #     "url": "http://packages.python.org/django-grappelli/",
+                    #     "external": True,
+                    # },
                     {
-                        "title": _("Django Documentation"),
-                        "url": "http://docs.djangoproject.com/",
-                        "external": True,
-                    },
-                    {
-                        "title": _("Grappelli Documentation"),
-                        "url": "http://packages.python.org/django-grappelli/",
-                        "external": True,
-                    },
-                    {
-                        "title": _("Grappelli Google-Code"),
-                        "url": "http://code.google.com/p/django-grappelli/",
+                        "title": _("How to use the Admin Interface"),
+                        "url": "https://github.com/UCL-ARC/museum_of_dreams/wiki/Using-the-Admin-Interface",
                         "external": True,
                     },
                 ],

@@ -25,7 +25,7 @@ packages:
 
 This will address issues with setting up the mysql db.
 
-Also create [db-migrate.config](.ebextensions/db-migrate.config).
+Also create [db-migrate.config](../.ebextensions/db-migrate.config).
 
 This will allow migrations and `collectstatic` to automatically run when the app is deployed.
 
@@ -97,7 +97,7 @@ On the next page, select the security group you created for the RDS instance.
 
 On the next page, turn off (uncheck) managed updates (these so far have only caused issues when they run and fail) and scroll to the `Platform Software` section, it should ask you to define the `WSGI path`, it should be `museum_of_dreams_project.wsgi`.
 
-Next, scroll to the bottom where it should have `Environment Variables`. Add some new ones:
+Next, scroll to the bottom where it should have `Environment Variables` or `Environment Properties`. Add some new ones:
 
 - `DJANGO_SETTINGS_MODULE` (this is the path to your settings/aws.py file <project>.settings.aws)
 - `RDS_HOSTNAME` (this is the endpoint for the RDS instance)
@@ -105,6 +105,10 @@ Next, scroll to the bottom where it should have `Environment Variables`. Add som
 - `RDS_DB_NAME` (this should be ebdb)
 - `RDS_USERNAME` (this should be the username you chose or admin if you didn't change it)
 - `RDS_PASSWORD` (this should be the master password you set on the db)
+
+Above this section is a `Static Files` section. You should add `/media` and `/static` as paths, with `media` and `static` as their respective directories.
+
+If you plan to use S3 for your static files, please see [S3 for static files](s3ForStatic.md)
 
 You can review and create the environment. This will take some time.
 
