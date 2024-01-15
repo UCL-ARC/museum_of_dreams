@@ -3,7 +3,8 @@
   document.addEventListener("DOMContentLoaded", function () {
     const itemTemplate =
       '<li data-id="{id}" data-value="{id}">{full_citation}</li>';
-    const outputTemplate = "<strong>{short_citation}</strong>";
+
+    const outputTemplate = '<a href="{id}" >{short_citation}</a>';
     CKEDITOR.config.mentions = [
       {
         feed: "/mentions-api?query={encodedQuery}",

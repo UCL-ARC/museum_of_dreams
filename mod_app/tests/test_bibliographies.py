@@ -15,11 +15,11 @@ class TestBibliographyItems(TestCase):
         )
         self.analysis = Analysis.objects.create(
             title="test analysis",
-            content=f"This is a test citation <strong>{self.bib_item.short_citation}</strong>",
+            content=f"This is a test citation <strong><a href={self.bib_item.pk}>{self.bib_item.short_citation}</a></strong>",
         )
         self.film = Film.objects.create(
             title="test film",
-            print_comments=f"This is a test citation <strong>{self.bib_item2.short_citation}</strong>",
+            print_comments=f"This is a test citation <strong><a href={self.bib_item2.pk}>{self.bib_item2.short_citation}</a></strong>",
             release_date=2020,
         )
 
@@ -41,9 +41,7 @@ class TestBibliographyItems(TestCase):
 
     def test_bib_automatically_updates(self):
         analysis = Analysis.objects.get(title="test analysis")
-        analysis.content = (
-            f"This is a test citation <strong>{self.bib_item2.short_citation}</strong>"
-        )
+        analysis.content = f"This is a test citation <strong><a href={self.bib_item2.pk}>{self.bib_item2.short_citation}</a></strong>"
         analysis.save()
 
         self.assertIn(self.bib_item2, analysis.bibliography.all())
