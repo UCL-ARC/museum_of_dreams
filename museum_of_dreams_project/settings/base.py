@@ -129,6 +129,7 @@ CKEDITOR_CONFIGS = {
         ),
         "removePlugins": "exportpdf",
         "uiColor": "#fcf5e7",
+        "extraAllowedContent": "strong[data-bib-id](bib-mention);",
     },
 }
 

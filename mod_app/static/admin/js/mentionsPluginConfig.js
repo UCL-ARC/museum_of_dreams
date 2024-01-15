@@ -4,7 +4,9 @@
     const itemTemplate =
       '<li data-id="{id}" data-value="{id}">{full_citation}</li>';
 
-    const outputTemplate = '<a href="{id}" >{short_citation}</a>';
+    const outputTemplate =
+      '<strong data-bib-id="{id}" class="bib-mention">{short_citation}</strong>';
+
     CKEDITOR.config.mentions = [
       {
         feed: "/mentions-api?query={encodedQuery}",
