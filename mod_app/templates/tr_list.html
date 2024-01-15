@@ -1,38 +1,38 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% block title %}{% trans 'Analyses' %} {% endblock %}
+{% block title %}{% trans 'Teaching Resources' %} {% endblock %}
 {% block content %}
 
 
     <h3>
-        Critical discussions and essays on this site
+        Teaching Resources available on this site
     </h3>
 
 
     <div class="card-area">
-        {% for analysis in analysis_list %}
-            <div class="card card--analysis">
+        {% for tr in teachingresources_list %}
+            <div class="card card--tr">
                 <h4 class="card__heading"><a
-                    href="{% url 'analysis_detail' pk=analysis.pk %}"
-                >{{analysis.title}}</a></h4>
+                    href="{% url 'tr_detail' pk=tr.pk %}"
+                >{{tr.title}}</a></h4>
                 <div class="card__info">
                     <dl>
-                        <dt>{{analysis.content|safe|truncatewords:50}} </dt>
+                        <dt>{{tr.material|safe|truncatewords:50}} </dt>
                         <dt>Topics:</dt>
-                        {% for topic in analysis.topics.all %}
+                        {% for topic in tr.topics.all %}
                             <dd class="tag"><span class="dot">•</span>{{topic.name}}</dd>
                         {% endfor %}
                         <dt>Tags:</dt>
-                        {% for tag in analysis.tags.all %}
+                        {% for tag in tr.tags.all %}
                             <dd class="tag"><span class="dot">•</span>{{tag.name}}</dd>
                         {% endfor %}
                         <dt>Related films:</dt>
-                        {% for film in analysis.films.all %}
+                        {% for film in tr.films.all %}
                             <dd>{{film.title}}</dd>
                         {% endfor %}
                     </dl>
-
-                    <a href="{% url 'analysis_detail' pk=analysis.pk %}"><button> view full details</button> </a>
+                    <button>
+                        <a href="{% url 'tr_detail' pk=tr.pk %}"> view full details </a></button>
                 </div>
 
         {% endfor %}

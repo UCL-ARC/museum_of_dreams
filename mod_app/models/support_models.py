@@ -23,8 +23,7 @@ class BaseLinkModel(models.Model):
     url = models.URLField(blank=True, help_text="url to the item you'd like to link")
     description = models.CharField(
         max_length=250,
-        help_text="short description of what the link is to (optional)",
-        blank=True,
+        help_text="short description of what the link is to",
         null=True,
     )
     film = models.ForeignKey(

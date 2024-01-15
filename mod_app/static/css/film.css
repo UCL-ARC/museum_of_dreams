@@ -19,7 +19,7 @@
   font-size: 1rem;
 }
 
-/* detail */
+/***************** detail ***************/
 .top-level {
   display: flex;
 }
@@ -31,6 +31,7 @@
   }
 }
 .triple-c {
+  /* country, company & category */
   display: inline-flex;
   /* justify-content: space-between; */
   flex-direction: column;
@@ -90,6 +91,7 @@
     margin-bottom: 5px;
     padding: 8px;
     display: block;
+    color: var(--warm-sand);
   }
 
   &::before {
@@ -98,7 +100,7 @@
     left: 7px;
     height: 90%;
     width: 2px;
-    background-color: var(--cream);
+    background-color: var(--warm-sand);
   }
 
   #filmic-tab:checked,
