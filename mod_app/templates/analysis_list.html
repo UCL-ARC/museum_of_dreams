@@ -31,8 +31,8 @@
                             <dd>{{film.title}}</dd>
                         {% endfor %}
                     </dl>
-                    <button>
-                        <a href="{% url 'analysis_detail' pk=analysis.pk %}"> view full details </a></button>
+
+                    <a href="{% url 'analysis_detail' pk=analysis.pk %}"><button> view full details</button> </a>
                 </div>
 
         {% endfor %}
