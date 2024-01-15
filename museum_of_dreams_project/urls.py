@@ -67,7 +67,7 @@ urlpatterns = (
             name="analysis_detail",
         ),
         distill_path(
-            "teaching-resources/list",
+            "teaching-resources",
             views.TRListView.as_view(),
             name="tr_list",
         ),

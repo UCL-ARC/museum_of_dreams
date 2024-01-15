@@ -18,16 +18,19 @@
                 <th>Production Company</th>
                 <th>Genre</th>
                 <th>Summary</th>
-                <th>See in full</th>
             </tr>
         </thead>
         <tbody>
             {% for film in film_list %}
                 <tr>
                     <td>
-                        {% if film.videos %}
-                            <a href="{{film.videos.first.url}}" target="_blank" class="material-symbols-outlined">
-                                theaters
+                        {% if film.videos.first %}
+                            {% if film.videos.first.file %}
+                                <a href="{{film.videos.first.file.url}}" target="_blank" class="material-symbols-outlined">
+                            {% else %}
+                                <a href="{{film.videos.first.url}}" target="_blank" class="material-symbols-outlined">
+                            {% endif %}
+                            theaters
                             </a>
                         {% endif %}
 

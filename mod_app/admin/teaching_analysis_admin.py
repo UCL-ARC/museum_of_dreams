@@ -95,7 +95,7 @@ class TeachingResourcesAdmin(AnalysisAdmin):
 
     form = TRAdminForm
     inlines = [TRAnalysisInline]
-    autocomplete_fields = ["films", "topics", "tags"]
+    autocomplete_fields = ["films", "topics", "tags", "clips"]
     readonly_fields = ("bibliography",)
 
     list_display = [
