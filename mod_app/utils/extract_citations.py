@@ -4,33 +4,19 @@ from ..models.bibliography_model import BibliographyItem
 
 def update_bibliography(self, field):
     if field:
-        short_citations = extract_short_citations(field)
-        # for each citation found add the bit item to the bibliography
-        for short_citation in short_citations:
-            bibitem = BibliographyItem.objects.filter(
-                short_citation=short_citation
-            ).first()
-            if bibitem:
-                self.bibliography.add(bibitem)
+        bib_items = get_bibliography_items(field)
+        # for each pk found add the bib item to the bibliography if it's changed
+        if list(self.bibliography.all()) != bib_items:
+            self.bibliography.set(bib_items)
 
 
-def extract_short_citations(field):
-    # extract short_citations using BeautifulSoup
+def get_bibliography_items(field):
+    # extract pks using BeautifulSoup
     field_soup = BeautifulSoup(field, "html.parser")
 
     strong_tags = field_soup.find_all("strong", class_="bib-mention")
 
-    # Retrieve existing short_citations from BibItem
-    existing_short_citations = set(
-        BibliographyItem.objects.values_list("short_citation", flat=True)
-    )
+    pk_list = [tag.get("data-bib-id") for tag in strong_tags]
+    bib_qs = BibliographyItem.objects.filter(pk__in=pk_list)
 
-    # Filter strong_tags to include only those matching existing short_citations
-    matching_tags = [
-        tag.text.strip()
-        for tag in strong_tags
-        if tag.text.strip() in existing_short_citations
-    ]
-
-    # print("matching short citations found:", matching_tags)
-    return matching_tags
+    return bib_qs

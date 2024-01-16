@@ -3,7 +3,7 @@ from django.db import models
 
 from ..utils.extract_citations import update_bibliography
 
-from .support_models import Tag
+from .support_models import Tag, Video
 from .bibliography_model import BibliographyItem
 
 
@@ -78,6 +78,8 @@ class TeachingResources(models.Model):
         related_name="teaching_resources",
         help_text="This field updates on save, and some items may not be visible immediately",
     )
+
+    clips = models.ManyToManyField("Video", related_name="tr_clips", null=True)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

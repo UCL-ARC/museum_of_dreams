@@ -3,8 +3,9 @@
   document.addEventListener("DOMContentLoaded", function () {
     const itemTemplate =
       '<li data-id="{id}" data-value="{id}">{full_citation}</li>';
+
     const outputTemplate =
-      "<strong class='bib-mention'>{short_citation}</strong>";
+      '<strong data-bib-id="{id}" class="bib-mention">{short_citation}</strong>';
 
     CKEDITOR.config.mentions = [
       {
