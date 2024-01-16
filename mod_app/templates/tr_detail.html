@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ tr.title }} (Teaching Resources) {% endblock %}
+{% block content %}
+    <div class="content-wrapper">
+        <div class="columnar-area">
+            <div>
+                <button>Download PDF</button>
+            </div>
+            <div id="tr-info">
+                <div id="topics">
+                </div>
+                <div id="tags">
+                </div>
+
+            </div>
+
+            <div id="teaching-material">
+                <div id="clips">
+                </div>
+            </div>
+
+            <div id="bibliography">
+            {% comment %} this should expand on click for easier reading {% endcomment %}
+            </div>
+
+        </div>
+        <div class="related-items">
+            <div id="tr-analyses">
+            </div>
+            <div id="films">
+            </div>
+        </div>
+    </div>
+{% endblock %}

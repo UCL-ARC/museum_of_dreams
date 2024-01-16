@@ -1,0 +1,117 @@
+/* for film detail and list */
+/* list */
+.film-table {
+  font-size: 0.9rem;
+  .synopsis > * {
+    min-width: 25vw;
+    font-size: inherit;
+  }
+  .synopsis .open-icon {
+    font-size: inherit;
+    display: inline;
+    align-content: center;
+  }
+  .cast > * {
+    font-size: inherit;
+  }
+}
+.film-table th {
+  font-size: 1rem;
+}
+
+/***************** detail ***************/
+.top-level {
+  display: flex;
+}
+.video {
+  display: inline;
+  > video {
+    height: 40vh;
+    width: 40vw;
+  }
+}
+.triple-c {
+  /* country, company & category */
+  display: inline-flex;
+  /* justify-content: space-between; */
+  flex-direction: column;
+  align-content: center;
+  margin-left: 0.4rem;
+  > dt {
+    margin: 0.4rem 0;
+  }
+}
+
+.genres {
+  margin-top: 0.5rem;
+}
+
+.synopsis {
+  padding: 0.5rem 0;
+  > p {
+    width: 100%;
+    max-inline-size: 100%;
+  }
+}
+
+.cast-credits {
+  display: flex;
+  .column {
+    flex: 1;
+    margin-right: 20px;
+  }
+}
+
+.short-technical-info {
+  justify-content: space-between;
+  text-wrap: wrap;
+  flex-wrap: wrap;
+  columns: 2;
+}
+
+/*************** for tabs *******************/
+
+.tabs-container {
+  display: flex;
+  height: 100vh;
+}
+
+.tab-titles {
+  width: 20vw;
+  padding: 10px;
+  flex-direction: column;
+  box-sizing: border-box;
+  position: fixed;
+
+  [name="tab-group"] {
+    opacity: 0;
+  }
+  .tab-title {
+    cursor: pointer;
+    margin-bottom: 5px;
+    padding: 8px;
+    display: block;
+    color: var(--warm-sand);
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 7px;
+    height: 90%;
+    width: 2px;
+    background-color: var(--warm-sand);
+  }
+
+  #filmic-tab:checked,
+  label[for="filmic-tab"] {
+    color: var(--curtain-red);
+    border-left: 2px solid var(--curtain-red);
+  }
+}
+
+.tab-content {
+  padding: 10px;
+  border: 1px solid var(--cream);
+  margin-left: 20vw;
+}

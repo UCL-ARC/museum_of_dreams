@@ -1,4 +1,5 @@
-from ckeditor.fields import RichTextField
+from uuid import uuid4
+import uuid
 from django.db import models
 
 
@@ -9,7 +10,10 @@ class Tag(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
 
-class Link(models.Model):
+class BaseLinkModel(models.Model):
+    class Meta:
+        abstract = True
+
     def __str__(self):
         if self.url:
             return self.url
@@ -19,24 +23,37 @@ class Link(models.Model):
     url = models.URLField(blank=True, help_text="url to the item you'd like to link")
     description = models.CharField(
         max_length=250,
-        help_text="short description of what the link is to (optional)",
-        blank=True,
+        help_text="short description of what the link is to",
         null=True,
+    )
+    film = models.ForeignKey(
+        "Film", on_delete=models.CASCADE, related_name="%(class)ss", null=True
     )
 
 
-class Source(Link):
+class OtherLink(BaseLinkModel):
+    class Meta:
+        verbose_name = "Other Link"
+
+
+class Source(BaseLinkModel):
     class Meta:
         verbose_name = "Source"
 
-    is_source = models.BooleanField(default=True)
 
+class FileLink(BaseLinkModel):
+    class Meta:
+        abstract = True
 
-class FileLink(Link):
     def upload_to(instance, filename):
         return f"files/{instance.__class__.__name__}/{filename}"
 
     file = models.FileField(upload_to=upload_to, blank=True, null=True)
+
+
+class Video(FileLink):
+    class Meta:
+        verbose_name = "Video"
 
 
 class Script(FileLink):
@@ -79,28 +96,14 @@ class Drawing(FileLink):
         verbose_name = "Drawing"
 
 
-class Analysis(models.Model):
-    class Meta:
-        verbose_name_plural = "Analyses"
-
-    def __str__(self):
-        return f"Analysis of {self.film}"
-
-    content = RichTextField(null=True)
-
-    film = models.ManyToManyField("Film", related_name="films", blank=True)
-
-    topics = models.ManyToManyField(Tag, related_name="topics", blank=True)
-
-    tags = models.ManyToManyField(Tag, related_name="analysis_tags", blank=True)
-
-
 class Location(models.Model):
     def __str__(self):
         return f"{self.address}"
 
     address = models.CharField(max_length=200)
     # could use a geo package for more specific stuff, might help with google maps
-    associated_films = models.ManyToManyField("Film", blank=True)
+    associated_films = models.ManyToManyField(
+        "Film", blank=True, related_name="locations"
+    )
 
     is_setting = models.BooleanField(default=False)

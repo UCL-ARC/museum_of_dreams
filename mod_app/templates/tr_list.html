@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans 'Teaching Resources' %} {% endblock %}
+{% block content %}
+
+
+    <h3>
+        Teaching Resources available on this site
+    </h3>
+
+
+    <div class="card-area">
+        {% for tr in teachingresources_list %}
+            <div class="card card--tr">
+                <h4 class="card__heading"><a
+                    href="{% url 'tr_detail' pk=tr.pk %}"
+                >{{tr.title}}</a></h4>
+                <div class="card__info">
+                    <dl>
+                        <dt>{{tr.material|safe|truncatewords:50}} </dt>
+                        <dt>Topics:</dt>
+                        {% for topic in tr.topics.all %}
+                            <dd class="tag"><span class="dot">•</span>{{topic.name}}</dd>
+                        {% endfor %}
+                        <dt>Tags:</dt>
+                        {% for tag in tr.tags.all %}
+                            <dd class="tag"><span class="dot">•</span>{{tag.name}}</dd>
+                        {% endfor %}
+                        <dt>Related films:</dt>
+                        {% for film in tr.films.all %}
+                            <dd>{{film.title}}</dd>
+                        {% endfor %}
+                    </dl>
+                    <button>
+                        <a href="{% url 'tr_detail' pk=tr.pk %}"> view full details </a></button>
+                </div>
+
+        {% endfor %}
+
+
+{% endblock %}
