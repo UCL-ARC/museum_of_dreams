@@ -1,5 +1,4 @@
-from uuid import uuid4
-import uuid
+from django.core.exceptions import ValidationError
 from django.db import models
 
 
@@ -53,7 +52,24 @@ class FileLink(BaseLinkModel):
     def upload_to(instance, filename):
         return f"files/{instance.__class__.__name__}/{filename}"
 
-    file = models.FileField(upload_to=upload_to, blank=True, null=True)
+    def validate_max_size(file):
+        # Set the maximum file size to 3gb
+        max_size = 3 * 1024 * 1024 * 1024
+
+        if file.size > max_size:
+            raise ValidationError("The maximum file size that can be uploaded is 3GB")
+        else:
+            return file
+
+    file = models.FileField(
+        upload_to=upload_to,
+        blank=True,
+        null=True,
+        validators=[
+            *models.FileField.default_validators,
+            validate_max_size,
+        ],
+    )
 
 
 class Video(FileLink):
