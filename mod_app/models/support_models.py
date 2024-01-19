@@ -20,11 +20,16 @@ class BaseLinkModel(models.Model):
         else:
             return self.description
 
-    url = models.URLField(blank=True, help_text="url to the item you'd like to link")
+    url = models.URLField(
+        blank=True,
+        max_length=500,
+        help_text="url to the item you'd like to link",
+    )
     description = models.CharField(
         max_length=250,
-        help_text="short description of what the link is to",
+        help_text="short description, required",
         null=True,
+        blank=False,
     )
     film = models.ForeignKey(
         "Film", on_delete=models.CASCADE, related_name="%(class)ss", null=True
