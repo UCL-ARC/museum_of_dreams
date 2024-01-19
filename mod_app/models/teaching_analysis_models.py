@@ -79,7 +79,12 @@ class TeachingResources(models.Model):
         help_text="This field updates on save, and some items may not be visible immediately",
     )
 
-    clips = models.ManyToManyField("Video", related_name="tr_clips", null=True)
+    clips = models.ManyToManyField(
+        "Video",
+        related_name="tr_clips",
+        null=True,
+        blank=True,
+    )
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
