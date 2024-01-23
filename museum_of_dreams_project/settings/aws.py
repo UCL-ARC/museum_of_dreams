@@ -11,6 +11,7 @@ ENVIRONMENT = "production"
 
 ALLOWED_HOSTS = [
     "museumofdreamworlds.eu-west-2.elasticbeanstalk.com",
+    "3.11.242.245",
 ]
 
 DATABASES = {
