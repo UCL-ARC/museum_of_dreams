@@ -13,77 +13,77 @@ class Migration(migrations.Migration):
             model_name="drawing",
             name="description",
             field=models.CharField(
-                help_text="short description, required", max_length=250, null=True
+                help_text="short description, required", max_length=250, null=False
             ),
         ),
         migrations.AlterField(
             model_name="otherlink",
             name="description",
             field=models.CharField(
-                help_text="short description, required", max_length=250, null=True
+                help_text="short description, required", max_length=250, null=False
             ),
         ),
         migrations.AlterField(
             model_name="postcard",
             name="description",
             field=models.CharField(
-                help_text="short description, required", max_length=250, null=True
+                help_text="short description, required", max_length=250, null=False
             ),
         ),
         migrations.AlterField(
             model_name="poster",
             name="description",
             field=models.CharField(
-                help_text="short description, required", max_length=250, null=True
+                help_text="short description, required", max_length=250, null=False
             ),
         ),
         migrations.AlterField(
             model_name="pressbook",
             name="description",
             field=models.CharField(
-                help_text="short description, required", max_length=250, null=True
+                help_text="short description, required", max_length=250, null=False
             ),
         ),
         migrations.AlterField(
             model_name="programme",
             name="description",
             field=models.CharField(
-                help_text="short description, required", max_length=250, null=True
+                help_text="short description, required", max_length=250, null=False
             ),
         ),
         migrations.AlterField(
             model_name="publicity",
             name="description",
             field=models.CharField(
-                help_text="short description, required", max_length=250, null=True
+                help_text="short description, required", max_length=250, null=False
             ),
         ),
         migrations.AlterField(
             model_name="script",
             name="description",
             field=models.CharField(
-                help_text="short description, required", max_length=250, null=True
+                help_text="short description, required", max_length=250, null=False
             ),
         ),
         migrations.AlterField(
             model_name="source",
             name="description",
             field=models.CharField(
-                help_text="short description, required", max_length=250, null=True
+                help_text="short description, required", max_length=250, null=False
             ),
         ),
         migrations.AlterField(
             model_name="still",
             name="description",
             field=models.CharField(
-                help_text="short description, required", max_length=250, null=True
+                help_text="short description, required", max_length=250, null=False
             ),
         ),
         migrations.AlterField(
             model_name="video",
             name="description",
             field=models.CharField(
-                help_text="short description, required", max_length=250, null=True
+                help_text="short description, required", max_length=250, null=False
             ),
         ),
     ]

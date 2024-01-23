@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
             model_name="teachingresources",
             name="clips",
             field=models.ManyToManyField(
-                blank=True, null=True, related_name="tr_clips", to="mod_app.video"
+                blank=True, related_name="tr_clips", to="mod_app.video"
             ),
         ),
     ]

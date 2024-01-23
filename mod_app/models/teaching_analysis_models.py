@@ -82,7 +82,6 @@ class TeachingResources(models.Model):
     clips = models.ManyToManyField(
         "Video",
         related_name="tr_clips",
-        null=True,
         blank=True,
     )
 

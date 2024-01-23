@@ -27,7 +27,7 @@ class BaseLinkModel(models.Model):
     description = models.CharField(
         max_length=250,
         help_text="short description, required",
-        null=True,
+        null=False,
         blank=False,
     )
     film = models.ForeignKey(
@@ -66,7 +66,6 @@ class FileLink(BaseLinkModel):
         blank=True,
         null=True,
         validators=[
-            *models.FileField.default_validators,
             validate_max_size,
         ],
     )
