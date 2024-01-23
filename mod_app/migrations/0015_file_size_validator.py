@@ -6,7 +6,7 @@ import mod_app.models.support_models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("mod_app", "0015_tr_clips_blank"),
+        ("mod_app", "0014_tr_clips_blank"),
     ]
 
     operations = [

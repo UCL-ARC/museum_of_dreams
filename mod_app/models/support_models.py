@@ -21,7 +21,6 @@ class BaseLinkModel(models.Model):
 
     url = models.URLField(
         blank=True,
-        max_length=500,
         help_text="url to the item you'd like to link",
     )
     description = models.CharField(

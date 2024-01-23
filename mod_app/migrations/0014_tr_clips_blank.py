@@ -5,7 +5,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("mod_app", "0014_increase_url_max_length"),
+        ("mod_app", "0013_make_link_filelink_description_required"),
     ]
 
     operations = [
