@@ -90,7 +90,7 @@ class Film(models.Model):
     )
     print_comments = models.TextField(
         blank=True,
-        help_text="Optional notes about the print/s",
+        help_text="Optional notes about the print/s. Mentions are available here and will contibute to the bibliography.",
         verbose_name="Notes on Prints",
     )
 
