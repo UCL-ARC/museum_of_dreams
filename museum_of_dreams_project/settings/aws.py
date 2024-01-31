@@ -1,5 +1,5 @@
 from .base import *
-import settings.static as static
+import museum_of_dreams_project.settings.static as static
 
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
