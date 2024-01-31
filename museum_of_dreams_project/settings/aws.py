@@ -30,8 +30,8 @@ GRAPPELLI_ADMIN_TITLE = "Museum of Dreamworlds"
 AWS_QUERYSTRING_AUTH = False  # needed by grappelli to work with s3
 
 
-DEFAULT_FILE_STORAGE = "MediaStorage"
-STATICFILES_STORAGE = "StaticStorage"
+DEFAULT_FILE_STORAGE = MediaStorage
+STATICFILES_STORAGE = StaticStorage
 
 AWS_ACCESS_KEY_ID = os.environ["AWS_ACCESS_KEY_ID"]
 AWS_SECRET_ACCESS_KEY = os.environ["AWS_SECRET_ACCESS_KEY"]
