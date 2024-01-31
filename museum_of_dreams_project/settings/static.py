@@ -1,10 +1,10 @@
 from storages.backends.s3boto3 import S3Boto3Storage
-import aws
+from .aws import STATIC_ROOT, MEDIA_ROOT
 
 
 class StaticStorage(S3Boto3Storage):
-    location = aws.STATIC_ROOT
+    location = STATIC_ROOT
 
 
 class MediaStorage(S3Boto3Storage):
-    location = aws.MEDIA_ROOT
+    location = MEDIA_ROOT
