@@ -18,6 +18,7 @@ from django.conf import settings
 from django.conf.urls import include
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.http import HttpResponse
 from django.urls import path
 from django_distill import distill_path
 from django.views.generic.base import RedirectView
@@ -40,6 +41,7 @@ urlpatterns = (
         path("grappelli-docs/", include("grappelli.urls_docs")),
         path("ckeditor/", include("ckeditor_uploader.urls")),
         path("admin/", admin.site.urls, name=admin),
+        path("health/", lambda request: HttpResponse("OK"), name="health"),
         distill_path(
             "", views.HomeView.as_view(), name="home", distill_file="index.html"
         ),
