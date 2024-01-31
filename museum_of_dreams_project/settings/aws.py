@@ -1,5 +1,4 @@
 from .base import *
-from storages.backends.s3boto3 import S3Boto3Storage
 
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
@@ -30,16 +29,8 @@ GRAPPELLI_ADMIN_TITLE = "Museum of Dreamworlds"
 AWS_QUERYSTRING_AUTH = False  # needed by grappelli to work with s3
 
 
-class StaticStorage(S3Boto3Storage):
-    location = STATIC_ROOT
-
-
-class MediaStorage(S3Boto3Storage):
-    location = MEDIA_ROOT
-
-
-DEFAULT_FILE_STORAGE = "MediaStorage"
-STATICFILES_STORAGE = "StaticStorage"
+DEFAULT_FILE_STORAGE = "static.MediaStorage"
+STATICFILES_STORAGE = "static.StaticStorage"
 
 AWS_ACCESS_KEY_ID = os.environ["AWS_ACCESS_KEY_ID"]
 AWS_SECRET_ACCESS_KEY = os.environ["AWS_SECRET_ACCESS_KEY"]
