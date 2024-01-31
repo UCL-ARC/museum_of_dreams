@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "ckeditor",
     "ckeditor_uploader",
     "django_distill",
+    "storages",
 ]
 
 MIDDLEWARE = [
