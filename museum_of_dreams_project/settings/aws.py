@@ -1,4 +1,6 @@
 from .base import *
+from storages.backends.s3boto3 import S3Boto3Storage
+
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
@@ -28,8 +30,16 @@ GRAPPELLI_ADMIN_TITLE = "Museum of Dreamworlds"
 AWS_QUERYSTRING_AUTH = False  # needed by grappelli to work with s3
 
 
-# DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+class StaticStorage(S3Boto3Storage):
+    location = STATIC_ROOT
+
+
+class MediaStorage(S3Boto3Storage):
+    location = MEDIA_ROOT
+
+
+DEFAULT_FILE_STORAGE = "MediaStorage"
+STATICFILES_STORAGE = "StaticStorage"
 
 AWS_ACCESS_KEY_ID = os.environ["AWS_ACCESS_KEY_ID"]
 AWS_SECRET_ACCESS_KEY = os.environ["AWS_SECRET_ACCESS_KEY"]
@@ -38,4 +48,5 @@ AWS_S3_REGION_NAME = "eu-west-2"
 AWS_S3_CUSTOM_DOMAIN = (
     f"{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com"
 )
-STATIC_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
+STATIC_URL = "https://%s/static" % AWS_S3_CUSTOM_DOMAIN
+MEDIA_URL = "https://%s/media" % AWS_S3_CUSTOM_DOMAIN
