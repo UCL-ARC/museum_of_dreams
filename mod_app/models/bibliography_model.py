@@ -13,7 +13,7 @@ class BibliographyItem(models.Model):
     short_citation = models.CharField(
         max_length=200,
         null=True,
-        help_text="Please use Harvard in-text citation style.                       Examples: (Author surname, year), or in the case of up to 3 authors: (Author 1 surname, Author 2 surname, Author 3 surname, year), or in the case or more than 3 authors: (Author 1 surname, et al., year) ",
+        help_text="Please use Harvard in-text citation style. Examples: (Author surname, year), or in the case of up to 3 authors: (Author 1 surname, Author 2 surname, Author 3 surname, year), or in the case or more than 3 authors: (Author 1 surname, et al., year) ",
     )
     full_citation = RichTextField(
         null=True,
