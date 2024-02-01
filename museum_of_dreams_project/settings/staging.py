@@ -13,4 +13,3 @@ AWS_S3_CUSTOM_DOMAIN = (
 )
 STATIC_URL = "https://%s/static/" % AWS_S3_CUSTOM_DOMAIN
 MEDIA_URL = "https://%s/media/" % AWS_S3_CUSTOM_DOMAIN
-ADMIN_MEDIA_PREFIX = STATIC_URL + "admin/"
