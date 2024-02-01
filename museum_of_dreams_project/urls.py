@@ -41,7 +41,6 @@ urlpatterns = (
         path("grappelli-docs/", include("grappelli.urls_docs")),
         path("ckeditor/", include("ckeditor_uploader.urls")),
         path("admin/", admin.site.urls, name=admin),
-        path("health/", lambda request: HttpResponse("OK"), name="health"),
         distill_path(
             "", views.HomeView.as_view(), name="home", distill_file="index.html"
         ),
