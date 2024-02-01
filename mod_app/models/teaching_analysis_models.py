@@ -27,7 +27,11 @@ class Analysis(models.Model):
 
     title = models.CharField(max_length=255, default=default_title)
 
-    content = RichTextUploadingField(null=True, blank=True)
+    content = RichTextUploadingField(
+        null=True,
+        blank=True,
+        help_text="Mentions are available here and will contibute to the bibliography.",
+    )
 
     films = models.ManyToManyField("Film", related_name="analyses", blank=True)
 
@@ -65,7 +69,11 @@ class TeachingResources(models.Model):
         return f"Teaching Resources bundle{TeachingResources.objects.count() + 1}"
 
     title = models.CharField(max_length=255, default=default_title)
-    material = RichTextUploadingField(null=True, blank=True)
+    material = RichTextUploadingField(
+        null=True,
+        blank=True,
+        help_text="Mentions are available here and will contibute to the bibliography.",
+    )
 
     films = models.ManyToManyField("Film", related_name="trs", blank=True)
 

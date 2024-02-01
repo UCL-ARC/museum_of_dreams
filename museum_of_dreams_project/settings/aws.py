@@ -1,5 +1,6 @@
 from .base import *
 
+
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 DEBUG = False
@@ -11,7 +12,7 @@ ENVIRONMENT = "production"
 
 ALLOWED_HOSTS = [
     "museumofdreamworlds.eu-west-2.elasticbeanstalk.com",
-    "3.11.242.245",
+    "museumofdreamworlds.org",
 ]
 
 DATABASES = {
@@ -28,10 +29,15 @@ GRAPPELLI_ADMIN_TITLE = "Museum of Dreamworlds"
 AWS_QUERYSTRING_AUTH = False  # needed by grappelli to work with s3
 
 
-# DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-# STATICFILES_STORAGE = "storages.backends.s3.S3Storage"
+DEFAULT_FILE_STORAGE = "static.MediaStorage"
+STATICFILES_STORAGE = "static.StaticStorage"
 
-# AWS_ACCESS_KEY_ID = os.environ["AWS_ACCESS_KEY_ID"]
-# AWS_SECRET_ACCESS_KEY = os.environ["AWS_SECRET_ACCESS_KEY"]
-# AWS_STORAGE_BUCKET_NAME = "modprodbucket"
-# AWS_S3_REGION_NAME = "eu-west-2"
+AWS_ACCESS_KEY_ID = os.environ["AWS_ACCESS_KEY_ID"]
+AWS_SECRET_ACCESS_KEY = os.environ["AWS_SECRET_ACCESS_KEY"]
+AWS_STORAGE_BUCKET_NAME = "modprodbucket"
+AWS_S3_REGION_NAME = "eu-west-2"
+AWS_S3_CUSTOM_DOMAIN = (
+    f"{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com"
+)
+STATIC_URL = "https://%s/static/" % AWS_S3_CUSTOM_DOMAIN
+MEDIA_URL = "https://%s/media/" % AWS_S3_CUSTOM_DOMAIN

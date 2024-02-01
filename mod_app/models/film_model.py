@@ -90,14 +90,16 @@ class Film(models.Model):
     )
     print_comments = models.TextField(
         blank=True,
-        help_text="Optional notes about the print/s",
+        help_text="Optional notes about the print/s. Mentions are available here and will contibute to the bibliography.",
         verbose_name="Notes on Prints",
     )
 
     # non-filmic section contains support models
     # comments + extras
 
-    comments = RichTextUploadingField(blank=True)
+    comments = RichTextUploadingField(
+        blank=True, help_text="Internal comments between researchers"
+    )
     temporary_images = RichTextUploadingField(blank=True)
 
     bibliography = models.ManyToManyField(BibliographyItem, related_name="films")

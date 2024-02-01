@@ -35,6 +35,9 @@
                     {% include 'svgs/logo_header.svg' %}
                 </div>
             </a>
+            <a href="{% url 'admin:index' %}">
+                <button>LOGIN</button>
+            </a>
             {% block non_production_message %}
                 {% if not request.get_host|lower == 'museumofdreamworlds.eu-west-2.elasticbeanstalk.com' %}
                     <span style="color: yellow; padding: 10px;">
