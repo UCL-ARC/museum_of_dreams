@@ -10,17 +10,8 @@ This tells CKeditor what to use for file uploads in the editor
 STATICFILES_STORAGE = "storages.backends.s3.S3Storage"
 ```
 
-To connect the app to AWS you'll need to define the following, which you can store the value for in the ElasticBeanstalk config with other environment variables.
-`AWS_ACCESS_KEY_ID`
-`AWS_SECRET_ACCESS_KEY`
-`AWS_STORAGE_BUCKET_NAME`
-`AWS_S3_REGION_NAME` - this should remain consistent so can be defined here or on EBS
+To connect the app to AWS you'll need to define several variables (seen at the bottom of [aws.py](../museum_of_dreams_project/settings/aws.py)). You'll also need to create a file for some custom storage classes. [This tutorial](https://www.caktusgroup.com/blog/2014/11/10/Using-Amazon-S3-to-store-your-Django-sites-static-and-media-files/) outlines everything nicely. The only difference is you don't need to set up s3 to host a static website
 
-### On AWS
-As mentioned above, you'll want to store values for some of the variables in the EBS config. In order to get these values, you'll need to create a s3 bucket.
-
-Go to the s3 console and click "create a new bucket". Select you region and choose `General Purpose` for the type. Name the bucket and uncheck `block all public access`. Everything else can be left as default.
-
-You then need to go to the IAM console and create a new user, attaching the `S3FullAccess` policy to it. Create a new access key (which can be used for both prod and staging, or you can create separate ones). Make sure to copy the access key secret and ID for the variables above and input them into the EBS config for each server.
+ Make sure to copy the access key secret and ID for the variables mentioned above and input them into the EBS config for each server.
 
 This should work, but if you've not set up HTTPS on your website, it may fail with 403 errors. You can check if the app recognises the buckets by seeing their contents after EBS deploys a fresh version after updating the config - you should see your static files in the bucket.
