@@ -12,3 +12,10 @@ Then go to [AWS Certificate Manager](https://eu-west-2.console.aws.amazon.com/ac
 **Once the certificate has been issued, i.e *not* pending** click on the certificate and click "create records in Route 53". Select applicable domain names and create records, they should show up in your Hosted Zone.
 
 ### Attaching to the EB environment
+
+Go to the EB environment, go to the `Configuration` tab and go to the section about instance scaling. Change the type from single instance to load balanced and add a listener on port 443 with HTTPS and select the certificate you set up.
+
+
+Once the changes have been applied, go to your `EC2 Security Groups` and here you should see a new load balancer type for your environment. I recommend changing the name to include LB or something similar so you can tell them apart easily.
+
+On your environment's security group, the inbound rules should include http traffic from the load balancer, add it if it doesn't. Update the inbound rules in the load balancer's security group to allow HTTPS traffic from: itself, 0.0.0.0 (anywhere), the database and the environment. Also allow HTTP from anywhere.
