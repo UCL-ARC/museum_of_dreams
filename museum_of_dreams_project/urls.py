@@ -7,7 +7,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
-# from django.views.generic.base import RedirectView
+from django.views.generic.base import RedirectView
 
 from django_distill import distill_path
 
@@ -31,7 +31,10 @@ urlpatterns = (
         distill_path(
             "", views.HomeView.as_view(), name="home", distill_file="index.html"
         ),
-        # path("favicon.ico", RedirectView.as_view(url="static/admin/img/favicon.ico")),
+        path(
+            "favicon.ico",
+            RedirectView.as_view(url=f"{settings.STATIC_URL}admin/img/favicon.ico"),
+        ),
         path("mentions-api", views.MentionsApiView.as_view(), name="mentions_api"),
         # website pages
         distill_path(
