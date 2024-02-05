@@ -28,14 +28,14 @@ ENVIRONMENT = "local"
 
 INSTALLED_APPS = [
     "django.contrib.contenttypes",
-    "grappelli.dashboard",
+    "grappelli.dashboard",  # should be before grappelli and after content types
     "grappelli",  # needs to be before admin
-    "mod_app",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "mod_app",
     "ckeditor",
     "ckeditor_uploader",
     "django_distill",
