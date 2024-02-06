@@ -3,14 +3,16 @@
 {% block title %}{% trans 'Films' %} {% endblock %}
 {% block content %}
 
-    <div>
-        List of films on this site
+    <div class="page__description">
+        <div>
+            List of films on this site
+        </div>
+        {% if is_paginated %}
+            <a href="?list=all" class="button--toggle-pagination"><button>View All</button></a>
+        {% else %}
+            <a href="{% url 'film_list' %}" class="button--toggle-pagination"><button>View by page</button></a>
+        {% endif %}
     </div>
-    {% if is_paginated %}
-        <a href="?list=all">View All</a>
-    {% else %}
-        <a href="{% url 'film_list' %}">View by page</a>
-    {% endif %}
 
 
     <table class="film-table">
@@ -73,7 +75,7 @@
                     {% endif %}
 
                     <span class="current">
-                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
                     </span>
 
                     {% if page_obj.has_next %}

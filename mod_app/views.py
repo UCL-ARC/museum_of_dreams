@@ -29,7 +29,6 @@ class FilmListView(ListView):
                 self.paginate_by = int(page)
             except ValueError:
                 pass
-        print("context:", context)
         return context
 
     #     for film in context["object_list"]:
