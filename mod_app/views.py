@@ -15,10 +15,23 @@ class HomeView(TemplateView):
 class FilmListView(ListView):
     model = Film
     template_name = "film_list.html"
-    paginate_by = 20
+    paginate_by = 2
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        page = self.request.GET.get("list")
+
+        if page == "all":
+            context["object_list"] = context["film_list"] = self.model.objects.all()
+            context["is_paginated"] = False
+        elif page:
+            try:
+                self.paginate_by = int(page)
+            except ValueError:
+                pass
+        print("context:", context)
+        return context
+
     #     for film in context["object_list"]:
     #         # themes = list(film.themes.all())
     #         # film.themes = themes

@@ -6,6 +6,12 @@
     <div>
         List of films on this site
     </div>
+    {% if is_paginated %}
+        <a href="?list=all">View All</a>
+    {% else %}
+        <a href="{% url 'film_list' %}">View by page</a>
+    {% endif %}
+
 
     <table class="film-table">
         <thead>
@@ -57,22 +63,27 @@
         </tbody>
     </table>
 
-    <div class="pagination">
-        <span class="step-links">
-            {% if results.has_previous %}
-                <a href="?page=1">&laquo; first</a>
-                <a href="?page={{ results.previous_page_number }}">previous</a>
-            {% endif %}
+    {% if is_paginated %}
+        {% block pagination %}
+            <div class="pagination">
+                <span class="step-links">
+                    {% if page_obj.has_previous %}
+                        <a href="?page=1">&laquo; first</a>
+                        <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                    {% endif %}
 
-            <span class="current">
-                Page {{ results.number }} of {{ results.paginator.num_pages }}.
-            </span>
+                    <span class="current">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                    </span>
 
-            {% if results.has_next %}
-                <a href="?page={{ results.next_page_number }}">next</a>
-                <a href="?page={{ results.paginator.num_pages }}">last &raquo;</a>
-            {% endif %}
-        </span>
-    </div>
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}">next</a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                    {% endif %}
+                </span>
+
+            </div>
+        {% endblock %}
+    {% endif %}
 
 {% endblock %}
