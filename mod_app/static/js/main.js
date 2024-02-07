@@ -8,20 +8,25 @@ setTagColours();
 toggleMenuDrawer();
 
 document.addEventListener("DOMContentLoaded", function () {
-	// const lightDarkToggle = document.querySelector(".toggle-container");
-	// lightDarkToggle.addEventListener("click", toggleMode());
-	// function toggleMode() {
-	// 	const body = document.body;
-	// 	const currentMode = body.classList.contains("dark-mode")
-	// 		? "light-mode"
-	// 		: "dark-mode";
-	// 	console.log("chanigng mode");
-	// 	body.classList.remove(currentMode);
-	// 	body.classList.add(currentMode);
-	// }
-
-	const carouselButtonNext = document.querySelector(".carousel__buttons--next");
-	const carouselButtonPrev = document.querySelector(".carousel__buttons--prev");
-	carouselButtonNext.addEventListener("click", nextSlide);
-	carouselButtonPrev.addEventListener("click", prevSlide);
+  // const lightDarkToggle = document.querySelector(".toggle-container");
+  // lightDarkToggle.addEventListener("click", toggleMode());
+  // function toggleMode() {
+  // 	const body = document.body;
+  // 	const currentMode = body.classList.contains("dark-mode")
+  // 		? "light-mode"
+  // 		: "dark-mode";
+  // 	console.log("chanigng mode");
+  // 	body.classList.remove(currentMode);
+  // 	body.classList.add(currentMode);
+  // }
+  if (window.location.pathname === "/") {
+    const carouselButtonNext = document.querySelector(
+      ".carousel__buttons--next"
+    );
+    const carouselButtonPrev = document.querySelector(
+      ".carousel__buttons--prev"
+    );
+    carouselButtonNext.addEventListener("click", nextSlide);
+    carouselButtonPrev.addEventListener("click", prevSlide);
+  }
 });
