@@ -6,6 +6,7 @@
     "doc": "docs"
   },
   "dependencies": {
+    "cypress": "^13.6.4",
     "fuse.js": "^7.0.0"
   },
   "devDependencies": {
