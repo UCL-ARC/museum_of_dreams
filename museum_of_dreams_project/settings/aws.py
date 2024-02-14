@@ -13,6 +13,7 @@ ENVIRONMENT = "production"
 ALLOWED_HOSTS = [
     "museumofdreamworlds.eu-west-2.elasticbeanstalk.com",
     "museumofdreamworlds.org",
+    os.environ.get("PIP"),
 ]
 
 DATABASES = {
