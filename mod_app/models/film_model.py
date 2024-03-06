@@ -19,11 +19,10 @@ class Film(models.Model):
         return f"{self.title}"
 
     title = models.CharField(max_length=100)
-    alt_titles = models.CharField(
-        max_length=200,
+    alt_titles = models.TextField(
         blank=True,
         null=True,
-        help_text="Comma separated values, can be 'Original: Filmname,' or 'Filmname (Original),'",
+        help_text="Comma separated values, format as 'Filmname (Alternative),'",
     )
     release_date = models.IntegerField()
 
