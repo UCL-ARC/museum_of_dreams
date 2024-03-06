@@ -79,7 +79,8 @@ class AnalysisAdmin(admin.ModelAdmin):
 
     def safe_content(self, obj):
         truncated_content = truncatechars_html(obj.content, 200)
-        return format_html(truncated_content)
+        modified_content = truncated_content.replace("{", "(").replace("}", ")")
+        return format_html(modified_content)
 
     safe_content.allow_tags = True
     safe_content.short_description = "Content"

@@ -86,14 +86,16 @@ class FilmAdmin(admin.ModelAdmin):
     # these fields show html tags from the ckeditor otherwise
     def safe_synopsis(self, obj):
         truncated_synopsis = truncatechars_html(obj.synopsis, 200)
-        return format_html(truncated_synopsis)
+        modified_synopsis = truncated_synopsis.replace("{", "(").replace("}", ")")
+        return format_html(modified_synopsis)
 
     safe_synopsis.allow_tags = True
     safe_synopsis.short_description = "Synopsis"
 
     def safe_comments(self, obj):
         truncated_comments = truncatechars_html(obj.comments, 200)
-        return format_html(truncated_comments)
+        modified_comments = truncated_comments.replace("{", "(").replace("}", ")")
+        return format_html(modified_comments)
 
     safe_comments.allow_tags = True
     safe_comments.short_description = "Comments"
