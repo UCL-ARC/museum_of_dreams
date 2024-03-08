@@ -8,9 +8,9 @@
             List of films on this site
         </div>
         {% if is_paginated %}
-            <a href="?list=all" class="button--toggle-pagination"><button>View All</button></a>
+            <a href="{% url 'film_list' %}" class="button--toggle-pagination"><button>View All</button></a>
         {% else %}
-            <a href="{% url 'film_list' %}" class="button--toggle-pagination"><button>View by page</button></a>
+            <a href="{% url 'film_list' %}?page=1" class="button--toggle-pagination"><button>View by page</button></a>
         {% endif %}
     </div>
 

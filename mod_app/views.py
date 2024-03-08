@@ -17,22 +17,12 @@ class FilmListView(ListView):
     template_name = "film_list.html"
     paginate_by = 20
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        page = self.request.GET.get("list")
-
-        if page == "all":
-            context["object_list"] = context["film_list"] = self.model.objects.all()
-            context["is_paginated"] = False
-        return context
-
-    #     for film in context["object_list"]:
-    #         # themes = list(film.themes.all())
-    #         # film.themes = themes
-    #         # starring = list(film.cast)
-    #         # film.starring = ", ".join(str(actor) for actor in starring)
-    #         # print(starring, "film.actors", film.actors.all())
-    #     return context
+    def get_paginate_by(self, queryset):
+        page = self.request.GET.get(self.page_kwarg)
+        if page:
+            return self.paginate_by
+        else:
+            return None
 
 
 class FilmDetailView(DetailView):
