@@ -15,7 +15,7 @@ class HomeView(TemplateView):
 class FilmListView(ListView):
     model = Film
     template_name = "film_list.html"
-    paginate_by = 2
+    paginate_by = 20
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
