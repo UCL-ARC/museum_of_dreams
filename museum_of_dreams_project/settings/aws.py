@@ -27,8 +27,9 @@ DATABASES = {
     }
 }
 GRAPPELLI_ADMIN_TITLE = "Museum of Dreamworlds"
-AWS_QUERYSTRING_AUTH = False  # needed by grappelli to work with s3
 
+#### Using S3 for static and media storage
+AWS_QUERYSTRING_AUTH = False  # needed by grappelli to work with s3
 
 DEFAULT_FILE_STORAGE = "static.MediaStorage"
 STATICFILES_STORAGE = "static.StaticStorage"
