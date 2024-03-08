@@ -16,7 +16,7 @@ class FilmListView(ListView):
     model = Film
     template_name = "film_list.html"
     paginate_by = 20
-    
+
     def get_paginate_by(self, queryset) -> int | None:
         page = self.request.GET.get(self.page_kwarg)
         if page:
