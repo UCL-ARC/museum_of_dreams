@@ -24,11 +24,6 @@ class FilmListView(ListView):
         if page == "all":
             context["object_list"] = context["film_list"] = self.model.objects.all()
             context["is_paginated"] = False
-        elif page:
-            try:
-                self.paginate_by = int(page)
-            except ValueError:
-                pass
         return context
 
     #     for film in context["object_list"]:
