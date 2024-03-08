@@ -25,7 +25,6 @@ class FilmListView(ListView):
             return None
 
 
-
 class FilmDetailView(DetailView):
     model = Film
     template_name = "film_detail.html"
