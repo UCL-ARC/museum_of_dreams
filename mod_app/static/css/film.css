@@ -1,5 +1,5 @@
 /* for film detail and list */
-/* list */
+/**************** list **********************/
 .film-table {
   font-size: 0.9rem;
   .synopsis > * {
@@ -17,6 +17,24 @@
 }
 .film-table th {
   font-size: 1rem;
+}
+
+.page__description {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+/* pagination */
+.button--toggle-pagination {
+  float: right;
+}
+.pagination {
+  margin-inline: auto;
+  text-align: center;
+  margin-top: 1rem;
+  .current {
+    display: block;
+  }
 }
 
 /***************** detail ***************/
