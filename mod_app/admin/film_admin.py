@@ -75,7 +75,7 @@ class FilmAdmin(admin.ModelAdmin):
         "title",
         "safe_temporary_images",
         "preview_video",
-        "alt_titles",
+        "safe_alt_titles",
         "release_date",
         "production_country",
         "production_company",
@@ -99,6 +99,12 @@ class FilmAdmin(admin.ModelAdmin):
 
     safe_comments.allow_tags = True
     safe_comments.short_description = "Comments"
+
+    def safe_alt_titles(self, obj):
+        return format_html(obj.alt_titles)
+
+    safe_alt_titles.allow_tags = True
+    safe_alt_titles.short_description = "Alt Titles"
 
     def safe_temporary_images(self, obj):
         return format_html(obj.temporary_images)
