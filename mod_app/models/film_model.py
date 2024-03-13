@@ -45,15 +45,19 @@ class Film(models.Model):
 
     # Technical section
 
-    duration = models.IntegerField(
+    duration = models.DecimalField(
         blank=True,
         null=True,
-        help_text="Enter the original run time in minutes.",
+        max_digits=5,
+        decimal_places=2,
+        help_text="Enter the original run time in minutes. Please use a period (.) to denote fractions, eg. 10.5 meaning 10 mins 30 seconds",
     )
-    current_length = models.IntegerField(
+    current_length = models.DecimalField(
         blank=True,
         null=True,
-        help_text="Enter the run time of the BFI copy in minutes.",
+        max_digits=5,
+        decimal_places=2,
+        help_text="Enter the run time of the BFI copy in minutes. Please use a period (.) to denote fractions, eg. 10.5 meaning 10 mins 30 seconds",
     )
     support = models.CharField(
         max_length=1,
