@@ -4,6 +4,8 @@ The production website is hosted at http://museumofdreamworlds.eu-west-2.elastic
 
 The staging one is http://museumofdreams.eu-west-2.elasticbeanstalk.com/ and is built from the `development` branch
 
+The more public versions are https://museumofdreamworlds.org and https://staging.museumofdreamworlds.org
+
 Development should be done locally and staged to the website. At present this is not a production version.
 
 ## Getting Started
