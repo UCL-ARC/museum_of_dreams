@@ -13,20 +13,22 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="film",
             name="current_length",
-            field=models.CharField(
+            field=models.DecimalField(
                 blank=True,
+                decimal_places=2,
                 help_text="Enter the run time of the BFI copy in minutes. Please use a period (.) to denote fractions, eg. 10.5 meaning 10 mins 30 seconds",
-                max_length=6,
+                max_digits=5,
                 null=True,
             ),
         ),
         migrations.AlterField(
             model_name="film",
             name="duration",
-            field=models.CharField(
+            field=models.DecimalField(
                 blank=True,
+                decimal_places=2,
                 help_text="Enter the original run time in minutes. Please use a period (.) to denote fractions, eg. 10.5 meaning 10 mins 30 seconds",
-                max_length=6,
+                max_digits=5,
                 null=True,
             ),
         ),
