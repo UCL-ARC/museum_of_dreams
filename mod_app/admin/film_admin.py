@@ -104,7 +104,7 @@ class FilmAdmin(admin.ModelAdmin):
         return format_html(obj.temporary_images)
 
     safe_temporary_images.allow_tags = True
-    safe_temporary_images.short_description = "Temporary Images"
+    safe_temporary_images.short_description = "List Images"
 
     def preview_video(self, obj):
         if obj.videos.first():
@@ -180,7 +180,7 @@ class FilmAdmin(admin.ModelAdmin):
             {"classes": ("placeholder TeachingResources_films-group",), "fields": ()},
         ),
         (
-            "Comments and Temporary Images",
+            "Comments and List Images",
             {
                 "classes": ("grp-collapse grp-open",),
                 "fields": (
