@@ -12,12 +12,12 @@ class PreviewMixin:
 
     def file_preview(self, obj):
         return format_html(
-            '<img src="{}" style="max-width: 150px;" />',
+            '<img src="{}" style="max-width: 15rem;" />',
             obj.file.url,
         )
 
     def link_preview(self, obj):
         return format_html(
-            '<img src="{}" style="max-width: 150px;" />',
+            '<img src="{}" style="max-width: 15rem;" />',
             obj.url,
         )
