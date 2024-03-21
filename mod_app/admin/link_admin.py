@@ -154,6 +154,7 @@ class OtherLinkInline(admin.TabularInline, PreviewMixin):
 class VideoAdmin(admin.ModelAdmin, PreviewMixin):
     search_fields = ["description", "url"]
     list_display = ["description", "film", "file", "url", "preview"]
+    readonly_fields = ("preview",)
 
 
 @admin.register(Source)
@@ -161,60 +162,70 @@ class SourceAdmin(admin.ModelAdmin, PreviewMixin):
     search_fields = ["description", "url"]
     exclude = ["is_source"]
     list_display = ["description", "film", "url", "preview"]
+    readonly_fields = ("preview",)
 
 
 @admin.register(OtherLink)
 class OtherLinkAdmin(admin.ModelAdmin, PreviewMixin):
     search_fields = ["description", "url"]
     list_display = ["description", "film", "url", "preview"]
+    readonly_fields = ("preview",)
 
 
 @admin.register(Script)
 class ScriptAdmin(admin.ModelAdmin, PreviewMixin):
     search_fields = ["description", "url"]
     list_display = ["description", "film", "file", "url", "preview"]
+    readonly_fields = ("preview",)
 
 
 @admin.register(PressBook)
 class PressBookAdmin(admin.ModelAdmin, PreviewMixin):
     search_fields = ["description", "url"]
     list_display = ["description", "film", "file", "url", "preview"]
+    readonly_fields = ("preview",)
 
 
 @admin.register(Publicity)
 class PublicityAdmin(admin.ModelAdmin, PreviewMixin):
     search_fields = ["description", "url"]
     list_display = ["description", "film", "file", "url", "preview"]
+    readonly_fields = ("preview",)
 
 
 @admin.register(Programme)
 class ProgrammeAdmin(admin.ModelAdmin, PreviewMixin):
     search_fields = ["description", "url"]
     list_display = ["description", "film", "file", "url", "preview"]
+    readonly_fields = ("preview",)
 
 
 @admin.register(Still)
 class StillAdmin(admin.ModelAdmin, PreviewMixin):
     search_fields = ["description", "url"]
     list_display = ["description", "film", "file", "url", "preview"]
+    readonly_fields = ("preview",)
 
 
 @admin.register(Postcard)
 class PostcardAdmin(admin.ModelAdmin, PreviewMixin):
     search_fields = ["description", "url"]
     list_display = ["description", "film", "file", "url", "preview"]
+    readonly_fields = ("preview",)
 
 
 @admin.register(Poster)
 class PosterAdmin(admin.ModelAdmin, PreviewMixin):
     search_fields = ["description", "url"]
     list_display = ["description", "film", "file", "url", "preview"]
+    readonly_fields = ("preview",)
 
 
 @admin.register(Drawing)
 class DrawingAdmin(admin.ModelAdmin, PreviewMixin):
     search_fields = ["description", "url"]
     list_display = ["description", "film", "file", "url", "preview"]
+    readonly_fields = ("preview",)
 
 
 @admin.register(Tag)
