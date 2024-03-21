@@ -1,10 +1,10 @@
 from django.contrib import admin
-
+from mod_app.utils.mixins import PreviewMixin
 
 from ..models import *
 
 
-class SourceInline(admin.TabularInline):
+class SourceInline(admin.TabularInline, PreviewMixin):
     model = Source
     extra = 1
     classes = [
@@ -14,7 +14,7 @@ class SourceInline(admin.TabularInline):
     ]
 
 
-class VideoInline(admin.TabularInline):
+class VideoInline(admin.TabularInline, PreviewMixin):
     model = Video
     extra = 1
     classes = [
@@ -23,8 +23,12 @@ class VideoInline(admin.TabularInline):
         "grp-closed",
     ]
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.readonly_fields += ("preview",)
 
-class ScriptInline(admin.TabularInline):
+
+class ScriptInline(admin.TabularInline, PreviewMixin):
     model = Script
     extra = 1
     classes = [
@@ -33,8 +37,12 @@ class ScriptInline(admin.TabularInline):
         "grp-closed",
     ]
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.readonly_fields += ("preview",)
 
-class PressBookInline(admin.TabularInline):
+
+class PressBookInline(admin.TabularInline, PreviewMixin):
     model = PressBook
     extra = 1
     classes = [
@@ -43,8 +51,12 @@ class PressBookInline(admin.TabularInline):
         "grp-closed",
     ]
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.readonly_fields += ("preview",)
 
-class ProgrammeInline(admin.TabularInline):
+
+class ProgrammeInline(admin.TabularInline, PreviewMixin):
     model = Programme
     extra = 1
     classes = [
@@ -53,8 +65,12 @@ class ProgrammeInline(admin.TabularInline):
         "grp-closed",
     ]
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.readonly_fields += ("preview",)
 
-class PublicityInline(admin.TabularInline):
+
+class PublicityInline(admin.TabularInline, PreviewMixin):
     model = Publicity
     extra = 1
     classes = [
@@ -63,8 +79,12 @@ class PublicityInline(admin.TabularInline):
         "grp-closed",
     ]
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.readonly_fields += ("preview",)
 
-class StillInline(admin.TabularInline):
+
+class StillInline(admin.TabularInline, PreviewMixin):
     model = Still
     extra = 1
     classes = [
@@ -73,8 +93,12 @@ class StillInline(admin.TabularInline):
         "grp-closed",
     ]
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.readonly_fields += ("preview",)
 
-class PostcardInline(admin.TabularInline):
+
+class PostcardInline(admin.TabularInline, PreviewMixin):
     model = Postcard
     extra = 1
     classes = [
@@ -83,8 +107,12 @@ class PostcardInline(admin.TabularInline):
         "grp-closed",
     ]
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.readonly_fields += ("preview",)
 
-class PosterInline(admin.TabularInline):
+
+class PosterInline(admin.TabularInline, PreviewMixin):
     model = Poster
     extra = 1
     classes = [
@@ -93,8 +121,12 @@ class PosterInline(admin.TabularInline):
         "grp-closed",
     ]
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.readonly_fields += ("preview",)
 
-class DrawingInline(admin.TabularInline):
+
+class DrawingInline(admin.TabularInline, PreviewMixin):
     model = Drawing
     extra = 1
     classes = [
@@ -103,8 +135,12 @@ class DrawingInline(admin.TabularInline):
         "grp-closed",
     ]
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.readonly_fields += ("preview",)
 
-class OtherLinkInline(admin.TabularInline):
+
+class OtherLinkInline(admin.TabularInline, PreviewMixin):
     model = OtherLink
     extra = 1
     classes = [
@@ -115,70 +151,70 @@ class OtherLinkInline(admin.TabularInline):
 
 
 @admin.register(Video)
-class VideoAdmin(admin.ModelAdmin):
+class VideoAdmin(admin.ModelAdmin, PreviewMixin):
     search_fields = ["description", "url"]
-    list_display = ["description", "film", "file", "url"]
+    list_display = ["description", "film", "file", "url", "preview"]
 
 
 @admin.register(Source)
-class SourceAdmin(admin.ModelAdmin):
+class SourceAdmin(admin.ModelAdmin, PreviewMixin):
     search_fields = ["description", "url"]
     exclude = ["is_source"]
-    list_display = ["description", "film", "url"]
+    list_display = ["description", "film", "url", "preview"]
 
 
 @admin.register(OtherLink)
-class OtherLinkAdmin(admin.ModelAdmin):
+class OtherLinkAdmin(admin.ModelAdmin, PreviewMixin):
     search_fields = ["description", "url"]
-    list_display = ["description", "film", "url"]
+    list_display = ["description", "film", "url", "preview"]
 
 
 @admin.register(Script)
-class ScriptAdmin(admin.ModelAdmin):
+class ScriptAdmin(admin.ModelAdmin, PreviewMixin):
     search_fields = ["description", "url"]
-    list_display = ["description", "film", "file", "url"]
+    list_display = ["description", "film", "file", "url", "preview"]
 
 
 @admin.register(PressBook)
-class PressBookAdmin(admin.ModelAdmin):
+class PressBookAdmin(admin.ModelAdmin, PreviewMixin):
     search_fields = ["description", "url"]
-    list_display = ["description", "film", "file", "url"]
+    list_display = ["description", "film", "file", "url", "preview"]
 
 
 @admin.register(Publicity)
-class PublicityAdmin(admin.ModelAdmin):
+class PublicityAdmin(admin.ModelAdmin, PreviewMixin):
     search_fields = ["description", "url"]
-    list_display = ["description", "film", "file", "url"]
+    list_display = ["description", "film", "file", "url", "preview"]
 
 
 @admin.register(Programme)
-class ProgrammeAdmin(admin.ModelAdmin):
+class ProgrammeAdmin(admin.ModelAdmin, PreviewMixin):
     search_fields = ["description", "url"]
-    list_display = ["description", "film", "file", "url"]
+    list_display = ["description", "film", "file", "url", "preview"]
 
 
 @admin.register(Still)
-class StillAdmin(admin.ModelAdmin):
+class StillAdmin(admin.ModelAdmin, PreviewMixin):
     search_fields = ["description", "url"]
-    list_display = ["description", "film", "file", "url"]
+    list_display = ["description", "film", "file", "url", "preview"]
 
 
 @admin.register(Postcard)
-class PostcardAdmin(admin.ModelAdmin):
+class PostcardAdmin(admin.ModelAdmin, PreviewMixin):
     search_fields = ["description", "url"]
-    list_display = ["description", "film", "file", "url"]
+    list_display = ["description", "film", "file", "url", "preview"]
 
 
 @admin.register(Poster)
-class PosterAdmin(admin.ModelAdmin):
+class PosterAdmin(admin.ModelAdmin, PreviewMixin):
     search_fields = ["description", "url"]
-    list_display = ["description", "film", "file", "url"]
+    list_display = ["description", "film", "file", "url", "preview"]
 
 
 @admin.register(Drawing)
-class DrawingAdmin(admin.ModelAdmin):
+class DrawingAdmin(admin.ModelAdmin, PreviewMixin):
     search_fields = ["description", "url"]
-    list_display = ["description", "film", "file", "url"]
+    list_display = ["description", "film", "file", "url", "preview"]
 
 
 @admin.register(Tag)
