@@ -117,57 +117,68 @@ class OtherLinkInline(admin.TabularInline):
 @admin.register(Video)
 class VideoAdmin(admin.ModelAdmin):
     search_fields = ["description", "url"]
+    list_display = ["description", "film", "file", "url"]
 
 
 @admin.register(Source)
 class SourceAdmin(admin.ModelAdmin):
     search_fields = ["description", "url"]
     exclude = ["is_source"]
+    list_display = ["description", "film", "url"]
 
 
 @admin.register(OtherLink)
 class OtherLinkAdmin(admin.ModelAdmin):
     search_fields = ["description", "url"]
+    list_display = ["description", "film", "url"]
 
 
 @admin.register(Script)
 class ScriptAdmin(admin.ModelAdmin):
     search_fields = ["description", "url"]
+    list_display = ["description", "film", "file", "url"]
 
 
 @admin.register(PressBook)
 class PressBookAdmin(admin.ModelAdmin):
     search_fields = ["description", "url"]
+    list_display = ["description", "film", "file", "url"]
 
 
 @admin.register(Publicity)
 class PublicityAdmin(admin.ModelAdmin):
     search_fields = ["description", "url"]
+    list_display = ["description", "film", "file", "url"]
 
 
 @admin.register(Programme)
 class ProgrammeAdmin(admin.ModelAdmin):
     search_fields = ["description", "url"]
+    list_display = ["description", "film", "file", "url"]
 
 
 @admin.register(Still)
 class StillAdmin(admin.ModelAdmin):
     search_fields = ["description", "url"]
+    list_display = ["description", "film", "file", "url"]
 
 
 @admin.register(Postcard)
 class PostcardAdmin(admin.ModelAdmin):
     search_fields = ["description", "url"]
+    list_display = ["description", "film", "file", "url"]
 
 
 @admin.register(Poster)
 class PosterAdmin(admin.ModelAdmin):
     search_fields = ["description", "url"]
+    list_display = ["description", "film", "file", "url"]
 
 
 @admin.register(Drawing)
 class DrawingAdmin(admin.ModelAdmin):
     search_fields = ["description", "url"]
+    list_display = ["description", "film", "file", "url"]
 
 
 @admin.register(Tag)
