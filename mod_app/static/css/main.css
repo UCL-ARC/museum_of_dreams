@@ -16,7 +16,7 @@ body {
 a {
   color: inherit;
   &:hover {
-    color: var(--tan);
+    color: var(--cyan-6);
   }
 }
 
@@ -41,16 +41,10 @@ footer {
   bottom: 0;
   height: 10rem;
 
-  .footer__logo-svg {
-    float: left;
-    margin-left: 3vw;
-    padding-bottom: 1rem;
-    margin-right: 10vw;
-  }
   .footer__nav {
     display: flex;
     flex-direction: row;
-    color: var(--cream);
+    color: var(--cyan-8);
   }
   .footer__nav ul {
     list-style-type: none;
@@ -73,14 +67,14 @@ footer {
 /* class level */
 
 .title-bar {
-  background-color: var(--dark-grey);
+  background-color: var(--off-white);
   padding: 1rem;
   align-items: center;
   justify-content: space-between;
   display: flex;
 
   .material-symbols-outlined {
-    color: var(--cream);
+    color: var(--cyan-6);
   }
 }
 .title-bar__icons {
@@ -191,7 +185,7 @@ footer {
 }
 
 .filmstrip {
-  --background: var(--dark-grey);
+  --background: var(--cream);
   --size: 10px;
   background-image: linear-gradient(
       to right,
@@ -224,7 +218,7 @@ footer {
   background-repeat: repeat-x;
   background-position: 0 var(--size), top left, 0 calc(100% - var(--size)),
     bottom left, 0 var(--size);
-  padding: calc(var(--size) * 2) calc(var(--size) * 1.5);
+  padding: calc(var(--size) * 5) calc(var(--size) * 4);
 }
 
 .no-list-style {

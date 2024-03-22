@@ -31,8 +31,8 @@
     <body>
         <div class="title-bar">
             <a href="{% url 'home' %}">
-                <div class="logo-svg">
-                    {% include 'svgs/logo_header.svg' %}
+                <div>
+                    <img id="title-logo-img" src="{% static 'images/MODlogo.jpg' %}" alt="MOD logo"/>
                 </div>
             </a>
             <a href="{% url 'admin:index' %}">
@@ -40,7 +40,7 @@
             </a>
             {% block non_production_message %}
                 {% if not request.get_host|lower == 'museumofdreamworlds.org' %}
-                    <span style="color: yellow; padding: 10px;">
+                    <span style="color: orange; padding: 10px;">
                         STAGING
                     </span>
                 {% endif %}
@@ -93,8 +93,9 @@
         </body>
         <footer class="filmstrip">
             <a href="{% url 'home' %}">
-                <div class="footer__logo-svg">
-                    {% include 'svgs/logo_stacked_film.svg' %}
+                <div>
+                    <img id="footer__logo-img" src="{% static 'images/MODlogo-image.png' %}" alt="MOD logo" />
+                    <img id="footer__logo-text" src="{% static 'images/MODlogo-text.png' %}" alt="MOD: Silent Film Antiquity in the BFI National Archive" />
                 </div>
             </a>
             <div class="footer__nav">

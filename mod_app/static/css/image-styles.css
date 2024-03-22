@@ -1,0 +1,25 @@
+/* This file is specifically for svg styling */
+/* Due to OpenProps, make sure you define a width parameter */
+
+#title-logo-img {
+  margin-left: 1vw;
+  width: 45vw;
+}
+
+#footer__logo-img {
+  float: left;
+  position: relative;
+  /* margin-left: 3vw;
+  padding-bottom: 1rem;
+  margin-right: 10vw; */
+  width: 10vw;
+  /* transform: translateY(-5rem); */
+}
+#footer__logo-text {
+  position: relative;
+  /* margin-left: 3vw;
+  padding-bottom: 1rem;
+  margin-right: 10vw; */
+  width: 15vw;
+  /* transform: translateY(-5rem); */
+}
