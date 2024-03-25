@@ -31,8 +31,9 @@
     <body>
         <div class="title-bar">
             <a href="{% url 'home' %}">
-                <div>
-                    <img id="title-logo-img" src="{% static 'images/MODlogo.jpg' %}" alt="MOD logo"/>
+                <div class="title-logo">
+                    <img id="title__logo-img" src="{% static 'images/MODlogo-image.png' %}" alt="MOD logo" />
+                    <img id="title__logo-text" src="{% static 'images/mod-logo-text.png' %}" alt="MOD: Silent Film Antiquity in the BFI National Archive" />
                 </div>
             </a>
             <a href="{% url 'admin:index' %}">
@@ -95,9 +96,9 @@
         </body>
         <footer class="filmstrip">
             <a href="{% url 'home' %}">
-                <div>
+                <div class="footer-logo">
                     <img id="footer__logo-img" src="{% static 'images/MODlogo-image.png' %}" alt="MOD logo" />
-                    <img id="footer__logo-text" src="{% static 'images/MODlogo-text.png' %}" alt="MOD: Silent Film Antiquity in the BFI National Archive" />
+                    <img id="footer__logo-text" src="{% static 'images/mod-logo-text.png' %}" alt="MOD: Silent Film Antiquity in the BFI National Archive" />
                 </div>
             </a>
             <div class="footer__nav">

@@ -9,8 +9,8 @@ html {
 
 body {
   margin: 0;
-  font-family: Montserrat, "Open sans", sans-serif;
-  font-weight: 400;
+  font-family: "Open sans", sans-serif;
+  font-weight: 500;
 }
 
 a {
@@ -36,10 +36,12 @@ main {
 }
 
 footer {
-  width: 100%;
+  /* width: 100%; */
   position: relative;
   bottom: 0;
   height: 10rem;
+  display: flex;
+  justify-items: space-around;
 
   .footer__nav {
     display: flex;
@@ -126,7 +128,7 @@ footer {
     margin-top: 1rem;
     font-size: var(--font-size-3);
     > a {
-      color: var(--blue-4);
+      color: var(--blue-6);
     }
   }
 }
