@@ -1,4 +1,5 @@
-{% load static %}
+{% load static i18n %}
+
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -80,13 +81,18 @@
             </div>
 
             {% block heading %}
+                <div>
+                    <h1>{% trans "This website is currently under construction" %}</h1>
+                </div>
             {% endblock %}
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
             <main>
-                {% block content %}
-                {% endblock %}
+                {% if user.is_authenticated %}
+                    {% block content %}
+                    {% endblock %}
+                {% endif %}
             </main>
             <script src="" async defer></script>
             <script type="module" src="{% static 'js/main.js' %}"></script>
