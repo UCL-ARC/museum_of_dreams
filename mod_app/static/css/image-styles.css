@@ -1,9 +1,6 @@
-/* This file is specifically for svg styling */
-/* Due to OpenProps, make sure you define a width parameter */
+/* This file is specifically for image styling */
+/* Due to OpenProps, make sure you define a width parameter for svgs */
 
-/* .title-logo {
-
-} */
 #title__logo-img {
   float: left;
   margin-left: 1vw;

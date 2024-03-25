@@ -36,9 +36,7 @@
                     <img id="title__logo-text" src="{% static 'images/mod-logo-text.png' %}" alt="MOD: Silent Film Antiquity in the BFI National Archive" />
                 </div>
             </a>
-            <a href="{% url 'admin:index' %}">
-                <button>LOGIN</button>
-            </a>
+
             {% block non_production_message %}
                 {% if not request.get_host|lower == 'museumofdreamworlds.org' %}
                     <span style="color: orange; padding: 10px;">
@@ -53,6 +51,11 @@
                       <input type="checkbox" id="toggle">
                     </label>
                   </div> {% endcomment %}
+                <a href="{% url 'admin:index' %}">
+                    <span class="material-symbols-outlined">
+                        login
+                    </span>
+                </a>
                 <a href="{% url 'home' %}">
                     <span class="material-symbols-outlined">
                         search

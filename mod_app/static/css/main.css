@@ -36,7 +36,6 @@ main {
 }
 
 footer {
-  /* width: 100%; */
   position: relative;
   bottom: 0;
   height: 10rem;
@@ -84,6 +83,22 @@ footer {
     padding-left: 0.5rem;
   }
   margin-right: 3vw;
+
+  --border-color: var(--choco-4);
+  span {
+    border: 2px solid transparent;
+    transition: font-size 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      font-size: 150%;
+      box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+      border-radius: 10px;
+    }
+  }
+  & :hover,
+  span {
+    color: var(--orange-4);
+  }
 }
 
 .title--explore {
