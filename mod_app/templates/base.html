@@ -85,8 +85,10 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
             <main>
-                {% block content %}
-                {% endblock %}
+                {% if user.is_authenticated %}
+                    {% block content %}
+                    {% endblock %}
+                {% endif %}
             </main>
             <script src="" async defer></script>
             <script type="module" src="{% static 'js/main.js' %}"></script>
