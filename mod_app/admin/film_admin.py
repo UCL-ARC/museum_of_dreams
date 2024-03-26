@@ -186,7 +186,7 @@ class FilmAdmin(admin.ModelAdmin):
             {"classes": ("placeholder TeachingResources_films-group",), "fields": ()},
         ),
         (
-            "Comments and Temporary Images",
+            "Comments and List Images",
             {
                 "classes": ("grp-collapse grp-open",),
                 "fields": (
