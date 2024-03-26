@@ -7,6 +7,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
+from django.contrib.auth.views import LogoutView
 from django.views.generic.base import RedirectView
 
 from django_distill import distill_path
@@ -28,6 +29,7 @@ urlpatterns = (
         path("grappelli-docs/", include("grappelli.urls_docs")),
         path("ckeditor/", include("ckeditor_uploader.urls")),
         path("admin/", admin.site.urls, name=admin),
+        path("logout", LogoutView.as_view(next_page="/"), name="logout"),
         distill_path(
             "", views.HomeView.as_view(), name="home", distill_file="index.html"
         ),
