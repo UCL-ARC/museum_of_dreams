@@ -2,6 +2,10 @@ from django.utils.html import format_html
 
 
 class PreviewMixin:
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.readonly_fields += ("preview",)
+
     def preview(self, obj):
         if hasattr(obj, "file") and obj.file:
             return self.file_preview(obj)
