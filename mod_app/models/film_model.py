@@ -103,7 +103,7 @@ class Film(models.Model):
     comments = RichTextUploadingField(
         blank=True, help_text="Internal comments between researchers"
     )
-    temporary_images = RichTextUploadingField(blank=True)
+    temporary_images = RichTextUploadingField(blank=True, verbose_name="List images")
 
     bibliography = models.ManyToManyField(BibliographyItem, related_name="films")
 
