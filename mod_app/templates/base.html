@@ -64,31 +64,35 @@
                         </span>
                     </a>
                 {% endif %}
-                <a href="{% url 'home' %}">
+
+                {% if user.is_authenticated%}
+                {% comment %} <a href="{% url 'home' %}">
                     <span class="material-symbols-outlined">
                         search
                     </span>
-                </a>
-                <span class="material-symbols-outlined" id="menu-icon">
-                    menu
-                </span>
-                <div class="drawer" id="drawer">
-                    <!-- Content of your drawer goes here -->
-                    <button id="drawer__button--close">x</button>
-                    <ul class="drawer__list-nav">
-                        <li>
-                            <a href="{% url 'film_list' %}?page=1">
-                                Films</a></li>
-                        <li><a href="{% url 'analysis_list' %}">
-                            Analyses: Critical Essays and Discussions</a></li>
-                        <li><a href="{% url 'bibliography' %}">
-                            Bibliography</a><?li>
-                            <li><a href="{% url 'tr_list' %}">
-                                Teaching Resources Available</a></li>
-                        </ul>
+                </a> {% endcomment %}
 
+                    <span class="material-symbols-outlined" id="menu-icon">
+                        menu
+                    </span>
+                    <div class="drawer" id="drawer">
+                    <!-- Content of your drawer goes here -->
+                        <button id="drawer__button--close">x</button>
+                        <ul class="drawer__list-nav">
+                            <li>
+                                <a href="{% url 'film_list' %}?page=1">
+                                    Films</a></li>
+                            <li><a href="{% url 'analysis_list' %}">
+                                Analyses: Critical Essays and Discussions</a></li>
+                            <li><a href="{% url 'bibliography' %}">
+                                Bibliography</a><?li>
+                                <li><a href="{% url 'tr_list' %}">
+                                    Teaching Resources Available</a></li>
+                            </ul>
+
+                        </div>
                     </div>
-                </div>
+                {% endif %}
             </div>
 
             {% block heading %}
