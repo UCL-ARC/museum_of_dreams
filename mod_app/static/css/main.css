@@ -15,8 +15,11 @@ body {
 
 a {
   color: inherit;
-  &:hover {
-    color: var(--cyan-6);
+  &:hover,
+  &:focus,
+  &:active {
+    color: var(--orange-5);
+    text-decoration: none;
   }
 }
 
@@ -31,7 +34,6 @@ h5 {
 main {
   margin: 1rem;
   margin-bottom: 10vh;
-  /* padding-bottom: 10vh; */
   min-height: 60vh;
 }
 
@@ -84,20 +86,20 @@ footer {
   }
   margin-right: 3vw;
 
-  --border-color: var(--choco-4);
   span {
     border: 2px solid transparent;
-    transition: font-size 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 
     &:hover {
-      font-size: 150%;
-      box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
-      border-radius: 10px;
+      transform: scale(1.2);
+      border-radius: 7px;
+      background: #dae2e3;
+      box-shadow: 12px 12px 24px #c2c9ca, -12px -12px 24px #f2fbfc;
     }
   }
   & :hover,
   span {
-    color: var(--orange-4);
+    color: var(--orange-5);
   }
 }
 
@@ -144,6 +146,9 @@ footer {
     font-size: var(--font-size-3);
     > a {
       color: var(--blue-6);
+      &:hover {
+        color: var(--orange-5);
+      }
     }
   }
 }
@@ -155,17 +160,22 @@ footer {
   right: -30vw; /* Set initial position off-screen */
   width: 30vw;
   height: 100%;
-  background-color: var(--dark-grey);
+  background-color: var(--light-blue);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   transition: right 0.3s ease;
   padding: 0.2rem;
 
   #drawer__button--close {
-    background-color: var(--dark-grey);
-    border: 1px solid var(--blood-red);
-    color: var(--cream);
+    background-color: var(--off-white);
+    border: 1px solid transparent;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: var(--cyan-6);
     float: right;
     font-size: 70%;
+    transition: transform 0.3s ease;
+    &:hover {
+      transform: scale(1.1);
+    }
   }
   .drawer__list-nav {
     margin-top: 1.5rem;
@@ -174,7 +184,7 @@ footer {
     > li {
       margin-bottom: 1.5rem;
     }
-    color: var(--cream);
+    color: var(--cyan-8);
   }
 }
 
