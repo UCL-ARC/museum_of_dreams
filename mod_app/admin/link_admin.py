@@ -4,7 +4,7 @@ from mod_app.utils.mixins import PreviewMixin
 from ..models import *
 
 
-class SourceInline(admin.TabularInline, PreviewMixin):
+class SourceInline(PreviewMixin, admin.TabularInline):
     model = Source
     extra = 1
     classes = [
@@ -14,7 +14,7 @@ class SourceInline(admin.TabularInline, PreviewMixin):
     ]
 
 
-class VideoInline(admin.TabularInline, PreviewMixin):
+class VideoInline(PreviewMixin, admin.TabularInline):
     model = Video
     extra = 1
     classes = [
@@ -23,12 +23,8 @@ class VideoInline(admin.TabularInline, PreviewMixin):
         "grp-closed",
     ]
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.readonly_fields += ("preview",)
 
-
-class ScriptInline(admin.TabularInline, PreviewMixin):
+class ScriptInline(PreviewMixin, admin.TabularInline):
     model = Script
     extra = 1
     classes = [
@@ -37,12 +33,8 @@ class ScriptInline(admin.TabularInline, PreviewMixin):
         "grp-closed",
     ]
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.readonly_fields += ("preview",)
 
-
-class PressBookInline(admin.TabularInline, PreviewMixin):
+class PressBookInline(PreviewMixin, admin.TabularInline):
     model = PressBook
     extra = 1
     classes = [
@@ -51,12 +43,8 @@ class PressBookInline(admin.TabularInline, PreviewMixin):
         "grp-closed",
     ]
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.readonly_fields += ("preview",)
 
-
-class ProgrammeInline(admin.TabularInline, PreviewMixin):
+class ProgrammeInline(PreviewMixin, admin.TabularInline):
     model = Programme
     extra = 1
     classes = [
@@ -65,12 +53,8 @@ class ProgrammeInline(admin.TabularInline, PreviewMixin):
         "grp-closed",
     ]
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.readonly_fields += ("preview",)
 
-
-class PublicityInline(admin.TabularInline, PreviewMixin):
+class PublicityInline(PreviewMixin, admin.TabularInline):
     model = Publicity
     extra = 1
     classes = [
@@ -79,12 +63,8 @@ class PublicityInline(admin.TabularInline, PreviewMixin):
         "grp-closed",
     ]
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.readonly_fields += ("preview",)
 
-
-class StillInline(admin.TabularInline, PreviewMixin):
+class StillInline(PreviewMixin, admin.TabularInline):
     model = Still
     extra = 1
     classes = [
@@ -93,12 +73,8 @@ class StillInline(admin.TabularInline, PreviewMixin):
         "grp-closed",
     ]
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.readonly_fields += ("preview",)
 
-
-class PostcardInline(admin.TabularInline, PreviewMixin):
+class PostcardInline(PreviewMixin, admin.TabularInline):
     model = Postcard
     extra = 1
     classes = [
@@ -107,12 +83,8 @@ class PostcardInline(admin.TabularInline, PreviewMixin):
         "grp-closed",
     ]
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.readonly_fields += ("preview",)
 
-
-class PosterInline(admin.TabularInline, PreviewMixin):
+class PosterInline(PreviewMixin, admin.TabularInline):
     model = Poster
     extra = 1
     classes = [
@@ -121,12 +93,8 @@ class PosterInline(admin.TabularInline, PreviewMixin):
         "grp-closed",
     ]
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.readonly_fields += ("preview",)
 
-
-class DrawingInline(admin.TabularInline, PreviewMixin):
+class DrawingInline(PreviewMixin, admin.TabularInline):
     model = Drawing
     extra = 1
     classes = [
@@ -135,12 +103,8 @@ class DrawingInline(admin.TabularInline, PreviewMixin):
         "grp-closed",
     ]
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.readonly_fields += ("preview",)
 
-
-class OtherLinkInline(admin.TabularInline, PreviewMixin):
+class OtherLinkInline(PreviewMixin, admin.TabularInline):
     model = OtherLink
     extra = 1
     classes = [
