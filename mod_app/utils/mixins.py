@@ -1,5 +1,7 @@
-from django.utils.html import format_html
+from django.contrib.auth.models import User
 from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.utils.html import format_html
 
 
 class PreviewMixin:
@@ -37,6 +39,15 @@ class EmailMixin:
             print(
                 "changed:", obj.__class__.__name__, request.path, obj.get_absolute_url()
             )
+            researchers = User.objects.filter(groups__name="Researchers")
+            recipients = [user.email for user in researchers]
+            subject = "A Film has been updated! || MOD"
+            updated_by = request.user.username
+            for researcher in researchers:
+                html_message = render_to_string(
+                    "email_template.html", {"updated_by": updated_by, "instance": obj}
+                )
+                print(html_message)
             # Send email notification for update
             # send_mail(
             #     f"{obj} Updated",
