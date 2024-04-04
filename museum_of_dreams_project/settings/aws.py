@@ -1,4 +1,5 @@
 from .base import *
+import socket
 
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
@@ -10,10 +11,14 @@ MEDIA_ROOT = "media"
 
 ENVIRONMENT = "production"
 
+# the health checks come from a local instance private IP
+# and fail if not recognised as a valid host
+LOCAL_IP = str(socket.gethostbyname(socket.gethostname()))
+
 ALLOWED_HOSTS = [
     "museumofdreamworlds.eu-west-2.elasticbeanstalk.com",
     "museumofdreamworlds.org",
-    os.environ.get("PIP"),
+    LOCAL_IP,
 ]
 
 DATABASES = {

@@ -1,15 +1,19 @@
 :root {
-	--dark-grey: #111111;
-	--dark-wine: #230308;
-	--blood-red: #4a040e;
-	--curtain-red: #bf1922;
-	--bright-red: #e32832;
-	--tan: #ba745f;
-	--warm-sand: #c99383;
-	--beige: #d8b2a7;
-	--cream: #f4e9e5;
+  --dark-grey: #111111;
+  --dark-wine: #230308;
+  --blood-red: #4a040e;
+  --curtain-red: #bf1922;
+  --bright-red: #e32832;
 
-	/* others */
+  /* probably these rather than above for use */
+  --tan: #ba745f;
+  --warm-sand: #c99383;
+  --beige: #d8b2a7;
+  --cream: #f4e9e5;
+  --light-blue: #c8dee1;
+  --off-white: #dae2e3;
+
+  /* others */
 }
 /* update for light and dark colours? */
 /* @media (prefers-color-scheme: dark) {
