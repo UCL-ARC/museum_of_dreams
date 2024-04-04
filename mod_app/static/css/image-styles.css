@@ -18,8 +18,8 @@
 }
 #footer__logo-img {
   float: left;
-  width: 10vw;
-  /* transform: translateY(-5rem); */
+  width: 8vw;
+  transform: translateY(0.5rem);
 }
 #footer__logo-text {
   width: 15vw;
