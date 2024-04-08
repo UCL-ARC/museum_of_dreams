@@ -36,23 +36,27 @@ class EmailMixin:
 
         # Check if it's a new instance or an update
         if change:
-            print(
-                "changed:", obj.__class__.__name__, request.path, obj.get_absolute_url()
-            )
-            researchers = User.objects.filter(groups__name="Researchers")
-            recipients = [user.email for user in researchers]
-            subject = "A Film has been updated! || MOD"
             updated_by = request.user.username
-            for researcher in researchers:
-                html_message = render_to_string(
-                    "email_template.html", {"updated_by": updated_by, "instance": obj}
-                )
-                print(html_message)
-            # Send email notification for update
-            # send_mail(
-            #     f"{obj} Updated",
-            #     f'"{obj}" has been updated by {request.user}. Click ',
-            #     "sender@example.com",
-            #     ["recipient@example.com"],
-            #     fail_silently=False,
-            # )
+            researchers = User.objects.filter(groups__name="Researchers").exclude(
+                username=updated_by
+            )
+            # recipients = [user.email for user in researchers]
+            recipients = ["a.ho-lyn@ucl.ac.uk"]
+            subject = f"A {obj.__class__.__name__} has been updated! || MOD"
+
+            instance_url = request.build_absolute_uri()
+            html_message = render_to_string(
+                "email_template.html",
+                {
+                    "updated_by": updated_by,
+                    "instance": obj,
+                    "instance_url": instance_url,
+                },
+            )
+            send_mail(
+                subject,
+                "",
+                "notifications@mail.museumofdreamworlds.org",
+                recipients,
+                html_message=html_message,
+            )
