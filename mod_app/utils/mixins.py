@@ -59,4 +59,5 @@ class EmailMixin:
                 "notifications@mail.museumofdreamworlds.org",
                 recipients,
                 html_message=html_message,
+                fail_silently=False,
             )
