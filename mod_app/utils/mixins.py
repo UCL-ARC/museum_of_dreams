@@ -37,6 +37,9 @@ class EmailMixin:
         # Check if it's a new instance or an update
         if change:
             updated_by = request.user.username
+            if updated_by == "acholyn":
+                return
+
             researchers = User.objects.filter(groups__name="Researchers").exclude(
                 username=updated_by
             )
