@@ -45,3 +45,7 @@ python manage.py test mod_app/tests
 #### [Current AWS Settings](docs/baseAWSSetup.md)
 
 #### [AWS chatbot](docs/AWSchatbot.md)
+
+#### [Using S3 for staticfiles](docs/s3ForStatic.md)
+
+#### [Setting up email notifications](docs/AWSses.md)
