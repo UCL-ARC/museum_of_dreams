@@ -73,9 +73,13 @@ Create a new Role for the EC2 instances and attach the following policies:
 
 These will allow for communication betweeen the ElasticBeanstalk application, the EC2 instances it will create to host the application and the RDS database.
 
-You can also create a User called `mod_site` which will allow the app to access other services. Attach the following policies:
-- AmazonS3FullAccess
-- AmazonSESFullAccess
+You can also create a User called `mod_site` which will allow the app to access other services. Attach the AmazonSESFullAccess policy and create a new inline policy that will allow:
+```
+"s3:PutObject",
+"s3:GetObject",
+"s3:GetObjectAttributes"
+```
+This will limit the actions of the app to just putting and retrieving files.
 
 ## RDS
 
