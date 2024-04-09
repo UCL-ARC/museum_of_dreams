@@ -40,9 +40,13 @@ class EmailMixin:
             researchers = User.objects.filter(groups__name="Researchers").exclude(
                 username=updated_by
             )
-            # recipients = [user.email for user in researchers]
-            recipients = ["a.ho-lyn@ucl.ac.uk"]
+            recipients = [user.email for user in researchers]
             subject = f"A {obj.__class__.__name__} has been updated! || MOD"
+
+            if "staging" in request.build_absolute_uri():
+                website = "staging"
+            else:
+                website = "production"
 
             instance_url = request.build_absolute_uri()
             html_message = render_to_string(
@@ -51,12 +55,13 @@ class EmailMixin:
                     "updated_by": updated_by,
                     "instance": obj,
                     "instance_url": instance_url,
+                    "website": website,
                 },
             )
             send_mail(
                 subject,
                 "",
-                "notifications@mail.museumofdreamworlds.org",
+                "notifications@museumofdreamworlds.org",
                 recipients,
                 html_message=html_message,
                 fail_silently=False,
