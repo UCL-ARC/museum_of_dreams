@@ -9,8 +9,10 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+
 import os
 from pathlib import Path
+from ckeditor_config import CKEDITOR_CONFIGS
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -119,20 +121,7 @@ MEDIA_URL = "media/"
 
 CKEDITOR_UPLOAD_PATH = "editor/"
 
-CKEDITOR_CONFIGS = {
-    "default": {
-        "extraPlugins": ",".join(
-            [
-                "uploadimage",
-                "uploadwidget",
-                "mentions",
-            ]
-        ),
-        "removePlugins": "exportpdf",
-        "uiColor": "#fcf5e7",
-        "extraAllowedContent": "strong[data-bib-id](bib-mention);",
-    },
-}
+CKEDITOR_CONFIGS = CKEDITOR_CONFIGS
 
 GRAPPELLI_INDEX_DASHBOARD = "dashboard.CustomIndexDashboard"
 GRAPPELLI_ADMIN_TITLE = "Museum of Dreams"
