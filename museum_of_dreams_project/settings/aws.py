@@ -39,6 +39,8 @@ AWS_QUERYSTRING_AUTH = False  # needed by grappelli to work with s3
 DEFAULT_FILE_STORAGE = "static.MediaStorage"
 STATICFILES_STORAGE = "static.StaticStorage"
 
+CKEDITOR_STORAGE_BACKEND = DEFAULT_FILE_STORAGE
+
 AWS_ACCESS_KEY_ID = os.environ["AWS_ACCESS_KEY_ID"]
 AWS_SECRET_ACCESS_KEY = os.environ["AWS_SECRET_ACCESS_KEY"]
 AWS_STORAGE_BUCKET_NAME = "modprodbucket"
