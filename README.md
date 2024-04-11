@@ -40,11 +40,11 @@ python manage.py test mod_app/tests
 
 ### See these other files for recreating the setup etc.
 
-#### [Setting up from scratch](docs/howtoSetupBase.md)
+#### [Setting up from scratch](docs/howtoSetupBase.md) This covers how you'd go about recreating the setup from scratch
 
-#### [Current AWS Settings](docs/baseAWSSetup.md)
+#### [Current AWS Settings](docs/baseAWSSetup.md) This describes our current AWS settings without the processes of setting up, with a bit more explanation of why they are what they are
 
-#### [AWS chatbot](docs/AWSchatbot.md)
+#### [How to set up the AWS chatbot for notifications](docs/AWSchatbot.md)
 
 #### [Using S3 for staticfiles](docs/s3ForStatic.md)
 
