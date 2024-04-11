@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 import os
 from pathlib import Path
-from ckeditor_config import CKEDITOR_CONFIGS
+from .ckeditor_config import CKEDITOR_CONFIGS
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
