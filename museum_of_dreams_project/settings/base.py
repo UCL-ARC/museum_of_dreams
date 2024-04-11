@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 import os
 from pathlib import Path
-from .ckeditor_config import CKEDITOR_CONFIGS
+from .ckeditor_config import generate_ckeditor_config
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -121,7 +121,7 @@ MEDIA_URL = "media/"
 
 CKEDITOR_UPLOAD_PATH = "editor/"
 
-CKEDITOR_CONFIGS = CKEDITOR_CONFIGS
+CKEDITOR_CONFIGS = generate_ckeditor_config(MEDIA_URL)
 
 GRAPPELLI_INDEX_DASHBOARD = "dashboard.CustomIndexDashboard"
 GRAPPELLI_ADMIN_TITLE = "Museum of Dreams"
