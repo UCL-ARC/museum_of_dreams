@@ -181,10 +181,10 @@ footer {
     margin-top: 1.5rem;
     list-style-type: none;
     padding-left: 0.5rem;
+    color: var(--cyan-8);
     > li {
       margin-bottom: 1.5rem;
     }
-    color: var(--cyan-8);
   }
 }
 
@@ -278,4 +278,9 @@ footer {
 
 .no-list-style {
   list-style-type: none;
+}
+
+.s3-browser__card {
+  border-radius: 15px;
+  border: 2px solid var(--blue-3);
 }

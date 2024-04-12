@@ -6,6 +6,8 @@
 @import url("bibliography.css");
 @import url("analysis.css");
 
+/* open props */
+@import "open-props/style";
 /**************** Google Fonts + MUI **********************/
 /* Gruppo, Josefin Sans, Noto Serif, Open Sans, Playfair Display, Monoton */
 @import url("https://fonts.googleapis.com/css2?family=Gruppo&family=Josefin+Sans&family=Noto+Serif&family=Open+Sans&family=Playfair+Display&family=Monoton&family=Montserrat&display=swap");
