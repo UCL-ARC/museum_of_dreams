@@ -55,13 +55,13 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "museum_of_dreams_project.urls"
-
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [],
         "APP_DIRS": True,
         "OPTIONS": {
+            "builtins": ["django.templatetags.static"],
             "context_processors": [
                 "django.template.context_processors.debug",
                 "django.template.context_processors.request",
@@ -117,7 +117,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 # ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-MEDIA_URL = "media/"
+# MEDIA_URL = "media/"
+MEDIA_URL = "https://moddevbucket.s3.eu-west-2.amazonaws.com/"
 
 CKEDITOR_UPLOAD_PATH = "editor/"
 
