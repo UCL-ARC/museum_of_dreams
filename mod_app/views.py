@@ -1,10 +1,12 @@
 import boto3
 
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.template.defaultfilters import striptags
 from django.views import View
 from django.views.generic import DetailView, ListView, TemplateView
+from django.utils.decorators import method_decorator
 
 
 from museum_of_dreams_project.secrets import (
@@ -98,11 +100,15 @@ class BibliographyListView(ListView):
 
 
 class BucketItemsView(View):
+    @method_decorator(login_required)
     def get(self, request):
+        not_ckeditor_browser = request.GET.get("not_ckeditor_browser")
+
         session = boto3.Session(
             aws_access_key_id=AWS_ACCESS_KEY_ID,
             aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
         )
+
         # Then use the session to get the resource
         s3 = session.resource("s3")
         bucket = s3.Bucket("moddevbucket")
@@ -116,4 +122,5 @@ class BucketItemsView(View):
             item_url = bucket_url + item
             item_name = str(item).split("media/files/")[1]
             item_data["items"][item] = {"url": item_url, "name": item_name}
+        # should we use another session id for passing info back
         return render(request, "bucket_items.html", item_data)
