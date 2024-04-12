@@ -1,23 +1,30 @@
 {% extends "foundation.html" %}
+{% comment %} {% block title %} S3 Browser {% endblock %} {% endcomment %}
 {% block body %}
     <body>
-        {% for item, item_url in items.items %}
-    {% comment %} <a href="{{ item_url }}">{{ item }}</a><br> {% endcomment %}
-            <div class="s3-browser__card">
-                testing
-            </div>
-            <div class="s3-browser__card">
-                {% if not 'Video' in item %}
-                    <figure>
-                        <img src={{ item_url }} alt={{item}} width="150">
-                        <figcaption>{{item}}</figcaption>
-                    </figure>
-                {% else %}
-                    <video width="150" height="120" controls><source src={{ item_url }} type="video/mp4"></video>
-                {% endif %}
-            </div>
-            <br>
-        {% endfor %}
+        <main>
+            <h3 class="center-text"> You are currently viewing items in the S3 bucket</h3>
+            <div class="s3-browser__wrapper">
+                {% for item_key, item_value in items.items %}
+                    <a href={{ item_value.url }} class="s3-browser__card__wrapper">
+                        <div class="s3-browser__card">
 
+                            {% if not 'Video' in item_value.name %}
+                                <div>
+                                    <img src={{ item_value.url }} alt={{ name }} width="200" height="180">
+                                    <small>{{ item_value.name }}</small>
+                                </div>
+                            {% else %}
+                                <div>
+                                    <video width="200" height="180" controls><source src={{ item_value.url }} type="video/mp4"></video>
+                                    <small>{{ item_value.name }}</small>
+                                </div>
+                            {% endif %}
+
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </main>
     </body>
 {% endblock %}

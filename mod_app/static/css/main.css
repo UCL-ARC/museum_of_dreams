@@ -79,6 +79,9 @@ footer {
   .material-symbols-outlined {
     color: var(--cyan-6);
   }
+  a {
+    text-decoration: none;
+  }
 }
 .title-bar__icons {
   .material-symbols-outlined {
@@ -276,11 +279,29 @@ footer {
   padding: calc(var(--size) * 5) calc(var(--size) * 4);
 }
 
-.no-list-style {
-  list-style-type: none;
-}
-
-.s3-browser__card {
-  border-radius: 15px;
-  border: 2px solid var(--blue-3);
+.s3-browser__wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(25vw, 1fr));
+  grid-column-gap: 0.5rem;
+  grid-row-gap: 0.2rem;
+  .s3-browser__card__wrapper {
+    text-decoration: none;
+    &:hover > .s3-browser__card {
+      background-color: var(--blue-1);
+    }
+  }
+  .s3-browser__card {
+    display: grid;
+    padding: 0.25rem;
+    max-width: 40vw;
+    justify-content: center;
+    border-radius: var(--radius-3);
+    border: var(--border-size-1) solid var(--blue-2);
+    > div,
+    div > * {
+      max-width: 35vw;
+      margin-inline: 1rem;
+      text-align: center;
+    }
+  }
 }

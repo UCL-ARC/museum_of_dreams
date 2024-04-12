@@ -114,6 +114,6 @@ class BucketItemsView(View):
         item_data = {"items": {}}
         for item in items:
             item_url = bucket_url + item
-            item_data["items"][item] = item_url
-
+            item_name = str(item).split("media/files/")[1]
+            item_data["items"][item] = {"url": item_url, "name": item_name}
         return render(request, "bucket_items.html", item_data)

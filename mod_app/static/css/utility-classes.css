@@ -1,0 +1,9 @@
+/* this file is for styles that you would add to produce a specific effect */
+
+.no-list-style {
+  list-style-type: none;
+}
+
+.center-text {
+  text-align: center;
+}
