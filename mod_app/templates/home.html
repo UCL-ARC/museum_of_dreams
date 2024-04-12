@@ -19,8 +19,6 @@
     </div>
   </div>
 
-  <a href="{% url 'view_bucket_items' %}"><button>View s3 items</button></a>
+  {% include "components/s3_browse_button.html" %}
 
-
-  {% include 'bucket_items.html' %}
 {% endblock %}
