@@ -1,15 +1,33 @@
-from typing import Any
-from django.views.generic import DetailView, ListView, TemplateView
+import boto3
+
 from django.http import JsonResponse
-from django.views import View
+from django.shortcuts import render
 from django.template.defaultfilters import striptags
+from django.views import View
+from django.views.generic import DetailView, ListView, TemplateView
 
 
+from museum_of_dreams_project.secrets import (
+    AWS_ACCESS_KEY_ID,
+    AWS_SECRET_ACCESS_KEY,
+)
 from .models import Film, BibliographyItem, Analysis, TeachingResources
 
 
 class HomeView(TemplateView):
     template_name = "home.html"
+
+    session = boto3.Session(
+        aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY
+    )
+    # Then use the session to get the resource
+    s3 = session.resource("s3")
+    bucket = s3.Bucket("moddevbucket")
+    response = bucket.objects.all()
+
+    # Get the length of the objects collection
+    objects_collection_length = len(list(response))
+    print("my bucket:", bucket, objects_collection_length)
 
 
 class FilmListView(ListView):
@@ -77,3 +95,25 @@ class BibliographyListView(ListView):
     model = BibliographyItem
     template_name = "bibliography.html"
     paginate_by = 20
+
+
+class BucketItemsView(View):
+    def get(self, request):
+        session = boto3.Session(
+            aws_access_key_id=AWS_ACCESS_KEY_ID,
+            aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+        )
+        # Then use the session to get the resource
+        s3 = session.resource("s3")
+        bucket = s3.Bucket("moddevbucket")
+        bucket_url = f"https://{bucket.name}.s3.eu-west-2.amazonaws.com/"
+
+        response = bucket.objects.filter(Prefix="media/")
+
+        items = [obj.key for obj in response]
+        item_data = {"items": {}}
+        for item in items:
+            item_url = bucket_url + item
+            item_data["items"][item] = item_url
+
+        return render(request, "bucket_items.html", item_data)

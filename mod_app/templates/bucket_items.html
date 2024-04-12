@@ -1,0 +1,23 @@
+{% extends "foundation.html" %}
+{% block body %}
+    <body>
+        {% for item, item_url in items.items %}
+    {% comment %} <a href="{{ item_url }}">{{ item }}</a><br> {% endcomment %}
+            <div class="s3-browser__card">
+                testing
+            </div>
+            <div class="s3-browser__card">
+                {% if not 'Video' in item %}
+                    <figure>
+                        <img src={{ item_url }} alt={{item}} width="150">
+                        <figcaption>{{item}}</figcaption>
+                    </figure>
+                {% else %}
+                    <video width="150" height="120" controls><source src={{ item_url }} type="video/mp4"></video>
+                {% endif %}
+            </div>
+            <br>
+        {% endfor %}
+
+    </body>
+{% endblock %}

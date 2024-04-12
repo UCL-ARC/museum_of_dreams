@@ -1,6 +1,7 @@
 """
 URL configuration for museum_of_dreams_project project.
 """
+
 from django.conf import settings
 from django.conf.urls import include
 from django.conf.urls.static import static
@@ -30,6 +31,11 @@ urlpatterns = (
         path("ckeditor/", include("ckeditor_uploader.urls")),
         path("admin/", admin.site.urls, name=admin),
         path("logout", LogoutView.as_view(next_page="/"), name="logout"),
+        path(
+            "view_bucket_items/",
+            views.BucketItemsView.as_view(),
+            name="view_bucket_items",
+        ),
         distill_path(
             "", views.HomeView.as_view(), name="home", distill_file="index.html"
         ),
