@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 import os
 from pathlib import Path
-from .ckeditor_config import generate_ckeditor_config
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -122,7 +121,21 @@ MEDIA_URL = "https://moddevbucket.s3.eu-west-2.amazonaws.com/"
 
 CKEDITOR_UPLOAD_PATH = "editor/"
 
-CKEDITOR_CONFIGS = generate_ckeditor_config(MEDIA_URL)
+CKEDITOR_CONFIGS = {
+    "default": {
+        "extraPlugins": ",".join(
+            [
+                "uploadimage",
+                "uploadwidget",
+                "mentions",
+            ]
+        ),
+        "removePlugins": "exportpdf",
+        "uiColor": "#fcf5e7",
+        "extraAllowedContent": "strong[data-bib-id](bib-mention);",
+        "filebrowserBrowseUrl": "/view_bucket_items/",
+    },
+}
 
 GRAPPELLI_INDEX_DASHBOARD = "dashboard.CustomIndexDashboard"
 GRAPPELLI_ADMIN_TITLE = "Museum of Dreams"

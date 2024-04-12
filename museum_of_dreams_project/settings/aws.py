@@ -49,6 +49,5 @@ AWS_S3_CUSTOM_DOMAIN = (
 STATIC_URL = "https://%s/static/" % AWS_S3_CUSTOM_DOMAIN
 MEDIA_URL = "https://%s/media/" % AWS_S3_CUSTOM_DOMAIN
 
-CKEDITOR_CONFIGS = CKEDITOR_CONFIGS = generate_ckeditor_config(MEDIA_URL)
 
 S3_BROWSER_SETTINGS = "djangoS3Browser"
