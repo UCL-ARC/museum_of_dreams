@@ -4,9 +4,9 @@ The production website is hosted at http://museumofdreamworlds.eu-west-2.elastic
 
 The staging one is http://museumofdreams.eu-west-2.elasticbeanstalk.com/ and is built from the `development` branch
 
-The more public versions are https://museumofdreamworlds.org and https://staging.museumofdreamworlds.org
+The offical versions are https://museumofdreamworlds.org and https://staging.museumofdreamworlds.org
 
-Development should be done locally and staged to the website. At present this is not a production version.
+Development should be done locally and staged to the staging website before putting the code on production.
 
 ## Getting Started
 
@@ -26,6 +26,10 @@ If it's your first time initialising the app on your machine, you may need to ru
 python manage.py migrate
 python manage.py createsuperuser
 ```
+### AWS
+
+This project is hosted on AWS, if you do not have access to the account, let [Amanda Ho-Lyn](mailto:a.ho-lyn@ucl.ac.uk) know and she will arrange this.
+You may find it beneficial to read through the [current AWS setup docs](docs/baseAWSSetup.md) to gain an understanding of the architecture of the project. Also have a look at the [development SOP](docs/developmentSOP.md) for an idea of the general development flow.
 
 ### Running tests
 
