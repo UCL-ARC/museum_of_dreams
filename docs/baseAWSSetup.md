@@ -42,7 +42,7 @@ They should also both use the `moddbkey` for EC2 access and `MuseumofDreams_EB_E
 
 | Parameter name | Value/s |
 |----|---|
-|instance subnets | `mod-subnet-a1`, `mod-subnet-c1`, `RDS-Pvt-subnet-2`|
+|instance subnets | `mod-subnet-a1`, `mod-subnet-c1`, `RDS-Pvt-subnet-3`|
 |additional ec2 security groups | `rds-ec2-1`|
 |load balancer subnets | `mod-subnet-a1`, `mod-subnet-c1`|
 ---
@@ -52,12 +52,13 @@ They should also both use the `moddbkey` for EC2 access and `MuseumofDreams_EB_E
 
 | Parameter name | Value/s |
 |----|---|
-|instance subnets | `mod-subnet-a2`, `mod-subnet-b1`, `RDS-Pvt-subnet-1`|
+|instance subnets | `mod-subnet-a2`, `mod-subnet-b1`, `RDS-Pvt-subnet-2`|
 |additional ec2 security groups | `ec2-rds-1`|
 |load balancer subnets | `mod-subnet-a2`, `mod-subnet-b1`|
 ---
 
 Use the saved configurations to launch instances if an environment needs to be terminated and spun up again. Make sure you detach the security groups before doing this (can be done from the security group console).
+Ensure the private subnets for the instances are in a different availability zone from the public subnets (which overlap with the load balancer subnets) to prevent instances being launched in a private subnet by mistake.
 
 
 ## Security Groups
