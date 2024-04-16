@@ -76,7 +76,7 @@ class EmailMixin:
             subject = f"A {obj.__class__.__name__} has been added! || MOD"
 
             html_message = render_to_string(
-                "email_template.html",
+                "email_template_new.html",
                 {
                     "updated_by": updated_by,
                     "instance": obj,
@@ -112,7 +112,7 @@ class EmailMixin:
         subject = f"A {obj.__class__.__name__} has been deleted! || MOD"
 
         html_message = render_to_string(
-            "email_template.html",
+            "email_template_delete.html",
             {
                 "updated_by": updated_by,
                 "instance": obj,
