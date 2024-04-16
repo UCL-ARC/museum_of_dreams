@@ -1,5 +1,5 @@
 {% extends "foundation.html" %}
-{% comment %} {% block title %} S3 Browser {% endblock %} {% endcomment %}
+{% block title %} S3 Browser {% endblock %}
 {% block body %}
     <body>
         <main>
@@ -8,16 +8,23 @@
                 {% for item_key, item_value in items.items %}
                     <a href={{ item_value.url }} class="s3-browser__card__wrapper">
                         <div class="s3-browser__card">
-{% comment %} TODO: make text dynamic so it fills container properly {% endcomment %}
-                            {% if not 'Video' in item_value.name %}
+
+                            {% if ".pdf" in item_value.name %}
                                 <div>
-                                    <img src={{ item_value.url }} alt={{ name }} width="200" height="180">
-                                    <small>{{ item_value.name }}</small>
+                                    <iframe src={{ item_value.url }} alt="{{ item_value.name }}" width="200" height="180"></iframe>
+                                    <p>{{ item_value.name }}</p>
                                 </div>
+
+                            {% elif not 'Video' in item_value.name %}
+                                <div>
+                                    <img src={{ item_value.url }} alt="{{ item_value.name }}" width="200" height="180">
+                                    <p>{{ item_value.name }}</p>
+                                </div>
+
                             {% else %}
                                 <div>
                                     <video width="200" height="180" controls><source src={{ item_value.url }} type="video/mp4"></video>
-                                    <small>{{ item_value.name }}</small>
+                                    <p>{{ item_value.name }}</p>
                                 </div>
                             {% endif %}
 
