@@ -1,4 +1,5 @@
 import boto3
+import re
 
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
@@ -111,16 +112,22 @@ class BucketItemsView(View):
 
         # Then use the session to get the resource
         s3 = session.resource("s3")
-        bucket = s3.Bucket("moddevbucket")
+        if "staging" in request.build_absolute_uri():
+            bucket = s3.Bucket("moddevbucket")
+        else:
+            bucket = s3.Bucket("modprodbucket")
+
         bucket_url = f"https://{bucket.name}.s3.eu-west-2.amazonaws.com/"
 
         response = bucket.objects.filter(Prefix="media/")
-
         items = [obj.key for obj in response]
         item_data = {"items": {}}
         for item in items:
             item_url = bucket_url + item
-            item_name = str(item).split("media/files/")[1]
+            match = re.search(r"media/(files|editor)/(.+)", item)
+            if match:
+                item_name = match.group(2)
+
             item_data["items"][item] = {"url": item_url, "name": item_name}
         # should we use another session id for passing info back
         return render(request, "bucket_items.html", item_data)
