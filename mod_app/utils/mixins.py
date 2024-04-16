@@ -34,7 +34,10 @@ class EmailMixin:
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
         updated_by = request.user.username
-        if updated_by == "acholyn":
+
+        devs = [user.username for user in User.objects.filter(groups__name="devs")]
+
+        if updated_by in devs:
             return
 
         researchers = User.objects.filter(groups__name="Researchers").exclude(
@@ -96,7 +99,9 @@ class EmailMixin:
 
     def delete_model(self, request, obj):
         updated_by = request.user.username
-        if updated_by == "acholyn":
+        devs = [user.username for user in User.objects.filter(groups__name="devs")]
+
+        if updated_by in devs:
             return
 
         researchers = User.objects.filter(groups__name="Researchers").exclude(
