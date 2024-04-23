@@ -1,13 +1,15 @@
 {% extends "foundation.html" %}
 {% block title %} S3 Browser {% endblock %}
 {% block body %}
-    <body>
+    <body  hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
         <main>
             <h3 class="center-text"> You are currently viewing items in the S3 bucket</h3>
+            {{ckeditor_func_num}}
             <div class="s3-browser__wrapper">
-                {% for item_key, item_value in items.items %}
-                    <a href={{ item_value.url }} class="s3-browser__card__wrapper">
-                        <div class="s3-browser__card">
+                {% for item_key, item_value in item_data.items.items %}
+                    <a href="#" data-item-value="{{ item_value.url }}" class="s3-browser__card__wrapper">
+                        <div class="s3-browser__card" >
+                        {% comment %} hx-post="{% url 'view_bucket_items' %}?selected_item={{ item_value.url }}"> {% endcomment %}
 
                             {% if ".pdf" in item_value.name %}
                                 <div>
@@ -33,5 +35,41 @@
                 {% endfor %}
             </div>
         </main>
+
+        <script type="module">
+            console.log("script");
+            const CKEDITORFuncNum = {{ckeditor_func_num}}
+
+            function handleCKEditorSelection(CKEDITORFuncNum,selectedItemValue){
+                window.opener.CKEDITOR.tools.callFunction(
+                    CKEDITORFuncNum,
+                    selectedItemValue
+                );
+                window.close()
+            };
+            document.querySelectorAll(".s3-browser__card__wrapper").forEach((bcw) => {
+                bcw.addEventListener("click", function () {
+                    var selectedItemValue = this.getAttribute("data-item-value");
+                    console.log(selectedItemValue);
+                    console.log(window.opener);
+
+                    if (CKEDITORFuncNum){
+                        handleCKEditorSelection(CKEDITORFuncNum,selectedItemValue)
+                    }
+
+            // Find the form field in the original window by its ID or other identifying attributes
+                    var originalWindowFormField =
+                        window.opener.document.getElementById("your-form-field-id");
+
+            // Update the value of the form field with the selected item value
+                    if (originalWindowFormField) {
+                        originalWindowFormField.value = selectedItemValue;
+                    } else {
+                        console.error("Form field not found in original window.");
+                    }
+                });
+            });
+
+        </script>
     </body>
 {% endblock %}
