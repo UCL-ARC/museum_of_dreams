@@ -23,7 +23,6 @@ from .link_admin import (
     DrawingInline,
     DrawingAdmin,
     VideoInline,
-    VideoAdmin,
     OtherLinkInline,
     OtherLinkAdmin,
     VideoAdmin,

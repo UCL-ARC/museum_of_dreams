@@ -28,9 +28,6 @@ class PreviewMixin:
         )
 
 
-from django.urls import reverse
-
-
 class s3BrowserButtonMixin:
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
