@@ -13,7 +13,7 @@ from django.utils.decorators import method_decorator
 from museum_of_dreams_project.settings.aws import (
     AWS_ACCESS_KEY_ID,
     AWS_SECRET_ACCESS_KEY,
-    BUCKET_NAME,
+    AWS_STORAGE_BUCKET_NAME,
 )
 from .models import Film, BibliographyItem, Analysis, TeachingResources
 
@@ -101,7 +101,7 @@ class BucketItemsView(View):
         )
 
         s3 = session.resource("s3")
-        bucket = s3.Bucket(BUCKET_NAME)
+        bucket = s3.Bucket(AWS_STORAGE_BUCKET_NAME)
         bucket_url = f"https://{bucket.name}.s3.eu-west-2.amazonaws.com/"
 
         response = bucket.objects.filter(Prefix="media/")
