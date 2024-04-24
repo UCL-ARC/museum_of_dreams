@@ -124,10 +124,3 @@ class BucketItemsView(View):
         }
 
         return render(request, "bucket_items.html", context)
-
-    # def post(self, request):
-    #     print(request.META["HTTP_REFERER"])
-    #     selected_item = request.GET.get("selected_item")
-    #     if selected_item:
-    #         request.session["selected_item"] = selected_item
-    #     return HttpResponse("ok")
