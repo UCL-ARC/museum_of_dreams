@@ -6,6 +6,8 @@
 @import url("bibliography.css");
 @import url("analysis.css");
 @import url("utility-classes.css");
+@import url("s3-browser.css");
+@import url("animations.css");
 
 /* open props */
 @import url("open-props.min.css");

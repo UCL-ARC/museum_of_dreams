@@ -23,14 +23,6 @@ a {
   }
 }
 
-h2,
-h3,
-h4,
-h5 {
-  font-family: "Engebrechtre", display, sans-serif;
-  /* font-size: 110%; */
-}
-
 main {
   margin: 1rem;
   margin-bottom: 10vh;
@@ -277,36 +269,4 @@ footer {
   background-position: 0 var(--size), top left, 0 calc(100% - var(--size)),
     bottom left, 0 var(--size);
   padding: calc(var(--size) * 5) calc(var(--size) * 4);
-}
-
-.s3-browser__wrapper {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(25vw, 1fr));
-  grid-column-gap: 0.5rem;
-  grid-row-gap: 0.2rem;
-  .s3-browser__card__wrapper {
-    text-decoration: none;
-    &:hover > .s3-browser__card {
-      background-color: var(--blue-1);
-    }
-  }
-  .s3-browser__card {
-    display: grid;
-    padding: 0.25rem;
-    max-width: 40vw;
-    justify-content: center;
-    border-radius: var(--radius-3);
-    border: var(--border-size-1) solid var(--blue-2);
-    > div,
-    div > * {
-      max-width: 30vw;
-      margin-inline: 1rem;
-      text-align: center;
-    }
-    p {
-      font-size: 0.7rem;
-      word-wrap: break-word;
-      white-space: normal;
-    }
-  }
 }

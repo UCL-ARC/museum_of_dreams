@@ -114,8 +114,6 @@ class BucketItemsView(View):
                 item_name = match.group(2)
 
             item_data["items"][item] = {"url": item_url, "name": item_name}
-        # should we use another session id for passing info back
-        request.session["selected_item"] = None
 
         context = {
             "item_data": item_data,

@@ -3,27 +3,30 @@
 {% block body %}
     <body  hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
         <main>
-            <h3 class="center-text"> You are currently viewing items in the S3 bucket</h3>
+            <div class="s3-browser__title gruppo">
+                <h3 class="center-text"> You are currently viewing items in the S3 bucket</h3>
+                <p>key: <span class="key--pdf">PDF</span>, <span class="key--video">Video</span>, <span class="key--img">Image</span>
+                </p>
+            </div>
             <div class="s3-browser__wrapper">
                 {% for item_key, item_value in item_data.items.items %}
                     <a href="#" data-item-value="{{ item_value.url }}" class="s3-browser__card__wrapper">
                         <div class="s3-browser__card" >
-                        {% comment %} hx-post="{% url 'view_bucket_items' %}?selected_item={{ item_value.url }}"> {% endcomment %}
 
                             {% if ".pdf" in item_value.name %}
-                                <div>
+                                <div class="s3-browser__card__item--pdf">
                                     <iframe src={{ item_value.url }} alt="{{ item_value.name }}" width="200" height="180"></iframe>
                                     <p>{{ item_value.name }}</p>
                                 </div>
 
                             {% elif not 'Video' in item_value.name %}
-                                <div>
+                                <div class="s3-browser__card__item--img">
                                     <img src={{ item_value.url }} alt="{{ item_value.name }}" width="200" height="180">
                                     <p>{{ item_value.name }}</p>
                                 </div>
 
                             {% else %}
-                                <div>
+                                <div class="s3-browser__card__item--video">
                                     <video width="200" height="180" controls><source src={{ item_value.url }} type="video/mp4"></video>
                                     <p>{{ item_value.name }}</p>
                                 </div>

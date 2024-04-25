@@ -1,0 +1,86 @@
+main {
+  --pdf-colour: var(--jungle-5);
+  --img-colour: var(--yellow-5);
+  --video-colour: var(--blue-5);
+}
+
+.key--pdf {
+  color: var(--pdf-colour);
+}
+.key--img {
+  color: var(--img-colour);
+}
+.key--video {
+  color: var(--video-colour);
+}
+
+.s3-browser__title {
+  text-align: center;
+  p {
+    font-size: 90%;
+    font-weight: 600;
+  }
+}
+.s3-browser__wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(20vw, 1fr));
+  grid-column-gap: 0.75rem;
+  grid-row-gap: 0.25rem;
+  .s3-browser__card__wrapper {
+    text-decoration: none;
+    /* &:hover > .s3-browser__card { */
+    /* background-color: var(--blue-1); */
+    /* } */
+  }
+  .s3-browser__card {
+    display: grid;
+    padding: 0.25rem;
+    max-width: 40vw;
+    justify-content: center;
+    border-radius: var(--radius-3);
+    border: var(--border-size-2) solid;
+    position: relative;
+
+    > div,
+    div > * {
+      max-width: 100%;
+      max-height: 100%;
+      margin-inline: 1rem;
+      text-align: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    p {
+      font-size: 0.7rem;
+      word-wrap: break-word;
+      white-space: nowrap;
+      font-family: "Open Sans";
+    }
+    &:has(> .s3-browser__card__item--pdf) {
+      border: var(--border-size-2) solid var(--pdf-colour);
+    }
+    &:has(> .s3-browser__card__item--img) {
+      border: var(--border-size-2) solid var(--img-colour);
+    }
+    &:has(> .s3-browser__card__item--video) {
+      border: var(--border-size-2) solid var(--video-colour);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: rgba(164, 36, 36, 0.808);
+      animation: inkSpread 0.5s linear forwards;
+
+      &:hover {
+        animation-play-state: running;
+      }
+    }
+  }
+}

@@ -7,3 +7,29 @@
 .center-text {
   text-align: center;
 }
+
+/* specific font family  */
+.engb {
+  font-family: "Engebrechtre";
+}
+.standing {
+  font-family: "Standing Room Only";
+}
+.josefin {
+  font-family: "Josefin Sans";
+}
+.gruppo {
+  font-family: "Gruppo";
+}
+.noto {
+  font-family: "Noto Sans";
+}
+.oss {
+  font-family: "Open Sans";
+}
+.playfair {
+  font-family: "Playfair Display";
+}
+.mono {
+  font-family: "Monoton";
+}
