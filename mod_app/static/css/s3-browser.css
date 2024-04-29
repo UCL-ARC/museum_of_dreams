@@ -1,7 +1,27 @@
 main {
   --pdf-colour: var(--jungle-5);
+  --pdf-colour--light: color-mix(in srgb, var(--pdf-colour), 80% white);
+  --pdf-colour--dark: color-mix(
+    in srgb,
+    var(--pdf-colour),
+    30% rgb(50, 50, 50)
+  );
+
   --img-colour: var(--yellow-5);
+  --img-colour--light: color-mix(in srgb, var(--img-colour), 80% white);
+  --img-colour--dark: color-mix(
+    in srgb,
+    var(--img-colour),
+    30% rgb(50, 50, 50)
+  );
+
   --video-colour: var(--blue-5);
+  --video-colour--light: color-mix(in srgb, var(--video-colour), 80% white);
+  --video-colour--dark: color-mix(
+    in srgb,
+    var(--video-colour),
+    30% rgb(50, 50, 50)
+  );
 }
 
 .key--pdf {
@@ -28,9 +48,6 @@ main {
   grid-row-gap: 0.25rem;
   .s3-browser__card__wrapper {
     text-decoration: none;
-    /* &:hover > .s3-browser__card { */
-    /* background-color: var(--blue-1); */
-    /* } */
   }
   .s3-browser__card {
     display: grid;
@@ -40,6 +57,7 @@ main {
     border-radius: var(--radius-3);
     border: var(--border-size-2) solid;
     position: relative;
+    transition: transform 0.3s ease;
 
     > div,
     div > * {
@@ -56,14 +74,43 @@ main {
       white-space: nowrap;
       font-family: "Open Sans";
     }
+
+    &:hover,
+    .s3-browser__card__wrapper:hover {
+      transform: scale(1.05);
+    }
     &:has(> .s3-browser__card__item--pdf) {
       border: var(--border-size-2) solid var(--pdf-colour);
+
+      &:hover,
+      .s3-browser__card__wrapper:hover {
+        background-color: var(--pdf-colour--light);
+        -webkit-box-shadow: 8px 7px 5px -7px var(--pdf-colour--dark);
+        -moz-box-shadow: 8px 7px 5px -7px var(--pdf-colour--dark);
+        box-shadow: 8px 7px 5px -7px var(--pdf-colour--dark);
+      }
     }
     &:has(> .s3-browser__card__item--img) {
       border: var(--border-size-2) solid var(--img-colour);
+
+      &:hover,
+      .s3-browser__card__wrapper:hover {
+        background-color: var(--img-colour--light);
+        -webkit-box-shadow: 8px 7px 5px -7px var(--img-colour--dark);
+        -moz-box-shadow: 8px 7px 5px -7px var(--img-colour--dark);
+        box-shadow: 8px 7px 5px -7px var(--img-colour--dark);
+      }
     }
     &:has(> .s3-browser__card__item--video) {
       border: var(--border-size-2) solid var(--video-colour);
+
+      &:hover,
+      .s3-browser__card__wrapper:hover {
+        background-color: var(--video-colour--light);
+        -webkit-box-shadow: 8px 7px 5px -7px var(--video-colour--dark);
+        -moz-box-shadow: 8px 7px 5px -7px var(--video-colour--dark);
+        box-shadow: 8px 7px 5px -7px var(--video-colour--dark);
+      }
     }
 
     /* &::after {
