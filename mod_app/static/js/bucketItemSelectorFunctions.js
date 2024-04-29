@@ -12,3 +12,15 @@ function handlePopupSelection(selectedItemValue) {
   window.opener.postMessage(message, validLoc);
   window.close();
 }
+
+function filterBy(elemType) {
+  console.log(elemType);
+  const cardWrappers = document.querySelectorAll(".s3-browser__card__wrapper");
+  cardWrappers.forEach((wrapper) => {
+    if (!wrapper.querySelector(elemType)) {
+      wrapper.classList.add("no-display");
+    } else {
+      wrapper.classList.remove("no-display");
+    }
+  });
+}

@@ -24,16 +24,6 @@ main {
   );
 }
 
-.key--pdf {
-  color: var(--pdf-colour);
-}
-.key--img {
-  color: var(--img-colour);
-}
-.key--video {
-  color: var(--video-colour);
-}
-
 .s3-browser__title {
   text-align: center;
   p {
@@ -41,6 +31,22 @@ main {
     font-weight: 600;
   }
 }
+
+#key--pdf {
+  color: var(--pdf-colour);
+}
+#key--img {
+  color: var(--img-colour);
+}
+#key--video {
+  color: var(--video-colour);
+}
+.s3-browser__filter__button {
+  background-color: white;
+  border-color: inherit;
+  cursor: pointer;
+}
+
 .s3-browser__wrapper {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(20vw, 1fr));
@@ -60,7 +66,9 @@ main {
     transition: transform 0.3s ease;
 
     > div,
-    div > * {
+    img,
+    iframe,
+    video {
       max-width: 100%;
       max-height: 100%;
       margin-inline: 1rem;
@@ -73,6 +81,14 @@ main {
       word-wrap: break-word;
       white-space: nowrap;
       font-family: "Open Sans";
+    }
+
+    .material-symbols-outlined {
+      position: absolute;
+      float: left;
+      margin-left: -1rem;
+      padding: 0.1rem;
+      color: inherit;
     }
 
     &:hover,

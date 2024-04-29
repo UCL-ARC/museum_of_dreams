@@ -8,6 +8,22 @@
   text-align: center;
 }
 
+.no-display {
+  display: none;
+}
+
+.btn {
+  border: var(--border-size-1) solid var(--sand-3);
+  padding: 0.3rem;
+  border-radius: 5px;
+  text-align: center;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
 /* specific font family  */
 .engb {
   font-family: "Engebrechtre";
