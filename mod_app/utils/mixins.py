@@ -1,6 +1,9 @@
 from django.utils.html import format_html
 
 
+from .shared_functions import build_and_send_email
+
+
 class PreviewMixin:
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -25,3 +28,19 @@ class PreviewMixin:
             '<img src="{}" style="max-width: 15rem;" />',
             obj.url,
         )
+
+
+class EmailMixin:
+    def save_model(self, request, obj, form, change):
+        super().save_model(request, obj, form, change)
+
+        # Check if it's a new instance or an update
+        if change:
+            build_and_send_email(request, obj, "updated")
+        else:
+            # new instance
+            build_and_send_email(request, obj, "added")
+
+    def delete_model(self, request, obj):
+        build_and_send_email(request, obj, "deleted")
+        super().delete_model(request, obj)
