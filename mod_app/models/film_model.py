@@ -1,6 +1,7 @@
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.urls import reverse
 
 from mod_app.models.support_models import (
     Tag,
@@ -17,6 +18,9 @@ def validate_format_other(value, format_type):
 class Film(models.Model):
     def __str__(self):
         return f"{self.title}"
+
+    def get_absolute_url(self):
+        return reverse("film_detail", kwargs={"pk": self.pk})
 
     title = models.CharField(max_length=100)
     alt_titles = models.TextField(

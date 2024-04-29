@@ -17,7 +17,7 @@ from mod_app.admin.link_admin import (
     StillInline,
     VideoInline,
 )
-
+from mod_app.utils.mixins import EmailMixin
 
 from ..models import Analysis, TeachingResources, Film
 
@@ -41,7 +41,7 @@ class TRInline(admin.TabularInline):
 
 
 @admin.register(Film)
-class FilmAdmin(admin.ModelAdmin):
+class FilmAdmin(EmailMixin, admin.ModelAdmin):
     class Media:
         css = {
             "all": ("admin/css/custom.css",),
