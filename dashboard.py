@@ -81,6 +81,8 @@ class CustomIndexDashboard(Dashboard):
                         column=1,
                         collapsible=False,
                         models=(
+                            "mod_app.models.support_models.Video",
+                            "mod_app.models.support_models.Source",
                             "mod_app.models.support_models.OtherLink",
                             "mod_app.models.support_models.Tag",
                         ),
@@ -111,15 +113,11 @@ class CustomIndexDashboard(Dashboard):
                 _("Support"),
                 column=3,
                 children=[
-                    # {
-                    #     "title": _("Grappelli Documentation"),
-                    #     "url": "http://packages.python.org/django-grappelli/",
-                    #     "external": True,
-                    # },
                     {
                         "title": _("How to use the Admin Interface"),
                         "url": "https://github.com/UCL-ARC/museum_of_dreams/wiki/Using-the-Admin-Interface",
                         "external": True,
+                        "header": True,
                     },
                 ],
             )
