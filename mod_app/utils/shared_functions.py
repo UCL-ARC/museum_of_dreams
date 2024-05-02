@@ -12,9 +12,9 @@ def build_and_send_email(request, obj, verb):
     if updated_by in devs:
         return
 
-    researchers = User.objects.filter(groups__name="Researchers").exclude(
-        username=updated_by
-    )
+    researchers = User.objects.filter(
+        groups__name="Researchers", is_active=True
+    ).exclude(username=updated_by)
     recipients = [user.email for user in researchers]
 
     instance_admin_url = request.build_absolute_uri()
