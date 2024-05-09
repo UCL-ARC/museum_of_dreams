@@ -40,6 +40,7 @@ class s3BrowserButtonMixin:
         button_html = get_template("components/s3_browse_button.html")
         return button_html.render()
 
+
 class EmailMixin:
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
