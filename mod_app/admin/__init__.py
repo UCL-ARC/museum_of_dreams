@@ -30,6 +30,7 @@ from .link_admin import (
     PostcardAdmin,
     TagAdmin,
 )
+from .auth_admin import CustomUserAdmin
 
 __all__ = [
     "BibliographyItemAdmin",
@@ -63,4 +64,5 @@ __all__ = [
     "PostcardInline",
     "PostcardAdmin",
     "TagAdmin",
+    "CustomUserAdmin",
 ]
