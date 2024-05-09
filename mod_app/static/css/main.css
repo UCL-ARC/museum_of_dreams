@@ -23,14 +23,6 @@ a {
   }
 }
 
-h2,
-h3,
-h4,
-h5 {
-  font-family: "Engebrechtre", display, sans-serif;
-  /* font-size: 110%; */
-}
-
 main {
   margin: 1rem;
   margin-bottom: 10vh;
@@ -78,6 +70,9 @@ footer {
 
   .material-symbols-outlined {
     color: var(--cyan-6);
+  }
+  a {
+    text-decoration: none;
   }
 }
 .title-bar__icons {
@@ -181,10 +176,10 @@ footer {
     margin-top: 1.5rem;
     list-style-type: none;
     padding-left: 0.5rem;
+    color: var(--cyan-8);
     > li {
       margin-bottom: 1.5rem;
     }
-    color: var(--cyan-8);
   }
 }
 
@@ -274,8 +269,4 @@ footer {
   background-position: 0 var(--size), top left, 0 calc(100% - var(--size)),
     bottom left, 0 var(--size);
   padding: calc(var(--size) * 5) calc(var(--size) * 4);
-}
-
-.no-list-style {
-  list-style-type: none;
 }

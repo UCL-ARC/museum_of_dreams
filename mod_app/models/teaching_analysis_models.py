@@ -3,7 +3,7 @@ from django.db import models
 
 from ..utils.extract_citations import update_bibliography
 
-from .support_models import Tag, Video
+from .support_models import Tag
 from .bibliography_model import BibliographyItem
 
 

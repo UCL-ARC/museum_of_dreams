@@ -1,0 +1,85 @@
+{% extends "foundation.html" %}
+{% block title %} S3 Browser {% endblock %}
+{% block body %}
+    <body  hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+        <main>
+            <div class="s3-browser__title gruppo">
+                <h3 class="center-text"> You are currently viewing items in the S3 bucket</h3>
+                <p>filter:
+                    <span onclick="filterBy" data-type="pdf" id="key--pdf" class="btn s3-browser__filter__button">PDF</span>/
+                    <span class="btn s3-browser__filter__button" onclick="filterBy" data-type="video" id="key--video">Video</span>/
+                    <span  onclick="filterBy" class="btn s3-browser__filter__button" data-type="img" id="key--img">Image</span>
+
+                </p>
+            </div>
+            <div class="s3-browser__wrapper">
+                {% for item_key, item_value in item_data.items.items %}
+                    <a href="#" data-item-value="{{ item_value.url }}" title="{{item_value.name}}" class="s3-browser__card__wrapper">
+                        <div class="s3-browser__card" >
+
+                            {% if ".pdf" in item_value.name %}
+                                <div class="s3-browser__card__item--pdf">
+                                    <span class="material-symbols-outlined">
+                                        picture_as_pdf
+                                    </span>
+                                    <iframe src={{ item_value.url }} alt="{{ item_value.name }}" width="200" height="180"></iframe>
+                                    <p>{{ item_value.name }}</p>
+                                </div>
+
+                            {% elif not 'Video' in item_value.name %}
+                                <div class="s3-browser__card__item--img">
+                                    <span class="material-symbols-outlined">
+                                        image
+                                    </span>
+                                    <img src={{ item_value.url }} alt="{{ item_value.name }}" width="200" height="180">
+                                    <p>{{ item_value.name }}</p>
+                                </div>
+
+                            {% else %}
+                                <div class="s3-browser__card__item--video">
+                                    <span class="material-symbols-outlined">
+                                        videocam
+                                    </span>
+                                    <video width="200" height="180" controlslist="nodownload" ><source src="{{ item_value.url }}#t=05" type="video/mp4"></video>
+                                    <p>{{ item_value.name }}</p>
+                                </div>
+                            {% endif %}
+
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </main>
+        <script src="{% static 'js/bucketItemSelectorFunctions.js' %}" defer></script>
+        <script>
+            document.querySelectorAll(".s3-browser__card__wrapper").forEach((bcw) => {
+                bcw.addEventListener("click", function () {
+                    var selectedItemValue = bcw.getAttribute("data-item-value");
+                    const CKEDITORFuncNum = {{ ckeditor_func_num|default_if_none:"null" }};
+                    if (CKEDITORFuncNum){
+                        handleCKEditorSelection(CKEDITORFuncNum,selectedItemValue);
+                    }
+                    else{
+                        handlePopupSelection(selectedItemValue);
+                    }
+
+
+                });
+            });
+
+
+            const pdfFilter = document.getElementById("key--pdf");
+            pdfFilter.addEventListener("click", function () {
+                filterBy("iframe");
+            });
+            const imgFilter = document.getElementById("key--img");
+            imgFilter.addEventListener("click", function () {
+                filterBy("img");
+            });
+            const videoFilter = document.getElementById("key--video");
+            videoFilter.addEventListener("click", function () {
+                filterBy("video");
+            });
+        </script>
+    </body>
+{% endblock %}

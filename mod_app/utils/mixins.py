@@ -1,3 +1,4 @@
+from django.template.loader import get_template
 from django.utils.html import format_html
 
 
@@ -28,6 +29,16 @@ class PreviewMixin:
             '<img src="{}" style="max-width: 15rem;" />',
             obj.url,
         )
+
+
+class s3BrowserButtonMixin:
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.readonly_fields += ("s3_browser_button",)
+
+    def s3_browser_button(self, obj):
+        button_html = get_template("components/s3_browse_button.html")
+        return button_html.render()
 
 
 class EmailMixin:

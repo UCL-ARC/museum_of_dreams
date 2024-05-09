@@ -2,7 +2,6 @@
 
 import ckeditor.fields
 from django.db import migrations, models
-import mod_app.models.film_model
 
 
 class Migration(migrations.Migration):
