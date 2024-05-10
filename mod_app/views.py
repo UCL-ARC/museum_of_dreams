@@ -10,7 +10,7 @@ from django.views.generic import DetailView, ListView, TemplateView
 from django.utils.decorators import method_decorator
 
 
-from museum_of_dreams_project.secrets import (
+from museum_of_dreams_project.settings.aws import (
     AWS_ACCESS_KEY_ID,
     AWS_SECRET_ACCESS_KEY,
     AWS_STORAGE_BUCKET_NAME,
