@@ -1,0 +1,51 @@
+/* this file is for styles that you would add to produce a specific effect */
+
+.no-list-style {
+  list-style-type: none;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.no-display {
+  display: none;
+}
+
+.btn {
+  border: var(--border-size-1) solid var(--sand-3);
+  padding: 0.3rem;
+  border-radius: 5px;
+  text-align: center;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+/* specific font family  */
+.engb {
+  font-family: "Engebrechtre";
+}
+.standing {
+  font-family: "Standing Room Only";
+}
+.josefin {
+  font-family: "Josefin Sans";
+}
+.gruppo {
+  font-family: "Gruppo";
+}
+.noto {
+  font-family: "Noto Sans";
+}
+.oss {
+  font-family: "Open Sans";
+}
+.playfair {
+  font-family: "Playfair Display";
+}
+.mono {
+  font-family: "Monoton";
+}

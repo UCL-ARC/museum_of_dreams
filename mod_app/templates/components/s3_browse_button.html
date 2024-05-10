@@ -1,0 +1,38 @@
+{% comment %} Template for s3 browsing button, also handles return messages {% endcomment %}
+<style>
+  .s3-browser__button {
+    width: 100%;
+  }
+</style>
+
+<a class="s3-browser__button" onclick="openNewWindow(this)" rel="nonCKbrowser">View s3 items in new window</a>
+
+
+<script>
+  function openNewWindow(button) {
+    var row = button.closest("div.form-row");
+    var id = row.id;
+
+        // construct the URL with notckeditor
+    var url =
+      "{% url 'view_bucket_items' %}?not_ckeditor_browser=true&pk=" +
+    encodeURIComponent(id);
+
+        // Open the URL in a new window, width and height needed for new window
+    window.open(url, "_blank", "width=1400,height=800");
+
+    window.addEventListener("message", function (event) {
+      if (event.origin == window.origin) {
+        if (
+          event.isTrusted &&
+          event.data &&
+          event.data.source == "s3-browser-window-selection"
+        ) {
+              // set url field to be value
+          var urlField = row.querySelector(".vURLField");
+          urlField.value = event.data.value;
+        }
+      }
+    });
+  }
+</script>

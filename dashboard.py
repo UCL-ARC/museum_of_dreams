@@ -7,7 +7,6 @@ To activate your index dashboard add the following to your settings.py::
 """
 
 from django.utils.translation import gettext_lazy as _
-from django.urls import reverse
 
 from grappelli.dashboard import modules, Dashboard
 from grappelli.dashboard.utils import get_admin_site_name
@@ -81,6 +80,9 @@ class CustomIndexDashboard(Dashboard):
                         column=1,
                         collapsible=False,
                         models=(
+                            "mod_app.models.project_note_model.ProjectNote",
+                            "mod_app.models.support_models.Video",
+                            "mod_app.models.support_models.Source",
                             "mod_app.models.support_models.OtherLink",
                             "mod_app.models.support_models.Tag",
                         ),
@@ -111,15 +113,11 @@ class CustomIndexDashboard(Dashboard):
                 _("Support"),
                 column=3,
                 children=[
-                    # {
-                    #     "title": _("Grappelli Documentation"),
-                    #     "url": "http://packages.python.org/django-grappelli/",
-                    #     "external": True,
-                    # },
                     {
                         "title": _("How to use the Admin Interface"),
                         "url": "https://github.com/UCL-ARC/museum_of_dreams/wiki/Using-the-Admin-Interface",
                         "external": True,
+                        "header": True,
                     },
                 ],
             )

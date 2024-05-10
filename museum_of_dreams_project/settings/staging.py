@@ -7,7 +7,6 @@ ALLOWED_HOSTS = [
     LOCAL_IP,
 ]
 GRAPPELLI_ADMIN_TITLE = "Museum of Dreams"
-AWS_STORAGE_BUCKET_NAME = "moddevbucket"
 AWS_S3_CUSTOM_DOMAIN = (
     f"{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com"
 )

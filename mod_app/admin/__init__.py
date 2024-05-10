@@ -23,7 +23,6 @@ from .link_admin import (
     DrawingInline,
     DrawingAdmin,
     VideoInline,
-    VideoAdmin,
     OtherLinkInline,
     OtherLinkAdmin,
     VideoAdmin,
@@ -31,6 +30,7 @@ from .link_admin import (
     PostcardAdmin,
     TagAdmin,
 )
+from .note_admin import ProjectNoteAdmin
 
 __all__ = [
     "BibliographyItemAdmin",
@@ -64,4 +64,6 @@ __all__ = [
     "PostcardInline",
     "PostcardAdmin",
     "TagAdmin",
+    "CustomUserAdmin",
+    "ProjectNoteAdmin",
 ]
