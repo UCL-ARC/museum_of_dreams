@@ -1,4 +1,6 @@
 from .film_model import Film
+from .bibliography_model import BibliographyItem
+from .project_note_model import ProjectNote
 from .support_models import (
     BaseLinkModel,
     FileLink,
@@ -20,7 +22,6 @@ from .teaching_analysis_models import (
     Analysis,
     TeachingResources,
 )
-from .bibliography_model import BibliographyItem
 
 __all__ = [
     "Analysis",
@@ -42,4 +43,5 @@ __all__ = [
     "TeachingResources",
     "OtherLink",
     "Video",
+    "ProjectNote",
 ]

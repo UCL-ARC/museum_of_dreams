@@ -30,7 +30,7 @@ from .link_admin import (
     PostcardAdmin,
     TagAdmin,
 )
-from .auth_admin import CustomUserAdmin
+from .note_admin import ProjectNoteAdmin
 
 __all__ = [
     "BibliographyItemAdmin",
@@ -65,4 +65,5 @@ __all__ = [
     "PostcardAdmin",
     "TagAdmin",
     "CustomUserAdmin",
+    "ProjectNoteAdmin",
 ]
