@@ -80,6 +80,7 @@ class CustomIndexDashboard(Dashboard):
                         column=1,
                         collapsible=False,
                         models=(
+                            "mod_app.models.project_note_model.ProjectNote",
                             "mod_app.models.support_models.Video",
                             "mod_app.models.support_models.Source",
                             "mod_app.models.support_models.OtherLink",
