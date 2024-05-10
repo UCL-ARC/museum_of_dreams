@@ -34,13 +34,37 @@ main {
 
 #key--pdf {
   color: var(--pdf-colour);
+  &:hover,
+  &.active {
+    background-color: var(--pdf-colour);
+    color: var(--pdf-colour--light);
+  }
 }
 #key--img {
   color: var(--img-colour);
+  &:hover,
+  &.active {
+    background-color: var(--img-colour);
+    color: var(--img-colour--light);
+  }
 }
 #key--video {
   color: var(--video-colour);
+  &:hover,
+  &.active {
+    background-color: var(--video-colour);
+    color: var(--video-colour--light);
+  }
 }
+#view-all {
+  color: var(--gray-7);
+  &:hover,
+  &.active {
+    background-color: var(--gray-7);
+    color: var(--gray-1);
+  }
+}
+
 .s3-browser__filter__button {
   background-color: white;
   border-color: inherit;

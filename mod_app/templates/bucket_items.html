@@ -8,7 +8,9 @@
                 <p>filter:
                     <span onclick="filterBy" data-type="pdf" id="key--pdf" class="btn s3-browser__filter__button">PDF</span>/
                     <span class="btn s3-browser__filter__button" onclick="filterBy" data-type="video" id="key--video">Video</span>/
-                    <span  onclick="filterBy" class="btn s3-browser__filter__button" data-type="img" id="key--img">Image</span>
+                    <span  onclick="filterBy" class="btn s3-browser__filter__button" data-type="img" id="key--img">Image</span>/
+                    <span  onclick="filterBy" class="btn s3-browser__filter__button" data-type="none" id="view-all">View all</span>
+
 
                 </p>
             </div>
@@ -67,18 +69,34 @@
                 });
             });
 
-
+            const filterButtons = document.querySelectorAll(".s3-browser__filter__button");
             const pdfFilter = document.getElementById("key--pdf");
             pdfFilter.addEventListener("click", function () {
                 filterBy("iframe");
+                filterButtons.forEach((btn) => btn.classList.remove("active"));
+                this.classList.toggle("active");
+
             });
             const imgFilter = document.getElementById("key--img");
             imgFilter.addEventListener("click", function () {
                 filterBy("img");
+                filterButtons.forEach((btn) => btn.classList.remove("active"));
+                this.classList.toggle("active");
+
             });
             const videoFilter = document.getElementById("key--video");
             videoFilter.addEventListener("click", function () {
                 filterBy("video");
+                filterButtons.forEach((btn) => btn.classList.remove("active"));
+                this.classList.toggle("active");
+
+            });
+            const viewAll = document.getElementById("view-all");
+            viewAll.addEventListener("click", function () {
+                filterBy("none");
+                filterButtons.forEach((btn) => btn.classList.remove("active"));
+                this.classList.toggle("active");
+
             });
         </script>
     </body>
