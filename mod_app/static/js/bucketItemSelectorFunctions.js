@@ -14,13 +14,16 @@ function handlePopupSelection(selectedItemValue) {
 }
 
 function filterBy(elemType) {
-  console.log(elemType);
   const cardWrappers = document.querySelectorAll(".s3-browser__card__wrapper");
   cardWrappers.forEach((wrapper) => {
-    if (!wrapper.querySelector(elemType)) {
-      wrapper.classList.add("no-display");
-    } else {
+    if (elemType == "none") {
       wrapper.classList.remove("no-display");
+    } else {
+      if (!wrapper.querySelector(elemType)) {
+        wrapper.classList.add("no-display");
+      } else {
+        wrapper.classList.remove("no-display");
+      }
     }
   });
 }
