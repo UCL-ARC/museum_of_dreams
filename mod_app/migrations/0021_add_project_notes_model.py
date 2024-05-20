@@ -12,6 +12,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.CreateModel(
             name="ProjectNote",
+            options={"verbose_name": "Introduction"},
             fields=[
                 (
                     "id",
