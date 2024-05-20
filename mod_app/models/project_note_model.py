@@ -6,6 +6,9 @@ from ..utils.extract_citations import update_bibliography
 
 
 class ProjectNote(models.Model):
+    class Meta:
+        verbose_name = "Introduction"
+
     def __str__(self):
         return self.title
 
