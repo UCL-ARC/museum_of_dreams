@@ -25,14 +25,8 @@
 }
 
 /* specific font family  */
-.engb {
-  font-family: "Engebrechtre";
-}
-.standing {
-  font-family: "Standing Room Only";
-}
-.josefin {
-  font-family: "Josefin Sans";
+.afb {
+  font-family: "Agency FB";
 }
 .gruppo {
   font-family: "Gruppo";
@@ -45,7 +39,4 @@
 }
 .playfair {
   font-family: "Playfair Display";
-}
-.mono {
-  font-family: "Monoton";
 }

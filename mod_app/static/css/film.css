@@ -89,17 +89,12 @@
 
 /*************** for tabs *******************/
 
-.tabs-container {
-  display: flex;
-  height: 100vh;
-}
-
 .tab-titles {
   width: 20vw;
   padding: 10px;
-  flex-direction: column;
   box-sizing: border-box;
-  position: fixed;
+  position: sticky;
+  top: 0px;
 
   [name="tab-group"] {
     opacity: 0;
@@ -132,4 +127,6 @@
   padding: 10px;
   border: 1px solid var(--cream);
   margin-left: 20vw;
+  position: static;
+  top: 0;
 }

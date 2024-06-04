@@ -13,6 +13,14 @@ body {
   font-weight: 500;
 }
 
+h1 {
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+}
+
+h2 {
+  font-family: "Agency FB";
+}
+
 a {
   color: inherit;
   &:hover,

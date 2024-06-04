@@ -1,31 +1,35 @@
 :root {
-  --dark-grey: #111111;
-  --dark-wine: #230308;
-  --blood-red: #4a040e;
-  --curtain-red: #bf1922;
-  --bright-red: #e32832;
+  /* main */
+  --dark-grey: #222;
+  --light-blue: #cadfe2;
+  --coral: #e49c9a;
+  --turquoise: #9ed1dc;
+  --deep-blue: #356f90;
+  --light-grey: #b6b6b7;
 
-  /* probably these rather than above for use */
+  /* extra neutrals */
   --tan: #ba745f;
   --warm-sand: #c99383;
   --beige: #d8b2a7;
   --cream: #f4e9e5;
-  --light-blue: #c8dee1;
   --off-white: #dae2e3;
 
-  /* others */
+  /* remember we have OpenProps colours as well */
 }
 /* update for light and dark colours? */
 /* @media (prefers-color-scheme: dark) {
 	:root {
-	  --brand: var(--brand-dark);
+	    --dark-grey: #222;
+      --light-blue: #cadfe2;
+      --coral: #e49c9a;
+      --turquoise: #9ed1dc;
+      --deep-blue: #356f90;
+      --light-grey: #b6b6b7;
 
-	  --text-1: var(--text-1-dark);
-	  --text-2: var(--text-2-dark);
-
-	  --surface-1: var(--surface-1-dark);
-	  --surface-2: var(--surface-2-dark);
-	  --surface-3: var(--surface-3-dark);
-	  --surface-4: var(--surface-4-dark);
+      --tan: #ba745f;
+      --warm-sand: #c99383;
+      --beige: #d8b2a7;
+      --cream: #f4e9e5;
+      --off-white: #dae2e3;
 	}
   } */
