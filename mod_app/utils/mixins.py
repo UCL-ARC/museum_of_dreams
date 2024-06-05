@@ -25,10 +25,16 @@ class PreviewMixin:
         )
 
     def link_preview(self, obj):
-        return format_html(
-            '<img src="{}" style="max-width: 15rem;" />',
-            obj.url,
-        )
+        if obj.__class__.__name__ == "Video":
+            return format_html(
+                '<div><iframe src="{}" frameborder="0"  scrolling="no" allowfullscreen></iframe></div>',
+                obj.url,
+            )
+        else:
+            return format_html(
+                '<img src="{}" style="max-width: 15rem;" />',
+                obj.url,
+            )
 
 
 class s3BrowserButtonMixin:
