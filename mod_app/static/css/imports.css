@@ -1,11 +1,11 @@
 /* Other css files */
+@import url("utility-classes.css");
 @import url("image-styles.css");
 @import url("palette.css");
 @import url("carousel.css");
 @import url("film.css");
 @import url("bibliography.css");
 @import url("analysis.css");
-@import url("utility-classes.css");
 @import url("s3-browser.css");
 @import url("animations.css");
 

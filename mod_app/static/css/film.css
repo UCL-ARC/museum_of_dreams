@@ -27,6 +27,8 @@
 /* pagination */
 .button--toggle-pagination {
   float: right;
+  background-color: var(--light-blue);
+  padding: 0.5vw 1vw;
 }
 .pagination {
   margin-inline: auto;
