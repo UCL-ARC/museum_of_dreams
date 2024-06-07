@@ -4,11 +4,10 @@ import re
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render
-from django.template.defaultfilters import striptags, truncatechars_html
+from django.template.defaultfilters import striptags
 from django.views import View
 from django.views.generic import DetailView, ListView, TemplateView
 from django.utils.decorators import method_decorator
-from django.utils.html import format_html
 
 
 from museum_of_dreams_project.settings.aws import (
@@ -34,11 +33,6 @@ class FilmListView(ListView):
             return self.paginate_by
         else:
             return None
-
-    def description(self, obj):
-        truncated_content = truncatechars_html(self.synopsis, 100)
-        modified_content = truncated_content.replace("{", "(").replace("}", ")")
-        return format_html(modified_content)
 
 
 class FilmDetailView(DetailView):
@@ -70,11 +64,6 @@ class AnalysisListView(ListView):
     template_name = "analysis_list.html"
     paginate_by = 20
 
-    def description(self, obj):
-        truncated_content = truncatechars_html(self.content, 200)
-        modified_content = truncated_content.replace("{", "(").replace("}", ")")
-        return format_html(modified_content)
-
 
 class AnalysisDetailView(DetailView):
     model = Analysis
@@ -86,11 +75,6 @@ class TRListView(ListView):
     model = TeachingResources
     template_name = "tr_list.html"
     paginate_by = 20
-
-    def description(self, obj):
-        truncated_content = truncatechars_html(self.material, 200)
-        modified_content = truncated_content.replace("{", "(").replace("}", ")")
-        return format_html(modified_content)
 
 
 class TRDetailView(DetailView):

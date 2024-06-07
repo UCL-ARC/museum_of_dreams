@@ -15,7 +15,9 @@
       {% endfor %}
     </div>
     <div class="card__body__description">
-      {{ description }}
+      {{ obj.synopsis|truncatechars_html:100 }}
+      {{ obj.content|truncatechars_html:200 }}
+      {{ obj.material|truncatechars_html:200 }}
     </div>
   </div>
 </div>
