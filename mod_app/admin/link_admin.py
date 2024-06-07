@@ -22,6 +22,7 @@ class VideoInline(PreviewMixin, s3BrowserButtonMixin, admin.TabularInline):
         "grp-collapse",
         "grp-closed",
     ]
+    exclude = ("file",)
 
 
 class ScriptInline(PreviewMixin, s3BrowserButtonMixin, admin.TabularInline):
@@ -117,7 +118,7 @@ class OtherLinkInline(PreviewMixin, admin.TabularInline):
 @admin.register(Video)
 class VideoAdmin(PreviewMixin, s3BrowserButtonMixin, admin.ModelAdmin):
     search_fields = ["description", "url"]
-    list_display = ["description", "film", "file", "url", "preview"]
+    list_display = ["description", "film", "url", "preview"]
 
 
 @admin.register(Source)
