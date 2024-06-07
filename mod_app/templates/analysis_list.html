@@ -9,9 +9,14 @@
     </h3>
 
 
-    <div class="card-area">
+    <div class="card-grid">
         {% for analysis in analysis_list %}
-            <div class="card card--analysis">
+            <a href="{% url 'analysis_detail' pk=analysis.pk %}">
+                {% include "components/card.html" with obj=tr %}
+            </a>
+        {% endfor %}
+    </div>
+            {% comment %} <div class="card card--analysis">
                 <h4 class="card__heading"><a
                     href="{% url 'analysis_detail' pk=analysis.pk %}"
                 >{{analysis.title}}</a></h4>
@@ -37,6 +42,6 @@
             </div>
 
         {% endfor %}
-    </div>
+    </div> {% endcomment %}
 
 {% endblock %}

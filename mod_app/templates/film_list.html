@@ -8,14 +8,18 @@
             List of films on this site
         </div>
         {% if is_paginated %}
-            <a href="{% url 'film_list' %}" class="button button--toggle-pagination"><button>View All</button></a>
+            <a href="{% url 'film_list' %}"><button class="btn button--toggle-pagination">View All</button></a>
         {% else %}
-            <a href="{% url 'film_list' %}?page=1" class="button button--toggle-pagination"><button>View by page</button></a>
+            <a href="{% url 'film_list' %}?page=1"><button class="btn button--toggle-pagination">View by page</button></a>
         {% endif %}
     </div>
-    {% for film in film_list %}
-        {% include "components/card.html" with obj=film %}
-    {% endfor %}
+    <div class="card-grid">
+        {% for film in film_list %}
+            <a href="{% url 'film_detail' pk=film.pk %}">
+                {% include "components/card.html" with obj=film %}
+            </a>
+        {% endfor %}
+    </div>
 
     {% comment %} <table class="film-table">
         <thead>
@@ -72,8 +76,8 @@
             <div class="pagination">
                 <span class="step-links">
                     {% if page_obj.has_previous %}
-                        <a href="?page=1">&laquo; first</a>
-                        <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                        <a href="?page=1" class="btn pagination__button">&laquo; first</a>
+                        <a href="?page={{ page_obj.previous_page_number }}" class="btn pagination__button">previous</a>
                     {% endif %}
 
                     <span class="current">
@@ -81,8 +85,8 @@
                     </span>
 
                     {% if page_obj.has_next %}
-                        <a href="?page={{ page_obj.next_page_number }}">next</a>
-                        <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                        <a href="?page={{ page_obj.next_page_number }}" class="btn pagination__button">next</a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}" class="btn pagination__button">last &raquo;</a>
                     {% endif %}
                 </span>
 

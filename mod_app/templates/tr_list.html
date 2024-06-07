@@ -8,8 +8,14 @@
         Teaching Resources available on this site
     </h3>
 
-
-    <div class="card-area">
+    <div class="card-grid">
+        {% for tr in teachingresources_list %}
+            <a href="{% url 'tr_detail' pk=tr.pk %}">
+                {% include "components/card.html" with obj=tr %}
+            </a>
+        {% endfor %}
+    </div>
+    {% comment %} <div class="card-area">
         {% for tr in teachingresources_list %}
             <div class="card card--tr">
                 <h4 class="card__heading"><a
@@ -37,6 +43,6 @@
             </div>
 
         {% endfor %}
-    </div>
+    </div> {% endcomment %}
 
 {% endblock %}
