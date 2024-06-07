@@ -17,10 +17,104 @@
   padding: 0.3rem;
   border-radius: 5px;
   text-align: center;
+  text-decoration: none;
+  font-family: Montserrat;
   transition: transform 0.3s ease;
 
   &:hover {
     transform: scale(1.05);
+  }
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(24vw, 1fr));
+  gap: 3vw;
+  margin-inline: 3vw;
+
+  a {
+    text-decoration: none;
+    transition: transform 0.3s ease;
+    &:hover {
+      transform: scale(1.05);
+      color: unset;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    grid-template-columns: repeat(auto-fill, minmax(50vw, 1.5fr));
+    font-size: 80%;
+  }
+}
+.card {
+  border: var(--border-size-2) solid var(--deep-blue);
+  background-color: var(--stone-0);
+  border-radius: var(--radius-2);
+  padding: 1vw 1.5vw;
+  overflow: auto;
+  height: clamp(24vw, 32vw, 35vw);
+  font-size: 70%;
+
+  -webkit-box-shadow: 1px 10px 8px -4px rgba(182, 182, 183, 1);
+  -moz-box-shadow: 1px 10px 8px -4px rgba(182, 182, 183, 1);
+  box-shadow: 1px 10px 8px -4px rgba(182, 182, 183, 1);
+
+  &:hover {
+    border-color: var(--coral);
+  }
+
+  .card__header {
+    background-size: cover;
+    padding: 0;
+    img,
+    p {
+      /* this will likely be updated */
+      width: 100% !important;
+    }
+  }
+
+  .card__body__heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 1vw;
+    border-bottom: 1px solid var(--light-grey);
+
+    @media screen and (max-width: 768px) {
+      flex-direction: column;
+      justify-content: space-evenly;
+
+      .card__body__title {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+.tag {
+  display: inline-flex;
+  border-radius: 20px;
+  padding: 0.5rem;
+  border: 1px solid var(--light-grey);
+  color: var(--light-blue);
+  opacity: 0.8;
+  font-family: "Montserrat", sans-serif;
+  font-size: 90%;
+  transition: transform 0.3s, box-shadow 0.3s;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    opacity: 1;
+  }
+
+  .dot {
+    display: inline-flex;
+    padding-right: 0.1rem;
+    font-size: 150%;
+    line-height: 0;
+    align-items: center;
   }
 }
 
