@@ -1,23 +1,29 @@
 <div class="card">
-  {% if obj.posters %}
-    <div class="card__header"></div>
+  {% if obj.temporary_images %}
+    <div class="card__header">{{obj.temporary_images|safe}}</div>
   {% endif %}
   <div class="card__body">
-    <div>
+    <div class="card__body__heading">
       <h1 class="card__body__title">{{obj.title}}</h1>
       {% if obj.release_date %}
-        <h3>{{obj.release_date}}</h3>
+        <h3 class="card__release-date">{{obj.release_date}}</h3>
       {% endif %}
     </div>
     <div class="card__body__tags">
-      {% for tag in obj.tags.all %}
-        <span>{{ tag.name }}</span>
-      {% endfor %}
+      {% if obj.genre.all %}
+        {% for g in obj.genre.all %}
+          <span class="tag">{{ g.name }}</span>
+        {% endfor %}
+      {% else %}
+        {% for tag in obj.tags.all %}
+          <span class="tag">{{ tag.name }}</span>
+        {% endfor %}
+      {% endif %}
     </div>
     <div class="card__body__description">
-      {{ obj.synopsis|truncatechars_html:100 }}
-      {{ obj.content|truncatechars_html:200 }}
-      {{ obj.material|truncatechars_html:200 }}
+      {{ obj.synopsis|truncatechars_html:150|safe }}
+      {{ obj.content|truncatechars_html:200|safe }}
+      {{ obj.material|truncatechars_html:200|safe }}
     </div>
   </div>
 </div>
