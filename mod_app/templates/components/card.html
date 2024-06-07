@@ -1,0 +1,21 @@
+<div class="card">
+  {% if obj.posters %}
+    <div class="card__header"></div>
+  {% endif %}
+  <div class="card__body">
+    <div>
+      <h1 class="card__body__title">{{obj.title}}</h1>
+      {% if obj.release_date %}
+        <h3>{{obj.release_date}}</h3>
+      {% endif %}
+    </div>
+    <div class="card__body__tags">
+      {% for tag in obj.tags.all %}
+        <span>{{ tag.name }}</span>
+      {% endfor %}
+    </div>
+    <div class="card__body__description">
+      {{ description }}
+    </div>
+  </div>
+</div>
