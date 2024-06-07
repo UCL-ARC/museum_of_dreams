@@ -19,6 +19,24 @@ h1 {
 
 h2 {
   font-family: "Agency FB";
+  font-weight: bold;
+}
+
+h3 {
+  font-family: "Agency FB";
+  font-weight: normal;
+}
+
+h4,
+h5,
+h6 {
+  font-family: Montserrat;
+  font-style: bold;
+}
+
+p {
+  font-family: Montserrat;
+  font-style: normal;
 }
 
 a {
@@ -26,7 +44,7 @@ a {
   &:hover,
   &:focus,
   &:active {
-    color: var(--orange-5);
+    color: var(--coral);
     text-decoration: none;
   }
 }
@@ -193,53 +211,6 @@ footer {
 
 .drawer.open {
   right: 0;
-}
-
-.tag {
-  display: inline-flex;
-  border-radius: 20px;
-  padding: 0.5rem;
-  border: 1px solid var(--beige);
-  /* font-family: "Open Sans", sans-serif; */
-  font-size: 90%;
-  transition: transform 0.3s, box-shadow 0.3s;
-
-  &:hover {
-    transform: scale(1.05);
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-  }
-
-  .dot {
-    display: inline-flex;
-    padding-right: 0.1rem;
-    font-size: 150%;
-    line-height: 0;
-    align-items: center;
-  }
-}
-
-.card-area {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(25vw, 1fr));
-  grid-column-gap: 0.5rem;
-  grid-row-gap: 0px;
-
-  .card {
-    display: grid;
-    padding: 1rem;
-    border: 1px solid var(--sand-7);
-    border-radius: 10px;
-    max-width: 40vw;
-
-    .card__heading {
-      font-size: 2rem;
-      color: var(--curtain-red);
-      margin-bottom: 0.4rem;
-    }
-    .card__info {
-      display: block;
-    }
-  }
 }
 
 .filmstrip {

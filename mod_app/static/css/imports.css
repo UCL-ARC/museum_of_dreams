@@ -20,10 +20,13 @@
 /**************** Agency FB Font *******************/
 @font-face {
   font-family: "Agency FB";
+  font-weight: normal;
+  font-style: normal;
   src: url("../fonts/agencyfb/agencyfb_reg.ttf") format("truetype");
 }
 @font-face {
   font-family: "Agency FB";
+  font-weight: bold;
   font-style: bold;
   src: url("../fonts/agencyfb/agencyfb_bold.ttf") format("truetype");
 }
