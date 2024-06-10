@@ -41,7 +41,7 @@
     }
   }
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 767px) {
     grid-template-columns: repeat(auto-fill, minmax(50vw, 1.5fr));
     font-size: 80%;
   }
@@ -81,7 +81,7 @@
     margin-bottom: 1vw;
     border-bottom: 1px solid var(--light-grey);
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 767px) {
       flex-direction: column;
       justify-content: space-evenly;
 
@@ -103,6 +103,7 @@
   font-family: "Montserrat", sans-serif;
   font-size: 90%;
   transition: transform 0.3s, box-shadow 0.3s;
+  z-index: 1;
 
   &:hover {
     transform: scale(1.05);

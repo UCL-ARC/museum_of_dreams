@@ -2,12 +2,17 @@
 {% load i18n %}
 {% block body %}
     <body>
+        {% comment %} header area {% endcomment %}
         <div class="title-bar">
             <a href="{% url 'home' %}">
                 <div class="title-logo">
                     <img id="title__logo-img" src="{% static 'images/MODlogo-image.png' %}" alt="MOD logo" />
-                    <img id="title__logo-text" src="{% static 'images/mod-logo-text.png' %}" alt="MOD: Silent Film Antiquity in the BFI National Archive" />
                 </div>
+                <h2 class="title--mobile">
+                    <a href="{% url 'home' %}">
+                        Museum of Dreamworlds
+                    </a>
+                </h2>
             </a>
 
             {% block non_production_message %}
@@ -17,6 +22,7 @@
                     </span>
                 {% endif %}
             {% endblock %}
+            <img id="title__logo-text" src="{% static 'images/mod-logo-text.png' %}" alt="MOD: Silent Film Antiquity in the BFI National Archive" />
             <div class="title-bar__icons">
                 {% comment %} <div class="toggle-container">
                     <span class="toggle-label">Toggle Dark Mode:</span>
@@ -48,9 +54,12 @@
                     <span class="material-symbols-outlined" id="menu-icon">
                         menu
                     </span>
+
+
                     <div class="drawer" id="drawer">
                     <!-- Content of your drawer goes here -->
                         <button id="drawer__button--close">x</button>
+                        <h3>Explore</h3>
                         <ul class="drawer__list-nav">
                             <li>
                                 <a href="{% url 'film_list' %}?page=1">
@@ -111,6 +120,7 @@
         <script src="" async defer></script>
         <script type="module" src="{% static 'js/main.js' %}"></script>
     </body>
+    {% comment %} footer area {% endcomment %}
     <footer class="filmstrip">
         <a href="{% url 'home' %}">
             <div class="footer-logo">
