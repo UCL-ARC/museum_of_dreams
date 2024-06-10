@@ -97,7 +97,8 @@
   border-radius: 20px;
   padding: 0.5rem;
   border: 1px solid var(--light-grey);
-  color: var(--light-blue);
+  /* color: var(--light-blue); */
+  color: var(--orange-0);
   opacity: 0.8;
   font-family: "Montserrat", sans-serif;
   font-size: 90%;

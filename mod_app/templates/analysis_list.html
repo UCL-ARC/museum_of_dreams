@@ -12,7 +12,7 @@
     <div class="card-grid">
         {% for analysis in analysis_list %}
             <a href="{% url 'analysis_detail' pk=analysis.pk %}">
-                {% include "components/card.html" with obj=tr %}
+                {% include "components/card.html" with obj=analysis %}
             </a>
         {% endfor %}
     </div>

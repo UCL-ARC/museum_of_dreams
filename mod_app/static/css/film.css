@@ -27,8 +27,11 @@
 /* pagination */
 .button--toggle-pagination {
   float: right;
-  background-color: var(--light-blue);
+  background-color: transparent;
+  color: var(--cyan-6);
+  font-weight: 600;
   padding: 0.5vw 1vw;
+  border-color: var(--light-blue);
 }
 .pagination {
   margin-inline: auto;
