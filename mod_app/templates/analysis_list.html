@@ -8,6 +8,11 @@
         Critical discussions and essays on this site
     </h3>
 
+    {% if is_paginated %}
+        <a href="{% url 'analysis_list' %}"><button class="btn button--toggle-pagination">View All</button></a>
+    {% else %}
+        <a href="{% url 'analysis_list' %}?page=1"><button class="btn button--toggle-pagination">View by page</button></a>
+    {% endif %}
 
     <div class="card-grid">
         {% for analysis in analysis_list %}
@@ -16,32 +21,9 @@
             </a>
         {% endfor %}
     </div>
-            {% comment %} <div class="card card--analysis">
-                <h4 class="card__heading"><a
-                    href="{% url 'analysis_detail' pk=analysis.pk %}"
-                >{{analysis.title}}</a></h4>
-                <div class="card__info">
-                    <dl>
-                        <dt>{{analysis.content|safe|truncatewords:50}} </dt>
-                        <dt>Topics:</dt>
-                        {% for topic in analysis.topics.all %}
-                            <dd class="tag"><span class="dot">•</span>{{topic.name}}</dd>
-                        {% endfor %}
-                        <dt>Tags:</dt>
-                        {% for tag in analysis.tags.all %}
-                            <dd class="tag"><span class="dot">•</span>{{tag.name}}</dd>
-                        {% endfor %}
-                        <dt>Related films:</dt>
-                        {% for film in analysis.films.all %}
-                            <dd>{{film.title}}</dd>
-                        {% endfor %}
-                    </dl>
 
-                    <a href="{% url 'analysis_detail' pk=analysis.pk %}"><button> view full details</button> </a>
-                </div>
-            </div>
-
-        {% endfor %}
-    </div> {% endcomment %}
+    {% if is_paginated %}
+        {% include "components/pagination_buttons.html" %}
+    {% endif %}
 
 {% endblock %}

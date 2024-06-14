@@ -19,29 +19,6 @@
   font-size: 1rem;
 }
 
-.page__description {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 2rem;
-}
-/* pagination */
-.button--toggle-pagination {
-  float: right;
-  background-color: transparent;
-  color: var(--cyan-6);
-  font-weight: 600;
-  padding: 0.5vw 1vw;
-  border-color: var(--light-blue);
-}
-.pagination {
-  margin-inline: auto;
-  text-align: center;
-  margin-top: 1rem;
-  .current {
-    display: block;
-  }
-}
-
 /***************** detail ***************/
 .top-level {
   display: flex;

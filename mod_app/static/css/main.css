@@ -40,7 +40,7 @@ p {
 }
 
 a {
-  font-family: "Gruppo", "Montserrat";
+  font-family: "Open Sans", "Montserrat";
   color: inherit;
   &:hover,
   &:focus,
@@ -230,6 +230,7 @@ footer {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   transition: right 0.3s ease;
   padding: 0.2rem;
+  z-index: 3;
 
   @media screen and (max-width: 767px) {
     right: -100vw;
@@ -262,8 +263,47 @@ footer {
     color: var(--cyan-8);
     border-bottom: solid 1px var(--deep-blue);
   }
+
+  &.open {
+    right: 0;
+  }
 }
 
-.drawer.open {
-  right: 0;
+/* shared across list views */
+.page__description {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+/* pagination */
+.button--toggle-pagination {
+  float: right;
+  background-color: transparent;
+  color: var(--cyan-6);
+  font-weight: 600;
+  padding: 0.5vw 1vw;
+  border-color: var(--light-blue);
+}
+.pagination {
+  margin-inline: auto;
+  text-align: center;
+  margin-top: 1rem;
+
+  .current {
+    display: block;
+    margin-bottom: 1rem;
+    color: var(--pink-12);
+  }
+
+  .pagination__button {
+    background-color: var(--coral);
+    border-color: var(--coral);
+    font-weight: 400;
+    color: var(--sand-0);
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: var(--pink-9);
+    }
+  }
 }
