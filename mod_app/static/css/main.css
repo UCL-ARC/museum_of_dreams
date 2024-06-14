@@ -60,11 +60,12 @@ main {
 footer {
   position: relative;
   bottom: 0;
-  height: clamp(24vh, 32vh, 40vh);
+  /* height: clamp(24vh, 32vh, 40vh); */
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+  min-height: max-content;
 
   @media screen and (max-width: 767px) {
     flex-direction: column;
@@ -275,6 +276,7 @@ footer {
   justify-content: space-between;
   margin-bottom: 2rem;
 }
+
 /* pagination */
 .button--toggle-pagination {
   float: right;

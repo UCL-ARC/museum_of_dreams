@@ -34,8 +34,6 @@
   background-position: 0 var(--size), top left, 0 calc(100% - var(--size)),
     bottom left, 0 var(--size);
 
-  /* padding: calc(var(--size) * 5) calc(var(--size) * 4); */
-  height: clamp(24vh, 32vh, 40vh);
   @media screen and (max-width: 767px) {
     height: max-content;
   }
