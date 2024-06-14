@@ -30,16 +30,17 @@ h3 {
 h4,
 h5,
 h6 {
-  font-family: Montserrat;
-  font-style: bold;
+  font-family: "Montserrat";
+  font-weight: bold;
 }
 
 p {
-  font-family: Montserrat;
-  font-style: normal;
+  font-family: "Montserrat";
+  font-weight: normal;
 }
 
 a {
+  font-family: "Gruppo", "Montserrat";
   color: inherit;
   &:hover,
   &:focus,
@@ -55,38 +56,62 @@ main {
   min-height: 60vh;
 }
 
+/* footer */
 footer {
   position: relative;
   bottom: 0;
-  height: 10rem;
+  height: clamp(24vh, 32vh, 40vh);
   display: flex;
-  justify-items: space-around;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+
+  @media screen and (max-width: 767px) {
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+  }
 
   .footer__nav {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    justify-content: space-around;
     color: var(--cyan-8);
+    height: 100%;
+    align-items: flex-start;
+    width: 60vw;
+
+    @media screen and (max-width: 767px) {
+      display: block;
+      text-align: center;
+      height: auto;
+    }
   }
   .footer__nav ul {
     list-style-type: none;
-  }
-  .footer__nav li {
     display: inline-block;
+
+    @media screen and (max-width: 767px) {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      padding-inline-start: 0;
+    }
   }
-  .footer__nav--top-row {
-    position: absolute;
-    top: 2rem;
-    align-items: top;
+  .footer__nav li,
+  .footer__nav h5 {
+    display: inline-block;
+    margin-right: 1vw;
   }
-  .footer__nav--bottom-row {
-    position: absolute;
-    bottom: 2rem;
-    align-items: bottom;
+
+  a {
+    text-decoration: none;
   }
 }
 
 /* class level */
 
+/* header */
 .title-bar {
   /* background-color: var(--off-white); maybe make this the case when sticky?*/
   background-image: url("../images/mod_header_bg.png");
@@ -225,41 +250,4 @@ footer {
 
 .drawer.open {
   right: 0;
-}
-
-.filmstrip {
-  --background: var(--cream);
-  --size: 10px;
-  background-image: linear-gradient(
-      to right,
-      var(--background) var(--size),
-      transparent var(--size)
-    ),
-    linear-gradient(
-      to bottom,
-      var(--background) var(--size),
-      transparent var(--size)
-    ),
-    linear-gradient(
-      to right,
-      var(--background) var(--size),
-      transparent var(--size)
-    ),
-    linear-gradient(
-      to bottom,
-      var(--background) var(--size),
-      transparent var(--size)
-    ),
-    linear-gradient(
-      to bottom,
-      transparent var(--size),
-      var(--background) var(--size)
-    );
-  background-size: calc(var(--size) * 2) var(--size),
-    calc(var(--size) * 2) var(--size), calc(var(--size) * 2) var(--size),
-    calc(var(--size) * 2) var(--size), 100% calc(100% - var(--size) * 3);
-  background-repeat: repeat-x;
-  background-position: 0 var(--size), top left, 0 calc(100% - var(--size)),
-    bottom left, 0 var(--size);
-  padding: calc(var(--size) * 5) calc(var(--size) * 4);
 }

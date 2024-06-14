@@ -1,4 +1,42 @@
 /* this file is for styles that you would add to produce a specific effect */
+.filmstrip {
+  --background: var(--turquoise);
+  --size: 10px;
+  background-image: linear-gradient(
+      to right,
+      var(--background) var(--size),
+      transparent var(--size)
+    ),
+    linear-gradient(
+      to bottom,
+      var(--background) var(--size),
+      transparent var(--size)
+    ),
+    linear-gradient(
+      to right,
+      var(--background) var(--size),
+      transparent var(--size)
+    ),
+    linear-gradient(
+      to bottom,
+      var(--background) var(--size),
+      transparent var(--size)
+    ),
+    linear-gradient(
+      to bottom,
+      transparent var(--size),
+      var(--background) var(--size)
+    );
+  background-size: calc(var(--size) * 2) var(--size),
+    calc(var(--size) * 2) var(--size), calc(var(--size) * 2) var(--size),
+    calc(var(--size) * 2) var(--size), 100% calc(100% - var(--size) * 3);
+  background-repeat: repeat-x;
+  background-position: 0 var(--size), top left, 0 calc(100% - var(--size)),
+    bottom left, 0 var(--size);
+
+  /* padding: calc(var(--size) * 5) calc(var(--size) * 4); */
+  height: clamp(24vh, 32vh, 40vh);
+}
 
 .no-list-style {
   list-style-type: none;
@@ -18,7 +56,7 @@
   border-radius: 5px;
   text-align: center;
   text-decoration: none;
-  font-family: Montserrat;
+  font-family: "Montserrat";
   transition: transform 0.3s ease;
 
   &:hover {
@@ -42,10 +80,12 @@
   }
 
   @media screen and (max-width: 767px) {
-    grid-template-columns: repeat(auto-fill, minmax(50vw, 1.5fr));
+    grid-template-columns: repeat(auto-fill, minmax(40vw, 1fr));
     font-size: 80%;
+    margin-inline: 10vw;
   }
 }
+
 .card {
   border: var(--border-size-2) solid var(--deep-blue);
   background-color: var(--stone-0);
@@ -63,13 +103,23 @@
     border-color: var(--coral);
   }
 
+  @media screen and (max-width: 767px) {
+    height: clamp(40vh, 48vh, 56vh);
+  }
+
   .card__header {
     background-size: cover;
     padding: 0;
-    img,
-    p {
-      /* this will likely be updated */
+    margin: 0;
+    img {
+      /* this will likely be updated since currently the image is wrapped in a <p> and not being used as background */
       width: 100% !important;
+    }
+    @media screen and (max-width: 767px) {
+      max-height: 45%;
+      img {
+        max-height: 45%;
+      }
     }
   }
 
@@ -80,15 +130,30 @@
     align-items: center;
     margin-bottom: 1vw;
     border-bottom: 1px solid var(--light-grey);
+    margin-top: 0;
 
     @media screen and (max-width: 767px) {
-      flex-direction: column;
       justify-content: space-evenly;
 
       .card__body__title {
         margin-bottom: 0;
       }
     }
+  }
+
+  .card__body {
+    @media screen and (max-width: 767px) {
+      margin-inline: 3vw;
+    }
+  }
+
+  .card__button--see-more {
+    position: relative;
+    float: right;
+    bottom: 0;
+    background-color: var(--deep-blue);
+    border-color: var(--deep-blue);
+    color: var(--orange-0);
   }
 }
 
@@ -117,6 +182,13 @@
     font-size: 150%;
     line-height: 0;
     align-items: center;
+  }
+}
+
+.mobile-view-only {
+  display: none;
+  @media screen and (max-width: 767px) {
+    display: block;
   }
 }
 

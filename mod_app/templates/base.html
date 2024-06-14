@@ -121,7 +121,7 @@
         <script type="module" src="{% static 'js/main.js' %}"></script>
     </body>
     {% comment %} footer area {% endcomment %}
-    <footer class="filmstrip">
+    <footer class="footer filmstrip">
         <a href="{% url 'home' %}">
             <div class="footer-logo">
                 <img id="footer__logo-img" src="{% static 'images/MODlogo-image.png' %}" alt="MOD logo" />
@@ -129,21 +129,22 @@
             </div>
         </a>
         <div class="footer__nav">
+
             <ul class="footer__nav--top-row">
-                <li><h5>Explore</h5></li>
+                <h5>Explore</h5>
                 <li><a href="{% url 'film_list' %}">Films</a></li>
                 <li><a href="#">Search</a></li>
+                <li><a href="{% url 'analysis_list' %}">Analyses</a></li>
+                <li><a href="{% url 'tr_list' %}">Teaching Resources</a></li>
             </ul>
 
             <ul class="footer__nav--bottom-row">
-                <li><h5>About</h5></li>
+                <h5>About</h5>
                 <li><a href="#">About us</a></li>
                 <li><a href="#">Blog </a></li>
                 <li><a href="#">Collaborators</a></li>
                 <li><a href="#">Contact</a></li>
             </ul>
-
-
         </div>
     </footer>
 {% endblock %}

@@ -23,15 +23,18 @@
 
 .footer-logo {
   /* this contains the logo image and text */
-  margin-inline: 3vw;
-  transform: translateY(-2.5rem);
+  /* transform: translateY(-2.5rem);
+  width: 20%; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* @media screen and (min-width: 768px) {
+    transform: translateX(-10vw);
+  } */
 }
 #footer__logo-img {
-  float: right;
-  width: 6vw;
-  transform: translateY(0.5rem);
+  width: 8vw;
 }
 #footer__logo-text {
-  width: 15vw;
-  /* transform: translateY(-5rem); */
+  width: 10vw;
 }
