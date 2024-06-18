@@ -8,7 +8,7 @@
     columns: 2;
 
     > :first-child {
-      flex: 0 0 75%; /* shorthand for flex-grow, flex-shrink, and flex-basis */
+      flex: 0 0 75%;
     }
 
     > :last-child {
@@ -16,7 +16,8 @@
     }
   }
   .ro {
-    background-color: var(--blue-0);
+    /* odd rows get a colour to make things more readable */
+    background-color: var(--cyan-0);
   }
 }
 
