@@ -20,7 +20,6 @@
                     </span>
                 {% endif %}
             {% endblock %}
-            {% comment %} <img id="title__logo-text" src="{% static 'images/mod-logo-text.png' %}" alt="MOD: Silent Film Antiquity in the BFI National Archive" /> {% endcomment %}
             {% include "components/logo_text.html" with extra_classes="title__logo-text" %}
             <div class="title-bar__icons">
                 {% comment %} <div class="toggle-container">
@@ -124,7 +123,6 @@
         <a href="{% url 'home' %}">
             <div class="footer-logo">
                 <img id="footer__logo-img" src="{% static 'images/MODlogo-image.png' %}" alt="MOD logo" />
-                {% comment %} <img id="footer__logo-text" src="{% static 'images/mod-logo-text.png' %}" alt="MOD: Silent Film Antiquity in the BFI National Archive" /> {% endcomment %}
                 {% include "components/logo_text.html" with extra_classes="footer__logo-text" %}
             </div>
         </a>
