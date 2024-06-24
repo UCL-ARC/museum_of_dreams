@@ -11,15 +11,6 @@
     display: none;
   }
 }
-#title__logo-text {
-  width: 20vw;
-  margin-left: 35vw;
-  filter: invert(1) sepia(1) saturate(4) hue-rotate(140deg);
-
-  @media screen and (max-width: 767px) {
-    display: none;
-  }
-}
 
 .footer-logo {
   /* this contains the logo image and text */
@@ -33,6 +24,7 @@
 #footer__logo-img {
   width: 8vw;
 }
-#footer__logo-text {
-  width: 10vw;
+
+.footer__collab-logos-area img {
+  width: clamp(20vw, 25vw, 30vw);
 }

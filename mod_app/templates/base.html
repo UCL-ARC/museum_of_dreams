@@ -8,10 +8,8 @@
                 <div class="title-logo">
                     <img id="title__logo-img" src="{% static 'images/MODlogo-image.png' %}" alt="MOD logo" />
                 </div>
-                <h2 class="title--mobile">
-                    <a href="{% url 'home' %}">
-                        Museum of Dreamworlds
-                    </a>
+                <h2 class="title--mobile imp">
+                    Museum of Dreamworlds
                 </h2>
             </a>
 
@@ -22,7 +20,8 @@
                     </span>
                 {% endif %}
             {% endblock %}
-            <img id="title__logo-text" src="{% static 'images/mod-logo-text.png' %}" alt="MOD: Silent Film Antiquity in the BFI National Archive" />
+            {% comment %} <img id="title__logo-text" src="{% static 'images/mod-logo-text.png' %}" alt="MOD: Silent Film Antiquity in the BFI National Archive" /> {% endcomment %}
+            {% include "components/logo_text.html" with extra_classes="title__logo-text" %}
             <div class="title-bar__icons">
                 {% comment %} <div class="toggle-container">
                     <span class="toggle-label">Toggle Dark Mode:</span>
@@ -125,7 +124,8 @@
         <a href="{% url 'home' %}">
             <div class="footer-logo">
                 <img id="footer__logo-img" src="{% static 'images/MODlogo-image.png' %}" alt="MOD logo" />
-                <img id="footer__logo-text" src="{% static 'images/mod-logo-text.png' %}" alt="MOD: Silent Film Antiquity in the BFI National Archive" />
+                {% comment %} <img id="footer__logo-text" src="{% static 'images/mod-logo-text.png' %}" alt="MOD: Silent Film Antiquity in the BFI National Archive" /> {% endcomment %}
+                {% include "components/logo_text.html" with extra_classes="footer__logo-text" %}
             </div>
         </a>
         <div class="footer__nav">
@@ -144,8 +144,9 @@
                 <li><a href="#">Contact</a></li>
             </ul>
         </div>
-        <div class="footer__logos-area">
-            {% comment %} placeholder area for collab logos? {% endcomment %}
+        <div class="footer__collab-logos-area">
+            {% comment %} placeholder until individual logos sourced {% endcomment %}
+            <img src="{% static 'images/mod_collab_logos.png' %}">
         </div>
     </footer>
 {% endblock %}

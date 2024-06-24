@@ -81,7 +81,7 @@ footer {
     color: var(--cyan-8);
     height: 100%;
     align-items: flex-start;
-    width: 60vw;
+    width: 40vw;
 
     @media screen and (max-width: 767px) {
       justify-content: center;
@@ -121,6 +121,18 @@ footer {
     }
   }
 
+  .footer__logo-text {
+    width: 10vw;
+    font-size: 80%;
+
+    h1 {
+      margin-bottom: 0;
+    }
+    h3 {
+      margin-top: 0;
+    }
+  }
+
   a {
     text-decoration: none;
   }
@@ -129,6 +141,17 @@ footer {
 /* class level */
 
 /* header */
+.title__logo-text {
+  width: clamp(25vw, 30vw, 35vw);
+  margin-left: 40vw;
+  color: var(--turquoise);
+  text-shadow: 0px 2px 2px rgba(11, 0, 0, 1);
+  font-size: 110%;
+
+  @media screen and (max-width: 767px) {
+    display: none;
+  }
+}
 .title-bar {
   /* background-color: var(--off-white); maybe make this the case when sticky?*/
   background-image: url("../images/mod_header_bg.png");
