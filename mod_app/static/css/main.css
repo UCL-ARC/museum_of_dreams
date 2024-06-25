@@ -121,6 +121,10 @@ footer {
     }
   }
 
+  .footer-logo {
+    padding-right: 4vw;
+  }
+
   .footer__logo-text {
     width: 10vw;
     font-size: 80%;
@@ -130,6 +134,42 @@ footer {
     }
     h3 {
       margin-top: 0;
+    }
+  }
+
+  .footer__collab-logos-area {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(4vw, 8vw));
+    justify-items: center;
+    align-items: center;
+
+    img {
+      width: 4vw;
+    }
+
+    @media screen and (max-width: 767px) {
+      display: none;
+    }
+  }
+
+  .footer__collab-logos-area--mobile {
+    display: none;
+
+    @media screen and (max-width: 767px) {
+      img {
+        width: clamp(8vw, 10vw, 12vw);
+        height: min-content;
+        padding-inline: 1.5vw;
+      }
+
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      bottom: 1.5rem;
+      padding-top: 0.5rem;
+      width: 100%;
     }
   }
 
@@ -154,7 +194,7 @@ footer {
 }
 .title-bar {
   /* background-color: var(--off-white); maybe make this the case when sticky?*/
-  background-image: url("../images/mod_header_bg.png");
+  background-image: url("../images/logos/mod_header_bg.png");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -214,7 +254,7 @@ footer {
 
 .title--construction {
   color: var(--dark-grey);
-  font-family: "Engebrechtre";
+
   display: flex;
   padding: 0.4rem;
   background-color: var(--pink-2);
@@ -223,7 +263,7 @@ footer {
 
   .title__text--construction {
     font-size: 3rem;
-    text-wrap: nowrap;
+    font-family: "Open Sans";
   }
 }
 

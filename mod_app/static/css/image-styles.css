@@ -24,13 +24,3 @@
 #footer__logo-img {
   width: 8vw;
 }
-
-.footer__collab-logos-area img {
-  width: clamp(20vw, 25vw, 30vw);
-  @media screen and (max-width: 767px) {
-    position: relative;
-    bottom: 1.5rem;
-    padding-top: 0.5rem;
-    width: 100%;
-  }
-}

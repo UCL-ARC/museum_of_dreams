@@ -6,7 +6,7 @@
         <div class="title-bar">
             <a href="{% url 'home' %}">
                 <div class="title-logo">
-                    <img id="title__logo-img" src="{% static 'images/MODlogo-image.png' %}" alt="MOD logo" />
+                    <img id="title__logo-img" src="{% static 'images/logos/MODlogo-image.png' %}" alt="MOD logo" />
                 </div>
                 <h2 class="title--mobile imp">
                     Museum of Dreamworlds
@@ -122,10 +122,13 @@
     <footer class="footer filmstrip">
         <a href="{% url 'home' %}">
             <div class="footer-logo">
-                <img id="footer__logo-img" src="{% static 'images/MODlogo-image.png' %}" alt="MOD logo" />
+                <img id="footer__logo-img" src="{% static 'images/logos/MODlogo-image.png' %}" alt="MOD logo" />
                 {% include "components/logo_text.html" with extra_classes="footer__logo-text" %}
             </div>
         </a>
+        <div class="footer__collab-logos-area">
+            {% include "components/collab_logos.html" %}
+        </div>
         <div class="footer__nav">
             <ul class="footer__nav--top-row">
                 <h5>Explore</h5>
@@ -142,9 +145,8 @@
                 <li><a href="#">Contact</a></li>
             </ul>
         </div>
-        <div class="footer__collab-logos-area">
-            {% comment %} placeholder until individual logos sourced {% endcomment %}
-            <img src="{% static 'images/mod_collab_logos.png' %}">
+        <div class="footer__collab-logos-area--mobile">
+            {% include "components/collab_logos.html" %}
         </div>
     </footer>
 {% endblock %}
