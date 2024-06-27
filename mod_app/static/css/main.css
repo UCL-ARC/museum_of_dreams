@@ -237,7 +237,7 @@ footer {
   }
 }
 .title-bar__icons {
-  .material-symbols-outlined {
+  .material-symbols-outlined:not(#drawer .material-symbols-outlined) {
     padding-inline: 0.25rem;
     border-radius: 7px;
     background: transparent;
@@ -335,7 +335,17 @@ footer {
     list-style-type: none;
     color: var(--cyan-8);
     > li {
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
+      a {
+        display: flex;
+        align-items: center;
+        &:hover {
+          color: var(--coral);
+        }
+      }
+    }
+    .material-symbols-outlined {
+      font-size: 90%;
     }
   }
 
