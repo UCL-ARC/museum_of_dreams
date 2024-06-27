@@ -203,6 +203,10 @@
   }
 }
 
+.c {
+  text-align: center;
+}
+
 /* specific font family  */
 .afb {
   font-family: "Agency FB";

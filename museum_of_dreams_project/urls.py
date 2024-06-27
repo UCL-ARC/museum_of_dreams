@@ -3,7 +3,7 @@ URL configuration for museum_of_dreams_project project.
 """
 
 from django.conf import settings
-from django.conf.urls import include
+from django.conf.urls import include, handler404
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
@@ -80,7 +80,24 @@ urlpatterns = (
             views.BibliographyListView.as_view(),
             name="bibliography",
         ),
+        distill_path(
+            "search",
+            views.custom_404,
+            name="search",
+        ),
+        distill_path(
+            "locations",
+            views.custom_404,
+            name="location_list",
+        ),
+        distill_path(
+            "tags",
+            views.custom_404,
+            name="tag_list",
+        ),
     ]
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 )
+
+handler404 = "mod_app.views.custom_404"
