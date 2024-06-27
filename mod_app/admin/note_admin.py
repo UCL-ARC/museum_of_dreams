@@ -11,7 +11,7 @@ class ProjectNoteAdmin(admin.ModelAdmin):
     class Media:
         js = ("admin/js/mentionsPluginConfig.js",)
 
-    search_fields = ["description", "url"]
+    search_fields = ["title"]
     list_display = ["title", "safe_content"]
     readonly_fields = ("bibliography",)
 
