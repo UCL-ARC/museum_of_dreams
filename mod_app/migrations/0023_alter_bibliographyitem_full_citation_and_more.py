@@ -44,16 +44,6 @@ class Migration(migrations.Migration):
                 verbose_name="format",
             ),
         ),
-        migrations.AlterField(
-            model_name="projectnote",
-            name="bibliography",
-            field=models.ManyToManyField(
-                blank=True,
-                help_text="This field updates on save, and some items may not be visible immediately",
-                related_name="project_notes",
-                to="mod_app.bibliographyitem",
-            ),
-        ),
         migrations.CreateModel(
             name="Feedback",
             fields=[
