@@ -61,7 +61,6 @@ main {
 footer {
   position: relative;
   bottom: 0;
-  /* height: clamp(24vh, 32vh, 40vh); */
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -205,6 +204,8 @@ footer {
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
+  background-color: var(--stone-8);
+  background-blend-mode: overlay;
   padding: 1rem;
   align-items: center;
   justify-content: space-between;
@@ -247,12 +248,11 @@ footer {
       background: transparent;
       box-shadow: 1px -1px 28px 1px var(--off-white);
 
-      /* color: var(--orange-5); */
       color: var(--coral);
     }
   }
   margin-right: 1vw;
-  width: 8vw;
+  min-width: 8vw;
 
   span {
     border: 2px solid transparent;

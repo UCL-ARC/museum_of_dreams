@@ -3,9 +3,9 @@
 
 #title__logo-img {
   float: left;
-  margin-left: 4vw;
+  margin-left: 6vw;
   width: 15vw;
-  transform: translateY(-0.5rem);
+  transform: translateY(-0.8rem) scale(85%);
 
   @media screen and (max-width: 767px) {
     display: none;

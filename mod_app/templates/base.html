@@ -3,10 +3,12 @@
 {% block body %}
     <body>
         {% comment %} header area {% endcomment %}
+
         <div class="title-bar">
+
             <a href="{% url 'home' %}">
                 <div class="title-logo">
-                    <img id="title__logo-img" src="{% static 'images/logos/MODlogo-image.png' %}" alt="MOD logo" />
+                    <img id="title__logo-img" src="{% static 'images/logos/modlogo-lady.png' %}" alt="MOD logo" />
                 </div>
                 <h2 class="title--mobile imp">
                     Museum of Dreamworlds
@@ -15,11 +17,12 @@
 
             {% block non_production_message %}
                 {% if not request.get_host|lower == 'museumofdreamworlds.org' %}
-                    <span style="color: orange; padding: 10px;">
+                    <span style="color: orange; padding: 10px; position:absolute; left:55vw;">
                         STAGING
                     </span>
                 {% endif %}
             {% endblock %}
+
             {% include "components/logo_text.html" with extra_classes="title__logo-text" %}
             <div class="title-bar__icons">
                 {% comment %} <div class="toggle-container">
