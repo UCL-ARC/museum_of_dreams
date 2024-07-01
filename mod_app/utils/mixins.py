@@ -25,9 +25,16 @@ class PreviewMixin:
         )
 
     def link_preview(self, obj):
+        print("link preview:", obj.__class__.__name__)
         if obj.__class__.__name__ == "Video":
             return format_html(
                 '<div><iframe src="{}" frameborder="0"  scrolling="no" allowfullscreen></iframe></div>',
+                obj.url,
+            )
+        elif obj.__class__.__name__ == "Source":
+            return format_html(
+                '<a href="{}">{}</a>',
+                obj.url,
                 obj.url,
             )
         else:

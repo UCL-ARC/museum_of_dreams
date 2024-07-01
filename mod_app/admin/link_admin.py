@@ -14,7 +14,7 @@ class SourceInline(PreviewMixin, admin.TabularInline):
     ]
 
 
-class VideoInline(PreviewMixin, s3BrowserButtonMixin, admin.TabularInline):
+class VideoInline(PreviewMixin, admin.TabularInline):
     model = Video
     extra = 1
     classes = [
@@ -116,7 +116,7 @@ class OtherLinkInline(PreviewMixin, admin.TabularInline):
 
 
 @admin.register(Video)
-class VideoAdmin(PreviewMixin, s3BrowserButtonMixin, admin.ModelAdmin):
+class VideoAdmin(PreviewMixin, admin.ModelAdmin):
     search_fields = ["description", "url"]
     list_display = ["description", "film", "url", "preview"]
 
