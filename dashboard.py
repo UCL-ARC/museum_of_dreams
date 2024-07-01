@@ -53,7 +53,6 @@ class CustomIndexDashboard(Dashboard):
                             "mod_app.models.teaching_analysis_models.*",
                             "mod_app.models.bibliography_model.*",
                             "mod_app.models.project_note_model.ProjectNote",
-                            "mod_app.models.feedback_model.Feedback",
                         ),
                     ),
                     modules.ModelList(
@@ -86,6 +85,7 @@ class CustomIndexDashboard(Dashboard):
                             "mod_app.models.support_models.Source",
                             "mod_app.models.support_models.OtherLink",
                             "mod_app.models.support_models.Tag",
+                            "mod_app.models.feedback_model.Feedback",
                         ),
                     ),
                 ],
