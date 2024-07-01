@@ -14,22 +14,26 @@
   --cream: #f4e9e5;
   --off-white: #e8edee; /* good alt is sand-0 */
 
+  --contrast-text: #e8edee;
+
   /* remember we have OpenProps colours as well */
 }
 /* update for light and dark colours? */
-/* @media (prefers-color-scheme: dark) {
-	:root {
-	    --dark-grey: #222;
-      --light-blue: #cadfe2;
-      --coral: #e49c9a;
-      --turquoise: #9ed1dc;
-      --deep-blue: #356f90;
-      --light-grey: #b6b6b7;
+@media (prefers-color-scheme: light) {
+  :root {
+    --dark-grey: #222;
+    --light-blue: #cadfe2;
+    --coral: #e49c9a;
+    --turquoise: #9ed1dc;
+    --deep-blue: #356f90;
+    --light-grey: #b6b6b7;
 
-      --tan: #ba745f;
-      --warm-sand: #c99383;
-      --beige: #d8b2a7;
-      --cream: #f4e9e5;
-      --off-white: #dae2e3;
-	}
-  } */
+    --tan: #ba745f;
+    --warm-sand: #c99383;
+    --beige: #d8b2a7;
+    --cream: #f4e9e5;
+    --off-white: #dae2e3;
+
+    --contrast-text: #1e1f20;
+  }
+}

@@ -1,43 +1,4 @@
 /* this file is for styles that you would add to produce a specific effect */
-.filmstrip {
-  --background: var(--turquoise);
-  --size: 10px;
-  background-image: linear-gradient(
-      to right,
-      var(--background) var(--size),
-      transparent var(--size)
-    ),
-    linear-gradient(
-      to bottom,
-      var(--background) var(--size),
-      transparent var(--size)
-    ),
-    linear-gradient(
-      to right,
-      var(--background) var(--size),
-      transparent var(--size)
-    ),
-    linear-gradient(
-      to bottom,
-      var(--background) var(--size),
-      transparent var(--size)
-    ),
-    linear-gradient(
-      to bottom,
-      transparent var(--size),
-      var(--background) var(--size)
-    );
-  background-size: calc(var(--size) * 2) var(--size),
-    calc(var(--size) * 2) var(--size), calc(var(--size) * 2) var(--size),
-    calc(var(--size) * 2) var(--size), 100% calc(100% - var(--size) * 3);
-  background-repeat: repeat-x;
-  background-position: 0 var(--size), top left, 0 calc(100% - var(--size)),
-    bottom left, 0 var(--size);
-
-  @media screen and (max-width: 767px) {
-    height: max-content;
-  }
-}
 
 .no-list-style {
   list-style-type: none;
@@ -225,4 +186,7 @@
 }
 .imp {
   font-family: Impact;
+}
+.mnt {
+  font-family: "Montserrat";
 }

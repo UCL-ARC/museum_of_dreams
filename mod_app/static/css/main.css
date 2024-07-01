@@ -66,6 +66,7 @@ footer {
   justify-content: space-around;
   align-items: center;
   min-height: max-content;
+  background-color: var(--dark-grey);
 
   @media screen and (max-width: 767px) {
     flex-direction: column;
@@ -78,7 +79,7 @@ footer {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    color: var(--cyan-8);
+    color: var(--contrast-text);
     height: 100%;
     align-items: flex-start;
     width: 40vw;
@@ -123,12 +124,13 @@ footer {
   }
 
   .footer-logo {
-    padding-right: 4vw;
+    width: 30vw;
   }
 
   .footer__logo-text {
     width: 10vw;
     font-size: 80%;
+    color: var(--contrast-text);
     &:hover {
       h1 {
         text-shadow: 2px 1px 2px var(--red-12);
