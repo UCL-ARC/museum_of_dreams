@@ -24,3 +24,9 @@
 #footer__logo-img {
   width: 8vw;
 }
+
+.dlm {
+  @media (prefers-color-scheme: dark) {
+    filter: invert(1);
+  }
+}

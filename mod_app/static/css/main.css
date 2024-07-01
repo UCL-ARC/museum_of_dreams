@@ -130,7 +130,7 @@ footer {
   .footer__logo-text {
     width: 10vw;
     font-size: 80%;
-    color: var(--contrast-text);
+    color: var(--turquoise);
     &:hover {
       h1 {
         text-shadow: 2px 1px 2px var(--red-12);
@@ -146,12 +146,12 @@ footer {
 
   .footer__collab-logos-area {
     display: grid;
-    grid-template-columns: repeat(3, minmax(4vw, 8vw));
+    grid-template-columns: repeat(3, minmax(4vw, 6vw));
     justify-items: center;
     align-items: center;
 
     img {
-      width: 4vw;
+      width: 80%;
     }
 
     @media screen and (max-width: 767px) {
