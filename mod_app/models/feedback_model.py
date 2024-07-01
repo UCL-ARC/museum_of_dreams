@@ -5,9 +5,9 @@ from .bibliography_model import BibliographyItem
 from ..utils.extract_citations import update_bibliography
 
 
-class ProjectNote(models.Model):
+class Feedback(models.Model):
     class Meta:
-        verbose_name = "Introduction"
+        verbose_name = "Feedback"
 
     def __str__(self):
         return self.title
@@ -23,7 +23,7 @@ class ProjectNote(models.Model):
     bibliography = models.ManyToManyField(
         BibliographyItem,
         blank=True,
-        related_name="project_note",
+        related_name="feedback",
         help_text="This field updates on save, and some items may not be visible immediately",
     )
 
