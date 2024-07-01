@@ -26,7 +26,8 @@
 }
 
 .dlm {
-  @media (prefers-color-scheme: dark) {
-    filter: invert(1);
-  }
+  filter: invert(1);
+}
+body.lm .dlm {
+  filter: none;
 }
