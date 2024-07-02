@@ -46,9 +46,15 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+
+      - name: Check no migrations are missing
+        run: |
+          python manage.py makemigrations --check --dry-run --no-input
+
       - name: Run DB Migrations
         run: |
           python manage.py migrate
+
       - name: Run Tests
         run: |
           python manage.py test mod_app/tests

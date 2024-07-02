@@ -1,11 +1,11 @@
 /* Other css files */
+@import url("utility-classes.css");
 @import url("image-styles.css");
 @import url("palette.css");
 @import url("carousel.css");
 @import url("film.css");
 @import url("bibliography.css");
 @import url("analysis.css");
-@import url("utility-classes.css");
 @import url("s3-browser.css");
 @import url("animations.css");
 
@@ -13,35 +13,26 @@
 @import url("open-props.min.css");
 
 /**************** Google Fonts + MUI **********************/
-/* Gruppo, Josefin Sans, Noto Serif, Open Sans, Playfair Display, Monoton */
-@import url("https://fonts.googleapis.com/css2?family=Gruppo&family=Josefin+Sans&family=Noto+Serif&family=Open+Sans&family=Playfair+Display&family=Monoton&family=Montserrat&display=swap");
+/* Gruppo, Open Sans, Playfair Display, Montserrat */
+@import url("https://fonts.googleapis.com/css2?family=Gruppo&family=Noto+Serif&family=Open+Sans&family=Playfair+Display&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0");
 
-/**************** Engebrechtre Font *******************/
+/**************** Agency FB Font *******************/
 @font-face {
-  font-family: "Engebrechtre";
-  src: url("../fonts/engebrechtre/engebrechtre_rg.otf") format("opentype");
+  font-family: "Agency FB";
+  font-weight: normal;
+  font-style: normal;
+  src: url("../fonts/agencyfb/agencyfb_reg.ttf") format("truetype");
 }
 @font-face {
-  font-family: "Engebrechtre";
-  font-style: italic;
-  src: url("../fonts/engebrechtre/engebrechtre_rg_it.otf") format("opentype");
-}
-@font-face {
-  font-family: "Engebrechtre";
-  font-style: bold, italic;
-  src: url("../fonts/engebrechtre/engebrechtre_bd_it.otf") format("opentype");
-}
-@font-face {
-  font-family: "Engebrechtre";
+  font-family: "Agency FB";
+  font-weight: bold;
   font-style: bold;
-  src: url("../fonts/engebrechtre/engebrechtre_bd.otf") format("opentype");
+  src: url("../fonts/agencyfb/agencyfb_bold.ttf") format("truetype");
 }
 
-/*************** Standing Room Only Font  **************/
-
+/****************** Impact Font ******************/
 @font-face {
-  font-family: "Standing Room Only";
-  src: url("../fonts/standingroomonly/StandingRoomOnlyNF.otf")
-    format("opentype");
+  font-family: "Impact";
+  src: url("../fonts/impact/impact.ttf") format("truetype");
 }

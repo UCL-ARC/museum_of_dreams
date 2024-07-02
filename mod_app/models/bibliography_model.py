@@ -19,7 +19,3 @@ class BibliographyItem(models.Model):
         null=True,
         help_text="Please use Harvard reference list style. Examples: Author surname, initial. (year). 'Title of article/book/website/photograph'. Available at: URL or DOI where applicable (date accessed). Please note that the website or photo title should be italicised. For more detailed information and examples visit: https://www5.open.ac.uk/library/referencing-and-plagiarism/quick-guide-to-harvard-referencing-cite-them-right",
     )
-    annotation = RichTextField(
-        null=True,
-        help_text="Notes on how this item was helpful or relevant, for example.",
-    )

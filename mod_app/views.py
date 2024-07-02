@@ -122,3 +122,7 @@ class BucketItemsView(View):
         }
 
         return render(request, "bucket_items.html", context)
+
+
+def custom_404(request, exception=None):
+    return render(request, "404.html", {}, status=404)

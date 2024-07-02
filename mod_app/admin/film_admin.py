@@ -114,17 +114,12 @@ class FilmAdmin(EmailMixin, admin.ModelAdmin):
 
     def preview_video(self, obj):
         if obj.videos.first():
-            if obj.videos.first().file:
-                return format_html(
-                    '<video width="150" height="120" controls><source src="{}" type="video/mp4"></video>',
-                    obj.videos.first().file.url,
-                )
-            else:
-                return format_html(
-                    '<video width="150" height="120" controls ><source src="{}" type="video/mp4"></video>',
-                    obj.videos.first(),
-                )
-            # previously tried to use youtube but that seems to be more tricky than expected and may not be used
+            # format for working with mediacentral embeds
+            return format_html(
+                '<div"><iframe src="{}" frameborder="0"  scrolling="no" allowfullscreen></iframe></div>',
+                obj.videos.first(),
+            )
+        # previously tried to use youtube but that seems to be more tricky than expected and may not be used
         else:
             return "-"
 

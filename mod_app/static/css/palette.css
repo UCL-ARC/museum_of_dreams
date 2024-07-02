@@ -1,31 +1,36 @@
 :root {
-  --dark-grey: #111111;
-  --dark-wine: #230308;
-  --blood-red: #4a040e;
-  --curtain-red: #bf1922;
-  --bright-red: #e32832;
+  /* main */
+  --dark-grey: #222;
+  --light-blue: #cadfe2;
+  --coral: #e49c9a;
+  --turquoise: #9ed1dc;
+  --deep-blue: #356f90;
+  --light-grey: #b6b6b7;
 
-  /* probably these rather than above for use */
+  /* extra neutrals */
   --tan: #ba745f;
   --warm-sand: #c99383;
   --beige: #d8b2a7;
   --cream: #f4e9e5;
-  --light-blue: #c8dee1;
+  --off-white: #e8edee; /* good alt is sand-0 */
+
+  /* extras that differ for modes */
+  --contrast-text: #e8edee;
+  --footer-colour: var(--dark-grey);
+  --footer-text-colour: var(--turquoise);
+  --background-colour: #232424;
+  --card-shadow: rgb(19, 19, 20);
+
+  /* remember we have OpenProps colours as well */
+}
+/* We're going with dark as standard with option to prefer light */
+body.lm {
+  /* only define the ones that differ */
   --off-white: #dae2e3;
 
-  /* others */
+  --contrast-text: #1e1f20;
+  --footer-colour: var(--turquoise);
+  --footer-text-colour: var(--dark-grey);
+  --background-colour: var(--off-white);
+  --card-shadow: rgba(182, 182, 183, 1);
 }
-/* update for light and dark colours? */
-/* @media (prefers-color-scheme: dark) {
-	:root {
-	  --brand: var(--brand-dark);
-
-	  --text-1: var(--text-1-dark);
-	  --text-2: var(--text-2-dark);
-
-	  --surface-1: var(--surface-1-dark);
-	  --surface-2: var(--surface-2-dark);
-	  --surface-3: var(--surface-3-dark);
-	  --surface-4: var(--surface-4-dark);
-	}
-  } */
