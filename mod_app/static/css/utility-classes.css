@@ -50,16 +50,17 @@
 
 .card {
   border: var(--border-size-2) solid var(--deep-blue);
-  background-color: var(--stone-0);
+  background-color: rgba(248, 250, 251, 0.2); /* stone-0 */
+  backdrop-filter: blur(5px);
   border-radius: var(--radius-2);
   padding: 1vw 1.5vw;
   overflow: auto;
   height: clamp(24vw, 32vw, 35vw);
   font-size: 70%;
 
-  -webkit-box-shadow: 1px 10px 8px -4px rgba(182, 182, 183, 1);
-  -moz-box-shadow: 1px 10px 8px -4px rgba(182, 182, 183, 1);
-  box-shadow: 1px 10px 8px -4px rgba(182, 182, 183, 1);
+  -webkit-box-shadow: 1px 10px 8px -4px var(--card-shadow);
+  -moz-box-shadow: 1px 10px 8px -4px var(--card-shadow);
+  box-shadow: 1px 10px 8px -4px var(--card-shadow);
 
   &:hover,
   &:focus {
@@ -93,6 +94,7 @@
 
       .card__body__description {
         font-size: larger;
+        color: var(--contrast-text);
       }
     }
   }

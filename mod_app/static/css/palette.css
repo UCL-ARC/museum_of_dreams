@@ -19,6 +19,7 @@
   --footer-colour: var(--dark-grey);
   --footer-text-colour: var(--turquoise);
   --background-colour: #232424;
+  --card-shadow: rgb(19, 19, 20);
 
   /* remember we have OpenProps colours as well */
 }
@@ -31,4 +32,5 @@ body.lm {
   --footer-colour: var(--turquoise);
   --footer-text-colour: var(--dark-grey);
   --background-colour: var(--off-white);
+  --card-shadow: rgba(182, 182, 183, 1);
 }
