@@ -1,7 +1,7 @@
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 
-from .bibliography_model import BibliographyItem
+from mod_app.models import BibliographyItem
 from ..utils.extract_citations import update_bibliography
 
 
