@@ -23,7 +23,7 @@ class ProjectNote(models.Model):
     bibliography = models.ManyToManyField(
         BibliographyItem,
         blank=True,
-        related_name="project_note",
+        related_name="project_notes",
         help_text="This field updates on save, and some items may not be visible immediately",
     )
 

@@ -8,84 +8,22 @@
             List of films on this site
         </div>
         {% if is_paginated %}
-            <a href="{% url 'film_list' %}" class="button--toggle-pagination"><button>View All</button></a>
+            <a href="{% url 'film_list' %}"><button class="btn button--toggle-pagination">View All</button></a>
         {% else %}
-            <a href="{% url 'film_list' %}?page=1" class="button--toggle-pagination"><button>View by page</button></a>
+            <a href="{% url 'film_list' %}?page=1"><button class="btn button--toggle-pagination">View by page</button></a>
         {% endif %}
+    </div>
+    <div class="card-grid">
+        {% for film in film_list %}
+            <a href="{% url 'film_detail' pk=film.pk %}">
+                {% include "components/card.html" with obj=film %}
+            </a>
+        {% endfor %}
     </div>
 
 
-    <table class="film-table">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Alternative Titles</th>
-                <th>Starring</th>
-                <th>Release Date</th>
-                <th>Production Country</th>
-                <th>Production Company</th>
-                <th>Genre</th>
-                <th>Summary</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for film in film_list %}
-                <tr>
-                    <td>
-                        {% if film.videos.first %}
-                            {% if film.videos.first.file %}
-                                <a href="{{film.videos.first.file.url}}" target="_blank" class="material-symbols-outlined">
-                            {% else %}
-                                <a href="{{film.videos.first.url}}" target="_blank" class="material-symbols-outlined">
-                            {% endif %}
-                            theaters
-                            </a>
-                        {% endif %}
-
-                        <a href="{% url 'film_detail' pk=film.pk %}">{{film.title}}</a>
-                    </td>
-                    <td>{{film.alt_titles | safe}}</td>
-                    <td class="cast">{{film.cast | safe | truncatewords_html:10}}</td>
-                    <td>{{film.release_date}}</td>
-                    <td>{{film.production_country}}</td>
-                    <td>{{film.production_company}}</td>
-                    <td>
-                        {% for g in film.genre.all %}
-                            <span class="tag"><span class="dot">•</span>{{g.name}}</span>
-                        {% endfor %}
-                    </td>
-                    <td class="synopsis">{{film.synopsis|safe|truncatewords_html:50}}
-                        <a href="{% url 'film_detail' pk=film.pk %}"> see more
-                            <span class="material-symbols-outlined open-icon">
-                                open_in_full
-                            </span>
-                        </a></td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
     {% if is_paginated %}
-        {% block pagination %}
-            <div class="pagination">
-                <span class="step-links">
-                    {% if page_obj.has_previous %}
-                        <a href="?page=1">&laquo; first</a>
-                        <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-                    {% endif %}
-
-                    <span class="current">
-                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
-                    </span>
-
-                    {% if page_obj.has_next %}
-                        <a href="?page={{ page_obj.next_page_number }}">next</a>
-                        <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-                    {% endif %}
-                </span>
-
-            </div>
-        {% endblock %}
+        {% include "components/pagination_buttons.html" %}
     {% endif %}
 
 {% endblock %}

@@ -2,10 +2,12 @@
 {% load i18n %}
 {% block title %}{% trans 'Bibliography' %} {% endblock %}
 {% block content %}
-    <h3>Bibliography for all items on this website</h3>
+    <div class="page__description">
+        <h3>Bibliography for all items on this website</h3>
+    </div>
     <div class="bibliography__area">
         {% for bib in bibliographyitem_list %}
-            <div class="bibliography__item">
+            <div class="bibliography__item {% cycle 'ro' 're' %}">
                 <div>{{bib.full_citation|safe}}</div>
                 <ul class="no-list-style bib__ref-list">
                     <li><strong>Films:</strong> {% for film in bib.films.all %}<a href="{% url 'film_detail' pk=film.pk %}">{{film.title}}</a> {% endfor %}</li>

@@ -2,21 +2,28 @@
 {% load i18n %}
 {% block body %}
     <body>
+        {% comment %} header area {% endcomment %}
+
         <div class="title-bar">
+
             <a href="{% url 'home' %}">
                 <div class="title-logo">
-                    <img id="title__logo-img" src="{% static 'images/MODlogo-image.png' %}" alt="MOD logo" />
-                    <img id="title__logo-text" src="{% static 'images/mod-logo-text.png' %}" alt="MOD: Silent Film Antiquity in the BFI National Archive" />
+                    <img id="title__logo-img" src="{% static 'images/logos/mod_lady_grey.png' %}" alt="MOD logo" />
                 </div>
+                <h2 class="title--mobile mnt">
+                    MUSEUM of DREAMWORLDS
+                </h2>
             </a>
 
             {% block non_production_message %}
                 {% if not request.get_host|lower == 'museumofdreamworlds.org' %}
-                    <span style="color: orange; padding: 10px;">
+                    <span style="color: orange; padding: 10px; position:absolute; left:55vw;">
                         STAGING
                     </span>
                 {% endif %}
             {% endblock %}
+
+            {% include "components/logo_text.html" with extra_classes="title__logo-text" %}
             <div class="title-bar__icons">
                 {% comment %} <div class="toggle-container">
                     <span class="toggle-label">Toggle Dark Mode:</span>
@@ -30,6 +37,7 @@
                             logout
                         </span>
                     </a>
+
                 {% else %}
                     <a href="{% url 'admin:index' %}">
                         <span class="material-symbols-outlined">
@@ -48,22 +56,38 @@
                     <span class="material-symbols-outlined" id="menu-icon">
                         menu
                     </span>
-                    <div class="drawer" id="drawer">
-                    <!-- Content of your drawer goes here -->
-                        <button id="drawer__button--close">x</button>
-                        <ul class="drawer__list-nav">
-                            <li>
-                                <a href="{% url 'film_list' %}?page=1">
-                                    Films</a></li>
-                            <li><a href="{% url 'analysis_list' %}">
-                                Analyses: Critical Essays and Discussions</a></li>
-                            <li><a href="{% url 'bibliography' %}">
-                                Bibliography</a><?li>
-                                <li><a href="{% url 'tr_list' %}">
-                                    Teaching Resources Available</a></li>
-                            </ul>
 
+
+                    <div class="drawer" id="drawer">
+                    <!-- Content of drawer goes here -->
+                        <div class="drawer__content">
+                            <button id="drawer__button--close">x</button>
+                            <h2 class="drawer__heading">Explore</h2>
+                            <ul class="drawer__list-nav">
+                                <li>
+                                    <a href="{% url 'film_list' %}?page=1"><span class="material-symbols-outlined">theaters</span>
+                                        Films</a></li>
+                                <li><a href="{% url 'analysis_list' %}">
+                                    <span class="material-symbols-outlined">description</span>
+                                    Analyses: Critical Essays and Discussions</a></li>
+                                <li><a href="{% url 'bibliography' %}"><span class="material-symbols-outlined">menu_book</span>
+                                    Bibliography
+                                </a></li>
+                                <li><a href="{% url 'tr_list' %}"><span class="material-symbols-outlined">topic</span>
+                                    Teaching Resources Available
+                                </a></li>
+                                <li><a href="{% url 'location_list' %}"><span class="material-symbols-outlined">map</span>
+                                    Locations
+                                </a></li>
+                                <li><a href="{% url 'tag_list' %}"><span class="material-symbols-outlined">label</span>
+                                    Tags
+                                </a></li>
+                                <li><a href="{% url 'search' %}"><span class="material-symbols-outlined">search</span>
+                                    Search
+                                </a></li>
+                            </ul>
                         </div>
+                    </div>
                 {% endif %}
             </div>
 
@@ -107,32 +131,41 @@
                 {% endblock %}
             {% endif %}
         </main>
+        {% comment %} javascript imports {% endcomment %}
         <script src="" async defer></script>
         <script type="module" src="{% static 'js/main.js' %}"></script>
     </body>
-    <footer class="filmstrip">
+    {% comment %} footer area {% endcomment %}
+    <footer class="footer">
         <a href="{% url 'home' %}">
             <div class="footer-logo">
-                <img id="footer__logo-img" src="{% static 'images/MODlogo-image.png' %}" alt="MOD logo" />
-                <img id="footer__logo-text" src="{% static 'images/mod-logo-text.png' %}" alt="MOD: Silent Film Antiquity in the BFI National Archive" />
+                <img id="footer__logo-img" src="{% static 'images/logos/mod_footer_logo.png' %}" alt="MOD logo" />
+                {% include "components/logo_text.html" with extra_classes="footer__logo-text" %}
             </div>
         </a>
+        <div class="footer__collab-logos-area">
+            {% include "components/collab_logos.html" %}
+        </div>
         <div class="footer__nav">
             <ul class="footer__nav--top-row">
-                <li><h5>Explore</h5></li>
+                <h5>Explore</h5>
                 <li><a href="{% url 'film_list' %}">Films</a></li>
                 <li><a href="#">Search</a></li>
+                <li><a href="{% url 'analysis_list' %}">Analyses</a></li>
+                <li><a href="{% url 'tr_list' %}">Teaching Resources</a></li>
+                <li><a href="#">Locations</a></li>
+                <li><a href="#">Tags</a></li>
             </ul>
-
             <ul class="footer__nav--bottom-row">
-                <li><h5>About</h5></li>
+                <h5>About</h5>
                 <li><a href="#">About us</a></li>
                 <li><a href="#">Blog </a></li>
                 <li><a href="#">Collaborators</a></li>
                 <li><a href="#">Contact</a></li>
             </ul>
-
-
+        </div>
+        <div class="footer__collab-logos-area--mobile">
+            {% include "components/collab_logos.html" %}
         </div>
     </footer>
 {% endblock %}

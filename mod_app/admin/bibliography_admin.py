@@ -18,7 +18,7 @@ class BIAdminForm(forms.ModelForm):
 @admin.register(BibliographyItem)
 class BibliographyItemAdmin(admin.ModelAdmin):
     model = BibliographyItem
-    list_display = ["safe_citation", "annotation"]
+    list_display = ["safe_citation"]
     form = BIAdminForm
 
     def safe_citation(self, obj):

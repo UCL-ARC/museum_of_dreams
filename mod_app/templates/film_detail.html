@@ -44,10 +44,11 @@
                                     Your browser does not support the video tag.
                                 </video>
                             {% else %}
-                                <video controls>
+                                {% comment %} <video controls>
                                     <source src="{{film.videos.first.url}}" type="video/mp4">
                                     Your browser does not support the video tag.
-                                </video>
+                                </video> {% endcomment %}
+                                <iframe src="{{film.videos.first.url}}" frameborder="0" scrolling="no" allowfullscreen></iframe>
                             {% endif %}
                         </div>
                         <dl class="triple-c">
