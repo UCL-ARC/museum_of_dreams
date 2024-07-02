@@ -1,7 +1,7 @@
 from django.contrib import admin
 from mod_app.utils.mixins import PreviewMixin, s3BrowserButtonMixin
 
-from ..models import *
+from mod_app.models import *
 
 
 class SourceInline(PreviewMixin, admin.TabularInline):
