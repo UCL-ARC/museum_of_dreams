@@ -85,6 +85,7 @@ class CustomIndexDashboard(Dashboard):
                             "mod_app.models.support_models.Source",
                             "mod_app.models.support_models.OtherLink",
                             "mod_app.models.support_models.Tag",
+                            "mod_app.models.feedback_model.Feedback",
                         ),
                     ),
                 ],
