@@ -18,4 +18,4 @@ Go to the EB environment, go to the `Configuration` tab and go to the section ab
 
 Once the changes have been applied, go to your `EC2 Security Groups` and here you should see a new load balancer type for your environment. I recommend changing the name to include LB or something similar so you can tell them apart easily.
 
-On your environment's security group, the inbound rules should include http traffic from the load balancer, add it if it doesn't. Update the inbound rules in the load balancer's security group to allow HTTPS traffic from: itself, 0.0.0.0 (anywhere), the database and the environment. Also allow HTTP from anywhere.
+On your environment's security group, the inbound rules should include http traffic from the load balancer, add it if it doesn't. Update the inbound rules in the load balancer's security group to allow HTTPS traffic from 0.0.0.0 (anywhere), the database and the environment. Also allow HTTP from anywhere.

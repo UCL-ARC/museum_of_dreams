@@ -25,18 +25,24 @@ packages:
 
 This will address issues with setting up the mysql db.
 
-Also create [db-migrate.config](../.ebextensions/db-migrate.config).
+You should also create a `.platform` directory, which will execute scripts when an instance starts. **This is not within the `.ebextensions` directory.**
 
-This will allow migrations and `collectstatic` to automatically run when the app is deployed.
+Create [db-migrate script](../.platform/hooks/postdeploy/01_db-migrate.sh) and [nginx upload conf](../.platform/nginx/conf.d/proxy.conf)
+
+These will allow migrations and `collectstatic` to automatically run when the app is deployed and will print some output to the logs, which may assist with debugging; and for the upload amount to be increased.
+
+
 
 ## Settings
 
 We have separate settings files for AWS and local development.
-See [settings/local.py](museum_of_dreams_project/settings/local.py) and [settings/aws.py](museum_of_dreams_project/settings/aws.py) for the contents. There is a staging.py which is for the staging environment on AWS to define a separate host.
+See [settings/local.py](../museum_of_dreams_project/settings/local.py) and [settings/aws.py](../museum_of_dreams_project/settings/aws.py) for the contents. There is a [staging.py](../museum_of_dreams_project/settings/staging.py) which is for the staging environment on AWS to define a separate host.
 
-You also need to point `wsgi.py` and `asgi.py` to the AWS settings file
+You also need to point `wsgi.py` and `asgi.py` to the AWS settings file.
 
 # Recreating AWS Setup
+
+These instructions will walk you through creating one web app. It is recommended you repeat some of the processes so that you can have separate development/staging and production versions.
 
 As this website is hosted on AWS you will need an account to access all of these services. There are a few things to set up across different services, namely:
 
@@ -57,7 +63,7 @@ From the menu on the left, select `Internet Gateways`.Create and attach an Inter
 ## IAM Roles
 
 Go to the IAM console. Under the `Access Management` heading on the left, select `Roles`.
-Create a new Role and attach the following policies:
+Create a new Role for the EC2 instances and attach the following policies:
 
 - AdministratorAccess-AWSElasticBeanstalk
 - AmazonEC2FullAccess
@@ -67,6 +73,14 @@ Create a new Role and attach the following policies:
 
 These will allow for communication betweeen the ElasticBeanstalk application, the EC2 instances it will create to host the application and the RDS database.
 
+You can also create a User called `mod_site` which will allow the app to access other services. Attach the AmazonSESFullAccess policy and create a new inline policy that will allow:
+```
+"s3:PutObject",
+"s3:GetObject",
+"s3:GetObjectAttributes"
+```
+This will limit the actions of the app to just putting and retrieving files.
+
 ## RDS
 
 Go to the RDS console. Select `Databases` and then `Create new database`.
@@ -74,20 +88,22 @@ Choose standard create and MySQL (not the Aurora one unless you have a spare £8
 
 The next thing to change is to attach it to the VPC you created. Choose one of the subnets it will live in. Do not allow public access.
 
-You can check if there are any security groups available and select `rds-ec2-1` if you have access to it, otherwise, if you haven't created any security groups yourself, choose create new security group, I named mine `rds-ec2-1` since it will allow the `rds` instance to connect to the `ec2` instance, in `subnet 1` but you can choose another appropriate name. The rest you can leave as default.
+If you already created relevant security groups, select one. Otherwise, create a new one and name it as you see fit, remember you will be creating one for staging and one for production.
+The rest you can leave as default.
 
-Just allow password authentication.
+Allow password authentication.
 Under `Additional Configurations` you should see `initial db name`, this should be `ebdb`. The rest can be left as default.
 
 Create the db and wait for it to spin up.
+Repeat to create your prod/staging version.
 
 ## ElasticBeanstalk
 
-We'll be using ElasticBeanstalk (EBS) to host our application as the process is a bit more streamlined than with just creating an EC2 instance since EBS allows for more abstraction and less manual config.
+We'll be using ElasticBeanstalk (EB, sometimes EBS) to host our application as the process is a bit more streamlined than with just creating an EC2 instance since EB allows for more abstraction and less manual config.
 
-Go to the EBS console and choose `Applications` from the left side menu. Create a new Application with an appropriate name. Then create an environment:
+Go to the EB console and choose `Applications` from the left side menu. Create a new Application with an appropriate name. Then create an environment:
 
-Choose Web tier. I'd recommend customising the domain name for ease of access but you don't need to. The platform should be Python. Everything else on that page can be left as default.
+Choose Web tier. I'd recommend customising the domain name for ease of access but you don't need to as you can purchase a custom domain. The platform should be Python. Everything else on that page can be left as default.
 
 On the next page (service access), select `use an existing role` and select the IAM role you created. If you have an EC2 key, feel free to add it (you'll be able to ssh into the EC2 instance from your local machine) but it's not necessary. Select the same IAM role for the EC2 instance profile.
 
@@ -97,7 +113,7 @@ On the next page, select the security group you created for the RDS instance.
 
 On the next page, turn off (uncheck) managed updates (these so far have only caused issues when they run and fail) and scroll to the `Platform Software` section, it should ask you to define the `WSGI path`, it should be `museum_of_dreams_project.wsgi`.
 
-Next, scroll to the bottom where it should have `Environment Variables` or `Environment Properties`. Add some new ones:
+Next, scroll to the bottom where it should have `Environment Variables` or `Environment Properties`. Some of these will vary between staging and production. Add some new ones:
 
 - `DJANGO_SETTINGS_MODULE` (this is the path to your settings/aws.py file <project>.settings.aws)
 - `RDS_HOSTNAME` (this is the endpoint for the RDS instance)
@@ -105,20 +121,29 @@ Next, scroll to the bottom where it should have `Environment Variables` or `Envi
 - `RDS_DB_NAME` (this should be ebdb)
 - `RDS_USERNAME` (this should be the username you chose or admin if you didn't change it)
 - `RDS_PASSWORD` (this should be the master password you set on the db)
+- `PYTHONPATH` This is where the app is hosted on the ec2 instance: `/var/app/venv/staging-LQM1lest`
 
-Above this section is a `Static Files` section. You should add `/media` and `/static` as paths, with `media` and `static` as their respective directories.
+
+Above this section is a `Static Files` section. You should add `/static` as paths, with `static` as its respective directory.
 
 If you plan to use S3 for your static files, please see [S3 for static files](s3ForStatic.md)
 
-You can review and create the environment. This will take some time.
+You can review and create the environment. This will take some time. Repeat for the staging/prod version.
+
 
 ## Security Groups
 
-Whilst the environment is being created, you can check if the security group you defined is available in the VPC console. It will be in `Security Groups` under the `Security` tab in the left hand menu.
+Go view your available security groups in the EC2 console. It will be in `Security Groups` under the `Networks & Security` tab in the left hand menu.
 
-If it's available, click on it and scroll to the bottom to edit inbound rules. Allow MySQl connections through the security group that was created for the scaling group attached to your environment, you may also want to allow SSH from this group.
+You should have at least one defined for your database and at least one for the EB environment you created. It may be helpful to rename the EB load balancer group to distinguish it from the main EB app one.
 
-Ensure that the security group you defined on the RDS instance (and then selected in the EBS setup) has been set for MySQL connections.
+|Security group|Inbound rules|
+|---|---|
+|for database| allow MySQL TCP from the same sg|
+|for eb app| allow ssh from anywhere (optional), allow http from the load balancer group (should be set automatically)|
+|for eb load balancer| allow http and https from anywhere (should be set automatically)|
+---
+
 
 ## CodePipeline
 
@@ -128,16 +153,16 @@ Choose GitHub v2 for the source, and then select the repo and branch. You may ne
 
 If the repo is under an organisation, try typing the name as `<org name>/<repo name>`. **If you don't have permissions, you should contact your administrator or relevant AWS advisor to set up a GitHub App to ensure it doesn't disrupt other connections.**
 
-After this, move on to the deploy step (skip build) and choose deploy and select the EBS environment you created.
+After this, move on to the deploy step (skip build) and choose deploy and select the EB environment you created.
 This will automatically pull in changes to the branch you select and deploy them to the environment.
 
-_**NB**_
+### _**NB**_
 
-If you have more than one environment (one for prod, one for staging for eg.), you should have separate pipelines for each. The current CodePipelines pull from `main` for production and `development` for staging.
+You should have separate pipelines for each version of the web app - one for staging and one for production. The current CodePipelines pull from `main` for production and `development` for staging.
 
 ## Logging into the Admin
 
-Once you've set everything up, check you can access the website at the domain you set (or through the EBS console: `Go to environment` button). If this seems to be in order, go to the EC2 console and find the associated instance for your EBS environment. Click `connect` and you're free to connect through the browser (default method). Once you're in the shell, you'll need to navigate to the app and create a superuser so you can log in to the admin site.
+Once you've set everything up, check you can access the website at the domain you set (or through the EB console: `Go to environment` button). If this seems to be in order, go to the EC2 console and find the associated instance for your EB environment. Click `connect` and you're free to connect through the browser (default method). Once you're in the shell, you'll need to navigate to the app and create a superuser so you can log in to the admin site.
 
 ```
 cd /var/app
@@ -145,13 +170,13 @@ source venv/staging-LQM1lest/bin/activate
 cd current
 ```
 
-We have to expose the variables from the EBS environment to the shell we're in
+We have to expose the variables from the EB environment to the shell we're in
 
 ```
 export $(/opt/elasticbeanstalk/bin/get-config --output YAML environment |  sed -r 's/: /=/' | xargs)
 ```
 
-If this is the first time setting up this app, you may need to run the migrations (this should be handled automatically in future with the `db-migrate.config` file in `.ebextensions`)
+If this is the first time setting up this app, you may need to run the migrations (this should be handled automatically in future with the `db-migrate.sh` file in `.platform`)
 
 ```
 python manage.py migrate

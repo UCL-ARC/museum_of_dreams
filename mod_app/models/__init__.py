@@ -1,5 +1,6 @@
-from .film_model import Film
 from .bibliography_model import BibliographyItem
+from .feedback_model import Feedback
+from .film_model import Film
 from .project_note_model import ProjectNote
 from .support_models import (
     BaseLinkModel,
@@ -44,4 +45,5 @@ __all__ = [
     "OtherLink",
     "Video",
     "ProjectNote",
+    "Feedback",
 ]
