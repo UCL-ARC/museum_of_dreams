@@ -134,6 +134,7 @@ CKEDITOR_CONFIGS = {
         "uiColor": "#fcf5e7",
         "extraAllowedContent": "strong[data-bib-id](bib-mention);",
         "filebrowserBrowseUrl": "/view_bucket_items/",
+        "versionCheck": False,
     },
 }
 
