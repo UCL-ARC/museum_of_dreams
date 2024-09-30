@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.template.loader import get_template
 from django.utils.html import format_html
 
@@ -57,14 +58,15 @@ class s3BrowserButtonMixin:
 class EmailMixin:
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
-
-        # Check if it's a new instance or an update
-        if change:
-            build_and_send_email(request, obj, "updated")
-        else:
-            # new instance
-            build_and_send_email(request, obj, "added")
+        if settings.ENVIRONMENT != "local":
+            # Check if it's a new instance or an update
+            if change:
+                build_and_send_email(request, obj, "updated")
+            else:
+                # new instance
+                build_and_send_email(request, obj, "added")
 
     def delete_model(self, request, obj):
-        build_and_send_email(request, obj, "deleted")
-        super().delete_model(request, obj)
+        if settings.ENVIRONMENT != "local":
+            build_and_send_email(request, obj, "deleted")
+            super().delete_model(request, obj)
