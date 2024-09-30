@@ -51,8 +51,12 @@ class s3BrowserButtonMixin:
         self.readonly_fields += ("s3_browser_button",)
 
     def s3_browser_button(self, obj):
-        button_html = get_template("components/s3_browse_button.html")
-        return button_html.render()
+        if settings.ENVIRONMENT != "local":
+            button_html = get_template("components/s3_browse_button.html")
+            return button_html.render()
+        else:
+            button_html = "Not available locally"
+            return button_html
 
 
 class EmailMixin:
