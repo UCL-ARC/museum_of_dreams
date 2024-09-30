@@ -1,6 +1,6 @@
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
-from django.db.models import Case, When, Value, CharField
+from django.db.models import Case, When, CharField
 from django.db.models.functions import Substr, Lower, Trim
 from django.core.exceptions import ValidationError
 from django.urls import reverse
@@ -24,12 +24,6 @@ class FilmManager(models.Manager):
             super()
             .get_queryset()
             .annotate(
-                # new field 'is_number' to check if the title starts with a number
-                is_number=Case(
-                    When(title__regex=r"^\d", then=Value(0)),
-                    default=Value(1),
-                    output_field=models.IntegerField(),
-                ),
                 # annotate a field for sorting the title, ignoring "A " or "The "
                 sort_title=Case(
                     # starts with "The"
@@ -47,7 +41,7 @@ class FilmManager(models.Manager):
                     output_field=CharField(),
                 ),
             )
-            .order_by("is_number", "sort_title")
+            .order_by("sort_title")
         )
 
 
