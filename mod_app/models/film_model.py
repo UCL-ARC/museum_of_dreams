@@ -1,5 +1,7 @@
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
+from django.db.models import Case, When, CharField
+from django.db.models.functions import Substr, Lower, Trim
 from django.core.exceptions import ValidationError
 from django.urls import reverse
 
@@ -15,6 +17,34 @@ def validate_format_other(value, format_type):
         raise ValidationError("Please provide format details; you've selected 'other' ")
 
 
+class FilmManager(models.Manager):
+    def get_queryset(self):
+        """Order films first by number, then alphabetically, discarding prefix if they start with 'The' or 'A'"""
+        return (
+            super()
+            .get_queryset()
+            .annotate(
+                # annotate a field for sorting the title, ignoring "A " or "The "
+                sort_title=Case(
+                    # starts with "The"
+                    When(
+                        title__iregex=r"^The\s+",
+                        then=Lower(Trim(Substr("title", 5))),
+                    ),
+                    # starts with "A"
+                    When(
+                        title__iregex=r"^A\s+",
+                        then=Lower(Trim(Substr("title", 3))),
+                    ),
+                    # then other titles
+                    default=Lower(Trim("title")),
+                    output_field=CharField(),
+                ),
+            )
+            .order_by("sort_title")
+        )
+
+
 class Film(models.Model):
     def __str__(self):
         return f"{self.title}"
@@ -22,6 +52,7 @@ class Film(models.Model):
     def get_absolute_url(self):
         return reverse("film_detail", kwargs={"pk": self.pk})
 
+    objects = FilmManager()
     title = models.CharField(max_length=100)
     alt_titles = models.TextField(
         blank=True,
