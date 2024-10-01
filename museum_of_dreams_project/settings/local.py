@@ -1,6 +1,7 @@
 from .base import *
 
 SECRET_KEY = "notasecret"
+ENVIRONMENT = "local"
 
 ALLOWED_HOSTS = [
     "127.0.0.1",
