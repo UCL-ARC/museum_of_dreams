@@ -20,6 +20,7 @@ class BibliographyItemAdmin(admin.ModelAdmin):
     model = BibliographyItem
     list_display = ["safe_citation", "safe_annotation"]
     form = BIAdminForm
+    search_fields = ["full_citation", "annotation"]
 
     def safe_citation(self, obj):
         return format_html(obj.full_citation)

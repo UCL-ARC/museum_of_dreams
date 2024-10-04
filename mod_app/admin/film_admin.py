@@ -3,6 +3,7 @@ from django.contrib import admin
 from django.db import models
 from django.template.defaultfilters import truncatechars_html
 from django.utils.html import format_html
+import html
 
 from mod_app.admin.link_admin import (
     DrawingInline,
@@ -122,6 +123,19 @@ class FilmAdmin(EmailMixin, admin.ModelAdmin):
     safe_temporary_images.allow_tags = True
     safe_temporary_images.short_description = "List Images"
 
+    def safe_bibliography(self, obj):
+        bib_items = obj.bibliography.all()
+        formatted_items = [
+            format_html(
+                "<li>{}</li>", format_html(html.unescape(bib_item.full_citation))
+            )
+            for bib_item in bib_items
+        ]
+        return format_html("<ul>{}</ul>", format_html("".join(formatted_items)))
+
+    safe_bibliography.short_description = "Bibliography"
+    safe_bibliography.allow_tags = True
+
     def preview_video(self, obj):
         if obj.videos.first():
             # format for working with mediacentral embeds and youtube embeds
@@ -132,7 +146,7 @@ class FilmAdmin(EmailMixin, admin.ModelAdmin):
         else:
             return "-"
 
-    readonly_fields = ("bibliography",)
+    readonly_fields = ("safe_bibliography",)
     fieldsets = (
         (
             "Main Information (Filmic Section)",
@@ -204,7 +218,7 @@ class FilmAdmin(EmailMixin, admin.ModelAdmin):
             "Bibliography",
             {
                 "classes": ("grp-collapse",),
-                "fields": ("bibliography",),
+                "fields": ("safe_bibliography",),
                 "description": "Note: This section updates on save, and some items may not be visible immediately.",
             },
         ),
