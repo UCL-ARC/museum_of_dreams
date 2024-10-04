@@ -23,6 +23,8 @@ class TRAnalysisInline(admin.TabularInline):
         "grp-collapse",
         "grp-open",
     ]
+    verbose_name = "Teaching Resources"
+    verbose_name_plural = "Teaching Resources"
 
 
 class TRAdminForm(forms.ModelForm):

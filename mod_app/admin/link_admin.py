@@ -8,10 +8,11 @@ class SourceInline(PreviewMixin, admin.TabularInline):
     model = Film.sources.through
     extra = 1
     classes = [
-        "inline-inline",
         "grp-collapse",
         "grp-closed",
     ]
+    verbose_name = "Source"
+    verbose_name_plural = "Sources"
 
 
 class VideoInline(PreviewMixin, admin.TabularInline):

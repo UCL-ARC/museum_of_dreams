@@ -29,6 +29,8 @@ class FilmAnalysisInline(admin.TabularInline):
         "grp-collapse",
         "grp-open",
     ]
+    verbose_name = "Analysis"
+    verbose_name_plural = "Analyses"
 
 
 class TRInline(admin.TabularInline):
@@ -38,6 +40,8 @@ class TRInline(admin.TabularInline):
         "grp-collapse",
         "grp-open",
     ]
+    verbose_name = "Teaching Resources"
+    verbose_name_plural = "Teaching Resources"
 
 
 @admin.register(Film)
@@ -114,12 +118,11 @@ class FilmAdmin(EmailMixin, admin.ModelAdmin):
 
     def preview_video(self, obj):
         if obj.videos.first():
-            # format for working with mediacentral embeds
+            # format for working with mediacentral embeds and youtube embeds
             return format_html(
                 '<div"><iframe src="{}" frameborder="0"  scrolling="no" allowfullscreen></iframe></div>',
                 obj.videos.first(),
             )
-        # previously tried to use youtube but that seems to be more tricky than expected and may not be used
         else:
             return "-"
 
@@ -140,7 +143,7 @@ class FilmAdmin(EmailMixin, admin.ModelAdmin):
                 ),
             },
         ),
-        (None, {"classes": ("placeholder sources-group",), "fields": ()}),
+        (None, {"classes": ("placeholder Source_film-group",), "fields": ()}),
         (None, {"classes": ("placeholder videos-group",), "fields": ()}),
         (
             "Technical Section",
@@ -188,6 +191,7 @@ class FilmAdmin(EmailMixin, admin.ModelAdmin):
                     "comments",
                     "temporary_images",
                 ),
+                "description": "Mentions are available here and will contibute to the bibliography.",
             },
         ),
         (
