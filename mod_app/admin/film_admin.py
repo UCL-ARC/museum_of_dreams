@@ -53,7 +53,13 @@ class FilmAdmin(EmailMixin, admin.ModelAdmin):
         js = ("admin/js/mentionsPluginConfig.js",)
 
     autocomplete_fields = ["genre"]
-    search_fields = ["title", "alt_titles"]
+    search_fields = [
+        "title",
+        "alt_titles",
+        "production_company",
+        "production_country",
+        "release_date",
+    ]
     formfield_overrides = {
         models.TextField: {
             "widget": CKEditorWidget(),
