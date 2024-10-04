@@ -5,7 +5,7 @@ from mod_app.models import *
 
 
 class SourceInline(PreviewMixin, admin.TabularInline):
-    model = Source
+    model = Film.sources.through
     extra = 1
     classes = [
         "inline-inline",
@@ -123,9 +123,15 @@ class VideoAdmin(PreviewMixin, admin.ModelAdmin):
 
 @admin.register(Source)
 class SourceAdmin(PreviewMixin, admin.ModelAdmin):
-    search_fields = ["description", "url"]
+    def list_films(self, obj):
+        return ", ".join([film.title for film in obj.film.all()])
+
+    list_films.short_description = "Films"
+
+    search_fields = ["description", "url", "film__title"]
+    filter_horizontal = ("film",)
     exclude = ["is_source"]
-    list_display = ["description", "film", "url", "preview"]
+    list_display = ["description", "list_films", "url", "preview"]
 
 
 @admin.register(OtherLink)
