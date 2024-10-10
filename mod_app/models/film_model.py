@@ -148,5 +148,6 @@ class Film(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
+        fields = [self.print_comments, self.comments, self.temporary_images]
 
-        update_bibliography(self, self.print_comments)
+        update_bibliography(self, fields)

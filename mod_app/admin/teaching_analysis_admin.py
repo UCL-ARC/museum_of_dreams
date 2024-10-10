@@ -3,6 +3,7 @@ from django import forms
 from django.contrib import admin
 from django.template.defaultfilters import truncatechars_html
 from django.utils.html import format_html
+import html
 
 from ..models import Analysis, TeachingResources
 
@@ -23,6 +24,8 @@ class TRAnalysisInline(admin.TabularInline):
         "grp-collapse",
         "grp-open",
     ]
+    verbose_name = "Analysis"
+    verbose_name_plural = "Analyses"
 
 
 class TRAdminForm(forms.ModelForm):
@@ -44,7 +47,8 @@ class AnalysisAdmin(admin.ModelAdmin):
 
     form = AnalysisAdminForm
     autocomplete_fields = ["films", "topics", "tags", "teaching_resources"]
-    readonly_fields = ("bibliography",)
+    readonly_fields = ("safe_bibliography",)
+    exclude = ["bibliography"]
     list_display = [
         "dynamic_title",
         "related_films",
@@ -85,6 +89,19 @@ class AnalysisAdmin(admin.ModelAdmin):
     safe_content.allow_tags = True
     safe_content.short_description = "Content"
 
+    def safe_bibliography(self, obj):
+        bib_items = obj.bibliography.all()
+        formatted_items = [
+            format_html(
+                "<li>{}</li>", format_html(html.unescape(bib_item.full_citation))
+            )
+            for bib_item in bib_items
+        ]
+        return format_html("<ul>{}</ul>", format_html("".join(formatted_items)))
+
+    safe_bibliography.short_description = "Bibliography"
+    safe_bibliography.allow_tags = True
+
 
 @admin.register(TeachingResources)
 class TeachingResourcesAdmin(AnalysisAdmin):
@@ -97,7 +114,8 @@ class TeachingResourcesAdmin(AnalysisAdmin):
     form = TRAdminForm
     inlines = [TRAnalysisInline]
     autocomplete_fields = ["films", "topics", "tags", "clips"]
-    readonly_fields = ("bibliography",)
+    readonly_fields = ("safe_bibliography",)
+    exclude = ["bibliography"]
 
     list_display = [
         "dynamic_title",
@@ -106,3 +124,16 @@ class TeachingResourcesAdmin(AnalysisAdmin):
         "list_tags",
     ]
     search_fields = ["title", "tags", "topics"]
+
+    def safe_bibliography(self, obj):
+        bib_items = obj.bibliography.all()
+        formatted_items = [
+            format_html(
+                "<li>{}</li>", format_html(html.unescape(bib_item.full_citation))
+            )
+            for bib_item in bib_items
+        ]
+        return format_html("<ul>{}</ul>", format_html("".join(formatted_items)))
+
+    safe_bibliography.short_description = "Bibliography"
+    safe_bibliography.allow_tags = True

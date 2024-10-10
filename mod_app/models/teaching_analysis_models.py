@@ -55,7 +55,7 @@ class Analysis(models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
-        update_bibliography(self, self.content)
+        update_bibliography(self, [self.content])
 
 
 class TeachingResources(models.Model):
@@ -96,4 +96,4 @@ class TeachingResources(models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
-        update_bibliography(self, self.material)
+        update_bibliography(self, [self.material])

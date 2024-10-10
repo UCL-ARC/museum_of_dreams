@@ -3,6 +3,7 @@ from django.contrib import admin
 from django.db import models
 from django.template.defaultfilters import truncatechars_html
 from django.utils.html import format_html
+import html
 
 from mod_app.admin.link_admin import (
     DrawingInline,
@@ -29,6 +30,8 @@ class FilmAnalysisInline(admin.TabularInline):
         "grp-collapse",
         "grp-open",
     ]
+    verbose_name = "Analysis"
+    verbose_name_plural = "Analyses"
 
 
 class TRInline(admin.TabularInline):
@@ -38,6 +41,8 @@ class TRInline(admin.TabularInline):
         "grp-collapse",
         "grp-open",
     ]
+    verbose_name = "Teaching Resources"
+    verbose_name_plural = "Teaching Resources"
 
 
 @admin.register(Film)
@@ -49,7 +54,13 @@ class FilmAdmin(EmailMixin, admin.ModelAdmin):
         js = ("admin/js/mentionsPluginConfig.js",)
 
     autocomplete_fields = ["genre"]
-    search_fields = ["title", "alt_titles"]
+    search_fields = [
+        "title",
+        "alt_titles",
+        "production_company",
+        "production_country",
+        "release_date",
+    ]
     formfield_overrides = {
         models.TextField: {
             "widget": CKEditorWidget(),
@@ -112,18 +123,30 @@ class FilmAdmin(EmailMixin, admin.ModelAdmin):
     safe_temporary_images.allow_tags = True
     safe_temporary_images.short_description = "List Images"
 
+    def safe_bibliography(self, obj):
+        bib_items = obj.bibliography.all()
+        formatted_items = [
+            format_html(
+                "<li>{}</li>", format_html(html.unescape(bib_item.full_citation))
+            )
+            for bib_item in bib_items
+        ]
+        return format_html("<ul>{}</ul>", format_html("".join(formatted_items)))
+
+    safe_bibliography.short_description = "Bibliography"
+    safe_bibliography.allow_tags = True
+
     def preview_video(self, obj):
         if obj.videos.first():
-            # format for working with mediacentral embeds
+            # format for working with mediacentral embeds and youtube embeds
             return format_html(
                 '<div"><iframe src="{}" frameborder="0"  scrolling="no" allowfullscreen></iframe></div>',
                 obj.videos.first(),
             )
-        # previously tried to use youtube but that seems to be more tricky than expected and may not be used
         else:
             return "-"
 
-    readonly_fields = ("bibliography",)
+    readonly_fields = ("safe_bibliography",)
     fieldsets = (
         (
             "Main Information (Filmic Section)",
@@ -140,7 +163,7 @@ class FilmAdmin(EmailMixin, admin.ModelAdmin):
                 ),
             },
         ),
-        (None, {"classes": ("placeholder sources-group",), "fields": ()}),
+        (None, {"classes": ("placeholder Source_film-group",), "fields": ()}),
         (None, {"classes": ("placeholder videos-group",), "fields": ()}),
         (
             "Technical Section",
@@ -188,13 +211,14 @@ class FilmAdmin(EmailMixin, admin.ModelAdmin):
                     "comments",
                     "temporary_images",
                 ),
+                "description": "Mentions are available here and will contibute to the bibliography.",
             },
         ),
         (
             "Bibliography",
             {
                 "classes": ("grp-collapse",),
-                "fields": ("bibliography",),
+                "fields": ("safe_bibliography",),
                 "description": "Note: This section updates on save, and some items may not be visible immediately.",
             },
         ),
