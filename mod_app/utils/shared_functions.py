@@ -13,7 +13,7 @@ def build_and_send_email(request, obj, verb):
         return
 
     researchers = User.objects.filter(
-        groups__name="Researchers", is_active=True
+        groups__name="mailing_list", is_active=True
     ).exclude(username=updated_by)
     recipients = [user.email for user in researchers]
 
