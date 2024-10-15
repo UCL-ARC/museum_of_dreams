@@ -22,6 +22,7 @@ class BaseLinkModel(models.Model):
     url = models.URLField(
         blank=True,
         help_text="url to the item you'd like to link",
+        max_length=500,
     )
     description = models.CharField(
         max_length=250,
@@ -42,6 +43,8 @@ class OtherLink(BaseLinkModel):
 class Source(BaseLinkModel):
     class Meta:
         verbose_name = "Source"
+
+    film = models.ManyToManyField("Film", blank=True, related_name="sources")
 
 
 class FileLink(BaseLinkModel):

@@ -30,4 +30,4 @@ class ProjectNote(models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
-        update_bibliography(self, self.content)
+        update_bibliography(self, [self.content])
