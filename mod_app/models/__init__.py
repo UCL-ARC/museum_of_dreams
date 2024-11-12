@@ -23,6 +23,7 @@ from .teaching_analysis_models import (
     Analysis,
     TeachingResources,
 )
+from .visual_written_influences_model import VisualWrittenInfluences
 
 __all__ = [
     "Analysis",
@@ -46,4 +47,5 @@ __all__ = [
     "Video",
     "ProjectNote",
     "Feedback",
+    "VisualWrittenInfluences",
 ]
