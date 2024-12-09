@@ -24,7 +24,7 @@ CKEDITOR.plugins.add("popout", {
         var instanceTitle = document.getElementById("id_title").value;
         var path = window.location.pathname.split("mod_app/").pop();
 
-        // Remove the trailing "/change" if it exists
+        // Remove the trailing "/change"
         if (path.endsWith("/change")) {
           path = path.slice(0, -7);
         }
