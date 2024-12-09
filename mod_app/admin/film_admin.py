@@ -18,6 +18,7 @@ from mod_app.admin.link_admin import (
     StillInline,
     VideoInline,
 )
+from mod_app.admin.note_admin import VWIInline
 from mod_app.utils.mixins import EmailMixin
 
 from ..models import Analysis, TeachingResources, Film
@@ -71,6 +72,7 @@ class FilmAdmin(EmailMixin, admin.ModelAdmin):
     inlines = [
         FilmAnalysisInline,
         TRInline,
+        VWIInline,
         SourceInline,
         OtherLinkInline,
         VideoInline,
@@ -157,7 +159,10 @@ class FilmAdmin(EmailMixin, admin.ModelAdmin):
                 "fields": (
                     "title",
                     "alt_titles",
-                    "release_date",
+                    (
+                        "bfi_identifier",
+                        "release_date",
+                    ),
                     ("production_country", "production_company"),
                     "synopsis",
                     ("cast", "crew"),
@@ -204,6 +209,13 @@ class FilmAdmin(EmailMixin, admin.ModelAdmin):
         (
             None,
             {"classes": ("placeholder TeachingResources_films-group",), "fields": ()},
+        ),
+        (
+            None,
+            {
+                "classes": ("placeholder VisualWrittenInfluences_films-group",),
+                "fields": (),
+            },
         ),
         (
             "Comments and List Images",

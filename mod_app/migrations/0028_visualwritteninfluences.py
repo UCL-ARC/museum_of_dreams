@@ -24,6 +24,12 @@ class Migration(migrations.Migration):
                 ),
                 ("title", models.CharField(max_length=255)),
                 (
+                    "films",
+                    models.ManyToManyField(
+                        blank=True, related_name="vwis", to="mod_app.film"
+                    ),
+                ),
+                (
                     "content",
                     ckeditor_uploader.fields.RichTextUploadingField(
                         blank=True, help_text="Mentions are available here.", null=True
