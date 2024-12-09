@@ -55,6 +55,7 @@ class FilmAdmin(EmailMixin, admin.ModelAdmin):
 
     autocomplete_fields = ["genre"]
     search_fields = [
+        "bfi_identifier",
         "title",
         "alt_titles",
         "production_company",
@@ -83,6 +84,7 @@ class FilmAdmin(EmailMixin, admin.ModelAdmin):
         DrawingInline,
     ]
     list_display = [
+        "bfi_identifier",
         "title",
         "safe_temporary_images",
         "preview_video",
