@@ -86,8 +86,8 @@ class FilmAdmin(EmailMixin, admin.ModelAdmin):
         DrawingInline,
     ]
     list_display = [
-        "bfi_identifier",
         "title",
+        "bfi_identifier",
         "safe_temporary_images",
         "preview_video",
         "safe_alt_titles",
