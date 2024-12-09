@@ -8,10 +8,12 @@ CKEDITOR.plugins.add("popout", {
 
         var originalConfig = editor.config;
         var ckeditorBasePath = "/static/ckeditor/ckeditor/";
+        var btnStyle =
+          "background-color: #23a1cc; border: none;border-radius: 4px; color: white; padding: 1rem 1.2rem; text-align: center; text-decoration: none; display: flex; font-size: 16px; margin: 0.8rem; cursor: pointer; justify-self: center";
 
         // html structure for new window
         newWindow.document.write(
-          '<html><head></head><body><textarea id="popout-editor"></textarea></body></html>'
+          `<html><head></head><body><textarea id="popout-editor"></textarea>          <button id="save-button" style="${btnStyle}">Save</button><button id="save-close-button" style="${btnStyle}">Save & Close</button></body></html>`
         );
 
         newWindow.document.close();
@@ -45,12 +47,27 @@ CKEDITOR.plugins.add("popout", {
             }
           );
 
-          // Sync data from the original editor to the new window
-          editor.on("change", function () {
-            newWindow.CKEDITOR.instances["popout-editor"].setData(
-              editor.getData()
-            );
-          });
+          // add listener to save button
+          newWindow.document
+            .getElementById("save-close-button")
+            .addEventListener("click", function () {
+              // Transfer content from the new editor to the original editor
+              editor.setData(
+                newWindow.CKEDITOR.instances["popout-editor"].getData()
+              );
+
+              // Close the new window
+              newWindow.close();
+            });
+
+          newWindow.document
+            .getElementById("save-button")
+            .addEventListener("click", function () {
+              // Transfer content from the new editor to the original editor
+              editor.setData(
+                newWindow.CKEDITOR.instances["popout-editor"].getData()
+              );
+            });
         };
         newWindow.document.head.appendChild(script);
       },
