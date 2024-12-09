@@ -44,4 +44,11 @@ class Migration(migrations.Migration):
                 "verbose_name_plural": "Visual and Written Influences",
             },
         ),
+        migrations.AlterModelOptions(
+            name="feedback",
+            options={
+                "verbose_name": "Feedback on non-academic Activities",
+                "verbose_name_plural": "Feedback on non-academic Activities",
+            },
+        ),
     ]
