@@ -3,7 +3,8 @@ from django.template.defaultfilters import truncatechars_html
 from django.utils.html import format_html
 
 
-from mod_app.models import ProjectNote, Feedback
+from mod_app.models import ProjectNote, Feedback, VisualWrittenInfluences
+from mod_app.utils.mixins import s3BrowserButtonMixin
 
 
 @admin.register(ProjectNote)
@@ -42,31 +43,31 @@ class FeedbackAdmin(admin.ModelAdmin):
     safe_content.short_description = "Content"
 
 
-# class VWIInline(s3BrowserButtonMixin, admin.TabularInline):
-#     model = VisualWrittenInfluences.films.through
-#     extra = 1
-#     classes = [
-#         "grp-collapse",
-#         "grp-open",
-#     ]
-#     verbose_name = "Visual & Written Influences"
-#     verbose_name_plural = "Visual & Written Influences"
+class VWIInline(s3BrowserButtonMixin, admin.TabularInline):
+    model = VisualWrittenInfluences.films.through
+    extra = 1
+    classes = [
+        "grp-collapse",
+        "grp-open",
+    ]
+    verbose_name = "Visual & Written Influences"
+    verbose_name_plural = "Visual & Written Influences"
 
 
-# @admin.register(VisualWrittenInfluences)
-# class VWIAdmin(s3BrowserButtonMixin, admin.ModelAdmin):
-#     class Media:
-#         js = ("admin/js/mentionsPluginConfig.js",)
+@admin.register(VisualWrittenInfluences)
+class VWIAdmin(s3BrowserButtonMixin, admin.ModelAdmin):
+    class Media:
+        js = ("admin/js/mentionsPluginConfig.js",)
 
-#     search_fields = ["title"]
-#     list_display = ["title", "safe_content"]
-#     readonly_fields = ("bibliography",)
-#     filter_horizontal = ("films",)
+    search_fields = ["title"]
+    list_display = ["title", "safe_content"]
+    readonly_fields = ("bibliography",)
+    filter_horizontal = ("films",)
 
-#     def safe_content(self, obj):
-#         truncated_content = truncatechars_html(obj.content, 200)
-#         modified_content = truncated_content.replace("{", "(").replace("}", ")")
-#         return format_html(modified_content)
+    def safe_content(self, obj):
+        truncated_content = truncatechars_html(obj.content, 200)
+        modified_content = truncated_content.replace("{", "(").replace("}", ")")
+        return format_html(modified_content)
 
-#     safe_content.allow_tags = True
-#     safe_content.short_description = "Content"
+    safe_content.allow_tags = True
+    safe_content.short_description = "Content"

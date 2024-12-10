@@ -210,13 +210,13 @@ class FilmAdmin(EmailMixin, admin.ModelAdmin):
             None,
             {"classes": ("placeholder TeachingResources_films-group",), "fields": ()},
         ),
-        # (
-        #     None,
-        #     {
-        #         "classes": ("placeholder VisualWrittenInfluences_films-group",),
-        #         "fields": (),
-        #     },
-        # ),
+        (
+            None,
+            {
+                "classes": ("placeholder VisualWrittenInfluences_films-group",),
+                "fields": (),
+            },
+        ),
         (
             "Comments and List Images",
             {
