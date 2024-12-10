@@ -66,6 +66,10 @@ main {
   }
 }
 
+#searchInput {
+  height: 1.3rem;
+}
+
 .s3-browser__filter__button {
   background-color: white;
   border-color: inherit;
