@@ -4,6 +4,7 @@ from django.utils.html import format_html
 
 
 from mod_app.models import ProjectNote, Feedback, VisualWrittenInfluences
+from mod_app.utils.mixins import s3BrowserButtonMixin
 
 
 @admin.register(ProjectNote)
@@ -42,8 +43,19 @@ class FeedbackAdmin(admin.ModelAdmin):
     safe_content.short_description = "Content"
 
 
+class VWIInline(s3BrowserButtonMixin, admin.TabularInline):
+    model = VisualWrittenInfluences.films.through
+    extra = 1
+    classes = [
+        "grp-collapse",
+        "grp-open",
+    ]
+    verbose_name = "Visual & Written Influences"
+    verbose_name_plural = "Visual & Written Influences"
+
+
 @admin.register(VisualWrittenInfluences)
-class VWIAdmin(admin.ModelAdmin):
+class VWIAdmin(s3BrowserButtonMixin, admin.ModelAdmin):
     class Media:
         js = ("admin/js/mentionsPluginConfig.js",)
 

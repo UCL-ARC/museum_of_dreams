@@ -14,6 +14,7 @@ class VisualWrittenInfluences(models.Model):
         return self.title
 
     title = models.CharField(max_length=255, null=False)
+    films = models.ManyToManyField("Film", related_name="vwis", blank=True)
 
     content = RichTextUploadingField(
         null=True,

@@ -31,7 +31,7 @@ class BaseLinkModel(models.Model):
         blank=False,
     )
     film = models.ForeignKey(
-        "Film", on_delete=models.CASCADE, related_name="%(class)ss", null=True
+        "Film", on_delete=models.SET_NULL, related_name="%(class)ss", null=True
     )
 
 
