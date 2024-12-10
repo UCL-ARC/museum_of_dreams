@@ -4,7 +4,7 @@ import socket
 
 SECRET_KEY = os.environ.get("SECRET_KEY", "none")
 
-DEBUG = True
+DEBUG = False
 
 STATIC_ROOT = "static"
 MEDIA_ROOT = "media"
