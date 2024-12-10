@@ -58,16 +58,6 @@ CKEDITOR.plugins.add("popout", {
             },
           });
 
-          // Sync data from the new window to the original editor
-          newWindow.CKEDITOR.instances["popout-editor"].on(
-            "change",
-            function () {
-              editor.setData(
-                newWindow.CKEDITOR.instances["popout-editor"].getData()
-              );
-            }
-          );
-
           // add listener to save button
           newWindow.document
             .getElementById("save-close-button")
