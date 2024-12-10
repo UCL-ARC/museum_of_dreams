@@ -62,6 +62,7 @@ class VWIAdmin(s3BrowserButtonMixin, admin.ModelAdmin):
     search_fields = ["title"]
     list_display = ["title", "safe_content"]
     readonly_fields = ("bibliography",)
+    filter_horizontal = ("films",)
 
     def safe_content(self, obj):
         truncated_content = truncatechars_html(obj.content, 200)

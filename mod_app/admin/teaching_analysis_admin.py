@@ -56,6 +56,7 @@ class AnalysisAdmin(admin.ModelAdmin):
         "list_tags",
         "safe_content",
     ]
+    filter_horizontal = ("films",)
 
     def dynamic_title(self, obj):
         return obj.__str__()
@@ -116,6 +117,7 @@ class TeachingResourcesAdmin(AnalysisAdmin):
     autocomplete_fields = ["films", "topics", "tags", "clips"]
     readonly_fields = ("safe_bibliography",)
     exclude = ["bibliography"]
+    filter_horizontal = ("films",)
 
     list_display = [
         "dynamic_title",
