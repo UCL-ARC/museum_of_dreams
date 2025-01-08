@@ -27,3 +27,20 @@ function filterBy(elemType) {
     }
   });
 }
+
+function searchByText(searchTerm) {
+  const cardWrappers = document.querySelectorAll(".s3-browser__card__wrapper");
+  cardWrappers.forEach((wrapper) => {
+    const pTagContent = wrapper.querySelector("p")
+      ? wrapper.querySelector("p").textContent
+      : "";
+    if (
+      searchTerm === "" ||
+      pTagContent.toLowerCase().includes(searchTerm.toLowerCase())
+    ) {
+      wrapper.classList.remove("no-display");
+    } else {
+      wrapper.classList.add("no-display");
+    }
+  });
+}
