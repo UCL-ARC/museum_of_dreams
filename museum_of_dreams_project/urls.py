@@ -29,7 +29,7 @@ urlpatterns = (
         path("grappelli/", include("grappelli.urls")),
         path("grappelli-docs/", include("grappelli.urls_docs")),
         path("ckeditor/", include("ckeditor_uploader.urls")),
-        path("ckeditor-script/", views.ckeditor_script, name="ckeditor-script"),
+        path("ckeditor-script/", views.ckeditor_script, name="ckeditor_script"),
         path("admin/", admin.site.urls, name=admin),
         path("logout", LogoutView.as_view(next_page="/"), name="logout"),
         path(

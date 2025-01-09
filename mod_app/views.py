@@ -136,4 +136,4 @@ def ckeditor_script(request):
     with open(script_path, "r") as script_file:
         script_content = script_file.read()
 
-    return HttpResponse(script_content, content_type="application/javascript")
+    return HttpResponse(script_content, content_type="text/javascript")
