@@ -7,8 +7,9 @@ CKEDITOR.plugins.add("popout", {
         var newWindow = window.open("", "_blank", "width=800,height=600");
         // make sure new editor gets config
         var originalConfig = editor.config;
-        var ckeditorBasePath =
-          "https://moddevbucket.s3.eu-west-2.amazonaws.com/static/ckeditor/ckeditor/";
+        var ckeditorBasePath = `${editor.config.staticUrl}ckeditor/ckeditor/`;
+        console.log("path", ckeditorBasePath);
+        // "https://moddevbucket.s3.eu-west-2.amazonaws.com/static/ckeditor/ckeditor/";
         // styling and qol bits
         var btnStyle =
           "background-color: #23a1cc; border: none;border-radius: 4px; color: white; padding: 1rem 1.2rem; text-align: center; text-decoration: none; display: flex; font-size: 16px; margin: 0.8rem; cursor: pointer; justify-self: center";

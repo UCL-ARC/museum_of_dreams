@@ -155,6 +155,7 @@ CKEDITOR_CONFIGS = {
         "filebrowserBrowseUrl": "/view_bucket_items/",
         "versionCheck": False,
         "language": "en-gb",
+        "staticUrl": f"{STATIC_URL}",
     },
 }
 
