@@ -7,8 +7,8 @@ CKEDITOR.plugins.add("popout", {
         var newWindow = window.open("", "_blank", "width=800,height=600");
         // make sure new editor gets config
         var originalConfig = editor.config;
-        var ckeditorScriptPath = "/ckeditor-script/";
-
+        var ckeditorBasePath =
+          "https://moddevbucket.s3.eu-west-2.amazonaws.com/static/ckeditor/ckeditor/";
         // styling and qol bits
         var btnStyle =
           "background-color: #23a1cc; border: none;border-radius: 4px; color: white; padding: 1rem 1.2rem; text-align: center; text-decoration: none; display: flex; font-size: 16px; margin: 0.8rem; cursor: pointer; justify-self: center";
@@ -43,7 +43,7 @@ CKEDITOR.plugins.add("popout", {
         // Load CKEditor script in the new window
         var script = newWindow.document.createElement("script");
         script.type = "application/javascript";
-        script.src = ckeditorScriptPath;
+        script.src = ckeditorBasePath + "ckeditor.js";
 
         script.onload = function () {
           newWindow.CKEDITOR.replace("popout-editor", {
@@ -80,7 +80,7 @@ CKEDITOR.plugins.add("popout", {
               );
             });
         };
-        newWindow.document.body.appendChild(script);
+        newWindow.document.head.appendChild(script);
       },
     });
 
