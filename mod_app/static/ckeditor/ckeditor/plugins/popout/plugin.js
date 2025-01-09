@@ -42,7 +42,7 @@ CKEDITOR.plugins.add("popout", {
 
         // Load CKEditor script in the new window
         var script = newWindow.document.createElement("script");
-        script.type = "text/javascript";
+        script.type = "application/javascript";
         script.src = ckeditorScriptPath;
 
         script.onload = function () {
