@@ -42,7 +42,7 @@ CKEDITOR.plugins.add("popout", {
 
         // Load CKEditor script in the new window
         var script = newWindow.document.createElement("script");
-        script.type = "application/javascript";
+        script.type = "text/javascript";
         script.src = ckeditorBasePath + "ckeditor.js";
 
         script.onload = function () {
@@ -80,7 +80,7 @@ CKEDITOR.plugins.add("popout", {
               );
             });
         };
-        newWindow.document.head.appendChild(script);
+        newWindow.document.body.appendChild(script);
       },
     });
 
