@@ -7,7 +7,7 @@ CKEDITOR.plugins.add("popout", {
         var newWindow = window.open("", "_blank", "width=800,height=600");
         // make sure new editor gets config
         var originalConfig = editor.config;
-        var ckeditorBasePath = "/static/ckeditor/ckeditor/";
+        var ckeditorScriptPath = "/ckeditor-script/";
 
         // styling and qol bits
         var btnStyle =
@@ -43,7 +43,7 @@ CKEDITOR.plugins.add("popout", {
         // Load CKEditor script in the new window
         var script = newWindow.document.createElement("script");
         script.type = "text/javascript";
-        script.src = ckeditorBasePath + "ckeditor.js";
+        script.src = ckeditorScriptPath;
 
         script.onload = function () {
           newWindow.CKEDITOR.replace("popout-editor", {

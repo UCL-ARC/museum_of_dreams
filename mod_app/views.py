@@ -1,8 +1,10 @@
 import boto3
 import re
 
+import os
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 from django.template.defaultfilters import striptags
 from django.views import View
@@ -126,3 +128,12 @@ class BucketItemsView(View):
 
 def custom_404(request, exception=None):
     return render(request, "404.html", {}, status=404)
+
+
+def ckeditor_script(request):
+    script_path = os.path.join(settings.STATIC_ROOT, "ckeditor", "ckeditor.js")
+
+    with open(script_path, "r") as script_file:
+        script_content = script_file.read()
+
+    return HttpResponse(script_content, content_type="application/javascript")
