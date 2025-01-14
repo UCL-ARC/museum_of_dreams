@@ -7,7 +7,8 @@ from ..utils.extract_citations import update_bibliography
 
 class Feedback(models.Model):
     class Meta:
-        verbose_name = "Feedback"
+        verbose_name = "Feedback on non-academic Activities"
+        verbose_name_plural = "Feedback on non-academic Activities"
 
     def __str__(self):
         return self.title

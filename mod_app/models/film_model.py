@@ -72,6 +72,8 @@ class Film(models.Model):
         max_length=100, blank=True, null=True
     )  # can use choices if preset
 
+    bfi_identifier = models.CharField(max_length=7, blank=True, null=True)
+
     cast = models.TextField(
         blank=True,
         null=True,

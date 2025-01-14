@@ -10,9 +10,11 @@
                     <span class="btn s3-browser__filter__button" onclick="filterBy" data-type="video" id="key--video">Video</span>/
                     <span  onclick="filterBy" class="btn s3-browser__filter__button" data-type="img" id="key--img">Image</span>/
                     <span  onclick="filterBy" class="btn s3-browser__filter__button" data-type="none" id="view-all">View all</span>
-
-
                 </p>
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Start typing to search...">
+                    <button onclick="handleSearch()" class="btn">Search</button>
+                </div>
             </div>
             <div class="s3-browser__wrapper">
                 {% for item_key, item_value in item_data.items.items %}
@@ -97,6 +99,15 @@
                 filterButtons.forEach((btn) => btn.classList.remove("active"));
                 this.classList.toggle("active");
 
+            });
+            // search stuff
+            function handleSearch() {
+                const searchTerm = document.getElementById('searchInput').value;
+                searchByText(searchTerm);
+            };
+
+            document.getElementById('searchInput').addEventListener('input', () => {
+                handleSearch();
             });
         </script>
     </body>
