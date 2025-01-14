@@ -57,3 +57,5 @@ MEDIA_URL = "https://%s/media/" % AWS_S3_CUSTOM_DOMAIN
 
 
 S3_BROWSER_SETTINGS = "djangoS3Browser"
+
+CKEDITOR_CONFIGS["default"]["staticUrl"] = f"{STATIC_URL}"
