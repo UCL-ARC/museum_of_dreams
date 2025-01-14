@@ -18,7 +18,7 @@ from mod_app.admin.link_admin import (
     StillInline,
     VideoInline,
 )
-from mod_app.admin.note_admin import VWIInline
+from mod_app.admin.note_admin import VisInline, WritInline
 from mod_app.utils.mixins import EmailMixin
 
 from ..models import Analysis, TeachingResources, Film
@@ -72,7 +72,8 @@ class FilmAdmin(EmailMixin, admin.ModelAdmin):
     inlines = [
         FilmAnalysisInline,
         TRInline,
-        VWIInline,
+        VisInline,
+        WritInline,
         SourceInline,
         OtherLinkInline,
         VideoInline,
@@ -211,9 +212,20 @@ class FilmAdmin(EmailMixin, admin.ModelAdmin):
             {"classes": ("placeholder TeachingResources_films-group",), "fields": ()},
         ),
         (
+            "Visual & Written Influences",
+            {"fields": []},
+        ),
+        (
             None,
             {
-                "classes": ("placeholder VisualWrittenInfluences_films-group",),
+                "classes": ("placeholder VisualInfluences_films-group",),
+                "fields": (),
+            },
+        ),
+        (
+            None,
+            {
+                "classes": ("placeholder WrittenInfluences_films-group",),
                 "fields": (),
             },
         ),
