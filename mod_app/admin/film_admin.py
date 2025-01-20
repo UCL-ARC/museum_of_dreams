@@ -117,7 +117,6 @@ class FilmAdmin(EmailMixin, admin.ModelAdmin):
     safe_comments.short_description = "Comments"
 
     def safe_alt_titles(self, obj):
-        # return format_html(str(obj.alt_titles))
         formatted_titles = mark_safe(str(obj.alt_titles).replace(",", ",<br>"))
         return format_html(formatted_titles)
 
