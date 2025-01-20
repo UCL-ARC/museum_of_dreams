@@ -2,7 +2,7 @@ from ckeditor.widgets import CKEditorWidget
 from django.contrib import admin
 from django.db import models
 from django.template.defaultfilters import truncatechars_html
-from django.utils.html import format_html
+from django.utils.html import format_html, mark_safe
 import html
 
 from mod_app.admin.link_admin import (
@@ -117,7 +117,9 @@ class FilmAdmin(EmailMixin, admin.ModelAdmin):
     safe_comments.short_description = "Comments"
 
     def safe_alt_titles(self, obj):
-        return format_html(str(obj.alt_titles))
+        # return format_html(str(obj.alt_titles))
+        formatted_titles = mark_safe(str(obj.alt_titles).replace(",", ",<br>"))
+        return format_html(formatted_titles)
 
     safe_alt_titles.allow_tags = True
     safe_alt_titles.short_description = "Alt Titles"
