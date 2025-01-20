@@ -1,4 +1,9 @@
-# Museum of Dreams Website Project
+# Museum of Dreams Project - Website
+![Static Badge](https://img.shields.io/badge/built_with-Django_4.2-blue) ![Static Badge](https://img.shields.io/badge/OpenProps-1883e3) ![Static Badge](https://img.shields.io/badge/CKEditor4-8a2be2) ![Static Badge](https://img.shields.io/badge/hosted-232F3E?logo=amazonwebservices)
+
+
+
+
 
 The production website is hosted at http://museumofdreamworlds.eu-west-2.elasticbeanstalk.com/ and built from the `main` branch
 
@@ -13,7 +18,7 @@ Development should be done locally and pushed to the staging website where resea
 To work on this project as is, clone the repo into an appropriate folder (eg. `museum_of_dreams_project`). Create a venv at the top level and start it. Then install the requirements and launch the app. We use `requirements-base.txt` as AWS looks for `requirements.txt` and we don't need to install MySQL locally (we use a local sqlite db).
 
 ```
-python3 -m venv modvenv
+python venv modvenv
 source modvenv/bin/activate
 
 pip install -r requirements-base.txt
