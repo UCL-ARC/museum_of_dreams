@@ -12,7 +12,7 @@ class SourceInline(PreviewMixin, admin.TabularInline):
         "grp-closed",
     ]
     verbose_name = "Source"
-    verbose_name_plural = "Sources"
+    verbose_name_plural = "Sources of Adaptations"
 
 
 class VideoInline(PreviewMixin, admin.TabularInline):
