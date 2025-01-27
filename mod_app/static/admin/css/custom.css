@@ -6,3 +6,8 @@
     padding: 0.1rem;
   }
 }
+
+th.column-safe_alt_titles,
+.field-safe_alt_titles {
+  max-width: 10rem;
+}
