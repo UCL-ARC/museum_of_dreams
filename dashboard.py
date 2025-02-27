@@ -122,6 +122,12 @@ class CustomIndexDashboard(Dashboard):
                         "external": True,
                         "header": True,
                     },
+                    {
+                        "title": _("How to add MediaCentral & Flickr links"),
+                        "url": "https://github.com/UCL-ARC/museum_of_dreams/wiki/Adding-links-from-mediacentral-&-flickr",
+                        "external": True,
+                        "header": True,
+                    },
                 ],
             )
         )
