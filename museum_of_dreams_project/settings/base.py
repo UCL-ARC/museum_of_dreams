@@ -128,6 +128,7 @@ CKEDITOR_CONFIGS = {
                 "uploadimage",
                 "uploadwidget",
                 "mentions",
+                "footnotes",
                 "popout",
             ]
         ),
@@ -143,7 +144,7 @@ CKEDITOR_CONFIGS = {
                 "Undo",
                 "Redo",
             ],
-            ["Link", "Unlink", "Anchor"],
+            ["Link", "Unlink", "Anchor", "Footnotes"],
             ["Image", "Flash", "Table", "HorizontalRule"],
             ["TextColor", "BGColor"],
             ["Smiley", "SpecialChar"],
