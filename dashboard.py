@@ -128,6 +128,12 @@ class CustomIndexDashboard(Dashboard):
                         "external": True,
                         "header": True,
                     },
+                    {
+                        "title": _("Adding Images"),
+                        "url": "https://github.com/UCL-ARC/museum_of_dreams/wiki/Adding-Images",
+                        "external": True,
+                        "header": True,
+                    },
                 ],
             )
         )
