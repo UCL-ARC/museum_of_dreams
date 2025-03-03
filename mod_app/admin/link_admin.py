@@ -106,6 +106,30 @@ class DrawingInline(PreviewMixin, s3BrowserButtonMixin, admin.TabularInline):
     ]
 
 
+class CardImageInline(PreviewMixin, s3BrowserButtonMixin, admin.TabularInline):
+    model = CardImage
+    extra = 1
+    max_num = 1
+    classes = [
+        "inline-inline",
+        "grp-collapse",
+        "grp-closed",
+    ]
+    verbose_name_plural = "Card Image"
+
+
+class PublicVisualInfluenceInline(
+    PreviewMixin, s3BrowserButtonMixin, admin.TabularInline
+):
+    model = PublicVisualInfluence
+    extra = 1
+    classes = [
+        "inline-inline",
+        "grp-collapse",
+        "grp-closed",
+    ]
+
+
 class OtherLinkInline(PreviewMixin, admin.TabularInline):
     model = OtherLink
     extra = 1
@@ -185,6 +209,18 @@ class PosterAdmin(PreviewMixin, s3BrowserButtonMixin, admin.ModelAdmin):
 
 @admin.register(Drawing)
 class DrawingAdmin(PreviewMixin, s3BrowserButtonMixin, admin.ModelAdmin):
+    search_fields = ["description", "url"]
+    list_display = ["description", "film", "file", "url", "preview"]
+
+
+@admin.register(CardImage)
+class CardImageAdmin(PreviewMixin, s3BrowserButtonMixin, admin.ModelAdmin):
+    search_fields = ["description", "url"]
+    list_display = ["description", "film", "file", "url", "preview"]
+
+
+@admin.register(PublicVisualInfluence)
+class PublicVisualInfluenceAdmin(PreviewMixin, s3BrowserButtonMixin, admin.ModelAdmin):
     search_fields = ["description", "url"]
     list_display = ["description", "film", "file", "url", "preview"]
 

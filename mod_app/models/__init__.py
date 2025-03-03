@@ -18,6 +18,8 @@ from .support_models import (
     Drawing,
     OtherLink,
     Video,
+    CardImage,
+    PublicVisualInfluence,
 )
 from .teaching_analysis_models import (
     Analysis,
@@ -49,4 +51,6 @@ __all__ = [
     "Feedback",
     "VisualInfluences",
     "WrittenInfluences",
+    "CardImage",
+    "PublicVisualInfluence",
 ]
