@@ -144,7 +144,7 @@ CKEDITOR_CONFIGS = {
                 "Undo",
                 "Redo",
             ],
-            ["Link", "Unlink", "Anchor", "Footnotes"],
+            ["Link", "Unlink", "Anchor", "Footnotes", "FindFootnotes"],
             ["Image", "Flash", "Table", "HorizontalRule"],
             ["TextColor", "BGColor"],
             ["Smiley", "SpecialChar"],
