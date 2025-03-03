@@ -66,7 +66,7 @@ class WritInline(s3BrowserButtonMixin, admin.TabularInline):
 
 
 @admin.register(VisualInfluences)
-class VisualInfluencesAdmin(s3BrowserButtonMixin, admin.ModelAdmin):
+class VisualInfluencesAdmin(admin.ModelAdmin):
     class Media:
         js = ("admin/js/mentionsPluginConfig.js",)
 
@@ -85,7 +85,7 @@ class VisualInfluencesAdmin(s3BrowserButtonMixin, admin.ModelAdmin):
 
 
 @admin.register(WrittenInfluences)
-class WrittenInfluencesAdmin(s3BrowserButtonMixin, admin.ModelAdmin):
+class WrittenInfluencesAdmin(admin.ModelAdmin):
     class Media:
         js = ("admin/js/mentionsPluginConfig.js",)
 
