@@ -130,6 +130,7 @@ CKEDITOR_CONFIGS = {
                 "mentions",
                 "footnotes",
                 "popout",
+                "pastefromword",
             ]
         ),
         "toolbar": [

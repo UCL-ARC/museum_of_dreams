@@ -136,10 +136,7 @@
           var content = editor.editable();
           var noteRefs = content.find('a[name^="_ftnref"]');
 
-          console.log("noteRefs", noteRefs);
-
           noteRefs.toArray().forEach((link) => {
-            console.log("link", link);
             // could maybe do this by href instead
             var refId = link.getAttribute("name").substring(7); // Removes '_ftnref' prefix
 
@@ -151,12 +148,9 @@
               var footnoteContent = note.getHtml();
               // removing the content link so it doesn't appear in the new note content, [<number>]
               var contentRefTextToRemove = contentRef.getOuterHtml();
-              console.log("contentRefTextToRemove", contentRefTextToRemove);
               footnoteContent = footnoteContent
                 .replace(contentRefTextToRemove, "")
                 .trim();
-
-              console.log("footnoteContent", footnoteContent);
 
               editor.fire("lockSnapshot");
               editor.plugins.footnotes.build(
