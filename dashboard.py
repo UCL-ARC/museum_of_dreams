@@ -134,6 +134,12 @@ class CustomIndexDashboard(Dashboard):
                         "external": True,
                         "header": True,
                     },
+                    {
+                        "title": _("Importing from Word"),
+                        "url": "https://github.com/UCL-ARC/museum_of_dreams/wiki/Importing-from-Word",
+                        "external": True,
+                        "header": True,
+                    },
                 ],
             )
         )
