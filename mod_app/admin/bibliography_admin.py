@@ -1,4 +1,5 @@
 from ckeditor.widgets import CKEditorWidget
+import csv
 from django import forms
 
 from django.contrib import admin
@@ -37,3 +38,13 @@ class BibliographyItemAdmin(admin.ModelAdmin):
     safe_annotation.allow_tags = True
     safe_annotation.short_description = "Annotations"
     safe_annotation.admin_order_field = "annotation"
+
+def import_all_bibliography(file):
+
+    with open(file,"r") as csvfile:
+        reader = csv.reader(csvfile, delimiter=";") # delimiter subject to change
+        next(reader)
+
+        for row in reader:
+            bibliography = BibliographyItem(short_citation=row[0],long_citation=row[1], annotation=row[2])
+            bibliography.save()
