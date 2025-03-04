@@ -11,3 +11,13 @@ th.column-safe_alt_titles,
 .field-safe_alt_titles {
   max-width: 10rem;
 }
+
+a.grp-change-related[title="Change selected analysis"] {
+  width: 8rem;
+  padding-left: 2rem;
+  &::before {
+    content: "Edit Analysis";
+    position: absolute;
+    top: 15%;
+  }
+}
