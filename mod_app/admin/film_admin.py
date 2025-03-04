@@ -178,6 +178,7 @@ class FilmAdmin(EmailMixin, admin.ModelAdmin):
         ),
         (None, {"classes": ("placeholder Source_film-group",), "fields": ()}),
         (None, {"classes": ("placeholder videos-group",), "fields": ()}),
+        (None, {"classes": ("placeholder cardimages-group",), "fields": ()}),
         (
             "Technical Section",
             {
@@ -220,7 +221,6 @@ class FilmAdmin(EmailMixin, admin.ModelAdmin):
             "Visual & Written Influences",
             {"fields": []},
         ),
-        (None, {"classes": ("placeholder cardimages-group",), "fields": ()}),
         (
             None,
             {"classes": ("placeholder publicvisualinfluences-group",), "fields": ()},
