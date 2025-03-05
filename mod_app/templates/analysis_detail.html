@@ -1,38 +1,43 @@
-{% extends "base.html" %}
-{% load i18n %}
-{% block title %}{{ analysis.title }} (Analysis) {% endblock %}
-{% block content %}
-    <div class="content-wrapper">
-        <div class="columnar-area">
-            <div>
-                <button>Download PDF</button>
-            </div>
-            <div id="analysis-info">
-                <div id="topics">
-                </div>
-                <div id="tags">
-                </div>
-                <div id="holdings">
-                </div>
-                <div id="work-history">
-                </div>
+{% extends "base.html" %} {% load i18n %} {% block title %}{{ analysis.title }} (Analysis) {% endblock %} {% block content %}
+  <div class="teaching-analysis__content-wrapper">
+    <div class="columnar-area">
+      <div>
+        <button class="btn teaching-analysis__download" onclick="downloadAnalysis(e, analysis.pk)" type="button">Download PDF</button>
+      </div>
 
-            </div>
-
-            <div id="analyses">
-            {% comment %} stack of analyses that can be navigated through? viewed one would need to be the current one, the other info would need to update as well {% endcomment %}
-            </div>
-
-            <div id="bibliography">
-            {% comment %} this should expand on click for easier reading {% endcomment %}
-            </div>
-
+      <div id="analysis__info">
+        <div id="topics">
+          <h4>Topics</h4>
+          {% for topic in analysis.topics.all %}
+            <span class="tag">{{topic.name}}</span>
+          {% endfor %}
         </div>
-        <div class="related-items">
-            <div id="teaching-resources">
-            </div>
-            <div id="films">
-            </div>
+        <div id="tags">
+          <h4>Tags</h4>
+          {% for tag in analysis.tags.all %}
+            <span class="tag">{{tag.name}}</span>
+          {% endfor %}
         </div>
+        <div>
+          <h3>Information</h3>
+          <hr />
+          <div id="holdings">
+            <h4>Holdings</h4>
+            <p>{{analysis.holdings | safe}}</p>
+          </div>
+          <div id="work-history">
+            <h4>Work History</h4>
+            <p>{{analysis.work_history | safe}}</p>
+          </div>
+        </div>
+      </div>
     </div>
+    {% include "partial/teaching_analysis_tab_area.html" with model=analysis modelname="analysis" %}
+  </div>
 {% endblock %}
+<script>
+  async function downloadAnalysis(e, pk) {
+    const url = `/download-analysis-${pk}`; // TODO: need to write veiw for this
+    await fetch();
+  }
+</script>

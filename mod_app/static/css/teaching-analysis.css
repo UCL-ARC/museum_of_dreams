@@ -1,0 +1,25 @@
+/* for analysis list and detail pages */
+
+.teaching-analysis__content-wrapper {
+  display: grid;
+  /* need to make one column for mobile */
+  grid-template-columns: 1fr 3fr;
+  gap: 1rem;
+
+  .tabbed-area {
+    .tab-selection {
+      overflow: hidden;
+    }
+    .tab__link {
+      &.active {
+        background-color: var(--beige);
+      }
+    }
+    .tab__content {
+      display: none;
+      &.active {
+        display: block;
+      }
+    }
+  }
+}

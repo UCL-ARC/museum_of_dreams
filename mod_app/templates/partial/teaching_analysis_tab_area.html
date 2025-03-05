@@ -1,0 +1,59 @@
+<div class="tabbed-area">
+  <h1>{{model.title}}</h1>
+
+  {% comment %} tabs the user clicks to navigate {% endcomment %}
+  <div class="tab-selection">
+    <button class="btn tab__link active" type="button" name="content" onclick="openTab(event, '{{model}}__content')">Content</button>
+    <button class="btn tab__link" type="button" name="films" onclick="openTab(event, 'films')">Films</button>
+
+    {% if modelname == "analysis" %}
+      <button class="btn tab__link" type="button" name="teaching-resources" onclick="openTab(event, 'teaching-resources')">Resources</button>
+    {% else %}
+      <button class="btn tab__link" type="button" name="clips" onclick="openTab(event, 'clips')">Clips</button>
+    {% endif %}
+
+    <button class="btn tab__link" type="button" name="bibliography" onclick="openTab(event, 'bibliography')">Bibliography</button>
+  </div>
+
+  {% comment %} content of those tabs {% endcomment %}
+
+  <div id="{{model}}__content" class="lh-15 tab__content active" name="content">{{ model.content | safe }}</div>
+
+  <div id="films" class="tab__content" name="films">{% for film in model.films.all %} {% include "components/card.html" with obj=film %} {% endfor %}</div>
+
+  {% if modelname == "analysis" %}
+    <div id="teaching-resources" class="tab__content" name="teaching-resources"></div>
+  {% else %}
+    <div id="clips" class="tab__content" name="clips"></div>
+  {% endif %}
+
+  <div id="bibliography" class="tab__content" name="bibliography">
+    {% for bib in model.bibliography.all %}
+      <div class="bib__item">{{bib.full_citation | safe}}</div>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+  function openTab(evt, tabName) {
+    var selected, content, tab;
+    selected = evt.currentTarget.name;
+    contentElems = document.getElementsByClassName("tab__content");
+    tabs = document.getElementsByClassName("tab__link");
+
+    [...tabs].forEach((tab) => {
+      if (tab.name !== selected) tab.classList.remove("active");
+    });
+    [...contentElems].forEach((tab) => {
+      if (tab.name !== selected) tab.classList.remove("active");
+    });
+
+    selectedTabNContent = document.querySelectorAll(`[name=${selected}]`);
+
+    selectedTabNContent.forEach((elem) => elem.classList.add("active"));
+  }
+  document.addEventListener("DOMContentLoaded", function () {
+    // Simulate a click on the default tab link for the initial one
+    document.getElementById("{{model}}__content").click();
+  });
+</script>

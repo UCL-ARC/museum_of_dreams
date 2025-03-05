@@ -4,6 +4,10 @@
   list-style-type: none;
 }
 
+.lh-15 {
+  line-height: 1.5rem;
+}
+
 .center-text {
   text-align: center;
 }
@@ -134,7 +138,7 @@
 .tag {
   display: inline-flex;
   border-radius: 20px;
-  padding: 0.5rem;
+  padding: 0.4rem;
   border: 1px solid var(--light-grey);
   /* color: var(--light-blue); */
   color: var(--orange-0);
@@ -143,6 +147,7 @@
   font-size: 90%;
   transition: transform 0.3s, box-shadow 0.3s;
   z-index: 1;
+  margin: 0.15rem;
 
   &:hover {
     transform: scale(1.05);
@@ -150,13 +155,7 @@
     opacity: 1;
   }
 
-  .dot {
-    display: inline-flex;
-    padding-right: 0.1rem;
-    font-size: 150%;
-    line-height: 0;
-    align-items: center;
-  }
+  /* could do colours based on type of tag */
 }
 
 .mobile-view-only {
