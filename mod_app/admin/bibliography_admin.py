@@ -6,7 +6,6 @@ from django.contrib import admin
 from django.utils.html import format_html
 from ..models import BibliographyItem
 
-
 class BIAdminForm(forms.ModelForm):
     class Meta:
         model = BibliographyItem
@@ -22,6 +21,7 @@ class BibliographyItemAdmin(admin.ModelAdmin):
     list_display = ["safe_citation", "safe_annotation"]
     form = BIAdminForm
     search_fields = ["full_citation", "annotation"]
+    change_list_template = "../templates/admin/bibliography_change_list.html"
 
     def safe_citation(self, obj):
         return format_html(obj.full_citation)
@@ -39,12 +39,15 @@ class BibliographyItemAdmin(admin.ModelAdmin):
     safe_annotation.short_description = "Annotations"
     safe_annotation.admin_order_field = "annotation"
 
-def import_all_bibliography(file):
 
-    with open(file,"r") as csvfile:
-        reader = csv.reader(csvfile, delimiter=";") # delimiter subject to change
+def import_all_bibliography(file):
+    """reads in csv file data and saves data as biliography(s) as django object(s)"""
+    with open(file, "r") as csvfile:
+        reader = csv.reader(csvfile, delimiter=";")  # delimiter subject to change
         next(reader)
 
         for row in reader:
-            bibliography = BibliographyItem(short_citation=row[0],long_citation=row[1], annotation=row[2])
+            bibliography = BibliographyItem(
+                short_citation=row[0], long_citation=row[1], annotation=row[2]
+            )
             bibliography.save()
