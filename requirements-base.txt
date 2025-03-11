@@ -78,3 +78,5 @@ virtualenv==20.17.1
 Werkzeug==2.3.7
 WTForms==3.0.1
 zipp==3.16.2
+
+ xhtml2pdf==0.2.17

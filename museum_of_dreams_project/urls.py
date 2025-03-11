@@ -95,6 +95,9 @@ urlpatterns = (
             views.custom_404,
             name="tag_list",
         ),
+        path(
+            "download-analysis/<pk>", views.downloadAnalysis, name="download_analysis"
+        ),
     ]
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

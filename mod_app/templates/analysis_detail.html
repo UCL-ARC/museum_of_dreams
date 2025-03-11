@@ -1,8 +1,45 @@
 {% extends "base.html" %} {% load i18n %} {% block title %}{{ analysis.title }} (Analysis) {% endblock %} {% block content %}
+  <script>
+    async function downloadAnalysis(pk) {
+      const url = `/download-analysis/${pk}`;
+      const response = await fetch(url);
+
+      if (response.ok) {
+      // Retrieve the filename from the Content-Disposition header
+        const contentDisposition = response.headers.get("Content-Disposition");
+        let filename = "download.pdf"; // Default filename if not specified
+        if (contentDisposition) {
+          const filenameMatch = contentDisposition.match(/filename="?(.+)"?/);
+          if (filenameMatch.length === 2) {
+            filename = filenameMatch[1];
+          }
+        }
+
+      // Convert the response body to a Blob
+        const blob = await response.blob();
+        const blobUrl = window.URL.createObjectURL(blob);
+
+      // Create a temporary anchor element and trigger the download
+        const a = document.createElement("a");
+        a.href = blobUrl;
+        a.download = filename;
+        document.body.appendChild(a); // Append to the document
+        a.click(); // Trigger the download
+
+      // Clean up by revoking the object URL and removing the temporary anchor element
+        window.URL.revokeObjectURL(blobUrl);
+        document.body.removeChild(a);
+      } else {
+      // Handle errors or unsuccessful responses
+        console.error("Failed to download PDF:", response.statusText);
+      }
+    }
+  </script>
+
   <div class="teaching-analysis__content-wrapper">
     <div class="columnar-area">
       <div>
-        <button class="btn teaching-analysis__download" onclick="downloadAnalysis(e, analysis.pk)" type="button">Download PDF</button>
+        <button class="btn teaching-analysis__download" onclick="downloadAnalysis({{analysis.pk}})" type="button">Download PDF</button>
       </div>
 
       <div id="analysis__info">
@@ -35,9 +72,3 @@
     {% include "partial/teaching_analysis_tab_area.html" with model=analysis modelname="analysis" %}
   </div>
 {% endblock %}
-<script>
-  async function downloadAnalysis(e, pk) {
-    const url = `/download-analysis-${pk}`; // TODO: need to write veiw for this
-    await fetch();
-  }
-</script>
