@@ -118,6 +118,16 @@ class Drawing(FileLink):
         verbose_name = "Drawing"
 
 
+class CardImage(FileLink):
+    class Meta:
+        verbose_name = "Card Image"
+
+
+class PublicVisualInfluence(FileLink):
+    class Meta:
+        verbose_name = "Public Visual Influence"
+
+
 class Location(models.Model):
     def __str__(self):
         return f"{self.address}"

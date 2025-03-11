@@ -6,12 +6,14 @@ from django.utils.html import format_html, mark_safe
 import html
 
 from mod_app.admin.link_admin import (
+    CardImageInline,
     DrawingInline,
     OtherLinkInline,
     PostcardInline,
     PosterInline,
     PressBookInline,
     ProgrammeInline,
+    PublicVisualInfluenceInline,
     PublicityInline,
     ScriptInline,
     SourceInline,
@@ -85,6 +87,8 @@ class FilmAdmin(EmailMixin, admin.ModelAdmin):
         PostcardInline,
         PosterInline,
         DrawingInline,
+        CardImageInline,
+        PublicVisualInfluenceInline,
     ]
     list_display = [
         "title",
@@ -174,6 +178,7 @@ class FilmAdmin(EmailMixin, admin.ModelAdmin):
         ),
         (None, {"classes": ("placeholder Source_film-group",), "fields": ()}),
         (None, {"classes": ("placeholder videos-group",), "fields": ()}),
+        (None, {"classes": ("placeholder cardimages-group",), "fields": ()}),
         (
             "Technical Section",
             {
@@ -215,6 +220,10 @@ class FilmAdmin(EmailMixin, admin.ModelAdmin):
         (
             "Visual & Written Influences",
             {"fields": []},
+        ),
+        (
+            None,
+            {"classes": ("placeholder publicvisualinfluences-group",), "fields": ()},
         ),
         (
             None,
