@@ -1,6 +1,11 @@
 {% extends "admin/change_list.html" %}
 
 {% block object-tools %}
-    {{ block.super }}
-    <input type="file" name="_custombutton" class="grp-add-link" >Run Custom Action</input>
+  <form method="POST" enctype="multipart/form-data"> 
+    {# enctype="multipart/form-data" is required to allow file uploads. #}
+    {% csrf_token %}
+    <input type="file" name="csv_file" accept=".csv" required />
+    <button type="submit" class="button">submit</button>
+  </form>
+  {{ block.super }}
 {% endblock %}
