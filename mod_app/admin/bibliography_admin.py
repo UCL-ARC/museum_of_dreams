@@ -54,12 +54,17 @@ class BibliographyItemAdmin(admin.ModelAdmin):
                 )
                 return redirect(request.path)
 
-            created_count = import_all_bibliography(csv_file)
+            created_count, skipped_count = import_all_bibliography(csv_file)
 
             self.message_user(
                 request,
-                f"{created_count} bib successfully created.",
+                f"{created_count} bibliography successfully created.",
                 level=messages.SUCCESS,
+            )
+            self.message_user(
+                request,
+                f"{skipped_count} items skipped" ,
+                level=messages.WARNING,
             )
             return redirect(request.path)
 
@@ -73,6 +78,7 @@ def import_all_bibliography(csv_file):
     next(io_string)
 
     created_count = 0
+    skipped_count = 0
     for row in csv.reader(io_string, delimiter=";", quotechar='"'):
         _, created = BibliographyItem.objects.get_or_create(
             short_citation=row[0].strip(),
@@ -81,5 +87,7 @@ def import_all_bibliography(csv_file):
         )
         if created:
             created_count += 1
+        else:
+            skipped_count += 1
 
-    return created_count
+    return created_count,skipped_count
