@@ -248,10 +248,10 @@ footer {
     background: transparent;
 
     &:hover {
-      transform: scale(1.2);
-      border-radius: 7px;
+      transform: scale(1.05);
+      /* border-radius: 7px;
       background: transparent;
-      box-shadow: 1px -1px 28px 1px var(--off-white);
+      box-shadow: 1px -1px 8px 1px var(--off-white); */
 
       color: var(--coral);
     }

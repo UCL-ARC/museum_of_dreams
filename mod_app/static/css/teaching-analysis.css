@@ -1,10 +1,16 @@
 /* for analysis list and detail pages */
 
 .teaching-analysis__download {
-  /* background-color: transparent; */
-  background-image: url("../images/film-colours-light-mesh.png");
-  background-position: left center;
-  background-size: cover;
+  transition: all 0.3s ease;
+  background-image: none;
+
+  &:hover {
+    background-image: url("../images/film-colours-light-mesh.png");
+    background-position: left center;
+    background-size: cover;
+    color: var(--off-white);
+    font-weight: 600;
+  }
 }
 
 .teaching-analysis__content-wrapper {
