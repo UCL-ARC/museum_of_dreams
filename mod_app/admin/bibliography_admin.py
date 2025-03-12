@@ -1,10 +1,14 @@
-from ckeditor.widgets import CKEditorWidget
 import csv
-from django import forms
+import io
 
-from django.contrib import admin
+from ckeditor.widgets import CKEditorWidget
+from django import forms
+from django.contrib import admin, messages
+from django.shortcuts import redirect
 from django.utils.html import format_html
+
 from ..models import BibliographyItem
+
 
 class BIAdminForm(forms.ModelForm):
     class Meta:
@@ -39,15 +43,43 @@ class BibliographyItemAdmin(admin.ModelAdmin):
     safe_annotation.short_description = "Annotations"
     safe_annotation.admin_order_field = "annotation"
 
+    # overiding django admin's changelist_view
+    def changelist_view(self, request):
+        if request.method == "POST" and request.FILES.get("csv_file"):
+            csv_file = request.FILES["csv_file"]
 
-def import_all_bibliography(file):
-    """reads in csv file data and saves data as biliography(s) as django object(s)"""
-    with open(file, "r") as csvfile:
-        reader = csv.reader(csvfile, delimiter=";")  # delimiter subject to change
-        next(reader)
+            if not csv_file.name.endswith(".csv"):
+                self.message_user(
+                    request, "This is not a CSV file", level=messages.ERROR
+                )
+                return redirect(request.path)
 
-        for row in reader:
-            bibliography = BibliographyItem(
-                short_citation=row[0], long_citation=row[1], annotation=row[2]
+            created_count = import_all_bibliography(csv_file)
+
+            self.message_user(
+                request,
+                f"{created_count} bib successfully created.",
+                level=messages.SUCCESS,
             )
-            bibliography.save()
+            return redirect(request.path)
+
+        return super().changelist_view(request)
+
+
+def import_all_bibliography(csv_file):
+    """reads in csv file data and saves data as biliography(s) as django object(s)"""
+    data_set = csv_file.read().decode("UTF-8")
+    io_string = io.StringIO(data_set)
+    next(io_string)
+
+    created_count = 0
+    for row in csv.reader(io_string, delimiter=";", quotechar='"'):
+        _, created = BibliographyItem.objects.get_or_create(
+            short_citation=row[0].strip(),
+            full_citation=row[1].strip(),
+            annotation="",
+        )
+        if created:
+            created_count += 1
+
+    return created_count
