@@ -14,6 +14,7 @@
 }
 
 .teaching-analysis__content-wrapper {
+  padding: 1rem;
   display: grid;
   /* need to make one column for mobile */
   grid-template-columns: 1fr 3fr;
@@ -22,14 +23,32 @@
   .tabbed-area {
     .tab-selection {
       overflow: hidden;
+      justify-content: center;
+      display: flex;
+      gap: 1rem;
     }
     .tab__link {
+      background-color: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: var(--off-white);
+      transition: border-bottom 0.4s ease-out;
+      padding-bottom: 0;
+
       &.active {
-        background-color: var(--beige);
+        border-bottom: 1px solid var(--beige);
+      }
+
+      &:hover:not(.active) {
+        border-bottom: 2px solid var(--beige);
       }
     }
     .tab__content {
       display: none;
+      margin-top: 1.4rem;
+      margin-inline-start: 2.2rem;
+      margin-inline-end: 3.2rem;
+
       &.active {
         display: block;
       }
