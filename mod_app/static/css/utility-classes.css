@@ -93,12 +93,17 @@
   }
 
   .card__body {
+    .card__body__description,
+    .card__body__description span {
+      color: var(--contrast-text) !important;
+    }
+
     @media screen and (max-width: 767px) {
       margin-inline: 3vw;
 
       .card__body__description {
         font-size: larger;
-        color: var(--contrast-text);
+        color: var(--contrast-text) !important;
       }
     }
   }
@@ -122,6 +127,10 @@
   }
   .card__body__tags {
     text-align: center;
+    .tag {
+      font-size: 0.7rem;
+      background-color: color-mix(in srgb, var(--card-shadow) 20%, transparent 50%);
+    }
   }
 
   .card__button--see-more {

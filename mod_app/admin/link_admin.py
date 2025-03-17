@@ -117,6 +117,14 @@ class CardImageInline(PreviewMixin, s3BrowserButtonMixin, admin.TabularInline):
     ]
     verbose_name_plural = "Card Image"
 
+    def formfield_for_dbfield(self, db_field, request, **kwargs):
+        field = super(CardImageInline, self).formfield_for_dbfield(
+            db_field, request, **kwargs
+        )
+        if db_field.name == "description":
+            field.initial = "card header img"
+        return field
+
 
 class PublicVisualInfluenceInline(
     PreviewMixin, s3BrowserButtonMixin, admin.TabularInline
