@@ -53,7 +53,7 @@ class BibliographyItemAdmin(admin.ModelAdmin):
                     request, "This is not a CSV file", level=messages.ERROR
                 )
                 return redirect(request.path)
-
+            
             created_count, skipped_count = import_all_bibliography(csv_file)
 
             self.message_user(
@@ -61,11 +61,12 @@ class BibliographyItemAdmin(admin.ModelAdmin):
                 f"{created_count} bibliography successfully created.",
                 level=messages.SUCCESS,
             )
-            self.message_user(
-                request,
-                f"{skipped_count} items skipped" ,
-                level=messages.WARNING,
-            )
+            if skipped_count:
+                self.message_user(
+                    request,
+                    f"{skipped_count} items skipped" ,
+                    level=messages.WARNING,
+                )
             return redirect(request.path)
 
         return super().changelist_view(request)
