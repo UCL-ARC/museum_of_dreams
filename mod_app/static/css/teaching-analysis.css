@@ -1,5 +1,10 @@
 /* for analysis list and detail pages */
 
+#title {
+  display: flex;
+  justify-content: center;
+}
+
 .teaching-analysis__download {
   transition: all 0.3s ease;
   background-image: none;
@@ -27,8 +32,6 @@
 
   .tabbed-area {
     width: 100%;
-    max-height: 80vh;
-    overflow-y: scroll;
 
     .tab-selection {
       overflow: hidden;
@@ -57,13 +60,18 @@
       margin-top: 1.4rem;
       margin-inline-start: 2.2rem;
       margin-inline-end: 3.2rem;
+      max-height: 90vh;
+      overflow-y: scroll;
 
       &.active {
         display: block;
       }
 
       img {
+        width: 100% !important;
+        height: auto !important;
         max-width: 100% !important;
+        object-fit: contain;
       }
     }
   }
