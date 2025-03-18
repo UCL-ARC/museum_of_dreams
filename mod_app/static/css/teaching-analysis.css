@@ -21,6 +21,7 @@
   gap: 1rem;
 
   .tabbed-area {
+    width: 100%;
     .tab-selection {
       overflow: hidden;
       justify-content: center;

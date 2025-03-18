@@ -1,7 +1,7 @@
 <div class="card">
   {% if obj.cardimages %}
 
-    <div class="card__header" style="background-image:{% if obj.cardimages.first.url %}{{obj.cardimages.first.url}}{% elif obj.cardimages.first.file.url %}{{obj.cardimages.first.file.url}}{% endif %}">
+    <div class="card__header" style="background-image:url({% if obj.cardimages.first.url %}{{obj.cardimages.first.url}}{% elif obj.cardimages.first.file.url %}{{obj.cardimages.first.file.url}}{% endif %})">
     {% comment %} {% if obj.cardimages.first.url %}
     <img src="{{obj.cardimages.first.url}}" />
     {% elif obj.cardimages.first.file.url %}
