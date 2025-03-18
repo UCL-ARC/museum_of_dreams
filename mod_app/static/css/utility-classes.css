@@ -62,6 +62,7 @@
   overflow: auto;
   height: clamp(24vw, 32vw, 35vw);
   font-size: 70%;
+  min-height: fit-content;
 
   -webkit-box-shadow: 1px 10px 8px -4px var(--card-shadow);
   -moz-box-shadow: 1px 10px 8px -4px var(--card-shadow);
@@ -78,17 +79,13 @@
 
   .card__header {
     background-size: cover;
+    height: clamp(40%, 45%, 55%);
     padding: 0;
     margin: 0;
 
-    img {
-      width: 200px !important;
-    }
     @media screen and (max-width: 767px) {
       max-height: 45%;
-      img {
-        max-height: 45%;
-      }
+      margin-inlne: 1rem;
     }
   }
 
@@ -128,7 +125,7 @@
   .card__body__tags {
     text-align: center;
     .tag {
-      font-size: 0.7rem;
+      font-size: 0.5rem;
       background-color: color-mix(in srgb, var(--card-shadow) 20%, transparent 50%);
     }
   }
@@ -141,6 +138,8 @@
     border-color: var(--deep-blue);
     color: var(--orange-0);
     width: 30%;
+    font-size: 0.65rem;
+    margin-inline-end: 0.6rem;
   }
 }
 
