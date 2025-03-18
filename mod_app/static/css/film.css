@@ -1,10 +1,26 @@
 /* for film detail page */
-
-.title-release {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
+.film__heading {
   text-align: center;
+
+  .title-release {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    text-align: center;
+    padding-inline: 2rem;
+  }
+}
+
+#film__info {
+  margin-top: 1rem;
+  margin-bottom: 1.2rem;
+
+  h4 {
+    margin-bottom: 0.5rem;
+  }
+  p {
+    margin-block: 0.2rem;
+  }
 }
 
 /***************** tabs ***************/
@@ -32,9 +48,13 @@
   }
   .synopsis {
     padding: 0.5rem 0;
-    > p {
+    p {
       width: 100%;
       max-inline-size: 100%;
+      color: var(--contrast-text) !important;
+      span {
+        color: var(--contrast-text) !important;
+      }
     }
   }
 

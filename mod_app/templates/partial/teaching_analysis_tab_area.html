@@ -16,7 +16,15 @@
 
   {% comment %} content of those tabs {% endcomment %}
 
-  <div id="{{model}}__content" class="lh-15 tab__content active" name="content">{{ model.content | safe }}</div>
+  <div id="{{model}}__content" class="lh-15 tab__content active" name="content">
+    {{ model.content | safe }}
+    <div id="keywords">
+      <h4>Keywords</h4>
+      {% for tag in analysis.tags.all %}
+        <span class="tag">{{tag.name}}</span>
+      {% endfor %}
+    </div>
+  </div>
 
   <div id="films" class="tab__content" name="films">{% include "partial/film_card_grid.html" with film_list=model.films.all %}</div>
 
