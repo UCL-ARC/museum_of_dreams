@@ -1,14 +1,10 @@
 <div class="card">
-  {% if obj.cardimages %}
+  {% if obj.cardimages.first %}
 
-    <div class="card__header" style="background-image:url({% if obj.cardimages.first.url %}{{obj.cardimages.first.url}}{% elif obj.cardimages.first.file.url %}{{obj.cardimages.first.file.url}}{% endif %})">
-    {% comment %} {% if obj.cardimages.first.url %}
-    <img src="{{obj.cardimages.first.url}}" />
-    {% elif obj.cardimages.first.file.url %}
-    <img src="{{obj.cardimages.first.file.url}}" />
-    {% endif %} {% endcomment %}
-    </div>
+    <div class="card__header" style="background-image:url({% if obj.cardimages.first.url %}{{obj.cardimages.first.url}}{% elif obj.cardimages.first.file.url %}{{obj.cardimages.first.file.url}}{% endif %})"></div>
+
   {% endif %}
+
   <div class="card__body">
     <div class="card__body__heading">
       <h1 class="card__body__title afb">{{obj.title}}</h1>
