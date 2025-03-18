@@ -40,7 +40,8 @@
     text-decoration: none;
     transition: transform 0.3s ease;
     &:hover {
-      transform: scale(1.05);
+      /* this is the whole card */
+      transform: scale(1.02);
       color: unset;
     }
   }
@@ -53,7 +54,7 @@
 }
 
 .card {
-  border: var(--border-size-2) solid var(--deep-blue);
+  border: var(--border-size-2) solid var(--card-border);
   background-color: rgba(248, 250, 251, 0.2); /* stone-0 */
   backdrop-filter: blur(5px);
   border-radius: var(--radius-2);
@@ -68,7 +69,7 @@
 
   &:hover,
   &:focus {
-    border-color: var(--coral);
+    border-color: var(--card-border--hover);
   }
 
   @media screen and (max-width: 767px) {
@@ -81,8 +82,7 @@
     margin: 0;
 
     img {
-      /* this will likely be updated since currently the image is wrapped in a <p> and not being used as background */
-      width: 100% !important;
+      width: 200px !important;
     }
     @media screen and (max-width: 767px) {
       max-height: 45%;
