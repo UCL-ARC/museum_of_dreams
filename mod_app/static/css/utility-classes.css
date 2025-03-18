@@ -79,13 +79,14 @@
 
   .card__header {
     background-size: cover;
+    background-position: center;
     height: clamp(40%, 45%, 55%);
     padding: 0;
     margin: 0;
 
     @media screen and (max-width: 767px) {
       max-height: 45%;
-      margin-inlne: 1rem;
+      margin-inline: 1rem;
     }
   }
 
