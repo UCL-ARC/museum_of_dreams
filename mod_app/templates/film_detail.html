@@ -4,12 +4,12 @@
       <h1>{{film.title}}</h1>
       <h2>{{film.release_date}}</h2>
     </div>
-    <p>{{film.alt_titles}}</p>
+    <p>{{film.alt_titles|safe}}</p>
   </div>
 
   <div class="film__content-wrapper">
     <div class="columnar-area">
-      <img src="{% if obj.cardimages.first.url %}{{obj.cardimages.first.url}}{% elif obj.cardimages.first.file.url %}{{obj.cardimages.first.file.url}}{% endif %}" />
+      <img src="{% if film.cardimages.first.url %}{{film.cardimages.first.url}}{% elif film.cardimages.first.file.url %}{{film.cardimages.first.file.url}}{% endif %}" />
       <div id="film__info">
         <div id="genres">
           <h4>Genres</h4>
