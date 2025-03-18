@@ -178,10 +178,6 @@
   }
   .card__body__tags {
     text-align: center;
-    .tag {
-      font-size: 0.5rem;
-      background-color: color-mix(in srgb, var(--card-shadow) 20%, transparent 50%);
-    }
   }
 
   .card__button--see-more {
@@ -201,7 +197,7 @@
   display: inline-flex;
   border-radius: 20px;
   padding: 0.4rem;
-  border: 2px solid var(--light-grey);
+  border: 2px solid var(--card-border--hover);
   /* color: var(--light-blue); */
   color: var(--choco-0);
   opacity: 0.8;
@@ -218,6 +214,15 @@
   }
 
   /* could do colours based on type of tag */
+}
+.tag--list {
+  border: 1px solid var(--card-border--hover);
+  background-color: var(--deep-blue);
+  font-size: 0.55rem;
+}
+.columnar-area .tag {
+  font-size: 0.6rem;
+  background-color: color-mix(in srgb, var(--card-shadow) 20%, transparent 50%);
 }
 
 .mobile-view-only {

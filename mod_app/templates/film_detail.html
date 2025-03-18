@@ -1,23 +1,32 @@
 {% extends "base.html" %} {% load i18n %} {% block title %}{{ film.title }} (Film) {% endblock %} {% block content %}
   <div>
-    <h1>{{film.title}}</h1>
+    <div class="title-release">
+      <h1>{{film.title}}</h1>
+      <h2>{{film.release_date}}</h2>
+    </div>
     <p>{{film.alt_titles}}</p>
-    <p>{{film.release_date}}</p>
   </div>
 
   <div class="film__content-wrapper">
     <div class="columnar-area">
+      <img src="{% if obj.cardimages.first.url %}{{obj.cardimages.first.url}}{% elif obj.cardimages.first.file.url %}{{obj.cardimages.first.file.url}}{% endif %}" />
       <div id="film__info">
+        <div id="genres">
+          <h4>Genres</h4>
+          {% for g in film.genre.all %}
+            <span class="tag">{{g.name}}</span>
+          {% endfor %}
+        </div>
         <div id="topics">
           <h4>Topics</h4>
           {% for topic in film.topics.all %}
             <span class="tag">{{topic.name}}</span>
           {% endfor %}
         </div>
-        <div id="tags">
-          <h4>Genres</h4>
-          {% for tag in film.tags.all %}
-            <span class="tag">{{tag.name}}</span>
+        <div id="locations">
+          <h4>Locations</h4>
+          {% for loc in film.location.all %}
+            <span class="tag">{{g.name}}</span>
           {% endfor %}
         </div>
       </div>
@@ -25,36 +34,5 @@
 
     <div class="tabbed-area">{% include "partial/film_tab_area.html" %}</div>
   </div>
-
-  <script>
-    const radioButtons = document.querySelectorAll('input[name="tab-group"]');
-
-  // Attach a change event listener to each radio button
-    radioButtons.forEach(function (radio) {
-      radio.addEventListener("change", function () {
-        const checkedId = document.querySelector('input[name="tab-group"]:checked').id;
-
-        const firstWord = checkedId.split("-")[0];
-
-        document.querySelectorAll(".tab-content-item").forEach(function (item) {
-          item.style.display = "none";
-        });
-
-        document.getElementById(`${firstWord}-content`).style.display = "block";
-
-        changeTabTitleColour(firstWord);
-      });
-    });
-
-    function changeTabTitleColour(name) {
-      const selectedTab = document.getElementById(`${name}-tab`);
-      document.querySelectorAll(".tab-title").forEach(function (item) {
-        item.style.color = "var(--warm-sand)";
-        item.style.borderLeft = "none";
-      });
-      selectedTab.parentNode.style.color = "var(--curtain-red)";
-      selectedTab.parentNode.style.borderLeft = "2px solid var(--curtain-red)";
-    }
-  </script>
 
 {% endblock %}

@@ -1,11 +1,9 @@
-<div id="nonfilmic-content" class="tab-content-item" hidden>
-  <h2>Critical Essays and Discussions</h2>
-  {% for a in film.analyses.all %}
-    <div>
-      <h4>{{a.title}}</h4>
-      {{a.content|safe}}
-    </div>
-  {% endfor %}
-  <h3>You may also want to look at...</h3>
-  {% comment %} essays and other links {% endcomment %}
-</div>
+<h2>Critical Essays and Discussions</h2>
+{% for a in film.analyses.all %}
+  <div>
+    <h4>{{a.title}}</h4>
+    {{a.content|safe}}
+  </div>
+{% endfor %}
+<h3>You may also want to look at...</h3>
+{% comment %} essays and other links {% endcomment %}

@@ -8,6 +8,7 @@
 .teaching-analysis__download {
   transition: all 0.3s ease;
   background-image: none;
+  --_text: var(--deep-blue) !important;
 
   &:hover {
     background-image: url("../images/film-colours-light-mesh.png");
