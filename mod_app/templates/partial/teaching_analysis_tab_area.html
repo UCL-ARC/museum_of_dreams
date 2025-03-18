@@ -29,26 +29,4 @@
   <div id="bibliography" class="tab__content" name="bibliography">{% include "partial/individual_bib.html" with bib_list=model.bibliography.all %}</div>
 </div>
 
-<script>
-  function openTab(evt, tabName) {
-    var selected, content, tab;
-    selected = evt.currentTarget.name;
-    contentElems = document.getElementsByClassName("tab__content");
-    tabs = document.getElementsByClassName("tab__link");
-
-    [...tabs].forEach((tab) => {
-      if (tab.name !== selected) tab.classList.remove("active");
-    });
-    [...contentElems].forEach((tab) => {
-      if (tab.name !== selected) tab.classList.remove("active");
-    });
-
-    selectedTabNContent = document.querySelectorAll(`[name=${selected}]`);
-
-    selectedTabNContent.forEach((elem) => elem.classList.add("active"));
-  }
-  document.addEventListener("DOMContentLoaded", function () {
-    // Simulate a click on the default tab link for the initial one
-    document.getElementById("{{model}}__content").click();
-  });
-</script>
+<script src="{% static 'js/openTab.js' %}"></script>

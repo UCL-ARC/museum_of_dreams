@@ -1,0 +1,26 @@
+<div id="technical-content" class="tab-content-item" hidden>
+  <div>
+    <dl class="short-technical-info">
+      <dt>Duration: {{film.duration}}</dt>
+      <dt>Current length: {{film.current_length}}</dt>
+      <dt>Support: {{film.support}}</dt>
+      <dt>{% if film.is_in_colour %}Colour {% else %} Black and White{% endif %}</dt>
+      <dt>Format: {{film.format_type}}</dt>
+      {% if film.format_other %}
+        <dd>{{film.format_other}}</dd>
+      {% endif %}
+    </dl>
+    <dt>Comments on the print:</dt>
+    <dd>{{film.print_comments|safe}}</dd>
+  </div>
+  <hr />
+  <div>
+    <h2>Printed Materials</h2>
+    {% comment %} maybe have a "stack" for each that expands when clicked on? {% endcomment %}
+  </div>
+  <hr />
+  <div>
+    <h2>Visual Resources</h2>
+    {% comment %} as above {% endcomment %}
+  </div>
+</div>

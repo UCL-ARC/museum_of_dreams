@@ -21,12 +21,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // }
 
   if (document.querySelector(".carousel")) {
-    const carouselButtonNext = document.querySelector(
-      ".carousel__buttons--next"
-    );
-    const carouselButtonPrev = document.querySelector(
-      ".carousel__buttons--prev"
-    );
+    const carouselButtonNext = document.querySelector(".carousel__buttons--next");
+    const carouselButtonPrev = document.querySelector(".carousel__buttons--prev");
     carouselButtonNext.addEventListener("click", nextSlide);
     carouselButtonPrev.addEventListener("click", prevSlide);
   }

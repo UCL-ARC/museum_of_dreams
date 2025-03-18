@@ -1,0 +1,24 @@
+<div class="tabbed-area">
+  {% comment %} tabs the user clicks to navigate {% endcomment %}
+  <div class="tab-selection">
+    <button class="tab__link active" type="button" name="filmic" onclick="openTab(event, 'filmic')"><h3>Filmic</h3></button>
+
+    <button class="tab__link" type="button" name="technical" onclick="openTab(event, 'technical')"><h3>Technical</h3></button>
+
+    <button class="tab__link" type="button" name="non-filmic" onclick="openTab(event, 'non-filmic')"><h3>Non-Filmic</h3></button>
+
+    <button class="tab__link" type="button" name="bibliography" onclick="openTab(event, 'bibliography')"><h3>Bibliography</h3></button>
+  </div>
+
+  {% comment %} content of those tabs {% endcomment %}
+
+  <div id="filmic" class="lh-15 tab__content active" name="filmic">{% include "partial/film_tab__filmic.html" %}</div>
+
+  <div id="technical" class="tab__content" name="technical">{% include "partial/film_tab__technical.html" %}</div>
+
+  <div id="non-filmic" class="tab__content" name="non-filmic">{% include "partial/film_tab__non.html" %}</div>
+
+  <div id="bibliography" class="tab__content" name="bibliography">{% include "partial/individual_bib.html" with bib_list=film.bibliography.all %}</div>
+</div>
+
+<script src="{% static 'js/openTab.js' %}"></script>
