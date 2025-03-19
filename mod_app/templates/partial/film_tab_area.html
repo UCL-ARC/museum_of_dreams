@@ -5,7 +5,7 @@
 
     <button class="tab__link" type="button" name="technical" onclick="openTab(event, 'technical')"><h3>Technical</h3></button>
 
-    <button class="tab__link" type="button" name="non-filmic" onclick="openTab(event, 'non-filmic')"><h3>Non-Filmic</h3></button>
+    <button class="tab__link" type="button" name="collections" onclick="openTab(event, 'collections')"><h3>Collections</h3></button>
 
     <button class="tab__link" type="button" name="bibliography" onclick="openTab(event, 'bibliography')"><h3>Bibliography</h3></button>
   </div>
@@ -16,7 +16,7 @@
 
   <div id="technical" class="tab__content" name="technical">{% include "partial/film_tab__technical.html" %}</div>
 
-  <div id="non-filmic" class="tab__content" name="non-filmic">{% include "partial/film_tab__non.html" %}</div>
+  <div id="collections" class="tab__content" name="collections">{% include "partial/film_tab__collections.html" %}</div>
 
   <div id="bibliography" class="tab__content" name="bibliography">{% include "partial/individual_bib.html" with bib_list=film.bibliography.all %}</div>
 </div>

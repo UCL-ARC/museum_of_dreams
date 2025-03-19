@@ -1,29 +1,9 @@
-{% extends "base.html" %}
-{% load i18n %}
-{% block title %}{% trans 'Analyses' %} {% endblock %}
-{% block content %}
+{% extends "base.html" %} {% load i18n %} {% block title %}{% trans 'Analyses' %} {% endblock %} {% block content %}
 
-
-    <h3>
-        Critical discussions and essays on this site
-    </h3>
+    <h3>Critical discussions and essays on this site</h3>
 
     {% if is_paginated %}
         <a href="{% url 'analysis_list' %}"><button class="btn button--toggle-pagination">View All</button></a>
     {% else %}
         <a href="{% url 'analysis_list' %}?page=1"><button class="btn button--toggle-pagination">View by page</button></a>
-    {% endif %}
-
-    <div class="card-grid">
-        {% for analysis in analysis_list %}
-            <a href="{% url 'analysis_detail' pk=analysis.pk %}">
-                {% include "components/card.html" with obj=analysis %}
-            </a>
-        {% endfor %}
-    </div>
-
-    {% if is_paginated %}
-        {% include "components/pagination_buttons.html" %}
-    {% endif %}
-
-{% endblock %}
+    {% endif %} {% include "partial/analysis_card_grid.html" %} {% if is_paginated %} {% include "components/pagination_buttons.html" %} {% endif %} {% endblock %}
