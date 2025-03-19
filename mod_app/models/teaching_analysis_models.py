@@ -3,8 +3,7 @@ from django.db import models
 
 from ..utils.extract_citations import update_bibliography
 
-from .support_models import Tag
-from .bibliography_model import BibliographyItem
+from mod_app.models import Tag, Keyword, BibliographyItem
 
 
 def display_list(list):
@@ -35,9 +34,11 @@ class Analysis(models.Model):
 
     films = models.ManyToManyField("Film", related_name="analyses", blank=True)
 
-    topics = models.ManyToManyField(Tag, related_name="analysis_topics", blank=True)
+    keywords = models.ManyToManyField(
+        Keyword, related_name="analysis_keywords", blank=True
+    )
 
-    tags = models.ManyToManyField(Tag, related_name="analysis_tags", blank=True)
+    genre = models.ManyToManyField(Tag, related_name="analysis_genres", blank=True)
 
     holdings = models.CharField(max_length=400, blank=True, null=True)
 
@@ -46,6 +47,7 @@ class Analysis(models.Model):
     teaching_resources = models.ManyToManyField(
         "TeachingResources", related_name="analyses", blank=True
     )
+
     bibliography = models.ManyToManyField(
         BibliographyItem,
         related_name="analyses",
@@ -77,7 +79,7 @@ class TeachingResources(models.Model):
 
     films = models.ManyToManyField("Film", related_name="trs", blank=True)
 
-    topics = models.ManyToManyField(Tag, related_name="tr_topics", blank=True)
+    keywords = models.ManyToManyField(Keyword, related_name="tr_keywords", blank=True)
 
     tags = models.ManyToManyField(Tag, related_name="tr_tags", blank=True)
 

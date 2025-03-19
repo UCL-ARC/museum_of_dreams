@@ -3,7 +3,6 @@ from django.contrib import admin
 from django.db import models
 from django.template.defaultfilters import truncatechars_html
 from django.utils.html import format_html, mark_safe
-import html
 
 from mod_app.admin.link_admin import (
     CardImageInline,
@@ -21,6 +20,7 @@ from mod_app.admin.link_admin import (
     VideoInline,
 )
 from mod_app.admin.note_admin import VisInline, WritInline
+from mod_app.admin.utils import safe_bibliography
 from mod_app.utils.mixins import EmailMixin
 
 from ..models import Analysis, TeachingResources, Film
@@ -133,18 +133,10 @@ class FilmAdmin(EmailMixin, admin.ModelAdmin):
     safe_temporary_images.allow_tags = True
     safe_temporary_images.short_description = "List Images"
 
-    def safe_bibliography(self, obj):
-        bib_items = obj.bibliography.all()
-        formatted_items = [
-            format_html(
-                "<li>{}</li>", format_html(html.unescape(bib_item.full_citation))
-            )
-            for bib_item in bib_items
-        ]
-        return format_html("<ul>{}</ul>", format_html("".join(formatted_items)))
+    def safe_bib(self, obj):
+        return safe_bibliography(obj)
 
-    safe_bibliography.short_description = "Bibliography"
-    safe_bibliography.allow_tags = True
+    safe_bib.short_description = "Bibliography"
 
     def preview_video(self, obj):
         if obj.videos.first():
@@ -156,7 +148,7 @@ class FilmAdmin(EmailMixin, admin.ModelAdmin):
         else:
             return "-"
 
-    readonly_fields = ("safe_bibliography",)
+    readonly_fields = ("safe_bib",)
     fieldsets = (
         (
             "Main Information (Filmic Section)",
@@ -254,7 +246,7 @@ class FilmAdmin(EmailMixin, admin.ModelAdmin):
             "Bibliography",
             {
                 "classes": ("grp-collapse",),
-                "fields": ("safe_bibliography",),
+                "fields": ("safe_bib",),
                 "description": "Note: This section updates on save, and some items may not be visible immediately.",
             },
         ),
