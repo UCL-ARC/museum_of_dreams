@@ -1,6 +1,4 @@
-import csv
-import io
-
+from bs4 import BeautifulSoup
 from ckeditor.widgets import CKEditorWidget
 from django import forms
 from django.contrib import admin, messages
@@ -45,16 +43,15 @@ class BibliographyItemAdmin(admin.ModelAdmin):
 
     # overiding django admin's changelist_view
     def changelist_view(self, request):
-        if request.method == "POST" and request.FILES.get("csv_file"):
-            csv_file = request.FILES["csv_file"]
-
-            if not csv_file.name.endswith(".csv"):
+        if request.method == "POST" and request.FILES.get("html-file"):
+            html_file = request.FILES["html-file"]
+            if not html_file.name.endswith(".html"):
                 self.message_user(
-                    request, "This is not a CSV file", level=messages.ERROR
+                    request, "This is not a Excel file", level=messages.ERROR
                 )
                 return redirect(request.path)
-            
-            created_count, skipped_count = import_all_bibliography(csv_file)
+
+            created_count, skipped_count = import_from_html(html_file)
 
             self.message_user(
                 request,
@@ -64,7 +61,7 @@ class BibliographyItemAdmin(admin.ModelAdmin):
             if skipped_count:
                 self.message_user(
                     request,
-                    f"{skipped_count} items skipped" ,
+                    f"{skipped_count} items skipped",
                     level=messages.WARNING,
                 )
             return redirect(request.path)
@@ -72,18 +69,21 @@ class BibliographyItemAdmin(admin.ModelAdmin):
         return super().changelist_view(request)
 
 
-def import_all_bibliography(csv_file):
-    """reads in csv file data and saves data as biliography(s) as django object(s)"""
-    data_set = csv_file.read().decode("UTF-8")
-    io_string = io.StringIO(data_set)
-    next(io_string)
+def import_from_html(html_file):
+    """Extract and create bibliography items from html table"""
 
     created_count = 0
     skipped_count = 0
-    for row in csv.reader(io_string, delimiter=";", quotechar='"'):
+
+    soup = BeautifulSoup(html_file, "html.parser")
+    table = soup.find("table")
+    rows = table.find_all("tr")
+    for row in rows[1:]:
+        cols = row.find_all("td")
+        bibliography = [col.decode_contents() for col in cols]
         _, created = BibliographyItem.objects.get_or_create(
-            short_citation=row[0].strip(),
-            full_citation=row[1].strip(),
+            short_citation=bibliography[0],
+            full_citation=bibliography[1],
             annotation="",
         )
         if created:
@@ -91,4 +91,4 @@ def import_all_bibliography(csv_file):
         else:
             skipped_count += 1
 
-    return created_count,skipped_count
+    return created_count, skipped_count

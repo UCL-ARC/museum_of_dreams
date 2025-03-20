@@ -2,14 +2,14 @@
 
 {% block object-tools-items %}
 <li>
-  <form method="POST" enctype="multipart/form-data" id="csv-form" style="display:none;"> 
+  <form method="POST" enctype="multipart/form-data" id="html-form" style="display:none;"> 
     {# enctype="multipart/form-data" is required to allow file uploads. #}
     {# hides the html form with style="display:none" #}
     {% csrf_token %}
-    <input type="file" id="csv_file_input" name="csv_file" accept=".csv" required onchange="document.getElementById('csv-form').submit();" />
+    <input type="file" id="html-file-input" name="html-file" accept=".html" required onchange="document.getElementById('html-form').submit();" />
   </form>
-  <a href="#" class="grp-add-link grp-state-focus" onclick="document.getElementById('csv_file_input').click(); return false;">
-    Import from csv
+  <a href="#" class="grp-add-link grp-state-focus" onclick="document.getElementById('html-file-input').click(); return false;">
+    Import from .html
   </a>
 </li>
 {{ block.super }}
