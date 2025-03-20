@@ -17,7 +17,7 @@
 
             {% block non_production_message %}
                 {% if not request.get_host|lower == 'museumofdreamworlds.org' %}
-                    <span style="color: orange; padding: 10px; position:absolute; left:55vw;">
+                    <span style="color: orange; padding: 10px; position:absolute; left:2vw; top:10px;">
                         STAGING
                     </span>
                 {% endif %}
@@ -31,16 +31,19 @@
                       <input type="checkbox" id="toggle">
                     </label>
                   </div> {% endcomment %}
+                <span title="dark mode: on" class="material-symbols-outlined">
+                    dark_mode
+                </span>
                 {% if user.is_authenticated %}
                     <a href="{% url 'logout' %}">
-                        <span class="material-symbols-outlined">
+                        <span title="Log out" class="material-symbols-outlined">
                             logout
                         </span>
                     </a>
 
                 {% else %}
                     <a href="{% url 'admin:index' %}">
-                        <span class="material-symbols-outlined">
+                        <span title="Log in" class="material-symbols-outlined">
                             login
                         </span>
                     </a>
