@@ -22,7 +22,7 @@ class TestImportfromHtml(TestCase):
                 import_from_html(file)
 
     def test_invalid_html_table(self):
-        with self.assertRaises(AttributeError):
+        with self.assertRaises(ValueError):
             with open(self.invalid_html_table) as file:
                 import_from_html(file)
 

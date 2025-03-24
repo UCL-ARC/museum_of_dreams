@@ -50,8 +50,11 @@ class BibliographyItemAdmin(admin.ModelAdmin):
                     request, "This is not a Excel file", level=messages.ERROR
                 )
                 return redirect(request.path)
-
-            created_count, skipped_count = import_from_html(html_file)
+            try:
+                created_count, skipped_count = import_from_html(html_file)
+            except Exception as e:
+                self.message_user(e, level=messages.ERROR)
+                return redirect(request.path)
 
             self.message_user(
                 request,
@@ -80,6 +83,8 @@ def import_from_html(html_file):
     rows = table.find_all("tr")
     for row in rows[1:]:
         cols = row.find_all("td")
+        if len(cols) != 2:
+            raise ValueError()
         bibliography = [col.decode_contents() for col in cols]
         _, created = BibliographyItem.objects.get_or_create(
             short_citation=bibliography[0],
