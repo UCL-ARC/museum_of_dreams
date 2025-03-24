@@ -17,16 +17,16 @@ class TestImportfromHtml(TestCase):
         self.assertEqual(skipped_count, 0)
 
     def test_blank_html_file(self):
-        with open(self.valid_html_file) as file:
-            created_count, skipped_count = import_from_html(file)
-        self.assertRaises(ValueError)
+        with self.assertRaises(AttributeError):
+            with open(self.valid_html_file) as file:
+                import_from_html(file)
 
     def test_invalid_html_table(self):
-        with open(self.invalid_html_table) as file:
-            created_count, skipped_count = import_from_html(file)
-        self.assertRaises(ValueError)
+        with self.assertRaises(AttributeError):
+            with open(self.invalid_html_table) as file:
+                import_from_html(file)
 
     def test_not_html_file(self):
-        with open(self.not_html_file) as file:
-            created_count, skipped_count = import_from_html(file)
-        self.assertRaises(ValueError)
+        with self.assertRaises(AttributeError):
+            with open(self.not_html_file) as file:
+                import_from_html(file)
