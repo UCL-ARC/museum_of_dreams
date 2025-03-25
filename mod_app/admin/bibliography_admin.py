@@ -58,7 +58,7 @@ class BibliographyItemAdmin(admin.ModelAdmin):
 
             self.message_user(
                 request,
-                f"{created_count} bibliography successfully created.",
+                f"{created_count} bibliography items successfully created.",
                 level=messages.SUCCESS,
             )
             if skipped_count:
