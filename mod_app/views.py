@@ -74,6 +74,13 @@ class AnalysisListView(ListView):
     template_name = "analysis_list.html"
     paginate_by = 20
 
+    def get_paginate_by(self, queryset):
+        page = self.request.GET.get(self.page_kwarg)
+        if page:
+            return self.paginate_by
+        else:
+            return None
+
 
 class AnalysisDetailView(DetailView):
     model = Analysis
@@ -86,6 +93,13 @@ class TRListView(ListView):
     template_name = "tr_list.html"
     paginate_by = 20
 
+    def get_paginate_by(self, queryset):
+        page = self.request.GET.get(self.page_kwarg)
+        if page:
+            return self.paginate_by
+        else:
+            return None
+
 
 class TRDetailView(DetailView):
     model = TeachingResources
@@ -96,7 +110,6 @@ class TRDetailView(DetailView):
 class BibliographyListView(ListView):
     model = BibliographyItem
     template_name = "bibliography.html"
-    paginate_by = 20
 
 
 class BucketItemsView(View):
