@@ -27,18 +27,6 @@ class Migration(migrations.Migration):
             ],
             bases=("mod_app.tag",),
         ),
-        migrations.RemoveField(
-            model_name="analysis",
-            name="tags",
-        ),
-        migrations.RemoveField(
-            model_name="analysis",
-            name="topics",
-        ),
-        migrations.RemoveField(
-            model_name="teachingresources",
-            name="topics",
-        ),
         migrations.AddField(
             model_name="analysis",
             name="genre",
