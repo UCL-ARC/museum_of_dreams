@@ -92,7 +92,6 @@
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(22vw, 1fr));
-  grid-template-rows: 1fr;
   gap: 3vw;
   margin-inline: 4vw;
 
@@ -108,6 +107,12 @@
 
   @media screen and (max-width: 767px) {
     grid-template-columns: repeat(auto-fill, minmax(40vw, 1fr));
+    font-size: 80%;
+    margin-inline: 10vw;
+  }
+
+  @media screen and (max-width: 400px) {
+    grid-template-columns: 1fr;
     font-size: 80%;
     margin-inline: 10vw;
   }
@@ -144,11 +149,13 @@
   @media screen and (max-width: 767px) {
     height: clamp(36vh, 42vh, 48vh);
   }
+  @media screen and (max-width: 400px) {
+    height: clamp(45vh, 50vh, 60vh);
+  }
 
   .card__header {
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;
     height: 50%;
     padding: 0;
     margin: 0;
@@ -177,6 +184,10 @@
       .card__body__description {
         font-size: larger;
         color: var(--contrast-text) !important;
+      }
+
+      .card__body__title {
+        font-size: 0.8rem;
       }
     }
   }
