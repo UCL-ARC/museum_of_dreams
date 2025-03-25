@@ -52,8 +52,8 @@
         </div>
         <div id="keywords">
           <h4>Keywords</h4>
-          {% for tag in analysis.tags.all %}
-            <span class="tag">{{tag.name}}</span>
+          {% for kw in analysis.keywords.all %}
+            <span class="tag">{{kw.name}}</span>
           {% endfor %}
         </div>
       {% comment %}

@@ -170,7 +170,7 @@
     flex: 1;
 
     .card__body__title {
-      font-size: 1rem;
+      font-size: 0.9rem;
     }
 
     .card__body__description,
@@ -252,6 +252,7 @@
   border: 1px solid var(--card-border--hover);
   background-color: var(--deep-blue);
   font-size: 0.55rem;
+  padding: 0.2rem;
 }
 .columnar-area .tag {
   font-size: 0.6rem;
