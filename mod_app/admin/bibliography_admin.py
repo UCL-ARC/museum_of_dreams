@@ -72,6 +72,33 @@ class BibliographyItemAdmin(admin.ModelAdmin):
         return super().changelist_view(request)
 
 
+def clean_style(soup_html_data):
+    """remove unwanted styling from <span> html tags"""
+    styles_to_remove = ["color", "font-family", "font-size"]
+    
+    for span in soup_html_data.find_all("span"):
+
+        if "style" in span.attrs:
+            styles = span["style"].split(";")
+            
+            # retain styles like italics and bold
+            filtered_styles = [
+                s
+                for s in styles
+                if not any(
+                    s.strip().startswith(style_to_remove)
+                    for style_to_remove in styles_to_remove
+                )
+            ]
+            # replace old style with cleaned style
+            cleaned_style = ";".join(filtered_styles).strip()
+            if cleaned_style:
+                span["style"] = cleaned_style
+            else:
+                del span["style"]
+    return soup_html_data
+
+
 def import_from_html(html_file):
     """Extract and create bibliography items from html table"""
 
@@ -80,7 +107,10 @@ def import_from_html(html_file):
 
     soup = BeautifulSoup(html_file, "html.parser")
     table = soup.find("table")
-    rows = table.find_all("tr")
+
+    # remove unwanted format style
+    rows = clean_style(table).find_all("tr")
+
     for row in rows[1:]:
         cols = row.find_all("td")
         if len(cols) != 2:
