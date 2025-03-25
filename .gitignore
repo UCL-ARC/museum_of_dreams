@@ -82,4 +82,5 @@ node_modules/
 .eslintcache
 
 
+# making sure download templates are tracked
 !mod_app/templates/downloads/
