@@ -45,7 +45,7 @@ class BibliographyItemAdmin(admin.ModelAdmin):
     def changelist_view(self, request):
         if request.method == "POST" and request.FILES.get("html-file"):
             html_file = request.FILES["html-file"]
-            if not html_file.name.endswith(".html"):
+            if not html_file.name.endswith(".html") or not html_file.name.endswith(".htm"):
                 self.message_user(
                     request, "This is not a valid html file", level=messages.ERROR
                 )
