@@ -1,5 +1,13 @@
 {% extends "admin/change_list.html" %} {% block object-tools-items %}
-  <li>
+  <style>
+    .bib-upload::after {
+      content: "Check docs for details";
+      font-size: 0.8rem;
+      color: grey;
+      margin-left: 2vw;
+    }
+  </style>
+  <li class="bib-upload">
     <form
       method="POST"
       enctype="multipart/form-data"

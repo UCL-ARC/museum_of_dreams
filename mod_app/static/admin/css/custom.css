@@ -11,3 +11,7 @@ th.column-safe_alt_titles,
 .field-safe_alt_titles {
   max-width: 10rem;
 }
+
+a.grp-link-external {
+  color: #3b7588;
+}
