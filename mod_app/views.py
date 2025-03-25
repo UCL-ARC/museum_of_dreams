@@ -22,6 +22,11 @@ from .models import Film, BibliographyItem, Analysis, TeachingResources
 class HomeView(TemplateView):
     template_name = "home.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["slides"] = [Film.objects.first().title, Analysis.objects.first().title]
+        return context
+
 
 class FilmListView(ListView):
     model = Film
