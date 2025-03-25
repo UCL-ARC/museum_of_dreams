@@ -80,3 +80,6 @@ secrets.py
 # ESLint
 node_modules/
 .eslintcache
+
+
+!templates/downloads/
