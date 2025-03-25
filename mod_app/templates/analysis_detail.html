@@ -43,7 +43,7 @@
         <button class="btn teaching-analysis__download" onclick="downloadAnalysis({{analysis.pk}})" type="button">Download PDF</button>
       </div>
 
-      <div id="analysis__info">
+      <div id="analysis__info" class="info">
         <div id="topics">
           <h4>Topics</h4>
           {% for topic in analysis.topics.all %}
