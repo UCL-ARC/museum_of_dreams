@@ -29,6 +29,7 @@
     transform: scale(1.05);
   }
 }
+
 .teaching-analysis__content-wrapper,
 .film__content-wrapper {
   padding: 1rem;
@@ -46,6 +47,10 @@
       height: auto !important;
       max-width: 100% !important;
       object-fit: contain;
+    }
+
+    .info > div {
+      margin-bottom: 2rem;
     }
   }
 
