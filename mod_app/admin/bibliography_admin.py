@@ -64,7 +64,7 @@ class BibliographyItemAdmin(admin.ModelAdmin):
             if skipped_count:
                 self.message_user(
                     request,
-                    f"{skipped_count} items skipped",
+                    f"{skipped_count} items not created because they already exist",
                     level=messages.WARNING,
                 )
             return redirect(request.path)
