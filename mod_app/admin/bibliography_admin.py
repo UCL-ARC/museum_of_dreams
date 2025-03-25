@@ -58,13 +58,13 @@ class BibliographyItemAdmin(admin.ModelAdmin):
 
             self.message_user(
                 request,
-                f"{created_count} bibliography items successfully created.",
+                f"{created_count} bibliography item(s) successfully created.",
                 level=messages.SUCCESS,
             )
             if skipped_count:
                 self.message_user(
                     request,
-                    f"{skipped_count} items not created because they already exist",
+                    f"{skipped_count} item(s) not created because they already exist",
                     level=messages.WARNING,
                 )
             return redirect(request.path)
@@ -87,17 +87,11 @@ def import_from_html(html_file):
             raise ValueError()
 
         # content duplication check
-        stripped_existing_short_citations = [
-            strip_tags(bib.short_citation) for bib in BibliographyItem.objects.all()
-        ]
         stripped_existing_full_citations = [
             strip_tags(bib.full_citation) for bib in BibliographyItem.objects.all()
         ]
         stripped_current_bibliography = [col.get_text(strip=True) for col in cols]
-        is_short = stripped_current_bibliography[0] in stripped_existing_short_citations
-        is_full = stripped_current_bibliography[1] in stripped_existing_full_citations
-
-        if is_short or is_full:
+        if stripped_current_bibliography[1] in stripped_existing_full_citations:
             skipped_count += 1
             continue
 
