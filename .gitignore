@@ -82,4 +82,4 @@ node_modules/
 .eslintcache
 
 
-!templates/downloads/
+!mod_app/templates/downloads/
