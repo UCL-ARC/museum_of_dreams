@@ -24,7 +24,11 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["slides"] = [Film.objects.first().title, Analysis.objects.first().title]
+        if Film.objects.first():
+            context["slides"] = [
+                Film.objects.first().title,
+                Analysis.objects.first().title,
+            ]
         return context
 
 
@@ -149,5 +153,3 @@ def downloadAnalysis(request, pk):
 
     if not status.err:
         return response
-
-    # return render(request, "downloads/analysis.html", {"analysis": analysis})
