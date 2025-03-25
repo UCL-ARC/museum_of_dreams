@@ -3,7 +3,7 @@ from ckeditor.widgets import CKEditorWidget
 from django import forms
 from django.contrib import admin, messages
 from django.shortcuts import redirect
-from django.utils.html import format_html
+from django.utils.html import format_html, strip_tags
 
 from ..models import BibliographyItem
 
@@ -45,7 +45,7 @@ class BibliographyItemAdmin(admin.ModelAdmin):
     def changelist_view(self, request):
         if request.method == "POST" and request.FILES.get("html-file"):
             html_file = request.FILES["html-file"]
-            if not html_file.name.endswith(".html") or not html_file.name.endswith(".htm"):
+            if not html_file.name.endswith(".html") or html_file.name.endswith(".htm"):
                 self.message_user(
                     request, "This is not a valid html file", level=messages.ERROR
                 )
@@ -53,7 +53,7 @@ class BibliographyItemAdmin(admin.ModelAdmin):
             try:
                 created_count, skipped_count = import_from_html(html_file)
             except Exception as e:
-                self.message_user(e, level=messages.ERROR)
+                self.message_user(request, e, level=messages.ERROR)
                 return redirect(request.path)
 
             self.message_user(
@@ -85,7 +85,25 @@ def import_from_html(html_file):
         cols = row.find_all("td")
         if len(cols) != 2:
             raise ValueError()
+
+        # content duplication check
+        stripped_existing_short_citations = [
+            strip_tags(bib.short_citation) for bib in BibliographyItem.objects.all()
+        ]
+        stripped_existing_full_citations = [
+            strip_tags(bib.full_citation) for bib in BibliographyItem.objects.all()
+        ]
+        stripped_current_bibliography = [col.get_text(strip=True) for col in cols]
+        is_short = stripped_current_bibliography[0] in stripped_existing_short_citations
+        is_full = stripped_current_bibliography[1] in stripped_existing_full_citations
+
+        if is_short or is_full:
+            skipped_count += 1
+            continue
+
+        # populating BibliographyItem object from data
         bibliography = [col.decode_contents() for col in cols]
+
         _, created = BibliographyItem.objects.get_or_create(
             short_citation=bibliography[0],
             full_citation=bibliography[1],
