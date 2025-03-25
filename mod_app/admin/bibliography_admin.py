@@ -47,7 +47,7 @@ class BibliographyItemAdmin(admin.ModelAdmin):
             html_file = request.FILES["html-file"]
             if not html_file.name.endswith(".html"):
                 self.message_user(
-                    request, "This is not a Excel file", level=messages.ERROR
+                    request, "This is not a valid html file", level=messages.ERROR
                 )
                 return redirect(request.path)
             try:
