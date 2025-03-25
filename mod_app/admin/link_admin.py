@@ -235,4 +235,9 @@ class PublicVisualInfluenceAdmin(PreviewMixin, s3BrowserButtonMixin, admin.Model
 
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
+    search_fields = ["name", "is_genre"]
+
+
+@admin.register(Keyword)
+class KeywordAdmin(admin.ModelAdmin):
     search_fields = ["name"]
