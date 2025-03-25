@@ -1,0 +1,43 @@
+<div class="top-level">
+  <div class="video">
+    {% if film.videos.first.file %}
+      <video controls>
+        <source src="{{film.videos.first.file.url}}" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    {% else %} {% comment %}
+    <video controls>
+      <source src="{{film.videos.first.url}}" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+    {% endcomment %}
+      <iframe src="{{film.videos.first.url}}" frameborder="0" scrolling="no" allowfullscreen></iframe>
+    {% endif %}
+  </div>
+  <dl class="triple-c">
+    <dt>Production Country: {{ film.production_country }}</dt>
+
+    <dt>Production Company: {{ film.production_company }}</dt>
+
+    <dt>BFI Category: {{ film.bfi_category }}</dt>
+
+    <dt>Source: {% for source in film.sources.all %}<a href="{{source.url}}"> {{source.description}} </a> {% endfor %}</dt>
+  </dl>
+</div>
+<div class="synopsis">
+  <h3>Synopsis</h3>
+
+  {{film.synopsis|safe}}
+</div>
+<hr />
+<div class="cast-credits">
+  <div class="column">
+    <h3>Cast</h3>
+    {{film.cast | safe }}
+  </div>
+
+  <div class="column">
+    <h3>Credits</h3>
+    {{film.crew | safe }}
+  </div>
+</div>

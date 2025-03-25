@@ -1,114 +1,83 @@
-/* for film detail and list */
-/**************** list **********************/
-.film-table {
-  font-size: 0.9rem;
-  .synopsis > * {
-    min-width: 25vw;
-    font-size: inherit;
+/* for film detail page */
+.film__heading {
+  text-align: center;
+
+  .title-release {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    text-align: center;
+    padding-inline: 2rem;
   }
-  .synopsis .open-icon {
-    font-size: inherit;
+}
+
+#film__info {
+  margin-top: 1rem;
+  margin-bottom: 1.2rem;
+
+  h4 {
+    margin-bottom: 0.5rem;
+  }
+  p {
+    margin-block: 0.2rem;
+  }
+}
+
+/***************** tabs ***************/
+#filmic {
+  .top-level {
+    display: flex;
+  }
+  .video {
     display: inline;
+    > video {
+      height: 40vh;
+      width: 40vw;
+    }
+  }
+  .triple-c {
+    /* country, company & category */
+    display: inline-flex;
+    /* justify-content: space-between; */
+    flex-direction: column;
     align-content: center;
+    margin-left: 0.4rem;
+    > dt {
+      margin: 0.4rem 0;
+    }
   }
-  .cast > * {
-    font-size: inherit;
+  .synopsis {
+    padding: 0.5rem 0;
+    p {
+      width: 100%;
+      max-inline-size: 100%;
+      color: var(--contrast-text) !important;
+      span {
+        color: var(--contrast-text) !important;
+      }
+    }
   }
-}
-.film-table th {
-  font-size: 1rem;
-}
 
-/***************** detail ***************/
-.top-level {
-  display: flex;
-}
-.video {
-  display: inline;
-  > video {
-    height: 40vh;
-    width: 40vw;
-  }
-}
-.triple-c {
-  /* country, company & category */
-  display: inline-flex;
-  /* justify-content: space-between; */
-  flex-direction: column;
-  align-content: center;
-  margin-left: 0.4rem;
-  > dt {
-    margin: 0.4rem 0;
+  .cast-credits {
+    display: flex;
+    .column {
+      flex: 1;
+      margin-right: 20px;
+    }
   }
 }
 
-.genres {
-  margin-top: 0.5rem;
-}
-
-.synopsis {
-  padding: 0.5rem 0;
-  > p {
-    width: 100%;
-    max-inline-size: 100%;
+#technical {
+  .short-technical-info {
+    justify-content: space-between;
+    text-wrap: wrap;
+    flex-wrap: wrap;
+    columns: 2;
   }
 }
 
-.cast-credits {
-  display: flex;
-  .column {
-    flex: 1;
-    margin-right: 20px;
-  }
-}
+/* #non-filmic{
 
-.short-technical-info {
-  justify-content: space-between;
-  text-wrap: wrap;
-  flex-wrap: wrap;
-  columns: 2;
-}
+} */
 
-/*************** for tabs *******************/
-
-.tab-titles {
-  width: 20vw;
-  padding: 10px;
-  box-sizing: border-box;
-  position: sticky;
-  top: 0px;
-
-  [name="tab-group"] {
-    opacity: 0;
-  }
-  .tab-title {
-    cursor: pointer;
-    margin-bottom: 5px;
-    padding: 8px;
-    display: block;
-    color: var(--warm-sand);
-  }
-
-  &::before {
-    content: "";
-    position: absolute;
-    left: 7px;
-    height: 90%;
-    width: 2px;
-    background-color: var(--warm-sand);
-  }
-
-  #filmic-tab:checked,
-  label[for="filmic-tab"] {
-    color: var(--curtain-red);
-    border-left: 2px solid var(--curtain-red);
-  }
-}
-
-.tab-content {
-  padding: 10px;
-  border: 1px solid var(--cream);
-  margin-left: 20vw;
-  position: static;
-  top: 0;
-}
+/* general & initial column */

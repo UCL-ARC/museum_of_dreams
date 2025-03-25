@@ -1,11 +1,15 @@
 from ckeditor.widgets import CKEditorWidget
 from django import forms
 from django.contrib import admin
-from django.template.defaultfilters import truncatechars_html
-from django.utils.html import format_html
-import html
 
 from ..models import Analysis, TeachingResources
+from mod_app.admin.utils import (
+    list_genres,
+    list_keywords,
+    list_tags,
+    safe_bibliography,
+    safe_content,
+)
 
 
 class AnalysisAdminForm(forms.ModelForm):
@@ -46,15 +50,15 @@ class AnalysisAdmin(admin.ModelAdmin):
         js = ("admin/js/mentionsPluginConfig.js",)
 
     form = AnalysisAdminForm
-    autocomplete_fields = ["films", "topics", "tags", "teaching_resources"]
-    readonly_fields = ("safe_bibliography",)
+    autocomplete_fields = ["films", "keywords", "genre", "teaching_resources"]
+    readonly_fields = ("safe_bib",)
     exclude = ["bibliography"]
     list_display = [
         "dynamic_title",
         "related_films",
-        "list_topics",
-        "list_tags",
-        "safe_content",
+        "list_keywords_display",
+        "list_genres_display",
+        "safe_content_display",
     ]
     filter_horizontal = ("films",)
 
@@ -70,38 +74,25 @@ class AnalysisAdmin(admin.ModelAdmin):
 
     related_films.short_description = "Films"
 
-    def list_topics(self, obj):
-        topics = obj.topics.all()
-        return ", ".join(str(t) for t in topics)
+    def list_keywords_display(self, obj):
+        return list_keywords(obj)
 
-    list_topics.short_description = "Topics"
+    list_keywords_display.short_description = "Keywords"
 
-    def list_tags(self, obj):
-        tags = obj.tags.all()
-        return ", ".join(str(t) for t in tags)
+    def list_genres_display(self, obj):
+        return list_genres(obj)
 
-    list_tags.short_description = "Tags"
+    list_genres_display.short_description = "Genres"
 
-    def safe_content(self, obj):
-        truncated_content = truncatechars_html(obj.content, 200)
-        modified_content = truncated_content.replace("{", "(").replace("}", ")")
-        return format_html(modified_content)
+    def safe_content_display(self, obj):
+        return safe_content(obj)
 
-    safe_content.allow_tags = True
-    safe_content.short_description = "Content"
+    safe_content_display.short_description = "Content"
 
-    def safe_bibliography(self, obj):
-        bib_items = obj.bibliography.all()
-        formatted_items = [
-            format_html(
-                "<li>{}</li>", format_html(html.unescape(bib_item.full_citation))
-            )
-            for bib_item in bib_items
-        ]
-        return format_html("<ul>{}</ul>", format_html("".join(formatted_items)))
+    def safe_bib(self, obj):
+        return safe_bibliography(obj)
 
-    safe_bibliography.short_description = "Bibliography"
-    safe_bibliography.allow_tags = True
+    safe_bib.short_description = "Bibliography"
 
 
 @admin.register(TeachingResources)
@@ -114,28 +105,30 @@ class TeachingResourcesAdmin(AnalysisAdmin):
 
     form = TRAdminForm
     inlines = [TRAnalysisInline]
-    autocomplete_fields = ["films", "topics", "tags", "clips"]
-    readonly_fields = ("safe_bibliography",)
+    autocomplete_fields = ["films", "keywords", "tags", "clips"]
+    readonly_fields = ("safe_bib",)
     exclude = ["bibliography"]
     filter_horizontal = ("films",)
 
     list_display = [
         "dynamic_title",
         "related_films",
-        "list_topics",
-        "list_tags",
+        "list_keywords_display",
+        "list_tags_display",
     ]
-    search_fields = ["title", "tags", "topics"]
+    search_fields = ["title", "tags", "keywords"]
 
-    def safe_bibliography(self, obj):
-        bib_items = obj.bibliography.all()
-        formatted_items = [
-            format_html(
-                "<li>{}</li>", format_html(html.unescape(bib_item.full_citation))
-            )
-            for bib_item in bib_items
-        ]
-        return format_html("<ul>{}</ul>", format_html("".join(formatted_items)))
+    def safe_bib(self, obj):
+        return safe_bibliography(obj)
 
-    safe_bibliography.short_description = "Bibliography"
-    safe_bibliography.allow_tags = True
+    safe_bib.short_description = "Bibliography"
+
+    def list_keywords_display(self, obj):
+        return list_keywords(obj)
+
+    list_keywords_display.short_description = "Keywords"
+
+    def list_tags_display(self, obj):
+        return list_tags(obj)
+
+    list_tags_display.short_description = "Tags"

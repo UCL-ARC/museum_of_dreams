@@ -1,12 +1,14 @@
 import boto3
 import re
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 from django.template.defaultfilters import striptags
 from django.views import View
 from django.views.generic import DetailView, ListView, TemplateView
 from django.utils.decorators import method_decorator
+from django.template.loader import render_to_string
+from xhtml2pdf import pisa
 
 
 from museum_of_dreams_project.settings.aws import (
@@ -19,6 +21,15 @@ from .models import Film, BibliographyItem, Analysis, TeachingResources
 
 class HomeView(TemplateView):
     template_name = "home.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if Film.objects.first():
+            context["slides"] = [
+                Film.objects.first().title,
+                Analysis.objects.first().title,
+            ]
+        return context
 
 
 class FilmListView(ListView):
@@ -125,3 +136,20 @@ class BucketItemsView(View):
 
 def custom_404(request, exception=None):
     return render(request, "404.html", {}, status=404)
+
+
+def downloadAnalysis(request, pk):
+    analysis = Analysis.objects.get(pk=pk)
+    template_name = "downloads/analysis.html"
+
+    # Render the template with the context data
+    html = render_to_string(template_name, {"analysis": analysis})
+
+    # Create an HTTP response with the PDF file
+    response = HttpResponse(content_type="application/pdf")
+    response["Content-Disposition"] = f'attachment; filename="{analysis.title}.pdf"'
+
+    status = pisa.CreatePDF(html, dest=response)
+
+    if not status.err:
+        return response

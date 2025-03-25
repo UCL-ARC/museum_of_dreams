@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{analysis.title}} (Analysis)</title>
+    <link rel="stylesheet" href="{% static 'css/pdf-downloads.css' %}" />
+  </head>
+  <body>
+    <header class="page__heading">
+      Museum of Dreamworlds
+      <sup
+      ><a href="https://museumofdreamworlds.org"> <span class="material-symbols-outlined"> open_in_new </span></a></sup
+        >
+      </header>
+
+      <h1 class="page__title">{{ analysis.title }}</h1>
+
+      <div id="analysis__info__wrapper">
+        <div id="topics">
+          <h4>Topics</h4>
+          {% for topic in analysis.topics.all %}
+            <span class="tag tag--download">{{topic.name}}</span>
+          {% endfor %}
+        </div>
+        <div id="tags">
+          <h4>Tags</h4>
+          {% for tag in analysis.tags.all %}
+            <span class="tag tag--download">{{tag.name}}</span>
+          {% endfor %}
+        </div>
+        <div class="analysis__info">
+          <h3>Information</h3>
+          <hr />
+          <div id="holdings">
+            <h4>Holdings</h4>
+            <p>{{analysis.holdings | safe}}</p>
+          </div>
+          <div id="work-history">
+            <h4>Work History</h4>
+            <p>{{analysis.work_history | safe}}</p>
+          </div>
+
+          <div id="films">
+            <h4>Related Films</h4>
+            {% for film in analysis.films.all %}
+              <p>{{film}}</p>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <hr />
+      <div>{{ analysis.content | safe }}</div>
+    </body>
+  </html>

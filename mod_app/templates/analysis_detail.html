@@ -1,38 +1,75 @@
-{% extends "base.html" %}
-{% load i18n %}
-{% block title %}{{ analysis.title }} (Analysis) {% endblock %}
-{% block content %}
-    <div class="content-wrapper">
-        <div class="columnar-area">
-            <div>
-                <button>Download PDF</button>
-            </div>
-            <div id="analysis-info">
-                <div id="topics">
-                </div>
-                <div id="tags">
-                </div>
-                <div id="holdings">
-                </div>
-                <div id="work-history">
-                </div>
+{% extends "base.html" %} {% load i18n %} {% block title %}{{ analysis.title }} (Analysis) {% endblock %} {% block content %}
+  <h1 id="title">{{analysis.title}}</h1>
+  <script>
+    async function downloadAnalysis(pk) {
+      const url = `/download-analysis/${pk}`;
+      const response = await fetch(url);
 
-            </div>
+      if (response.ok) {
+      // Retrieve the filename from the Content-Disposition header
+        const contentDisposition = response.headers.get("Content-Disposition");
+        let filename = "download.pdf"; // Default filename if not specified
+        if (contentDisposition) {
+          const filenameMatch = contentDisposition.match(/filename="?(.+)"?/);
+          if (filenameMatch.length === 2) {
+            filename = filenameMatch[1];
+          }
+        }
 
-            <div id="analyses">
-            {% comment %} stack of analyses that can be navigated through? viewed one would need to be the current one, the other info would need to update as well {% endcomment %}
-            </div>
+      // Convert the response body to a Blob
+        const blob = await response.blob();
+        const blobUrl = window.URL.createObjectURL(blob);
 
-            <div id="bibliography">
-            {% comment %} this should expand on click for easier reading {% endcomment %}
-            </div>
+      // Create a temporary anchor element and trigger the download
+        const a = document.createElement("a");
+        a.href = blobUrl;
+        a.download = filename;
+        document.body.appendChild(a); // Append to the document
+        a.click(); // Trigger the download
 
+      // Clean up by revoking the object URL and removing the temporary anchor element
+        window.URL.revokeObjectURL(blobUrl);
+        document.body.removeChild(a);
+      } else {
+      // Handle errors or unsuccessful responses
+        console.error("Failed to download PDF:", response.statusText);
+      }
+    }
+  </script>
+
+  <div class="teaching-analysis__content-wrapper">
+    <div class="columnar-area">
+      <div>
+        <button class="btn teaching-analysis__download" onclick="downloadAnalysis({{analysis.pk}})" type="button">Download PDF</button>
+      </div>
+
+      <div id="analysis__info">
+        <div id="topics">
+          <h4>Genres</h4>
+          {% for topic in analysis.topics.all %}
+            <span class="tag">{{topic.name}}</span>
+          {% endfor %}
         </div>
-        <div class="related-items">
-            <div id="teaching-resources">
-            </div>
-            <div id="films">
-            </div>
+        <div id="keywords">
+          <h4>Keywords</h4>
+          {% for tag in analysis.tags.all %}
+            <span class="tag">{{tag.name}}</span>
+          {% endfor %}
         </div>
+        <div>
+          <h3>Information</h3>
+          <hr />
+          <div id="holdings">
+            <h4>Holdings</h4>
+            <p>{{analysis.holdings | safe}}</p>
+          </div>
+          <div id="work-history">
+            <h4>Work History</h4>
+            <p>{{analysis.work_history | safe}}</p>
+          </div>
+        </div>
+      </div>
     </div>
+    {% include "partial/teaching_analysis_tab_area.html" with model=analysis modelname="analysis" %}
+  </div>
 {% endblock %}

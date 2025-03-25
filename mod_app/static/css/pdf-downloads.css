@@ -1,0 +1,41 @@
+@import url("imports.css");
+
+body {
+  padding: 2rem;
+  margin-inline: 4rem;
+  font-family: "Open Sans", sans-serif;
+}
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+}
+
+.material-symbols-outlined {
+  font-size: 1rem;
+}
+
+.page__heading,
+.page__title {
+  text-align: center;
+}
+
+#topics,
+#tags {
+  .tag {
+    color: black;
+  }
+  grid-column: span 1fr;
+}
+
+#analysis__info__wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+
+  .analysis__info {
+    grid-column: span 2;
+  }
+}

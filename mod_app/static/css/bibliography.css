@@ -17,7 +17,7 @@
   }
   .ro {
     /* odd rows get a colour to make things more readable */
-    background-color: var(--cyan-0);
+    background-color: color-mix(in srgb, var(--cyan-0) 5%, transparent);
   }
 }
 

@@ -17,16 +17,16 @@ body {
 }
 
 h1 {
-  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-family: Boldonse, Haettenschweiler, "Arial Narrow Bold", sans-serif;
 }
 
 h2 {
-  font-family: "Agency FB";
+  font-family: "Epilogue";
   font-weight: bold;
 }
 
 h3 {
-  font-family: "Agency FB";
+  font-family: "Epilogue";
   font-weight: normal;
 }
 
@@ -192,12 +192,14 @@ footer {
 
 /* header */
 .title__logo-text {
-  width: clamp(25vw, 30vw, 35vw);
-  margin-left: 40vw;
+  /* width: clamp(28vw, 30vw, 32vw); */
+  /* margin-left: 40vw; */
   color: var(--turquoise);
   text-shadow: 0px 2px 2px var(--red-12);
-  font-size: 110%;
-  text-align: center;
+  font-size: 100% !important;
+  /* text-align: center; */
+  grid-column: 2;
+  text-align: end;
 
   @media screen and (max-width: 767px) {
     display: none;
@@ -214,7 +216,8 @@ footer {
   padding: 1rem;
   align-items: center;
   justify-content: space-between;
-  display: flex;
+  display: grid;
+  grid-template-columns: 3fr 5fr 1fr;
   z-index: 2;
   /* position: sticky;
   top: -15rem; */
@@ -242,18 +245,21 @@ footer {
   }
 }
 .title-bar__icons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  justify-content: center;
+  align-items: end;
+
   .material-symbols-outlined:not(#drawer .material-symbols-outlined) {
     padding-inline: 0.25rem;
     border-radius: 7px;
     background: transparent;
 
     &:hover {
-      transform: scale(1.2);
-      border-radius: 7px;
-      background: transparent;
-      box-shadow: 1px -1px 28px 1px var(--off-white);
+      transform: scale(1.02);
 
-      color: var(--coral);
+      color: var(--turquoise);
     }
   }
   margin-right: 1vw;
@@ -392,13 +398,16 @@ footer {
 
   .current {
     display: block;
+    font-size: 0.9rem;
+    margin-top: 2.4rem;
     margin-bottom: 1rem;
-    color: var(--pink-12);
+    color: var(--coral);
   }
 
   .pagination__button {
-    background-color: var(--coral);
-    border-color: var(--coral);
+    font-size: 0.8rem;
+    background-color: var(--pink-10);
+    border-color: var(--pink-9);
     font-weight: 400;
     color: var(--sand-0);
     transition: background-color 0.3s ease;
