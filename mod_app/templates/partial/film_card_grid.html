@@ -1,5 +1,5 @@
 <div class="card-grid">
   {% for film in film_list %}
-    <a href="{% url 'film_detail' pk=film.pk %}"> {% include "components/card.html" with obj=film %} </a>
+    <a href="{% url 'film_detail' pk=film.pk %}" class="card-wrapper"> {% include "components/card.html" with obj=film %} </a>
   {% endfor %}
 </div>

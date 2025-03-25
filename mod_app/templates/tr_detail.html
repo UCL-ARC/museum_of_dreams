@@ -1,35 +1,68 @@
-{% extends "base.html" %}
-{% load i18n %}
-{% block title %}{{ tr.title }} (Teaching Resources) {% endblock %}
-{% block content %}
-    <div class="content-wrapper">
-        <div class="columnar-area">
-            <div>
-                <button>Download PDF</button>
-            </div>
-            <div id="tr-info">
-                <div id="topics">
-                </div>
-                <div id="tags">
-                </div>
+{% extends "base.html" %} {% load i18n %} {% block title %}{{ tr.title }} (Teaching Resources) {% endblock %} {% block content %}
+  <h1 id="title">{{tr.title}}</h1>
+  <script>
+    async function downloadResources(pk) {
+      const url = `/download-tr/${pk}`;
+      const response = await fetch(url);
 
-            </div>
+      if (response.ok) {
+      // Retrieve the filename from the Content-Disposition header
+        const contentDisposition = response.headers.get("Content-Disposition");
+        let filename = "download.pdf"; // Default filename if not specified
+        if (contentDisposition) {
+          const filenameMatch = contentDisposition.match(/filename="?(.+)"?/);
+          if (filenameMatch.length === 2) {
+            filename = filenameMatch[1];
+          }
+        }
 
-            <div id="teaching-material">
-                <div id="clips">
-                </div>
-            </div>
+      // Convert the response body to a Blob
+        const blob = await response.blob();
+        const blobUrl = window.URL.createObjectURL(blob);
 
-            <div id="bibliography">
-            {% comment %} this should expand on click for easier reading {% endcomment %}
-            </div>
+      // Create a temporary anchor element and trigger the download
+        const a = document.createElement("a");
+        a.href = blobUrl;
+        a.download = filename;
+        document.body.appendChild(a); // Append to the document
+        a.click(); // Trigger the download
 
+      // Clean up by revoking the object URL and removing the temporary anchor element
+        window.URL.revokeObjectURL(blobUrl);
+        document.body.removeChild(a);
+      } else {
+      // Handle errors or unsuccessful responses
+        console.error("Failed to download PDF:", response.statusText);
+      }
+    }
+  </script>
+  <div class="teaching-analysis__content-wrapper">
+    <div class="columnar-area">
+      <div>
+        <button class="btn teaching-analysis__download" onclick="downloadResources({{tr.pk}})" type="button">Download Bundle</button>
+      </div>
+
+      <div id="tr__info">
+        <div id="topics">
+          <h4>Topics</h4>
+          {% for topic in tr.topics.all %}
+            <span class="tag">{{topic.name}}</span>
+          {% endfor %}
         </div>
-        <div class="related-items">
-            <div id="tr-analyses">
-            </div>
-            <div id="films">
-            </div>
+        <div id="keywords">
+          <h4>Keywords</h4>
+          {% for kw in tr.keywords.all %}
+            <span class="tag">{{kw.name}}</span>
+          {% endfor %}
         </div>
+        <div id="tags">
+          <h4>Tags</h4>
+          {% for tag in tr.tags.all %}
+            <span class="tag">{{tag.name}}</span>
+          {% endfor %}
+        </div>
+      </div>
     </div>
+    {% include "partial/teaching_analysis_tab_area.html" with model=tr modelname="teachingresource" %}
+  </div>
 {% endblock %}

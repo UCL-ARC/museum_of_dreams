@@ -29,30 +29,6 @@
     transform: scale(1.05);
   }
 }
-
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(24vw, 1fr));
-  gap: 3vw;
-  margin-inline: 3vw;
-
-  a {
-    text-decoration: none;
-    transition: transform 0.3s ease;
-    &:hover {
-      /* this is the whole card */
-      transform: scale(1.02);
-      color: unset;
-    }
-  }
-
-  @media screen and (max-width: 767px) {
-    grid-template-columns: repeat(auto-fill, minmax(40vw, 1fr));
-    font-size: 80%;
-    margin-inline: 8vw;
-  }
-}
-
 .teaching-analysis__content-wrapper,
 .film__content-wrapper {
   padding: 1rem;
@@ -113,6 +89,42 @@
   }
 }
 
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(22vw, 1fr));
+  gap: 3vw;
+  margin-inline: 4vw;
+
+  a {
+    text-decoration: none;
+    transition: transform 0.3s ease;
+    &:hover {
+      /* this is the whole card */
+      transform: scale(1.02);
+      color: unset;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    grid-template-columns: repeat(auto-fill, minmax(40vw, 1fr));
+    font-size: 80%;
+    margin-inline: 10vw;
+  }
+
+  @media screen and (max-width: 400px) {
+    grid-template-columns: 1fr;
+    font-size: 80%;
+    margin-inline: 10vw;
+  }
+}
+
+.card-wrapper {
+  height: 100%;
+  min-height: 40vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .card {
   border: var(--border-size-2) solid var(--card-border);
   background-color: var(--card-bg);
@@ -121,7 +133,7 @@
   border-radius: var(--radius-2);
   padding: 1vw 1.5vw;
   overflow: auto;
-  height: clamp(24vw, 32vw, 35vw);
+  height: clamp(28vw, 36vw, 40vw);
   font-size: 70%;
   min-height: fit-content;
 
@@ -137,11 +149,14 @@
   @media screen and (max-width: 767px) {
     height: clamp(36vh, 42vh, 48vh);
   }
+  @media screen and (max-width: 400px) {
+    height: clamp(45vh, 50vh, 60vh);
+  }
 
   .card__header {
     background-size: cover;
     background-position: center;
-    height: clamp(40%, 45%, 55%);
+    height: 50%;
     padding: 0;
     margin: 0;
 
@@ -152,8 +167,10 @@
   }
 
   .card__body {
+    flex: 1;
+
     .card__body__title {
-      font-size: 1rem;
+      font-size: 0.9rem;
     }
 
     .card__body__description,
@@ -167,6 +184,10 @@
       .card__body__description {
         font-size: larger;
         color: var(--contrast-text) !important;
+      }
+
+      .card__body__title {
+        font-size: 0.8rem;
       }
     }
   }
@@ -231,6 +252,7 @@
   border: 1px solid var(--card-border--hover);
   background-color: var(--deep-blue);
   font-size: 0.55rem;
+  padding: 0.2rem;
 }
 .columnar-area .tag {
   font-size: 0.6rem;
