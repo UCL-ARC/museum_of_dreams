@@ -32,7 +32,8 @@
 
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(24vw, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(20vw, 1fr));
+  grid-template-rows: 1fr;
   gap: 3vw;
   margin-inline: 3vw;
 
@@ -113,6 +114,12 @@
   }
 }
 
+.card-wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 .card {
   border: var(--border-size-2) solid var(--card-border);
   background-color: var(--card-bg);
@@ -121,7 +128,7 @@
   border-radius: var(--radius-2);
   padding: 1vw 1.5vw;
   overflow: auto;
-  height: clamp(28vw, 36vw, 40vw);
+  /* height: clamp(28vw, 36vw, 40vw); */
   font-size: 70%;
   min-height: fit-content;
 
@@ -141,7 +148,7 @@
   .card__header {
     background-size: cover;
     background-position: center;
-    height: clamp(40%, 45%, 55%);
+    height: 50%;
     padding: 0;
     margin: 0;
 
@@ -152,6 +159,8 @@
   }
 
   .card__body {
+    flex: 1;
+
     .card__body__title {
       font-size: 1rem;
     }

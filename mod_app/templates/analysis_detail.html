@@ -45,7 +45,7 @@
 
       <div id="analysis__info">
         <div id="topics">
-          <h4>Genres</h4>
+          <h4>Topics</h4>
           {% for topic in analysis.topics.all %}
             <span class="tag">{{topic.name}}</span>
           {% endfor %}
@@ -56,18 +56,12 @@
             <span class="tag">{{tag.name}}</span>
           {% endfor %}
         </div>
-        <div>
-          <h3>Information</h3>
-          <hr />
-          <div id="holdings">
-            <h4>Holdings</h4>
-            <p>{{analysis.holdings | safe}}</p>
-          </div>
-          <div id="work-history">
-            <h4>Work History</h4>
-            <p>{{analysis.work_history | safe}}</p>
-          </div>
-        </div>
+      {% comment %}
+      <div>
+        <h3>Information</h3>
+        <hr />
+      </div>
+      {% endcomment %}
       </div>
     </div>
     {% include "partial/teaching_analysis_tab_area.html" with model=analysis modelname="analysis" %}
