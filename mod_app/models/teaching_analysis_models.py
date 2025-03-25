@@ -34,6 +34,8 @@ class Analysis(models.Model):
 
     films = models.ManyToManyField("Film", related_name="analyses", blank=True)
 
+    topics = models.ManyToManyField(Tag, related_name="analysis_topics", blank=True)
+
     keywords = models.ManyToManyField(
         Keyword, related_name="analysis_keywords", blank=True
     )
@@ -78,6 +80,8 @@ class TeachingResources(models.Model):
     )
 
     films = models.ManyToManyField("Film", related_name="trs", blank=True)
+
+    topics = models.ManyToManyField(Tag, related_name="tr_topics", blank=True)
 
     keywords = models.ManyToManyField(Keyword, related_name="tr_keywords", blank=True)
 
