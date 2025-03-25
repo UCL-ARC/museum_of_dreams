@@ -56,9 +56,9 @@ class AnalysisAdmin(admin.ModelAdmin):
     list_display = [
         "dynamic_title",
         "related_films",
-        "list_keywords_d",
-        "list_genres_d",
-        "safe_content_d",
+        "list_keywords_display",
+        "list_genres_display",
+        "safe_content_display",
     ]
     filter_horizontal = ("films",)
 
@@ -74,20 +74,20 @@ class AnalysisAdmin(admin.ModelAdmin):
 
     related_films.short_description = "Films"
 
-    def list_keywords_d(self, obj):
+    def list_keywords_display(self, obj):
         return list_keywords(obj)
 
-    list_keywords_d.short_description = "Keywords"
+    list_keywords_display.short_description = "Keywords"
 
-    def list_genres_d(self, obj):
+    def list_genres_display(self, obj):
         return list_genres(obj)
 
-    list_genres_d.short_description = "Genres"
+    list_genres_display.short_description = "Genres"
 
-    def safe_content_d(self, obj):
+    def safe_content_display(self, obj):
         return safe_content(obj)
 
-    safe_content_d.short_description = "Content"
+    safe_content_display.short_description = "Content"
 
     def safe_bib(self, obj):
         return safe_bibliography(obj)
@@ -113,8 +113,8 @@ class TeachingResourcesAdmin(AnalysisAdmin):
     list_display = [
         "dynamic_title",
         "related_films",
-        "list_keywords_d",
-        "list_tags_d",
+        "list_keywords_display",
+        "list_tags_display",
     ]
     search_fields = ["title", "tags", "keywords"]
 
@@ -123,12 +123,12 @@ class TeachingResourcesAdmin(AnalysisAdmin):
 
     safe_bib.short_description = "Bibliography"
 
-    def list_keywords_d(self, obj):
+    def list_keywords_display(self, obj):
         return list_keywords(obj)
 
-    list_keywords_d.short_description = "Keywords"
+    list_keywords_display.short_description = "Keywords"
 
-    def list_tags_d(self, obj):
+    def list_tags_display(self, obj):
         return list_tags(obj)
 
-    list_tags_d.short_description = "Tags"
+    list_tags_display.short_description = "Tags"

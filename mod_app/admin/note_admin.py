@@ -12,13 +12,13 @@ class ProjectNoteAdmin(admin.ModelAdmin):
         js = ("admin/js/mentionsPluginConfig.js",)
 
     search_fields = ["title"]
-    list_display = ["title", "safe_content_d"]
+    list_display = ["title", "safe_content_display"]
     readonly_fields = ("bibliography",)
 
-    def safe_content_d(self, obj):
+    def safe_content_display(self, obj):
         return safe_content(obj)
 
-    safe_content_d.short_description = "Content"
+    safe_content_display.short_description = "Content"
 
 
 @admin.register(Feedback)
@@ -27,13 +27,13 @@ class FeedbackAdmin(admin.ModelAdmin):
         js = ("admin/js/mentionsPluginConfig.js",)
 
     search_fields = ["title"]
-    list_display = ["title", "safe_content_d"]
+    list_display = ["title", "safe_content_display"]
     readonly_fields = ("bibliography",)
 
-    def safe_content_d(self, obj):
+    def safe_content_display(self, obj):
         return safe_content(obj)
 
-    safe_content_d.short_description = "Content"
+    safe_content_display.short_description = "Content"
 
 
 class VisInline(s3BrowserButtonMixin, admin.TabularInline):
@@ -64,14 +64,14 @@ class VisualInfluencesAdmin(admin.ModelAdmin):
         js = ("admin/js/mentionsPluginConfig.js",)
 
     search_fields = ["title"]
-    list_display = ["title", "safe_content_d"]
+    list_display = ["title", "safe_content_display"]
     readonly_fields = ("bibliography",)
     filter_horizontal = ("films",)
 
-    def safe_content_d(self, obj):
+    def safe_content_display(self, obj):
         return safe_content(obj)
 
-    safe_content_d.short_description = "Content"
+    safe_content_display.short_description = "Content"
 
 
 @admin.register(WrittenInfluences)
@@ -80,11 +80,11 @@ class WrittenInfluencesAdmin(admin.ModelAdmin):
         js = ("admin/js/mentionsPluginConfig.js",)
 
     search_fields = ["title"]
-    list_display = ["title", "safe_content_d"]
+    list_display = ["title", "safe_content_display"]
     readonly_fields = ("bibliography",)
     filter_horizontal = ("films",)
 
-    def safe_content_d(self, obj):
+    def safe_content_display(self, obj):
         return safe_content(obj)
 
-    safe_content_d.short_description = "Content"
+    safe_content_display.short_description = "Content"
