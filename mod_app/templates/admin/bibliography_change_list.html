@@ -1,0 +1,36 @@
+{% extends "admin/change_list.html" %} {% block object-tools-items %}
+  <style>
+    .bib-upload::after {
+      content: "Check docs for details";
+      font-size: 0.8rem;
+      color: grey;
+      margin-left: 2vw;
+    }
+  </style>
+  <li class="bib-upload">
+    <form
+      method="POST"
+      enctype="multipart/form-data"
+      id="html-form"
+      style="display: none"
+    >
+    {# enctype="multipart/form-data" is required to allow file uploads. #} {#
+    hides the html form with style="display:none" #} {% csrf_token %}
+      <input
+        type="file"
+        id="html-file-input"
+        name="html-file"
+        accept=".html"
+        required
+        onchange="document.getElementById('html-form').submit();"
+      />
+    </form>
+    <a
+      href="#"
+      class="grp-add-link grp-state-focus"
+      onclick="document.getElementById('html-file-input').click(); return false;"
+    >
+      Upload Bibliography Items
+    </a>
+  </li>
+  {{ block.super }} {% endblock %}

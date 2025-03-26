@@ -12,6 +12,9 @@ th.column-safe_alt_titles,
   max-width: 10rem;
 }
 
+a.grp-link-external {
+  color: #3b7588;
+
 a.grp-change-related[title="Change selected analysis"] {
   width: 8rem;
   padding-left: 2rem;

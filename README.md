@@ -29,6 +29,7 @@ python manage.py migrate
 python manage.py createsuperuser
 ```
 
+
 To populate the db with data, run
 
 ```
@@ -47,6 +48,20 @@ To run the tests locally, run
 
 ```
 python manage.py test mod_app/tests
+```
+
+### Troubleshooting
+
+If you get a CI precommit error, try running
+
+```
+pre-commit run --all
+```
+
+If you're getting any errors related to static files, try running
+
+```
+python manage.py collectstatic --noinput
 ```
 
 ### Technologies used

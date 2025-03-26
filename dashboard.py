@@ -17,13 +17,18 @@ class CustomIndexDashboard(Dashboard):
     Custom index dashboard for museumofdream(world)s
     """
 
+    class Media:
+        css = {
+            "all": ("admin/css/custom.css",),
+        }
+
     def init_with_context(self, context):
         site_name = get_admin_site_name(context)
 
         # append a group for "Administration"
         self.children.append(
             modules.Group(
-                _("Group: Administration & Applications"),
+                _("Administration & Applications"),
                 column=3,
                 collapsible=True,
                 children=[
@@ -113,7 +118,7 @@ class CustomIndexDashboard(Dashboard):
         # append another link list module for "support".
         self.children.append(
             modules.LinkList(
-                _("Support"),
+                _("Support: Docs for usage"),
                 column=3,
                 children=[
                     {
@@ -137,6 +142,12 @@ class CustomIndexDashboard(Dashboard):
                     {
                         "title": _("Importing from Word"),
                         "url": "https://github.com/UCL-ARC/museum_of_dreams/wiki/Importing-from-Word",
+                        "external": True,
+                        "header": True,
+                    },
+                    {
+                        "title": _("Uploading Bibliography Items"),
+                        "url": "https://github.com/UCL-ARC/museum_of_dreams/wiki/Using-the-Admin-Interface/_edit#importing-a-list-of-bibliographies-from-html-table",
                         "external": True,
                         "header": True,
                     },
