@@ -126,7 +126,7 @@ def import_from_html(html_file):
 
     for row in rows[1:]:
         cols = row.find_all("td")
-        if len(cols) != 2:
+        if len(cols) > 3:
             raise ValueError()
 
         # content duplication check
@@ -145,7 +145,7 @@ def import_from_html(html_file):
         _, created = BibliographyItem.objects.get_or_create(
             short_citation=bibliography[0],
             full_citation=bibliography[1],
-            annotation="",
+            annotation=bibliography[2] if len(cols) == 3 else "",
         )
         if created:
             created_count += 1
