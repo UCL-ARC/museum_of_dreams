@@ -1,176 +1,160 @@
-{% extends "foundation.html" %}
-{% load i18n %}
-{% block body %}
-    <body>
-        {% comment %} header area {% endcomment %}
+{% extends "foundation.html" %} {% load i18n %} {% block body %}
+  <body>
+  {% comment %} header area {% endcomment %}
 
-        <div class="title-bar">
+    <div class="title-bar">
+      <a href="{% url 'home' %}" class="link--home">
+        <div class="title-logo">
+          <img id="title__logo-img" src="{% static 'images/logos/mod_lady_grey.png' %}" alt="MOD logo" />
+        </div>
+        <h2 class="title--mobile mnt">MUSEUM of DREAMWORLDS</h2>
+      </a>
 
-            <a href="{% url 'home' %}">
-                <div class="title-logo">
-                    <img id="title__logo-img" src="{% static 'images/logos/mod_lady_grey.png' %}" alt="MOD logo" />
-                </div>
-                <h2 class="title--mobile mnt">
-                    MUSEUM of DREAMWORLDS
-                </h2>
-            </a>
+      {% block non_production_message %} {% if not request.get_host|lower == 'museumofdreamworlds.org' %}
+        <span style="color: orange; padding: 10px; position: absolute; left: 2vw; top: 10px"> STAGING </span>
+      {% endif %} {% endblock %} {% include "components/logo_text.html" with extra_classes="title__logo-text" %}
 
-            {% block non_production_message %}
-                {% if not request.get_host|lower == 'museumofdreamworlds.org' %}
-                    <span style="color: orange; padding: 10px; position:absolute; left:2vw; top:10px;">
-                        STAGING
-                    </span>
-                {% endif %}
-            {% endblock %}
+      <div class="title-bar__icons">
+        {% if user.is_authenticated and user.is_staff %}
+          <a href="/admin">
+            <span title="Admin dashboard" class="material-symbols-outlined"> dashboard </span>
+          </a>
 
-            {% include "components/logo_text.html" with extra_classes="title__logo-text" %}
-            <div class="title-bar__icons">
-                {% comment %} <div class="toggle-container">
-                    <span class="toggle-label">Toggle Dark Mode:</span>
-                    <label class="switch">
-                      <input type="checkbox" id="toggle">
-                    </label>
-                  </div> {% endcomment %}
-                <span title="dark mode: on" class="material-symbols-outlined">
-                    dark_mode
-                </span>
-                {% if user.is_authenticated %}
-                    <a href="{% url 'logout' %}">
-                        <span title="Log out" class="material-symbols-outlined">
-                            logout
-                        </span>
-                    </a>
+        {% else %}
+          <a href="{% url 'admin:index' %}">
+            <span title="Log in" class="material-symbols-outlined"> login </span>
+          </a>
+        {% endif %} {% if user.is_authenticated%} {% comment %}
+      <a href="{% url 'home' %}">
+        <span class="material-symbols-outlined"> search </span>
+      </a>
+      {% endcomment %}
+          <span class="material-symbols-outlined" id="menu-icon"> menu </span>
 
-                {% else %}
-                    <a href="{% url 'admin:index' %}">
-                        <span title="Log in" class="material-symbols-outlined">
-                            login
-                        </span>
-                    </a>
-                {% endif %}
-
-                {% if user.is_authenticated%}
-                {% comment %} <a href="{% url 'home' %}">
-                    <span class="material-symbols-outlined">
-                        search
-                    </span>
-                </a> {% endcomment %}
-
-                    <span class="material-symbols-outlined" id="menu-icon">
-                        menu
-                    </span>
-
-
-                    <div class="drawer" id="drawer">
-                    <!-- Content of drawer goes here -->
-                        <div class="drawer__content">
-                            <button id="drawer__button--close">x</button>
-                            <h2 class="drawer__heading">Explore</h2>
-                            <ul class="drawer__list-nav">
-                                <li>
-                                    <a href="{% url 'film_list' %}?page=1"><span class="material-symbols-outlined">theaters</span>
-                                        Films</a></li>
-                                <li><a href="{% url 'analysis_list' %}">
-                                    <span class="material-symbols-outlined">description</span>
-                                    Analyses: Critical Essays and Discussions</a></li>
-                                <li><a href="{% url 'bibliography' %}"><span class="material-symbols-outlined">menu_book</span>
-                                    Bibliography
-                                </a></li>
-                                <li><a href="{% url 'tr_list' %}"><span class="material-symbols-outlined">topic</span>
-                                    Teaching Resources Available
-                                </a></li>
-                                <li><a href="{% url 'location_list' %}"><span class="material-symbols-outlined">map</span>
-                                    Locations
-                                </a></li>
-                                <li><a href="{% url 'tag_list' %}"><span class="material-symbols-outlined">label</span>
-                                    Tags
-                                </a></li>
-                                <li><a href="{% url 'search' %}"><span class="material-symbols-outlined">search</span>
-                                    Search
-                                </a></li>
-                            </ul>
-                        </div>
-                    </div>
-                {% endif %}
+          <div class="drawer" id="drawer">
+        <!-- Content of drawer goes here -->
+            <div class="drawer__content">
+              <div class="drawer__menu-icons">
+            {% comment %}
+            <div class="toggle-container">
+              <span class="toggle-label">Toggle Dark Mode:</span>
+              <label class="switch">
+                <input type="checkbox" id="toggle" />
+              </label>
             </div>
+            {% endcomment %}
+                <span title="dark mode: on" class="material-symbols-outlined sm darkmode"> dark_mode </span>
+                {% if user.is_authenticated %} {% if user.is_staff %}
+                  <a href="/admin">
+                    <span title="Admin dashboard" class="material-symbols-outlined sm"> dashboard </span>
+                  </a>
+                {% endif %}
+                  <a href="{% url 'logout' %}">
+                    <span title="Log out" class="material-symbols-outlined sm"> logout </span>
+                  </a>
 
-        </div>
-
-        {% block notice %}
-            {% if not user.is_authenticated %}
-                <div class="title--construction">
-                    <h1 class="title__text--construction">{% trans "NOTICE: This site is currently under construction." %}
-                        <br>
-                        <small>{% trans "Read below for more information" %}
-                        </small>
-                    </h1>
-                </div>
-                <div class="project-notice">
-                    <p>
-                        This site is under construction and will be launched around summer 2026 as an outcome of the AHRC-funded project Museum of Dreamworlds: Silent Antiquity Films in the BFI National Archive (2023-26).
-                    </p>
-                    <p>
-                        The project seeks to establish a better understanding of both the modern reception of classical antiquity and the transnational history of silent cinema. It investigates how, thanks to cinema, classical antiquity was rendered a powerfully immersive democratic dreamworld while, thanks to classical antiquity, cinema laid claim to the status of an educative art - a museum of ancient dreamworlds. The project will produce a systematic analysis of the c. 60 silent film prints in the British National Film Archive (BFI) that engage with ancient Greece and Rome and, thereby, situate the UK firmly within the global network that produced, exhibited, and consumed the classical antiquity films of the early twentieth century.
-                    </p>
-                    <p>
-                        The project team are creating an online resource - a digital museum of those dreamworlds - that will include direct access to prints and teaching resources in order to provide an important future use for the films beyond academia and the archive - in cinemas, schools, heritage sites, and museums.
-                    </p>
-                    <p>
-                        The project team comprises PI Maria Wyke (UCL), PDRA Aylin Atacan (UCL), Co-I Ivo Blom (Vrije Universiteit Amsterdam), and Co-I Bryony Dixon (BFI).
-
-                        Further information on the project and its activities can be found, for now, at:<a href=https://www.ucl.ac.uk/classics/research/research-projects/museum-dream-worlds> Museum of Dreamworlds at UCL</a>
-                    </p>
-                    <p>If you'd like to get in touch, send us an email at <a href="mailto:museumofdreamworlds@ucl.ac.uk">museumofdreamworlds@ucl.ac.uk</a>
-                    </p>
-                </div>
-            {% endif %}
-        {% endblock %}
-        {% block heading %}
-        {% endblock %}
-        <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-        <main>
-            {% if user.is_authenticated %}
-                {% block content %}
-                {% endblock %}
-            {% endif %}
-        </main>
-        {% comment %} javascript imports {% endcomment %}
-        <script src="" async defer></script>
-        <script type="module" src="{% static 'js/main.js' %}"></script>
-    </body>
-    {% comment %} footer area {% endcomment %}
-    <footer class="footer">
-        <a href="{% url 'home' %}">
-            <div class="footer-logo">
-                <img id="footer__logo-img" src="{% static 'images/logos/mod_footer_logo.png' %}" alt="MOD logo" />
-                {% include "components/logo_text.html" with extra_classes="footer__logo-text" %}
+                {% endif %}
+              </div>
+              <button id="drawer__button--close">x</button>
+              <h2 class="drawer__heading">Explore</h2>
+              <ul class="drawer__list-nav">
+                <li>
+                  <a href="{% url 'film_list' %}?page=1"><span class="material-symbols-outlined">theaters</span> Films</a>
+                </li>
+                <li>
+                  <a href="{% url 'analysis_list' %}">
+                    <span class="material-symbols-outlined">description</span>
+                    Analyses: Critical Essays and Discussions</a
+                    >
+                  </li>
+                  <li>
+                    <a href="{% url 'bibliography' %}"
+                    ><span class="material-symbols-outlined">menu_book</span>
+                      Bibliography
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{% url 'tr_list' %}"
+                    ><span class="material-symbols-outlined">topic</span>
+                      Teaching Resources Available
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{% url 'location_list' %}"
+                    ><span class="material-symbols-outlined">map</span>
+                      Locations
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{% url 'tag_list' %}"
+                    ><span class="material-symbols-outlined">label</span>
+                      Tags
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{% url 'search' %}"
+                    ><span class="material-symbols-outlined">search</span>
+                      Search
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </div>
-        </a>
-        <div class="footer__collab-logos-area">
-            {% include "components/collab_logos.html" %}
-        </div>
-        <div class="footer__nav">
-            <ul class="footer__nav--top-row">
-                <h5>Explore</h5>
-                <li><a href="{% url 'film_list' %}">Films</a></li>
-                <li><a href="#">Search</a></li>
-                <li><a href="{% url 'analysis_list' %}">Analyses</a></li>
-                <li><a href="{% url 'tr_list' %}">Teaching Resources</a></li>
-                <li><a href="#">Locations</a></li>
-                <li><a href="#">Tags</a></li>
-            </ul>
-            <ul class="footer__nav--bottom-row">
-                <h5>About</h5>
-                <li><a href="#">About us</a></li>
-                <li><a href="#">Blog </a></li>
-                <li><a href="#">Collaborators</a></li>
-                <li><a href="mailto:museumofdreamworlds@ucl.ac.uk">Contact</a></li>
-            </ul>
-        </div>
-        <div class="footer__collab-logos-area--mobile">
-            {% include "components/collab_logos.html" %}
-        </div>
-    </footer>
+        {% endif %}
+      </div>
+    </div>
+
+    {% block notice %} {% if not user.is_authenticated %}
+      <div class="title--construction">
+        <h1 class="title__text--construction">
+          {% trans "NOTICE: This site is currently under construction." %}
+          <br />
+          <small>{% trans "Read below for more information" %} </small>
+        </h1>
+      </div>
+      <div class="project-notice">
+        <p>This site is under construction and will be launched around summer 2026 as an outcome of the AHRC-funded project Museum of Dreamworlds: Silent Antiquity Films in the BFI National Archive (2023-26).</p>
+        <p>The project seeks to establish a better understanding of both the modern reception of classical antiquity and the transnational history of silent cinema. It investigates how, thanks to cinema, classical antiquity was rendered a powerfully immersive democratic dreamworld while, thanks to classical antiquity, cinema laid claim to the status of an educative art - a museum of ancient dreamworlds. The project will produce a systematic analysis of the c. 60 silent film prints in the British National Film Archive (BFI) that engage with ancient Greece and Rome and, thereby, situate the UK firmly within the global network that produced, exhibited, and consumed the classical antiquity films of the early twentieth century.</p>
+        <p>The project team are creating an online resource - a digital museum of those dreamworlds - that will include direct access to prints and teaching resources in order to provide an important future use for the films beyond academia and the archive - in cinemas, schools, heritage sites, and museums.</p>
+        <p>The project team comprises PI Maria Wyke (UCL), PDRA Aylin Atacan (UCL), Co-I Ivo Blom (Vrije Universiteit Amsterdam), and Co-I Bryony Dixon (BFI). Further information on the project and its activities can be found, for now, at:<a href="https://www.ucl.ac.uk/classics/research/research-projects/museum-dream-worlds"> Museum of Dreamworlds at UCL</a></p>
+        <p>If you'd like to get in touch, send us an email at <a href="mailto:museumofdreamworlds@ucl.ac.uk">museumofdreamworlds@ucl.ac.uk</a></p>
+      </div>
+    {% endif %} {% endblock %} {% block heading %} {% endblock %}
+  <!--[if lt IE 7]>
+    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+    <main>{% if user.is_authenticated %} {% block content %} {% endblock %} {% endif %}</main>
+  {% comment %} javascript imports {% endcomment %}
+    <script src="" async defer></script>
+    <script type="module" src="{% static 'js/main.js' %}"></script>
+  </body>
+{% comment %} footer area {% endcomment %}
+  <footer class="footer">
+    <a href="{% url 'home' %}">
+      <div class="footer-logo">
+        <img id="footer__logo-img" src="{% static 'images/logos/mod_footer_logo.png' %}" alt="MOD logo" />
+        {% include "components/logo_text.html" with extra_classes="footer__logo-text" %}
+      </div>
+    </a>
+    <div class="footer__collab-logos-area">{% include "components/collab_logos.html" %}</div>
+    <div class="footer__nav">
+      <ul class="footer__nav--top-row">
+        <h5>Explore</h5>
+        <li><a href="{% url 'film_list' %}">Films</a></li>
+        <li><a href="#">Search</a></li>
+        <li><a href="{% url 'analysis_list' %}">Analyses</a></li>
+        <li><a href="{% url 'tr_list' %}">Teaching Resources</a></li>
+        <li><a href="#">Locations</a></li>
+        <li><a href="#">Tags</a></li>
+      </ul>
+      <ul class="footer__nav--bottom-row">
+        <h5>About</h5>
+        <li><a href="#">About us</a></li>
+        <li><a href="#">Blog </a></li>
+        <li><a href="#">Collaborators</a></li>
+        <li><a href="mailto:museumofdreamworlds@ucl.ac.uk">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer__collab-logos-area--mobile">{% include "components/collab_logos.html" %}</div>
+  </footer>
 {% endblock %}
