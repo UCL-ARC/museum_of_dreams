@@ -1,3 +1,6 @@
+import re
+from html import unescape
+
 from bs4 import BeautifulSoup
 from ckeditor.widgets import CKEditorWidget
 from django import forms
@@ -75,12 +78,11 @@ class BibliographyItemAdmin(admin.ModelAdmin):
 def clean_style(soup_html_data):
     """remove unwanted styling from <span> html tags"""
     styles_to_remove = ["color", "font-family", "font-size"]
-    
-    for span in soup_html_data.find_all("span"):
 
+    for span in soup_html_data.find_all("span"):
         if "style" in span.attrs:
             styles = span["style"].split(";")
-            
+
             # retain styles like italics and bold
             filtered_styles = [
                 s
@@ -97,6 +99,17 @@ def clean_style(soup_html_data):
             else:
                 del span["style"]
     return soup_html_data
+
+
+def normalise_text(input_text):
+    """get_text() and strip_tags() give slightly different outputs regarding whitespace, this should normalise it"""
+    # Decode HTML entities
+    decoded_text = unescape(input_text)
+    # Normalize whitespace to a single space
+    normalized_text = re.sub(r"\s+", " ", decoded_text)
+    # Trim leading and trailing whitespace
+    normalized_text = normalized_text.strip()
+    return normalized_text
 
 
 def import_from_html(html_file):
@@ -118,9 +131,10 @@ def import_from_html(html_file):
 
         # content duplication check
         stripped_existing_full_citations = [
-            strip_tags(bib.full_citation) for bib in BibliographyItem.objects.all()
+            strip_tags(normalise_text(bib.full_citation))
+            for bib in BibliographyItem.objects.all()
         ]
-        stripped_current_bibliography = [col.get_text(strip=True) for col in cols]
+        stripped_current_bibliography = [normalise_text(col.get_text()) for col in cols]
         if stripped_current_bibliography[1] in stripped_existing_full_citations:
             skipped_count += 1
             continue
