@@ -29,6 +29,13 @@ python manage.py migrate
 python manage.py createsuperuser
 ```
 
+
+To populate the db with data, run
+
+```
+python manage.py loaddata path/to/dump/file
+```
+
 ### AWS
 
 This project is hosted on AWS, if you do not have access to the account, let [Amanda Ho-Lyn](mailto:a.ho-lyn@ucl.ac.uk) know and she will arrange this.

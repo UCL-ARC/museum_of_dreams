@@ -7,6 +7,16 @@ class Tag(models.Model):
         return self.name
 
     name = models.CharField(max_length=255, unique=True)
+    is_genre = models.BooleanField(default=True)
+
+
+class Keyword(Tag):
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        self.is_genre = False
+        super().save(*args, **kwargs)
 
 
 class BaseLinkModel(models.Model):
@@ -116,6 +126,16 @@ class Poster(FileLink):
 class Drawing(FileLink):
     class Meta:
         verbose_name = "Drawing"
+
+
+class CardImage(FileLink):
+    class Meta:
+        verbose_name = "Card Image"
+
+
+class PublicVisualInfluence(FileLink):
+    class Meta:
+        verbose_name = "Public Visual Influence"
 
 
 class Location(models.Model):

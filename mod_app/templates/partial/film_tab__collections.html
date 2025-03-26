@@ -1,0 +1,18 @@
+<div>
+  <h2>Printed Materials</h2>
+  {% comment %} maybe have a "stack" for each that expands when clicked on? Use swiper gallery {% endcomment %}
+</div>
+
+<div>
+  <h2>Visual Resources</h2>
+  {% comment %} as above {% endcomment %}
+</div>
+<hr />
+<div>
+  <h2>Critical Essays and Discussions</h2>
+  {% include "partial/analysis_card_grid.html" with analysis_list=film.analyses.all %}
+</div>
+<div>
+  <h3>You may also want to look at...</h3>
+  {% comment %} essays and other links {% endcomment %}
+</div>

@@ -1,29 +1,11 @@
-{% extends "base.html" %}
-{% load i18n %}
-{% block title %}{% trans 'Films' %} {% endblock %}
-{% block content %}
+{% extends "base.html" %} {% load i18n %} {% block title %}{% trans 'Films' %} {% endblock %} {% block content %}
 
-    <div class="page__description">
-        <div>
-            List of films on this site
-        </div>
-        {% if is_paginated %}
-            <a href="{% url 'film_list' %}"><button class="btn button--toggle-pagination">View All</button></a>
-        {% else %}
-            <a href="{% url 'film_list' %}?page=1"><button class="btn button--toggle-pagination">View by page</button></a>
-        {% endif %}
-    </div>
-    <div class="card-grid">
-        {% for film in film_list %}
-            <a href="{% url 'film_detail' pk=film.pk %}">
-                {% include "components/card.html" with obj=film %}
-            </a>
-        {% endfor %}
-    </div>
-
-
+  <div class="page__description">
+    <div>List of films on this site</div>
     {% if is_paginated %}
-        {% include "components/pagination_buttons.html" %}
+      <a href="{% url 'film_list' %}"><button class="btn button--toggle-pagination">View All</button></a>
+    {% else %}
+      <a href="{% url 'film_list' %}?page=1"><button class="btn button--toggle-pagination">View by page</button></a>
     {% endif %}
-
-{% endblock %}
+  </div>
+  {% include "partial/film_card_grid.html" %} {% if is_paginated %} {% include "components/pagination_buttons.html" %} {% endif %} {% endblock %}

@@ -1,0 +1,29 @@
+/* for analysis list and detail pages */
+
+#title {
+  display: flex;
+  justify-content: center;
+}
+
+.teaching-analysis__download {
+  transition: all 0.3s ease;
+  background-image: none;
+  --_text: var(--deep-blue) !important;
+
+  &:hover {
+    background-image: url("../images/film-colours-light-mesh.png");
+    background-position: left center;
+    background-size: cover;
+    color: var(--off-white);
+    font-weight: 600;
+  }
+}
+
+.tab__content {
+  img {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+    object-fit: contain;
+  }
+}
