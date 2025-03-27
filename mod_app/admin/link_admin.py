@@ -106,6 +106,38 @@ class DrawingInline(PreviewMixin, s3BrowserButtonMixin, admin.TabularInline):
     ]
 
 
+class CardImageInline(PreviewMixin, s3BrowserButtonMixin, admin.TabularInline):
+    model = CardImage
+    extra = 1
+    max_num = 1
+    classes = [
+        "inline-inline",
+        "grp-collapse",
+        "grp-closed",
+    ]
+    verbose_name_plural = "Card Image"
+
+    def formfield_for_dbfield(self, db_field, request, **kwargs):
+        field = super(CardImageInline, self).formfield_for_dbfield(
+            db_field, request, **kwargs
+        )
+        if db_field.name == "description":
+            field.initial = "card header img"
+        return field
+
+
+class PublicVisualInfluenceInline(
+    PreviewMixin, s3BrowserButtonMixin, admin.TabularInline
+):
+    model = PublicVisualInfluence
+    extra = 1
+    classes = [
+        "inline-inline",
+        "grp-collapse",
+        "grp-closed",
+    ]
+
+
 class OtherLinkInline(PreviewMixin, admin.TabularInline):
     model = OtherLink
     extra = 1
@@ -189,6 +221,23 @@ class DrawingAdmin(PreviewMixin, s3BrowserButtonMixin, admin.ModelAdmin):
     list_display = ["description", "film", "file", "url", "preview"]
 
 
+@admin.register(CardImage)
+class CardImageAdmin(PreviewMixin, s3BrowserButtonMixin, admin.ModelAdmin):
+    search_fields = ["description", "url"]
+    list_display = ["description", "film", "file", "url", "preview"]
+
+
+@admin.register(PublicVisualInfluence)
+class PublicVisualInfluenceAdmin(PreviewMixin, s3BrowserButtonMixin, admin.ModelAdmin):
+    search_fields = ["description", "url"]
+    list_display = ["description", "film", "file", "url", "preview"]
+
+
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
+    search_fields = ["name", "is_genre"]
+
+
+@admin.register(Keyword)
+class KeywordAdmin(admin.ModelAdmin):
     search_fields = ["name"]

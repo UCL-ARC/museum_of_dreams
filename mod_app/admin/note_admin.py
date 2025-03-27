@@ -1,8 +1,7 @@
 from django.contrib import admin
-from django.template.defaultfilters import truncatechars_html
-from django.utils.html import format_html
 
 
+from mod_app.admin.utils import safe_content
 from mod_app.models import ProjectNote, Feedback, VisualInfluences, WrittenInfluences
 from mod_app.utils.mixins import s3BrowserButtonMixin
 
@@ -13,16 +12,13 @@ class ProjectNoteAdmin(admin.ModelAdmin):
         js = ("admin/js/mentionsPluginConfig.js",)
 
     search_fields = ["title"]
-    list_display = ["title", "safe_content"]
+    list_display = ["title", "safe_content_display"]
     readonly_fields = ("bibliography",)
 
-    def safe_content(self, obj):
-        truncated_content = truncatechars_html(obj.content, 200)
-        modified_content = truncated_content.replace("{", "(").replace("}", ")")
-        return format_html(modified_content)
+    def safe_content_display(self, obj):
+        return safe_content(obj)
 
-    safe_content.allow_tags = True
-    safe_content.short_description = "Content"
+    safe_content_display.short_description = "Content"
 
 
 @admin.register(Feedback)
@@ -31,16 +27,13 @@ class FeedbackAdmin(admin.ModelAdmin):
         js = ("admin/js/mentionsPluginConfig.js",)
 
     search_fields = ["title"]
-    list_display = ["title", "safe_content"]
+    list_display = ["title", "safe_content_display"]
     readonly_fields = ("bibliography",)
 
-    def safe_content(self, obj):
-        truncated_content = truncatechars_html(obj.content, 200)
-        modified_content = truncated_content.replace("{", "(").replace("}", ")")
-        return format_html(modified_content)
+    def safe_content_display(self, obj):
+        return safe_content(obj)
 
-    safe_content.allow_tags = True
-    safe_content.short_description = "Content"
+    safe_content_display.short_description = "Content"
 
 
 class VisInline(s3BrowserButtonMixin, admin.TabularInline):
@@ -66,38 +59,32 @@ class WritInline(s3BrowserButtonMixin, admin.TabularInline):
 
 
 @admin.register(VisualInfluences)
-class VisualInfluencesAdmin(s3BrowserButtonMixin, admin.ModelAdmin):
+class VisualInfluencesAdmin(admin.ModelAdmin):
     class Media:
         js = ("admin/js/mentionsPluginConfig.js",)
 
     search_fields = ["title"]
-    list_display = ["title", "safe_content"]
+    list_display = ["title", "safe_content_display"]
     readonly_fields = ("bibliography",)
     filter_horizontal = ("films",)
 
-    def safe_content(self, obj):
-        truncated_content = truncatechars_html(obj.content, 200)
-        modified_content = truncated_content.replace("{", "(").replace("}", ")")
-        return format_html(modified_content)
+    def safe_content_display(self, obj):
+        return safe_content(obj)
 
-    safe_content.allow_tags = True
-    safe_content.short_description = "Content"
+    safe_content_display.short_description = "Content"
 
 
 @admin.register(WrittenInfluences)
-class WrittenInfluencesAdmin(s3BrowserButtonMixin, admin.ModelAdmin):
+class WrittenInfluencesAdmin(admin.ModelAdmin):
     class Media:
         js = ("admin/js/mentionsPluginConfig.js",)
 
     search_fields = ["title"]
-    list_display = ["title", "safe_content"]
+    list_display = ["title", "safe_content_display"]
     readonly_fields = ("bibliography",)
     filter_horizontal = ("films",)
 
-    def safe_content(self, obj):
-        truncated_content = truncatechars_html(obj.content, 200)
-        modified_content = truncated_content.replace("{", "(").replace("}", ")")
-        return format_html(modified_content)
+    def safe_content_display(self, obj):
+        return safe_content(obj)
 
-    safe_content.allow_tags = True
-    safe_content.short_description = "Content"
+    safe_content_display.short_description = "Content"

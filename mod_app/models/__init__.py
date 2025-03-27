@@ -7,6 +7,7 @@ from .support_models import (
     FileLink,
     Location,
     Tag,
+    Keyword,
     Script,
     PressBook,
     Programme,
@@ -18,6 +19,8 @@ from .support_models import (
     Drawing,
     OtherLink,
     Video,
+    CardImage,
+    PublicVisualInfluence,
 )
 from .teaching_analysis_models import (
     Analysis,
@@ -33,6 +36,7 @@ __all__ = [
     "BaseLinkModel",
     "Location",
     "Tag",
+    "Keyword",
     "Script",
     "PressBook",
     "Programme",
@@ -49,4 +53,6 @@ __all__ = [
     "Feedback",
     "VisualInfluences",
     "WrittenInfluences",
+    "CardImage",
+    "PublicVisualInfluence",
 ]

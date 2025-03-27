@@ -5,7 +5,7 @@
 @import url("carousel.css");
 @import url("film.css");
 @import url("bibliography.css");
-@import url("analysis.css");
+@import url("teaching-analysis.css");
 @import url("s3-browser.css");
 @import url("animations.css");
 
@@ -13,9 +13,12 @@
 @import url("open-props.min.css");
 
 /**************** Google Fonts + MUI **********************/
-/* Gruppo, Open Sans, Playfair Display, Montserrat */
-@import url("https://fonts.googleapis.com/css2?family=Gruppo&family=Noto+Serif&family=Open+Sans&family=Playfair+Display&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+/* Boldonse, Epilogue, Gruppo, Open Sans, Playfair Display, Montserrat */
+@import url("https://fonts.googleapis.com/css2?family=Boldonse&family=Epilogue:ital,wght@0,100..900;1,100..900&family=Gruppo&family=Noto+Serif&family=Open+Sans&family=Playfair+Display&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+/* Material Design (for icons) */
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0");
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,100,1,200");
 
 /**************** Agency FB Font *******************/
 @font-face {

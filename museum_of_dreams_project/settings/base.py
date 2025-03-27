@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 
+import grappelli
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -57,7 +59,10 @@ ROOT_URLCONF = "museum_of_dreams_project.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [
+            "mod_app/templates/admintemplates/",
+            os.path.dirname(grappelli.__file__),
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "builtins": ["django.templatetags.static"],
@@ -128,7 +133,9 @@ CKEDITOR_CONFIGS = {
                 "uploadimage",
                 "uploadwidget",
                 "mentions",
+                "footnotes",
                 "popout",
+                "pastefromword",
             ]
         ),
         "toolbar": [
@@ -143,7 +150,7 @@ CKEDITOR_CONFIGS = {
                 "Undo",
                 "Redo",
             ],
-            ["Link", "Unlink", "Anchor"],
+            ["Link", "Unlink", "Anchor", "Footnotes", "FindFootnotes"],
             ["Image", "Flash", "Table", "HorizontalRule"],
             ["TextColor", "BGColor"],
             ["Smiley", "SpecialChar"],

@@ -12,25 +12,42 @@
   --warm-sand: #c99383;
   --beige: #d8b2a7;
   --cream: #f4e9e5;
-  --off-white: #e8edee; /* good alt is sand-0 */
-
-  /* extras that differ for modes */
-  --contrast-text: #e8edee;
-  --footer-colour: var(--dark-grey);
-  --footer-text-colour: var(--turquoise);
-  --background-colour: #232424;
-  --card-shadow: rgb(19, 19, 20);
 
   /* remember we have OpenProps colours as well */
 }
 /* We're going with dark as standard with option to prefer light */
-body.lm {
-  /* only define the ones that differ */
-  --off-white: #dae2e3;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --off-white: #e8edee; /* good alt is sand-0 */
+    /* extras that differ for modes */
+    --background-colour: #252525;
 
-  --contrast-text: #1e1f20;
-  --footer-colour: var(--turquoise);
-  --footer-text-colour: var(--dark-grey);
-  --background-colour: var(--off-white);
-  --card-shadow: rgba(182, 182, 183, 1);
+    --contrast-text: #e8edee;
+
+    --footer-colour: var(--dark-grey);
+    --footer-text-colour: var(--turquoise);
+
+    --card-bg: var(--gray-9);
+    --card-shadow: rgb(19, 19, 20);
+    --card-border: var(--deep-blue);
+    --card-border--hover: color-mix(in srgb, var(--card-border) 80%, white 15%);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --off-white: #dae2e3;
+    /* extras that differ for modes */
+    --background-colour: #eaf0f1;
+
+    --contrast-text: #1e1f20;
+
+    --footer-colour: var(--turquoise);
+    --footer-text-colour: var(--dark-grey);
+
+    --card-bg: var(--gray-1);
+    --card-shadow: rgba(182, 182, 183, 1);
+    --card-border: var(--deep-blue);
+    --card-border--hover: color-mix(in srgb, var(--card-border) 80%, white 15%);
+  }
 }

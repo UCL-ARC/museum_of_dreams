@@ -21,5 +21,6 @@ class BibliographyItem(models.Model):
     )
     annotation = RichTextField(
         null=True,
+        blank=True,
         help_text="Notes on how this item was helpful or relevant, for example.",
     )
