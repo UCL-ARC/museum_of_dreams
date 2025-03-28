@@ -59,9 +59,10 @@
 
     .tab-selection {
       overflow: hidden;
-      justify-content: center;
+      justify-content: start;
       display: flex;
       gap: 1rem;
+      margin-inline-start: 2.2rem;
     }
     .tab__link {
       background-color: transparent;
