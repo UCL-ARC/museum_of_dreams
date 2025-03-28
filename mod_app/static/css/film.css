@@ -1,13 +1,23 @@
 /* for film detail page */
 .film__heading {
-  text-align: center;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 1rem;
+  text-align: left;
 
   .title-release {
+    grid-column: 2;
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
-    text-align: center;
+    justify-content: space-between;
+    text-align: left;
     padding-inline: 2rem;
+    margin-inline-start: 1.4rem;
+
+    h1,
+    h2 {
+      display: inline-flex;
+    }
   }
 }
 
