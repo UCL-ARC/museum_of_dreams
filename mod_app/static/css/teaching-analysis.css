@@ -32,4 +32,12 @@
     max-width: 100% !important;
     object-fit: contain;
   }
+  section.footnotes {
+    display: none;
+  }
 }
+
+#referenceModal {
+  display: none;
+}
+
