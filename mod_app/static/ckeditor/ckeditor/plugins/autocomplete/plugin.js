@@ -154,9 +154,7 @@
    * @param {CKEDITOR.plugins.autocomplete.configDefinition} config Configuration object for this autocomplete instance.
    */
   function Autocomplete(editor, config) {
-    var configKeystrokes =
-      editor.config.autocomplete_commitKeystrokes ||
-      CKEDITOR.config.autocomplete_commitKeystrokes;
+    var configKeystrokes = editor.config.autocomplete_commitKeystrokes || CKEDITOR.config.autocomplete_commitKeystrokes;
 
     /**
      * The editor instance that autocomplete is attached to.
@@ -215,9 +213,7 @@
      * @property {Number[]}
      * @readonly
      */
-    this.commitKeystrokes = CKEDITOR.tools.array.isArray(configKeystrokes)
-      ? configKeystrokes.slice()
-      : [configKeystrokes];
+    this.commitKeystrokes = CKEDITOR.tools.array.isArray(configKeystrokes) ? configKeystrokes.slice() : [configKeystrokes];
 
     /**
      * Listeners registered by this autocomplete instance.
@@ -238,10 +234,7 @@
      * @readonly
      * @property {CKEDITOR.template} [outputTemplate=null]
      */
-    this.outputTemplate =
-      config.outputTemplate !== undefined
-        ? new CKEDITOR.template(config.outputTemplate)
-        : null;
+    this.outputTemplate = config.outputTemplate !== undefined ? new CKEDITOR.template(config.outputTemplate) : null;
 
     if (config.itemTemplate) {
       this.view.itemTemplate = new CKEDITOR.template(config.itemTemplate);
@@ -281,9 +274,7 @@
       var editor = this.editor,
         win = CKEDITOR.document.getWindow(),
         editable = editor.editable(),
-        editorScrollableElement = editable.isInline()
-          ? editable
-          : editable.getDocument();
+        editorScrollableElement = editable.isInline() ? editable : editable.getDocument();
 
       // iOS classic editor listens on frame parent element for editor `scroll` event (#1910).
       if (CKEDITOR.env.iOS && !editable.isInline()) {
@@ -294,31 +285,15 @@
       this.view.attach();
       this.textWatcher.attach();
 
-      this._listeners.push(
-        this.textWatcher.on("matched", this.onTextMatched, this)
-      );
-      this._listeners.push(
-        this.textWatcher.on("unmatched", this.onTextUnmatched, this)
-      );
-      this._listeners.push(
-        this.model.on("change-data", this.modelChangeListener, this)
-      );
-      this._listeners.push(
-        this.model.on("change-selectedItemId", this.onSelectedItemId, this)
-      );
-      this._listeners.push(
-        this.view.on("change-selectedItemId", this.onSelectedItemId, this)
-      );
+      this._listeners.push(this.textWatcher.on("matched", this.onTextMatched, this));
+      this._listeners.push(this.textWatcher.on("unmatched", this.onTextUnmatched, this));
+      this._listeners.push(this.model.on("change-data", this.modelChangeListener, this));
+      this._listeners.push(this.model.on("change-selectedItemId", this.onSelectedItemId, this));
+      this._listeners.push(this.view.on("change-selectedItemId", this.onSelectedItemId, this));
       this._listeners.push(this.view.on("click-item", this.onItemClick, this));
 
       // (#4617)
-      this._listeners.push(
-        this.model.on(
-          "change-isActive",
-          this.updateAriaAttributesOnEditable,
-          this
-        )
-      );
+      this._listeners.push(this.model.on("change-isActive", this.updateAriaAttributesOnEditable, this));
 
       // Update view position on viewport change.
       // Note: CKEditor's event system has a limitation that one function
@@ -453,11 +428,7 @@
         return;
       }
 
-      editable.removeAttributes([
-        "aria-controls",
-        "aria-expanded",
-        "aria-activedescendant",
-      ]);
+      editable.removeAttributes(["aria-controls", "aria-expanded", "aria-activedescendant"]);
 
       editable.setAttribute("aria-autocomplete", "none");
     },
@@ -538,9 +509,7 @@
      */
     getHtmlToInsert: function (item) {
       var encodedItem = encodeItem(item);
-      return this.outputTemplate
-        ? this.outputTemplate.output(encodedItem)
-        : encodedItem.name;
+      return this.outputTemplate ? this.outputTemplate.output(encodedItem) : encodedItem.name;
     },
 
     /**
@@ -578,11 +547,7 @@
      * @returns {CKEDITOR.plugins.textWatcher} The text watcher instance.
      */
     getTextWatcher: function (textTestCallback) {
-      return new CKEDITOR.plugins.textWatcher(
-        this.editor,
-        textTestCallback,
-        this.throttle
-      );
+      return new CKEDITOR.plugins.textWatcher(this.editor, textTestCallback, this.throttle);
     },
 
     /**
@@ -700,9 +665,7 @@
       this.model.setItem(itemId);
       this.view.selectItem(itemId);
 
-      this.updateAriaActiveDescendantAttributeOnEditable(
-        selectedItem.getAttribute("id")
-      );
+      this.updateAriaActiveDescendantAttributeOnEditable(selectedItem.getAttribute("id"));
     },
 
     /**
@@ -914,7 +877,7 @@
       el.setAttribute("id", id);
       el.addClass("cke_autocomplete_panel");
       // Below float panels and context menu, but above maximized editor (-5).
-      el.setStyle("z-index", this.editor.config.baseFloatZIndex - 3);
+      el.setStyle("z-index", this.editor.config.baseFloatZIndex + 13);
       // Add also appropriate role (#4617).
       el.setAttribute("role", "listbox");
 
@@ -929,10 +892,7 @@
      */
     createItem: function (item) {
       var encodedItem = encodeItem(item),
-        itemElement = CKEDITOR.dom.element.createFromHtml(
-          this.itemTemplate.output(encodedItem),
-          this.document
-        ),
+        itemElement = CKEDITOR.dom.element.createFromHtml(this.itemTemplate.output(encodedItem), this.document),
         id = CKEDITOR.tools.getNextId();
 
       // Add attributes needed for a11y support (#4617).
@@ -1023,9 +983,7 @@
      */
     selectItem: function (itemId) {
       if (this.selectedItemId != null) {
-        this.getItemById(this.selectedItemId).removeClass(
-          "cke_autocomplete_selected"
-        );
+        this.getItemById(this.selectedItemId).removeClass("cke_autocomplete_selected");
       }
       this.selectedItemId = itemId;
       var itemElement = this.getItemById(itemId);
@@ -1094,9 +1052,7 @@
         // |                                             |
         // +---------------------------------------------+
         if (editorViewportRect.bottom < caretRect.bottom) {
-          return (
-            Math.min(caretRect.top, editorViewportRect.bottom) - viewHeight
-          );
+          return Math.min(caretRect.top, editorViewportRect.bottom) - viewHeight;
         }
 
         // If the view doesn't fit below the caret position and fits above, set it there.
@@ -1118,11 +1074,7 @@
           spaceBelow = editorViewportRect.bottom - caretRect.bottom,
           viewExceedsTopViewport = caretRect.top - viewHeight < scrollPositionY;
 
-        if (
-          viewHeight > spaceBelow &&
-          viewHeight < spaceAbove &&
-          !viewExceedsTopViewport
-        ) {
+        if (viewHeight > spaceBelow && viewHeight < spaceAbove && !viewExceedsTopViewport) {
           return caretRect.top - viewHeight;
         }
 
@@ -1158,13 +1110,9 @@
         // |                                             |
         // |                                             |
         // +---------------------------------------------+
-        var viewExceedsBottomViewport =
-          caretRect.bottom + viewHeight > windowHeight + scrollPositionY;
+        var viewExceedsBottomViewport = caretRect.bottom + viewHeight > windowHeight + scrollPositionY;
 
-        if (
-          !(viewHeight > spaceBelow && viewHeight < spaceAbove) &&
-          viewExceedsBottomViewport
-        ) {
+        if (!(viewHeight > spaceBelow && viewHeight < spaceAbove) && viewExceedsBottomViewport) {
           return caretRect.top - viewHeight;
         }
 
@@ -1219,9 +1167,7 @@
         if (CKEDITOR.env.iOS && !editable.isInline()) {
           return iOSViewportElement(editor).getClientRect(true);
         } else {
-          return editable.isInline()
-            ? editable.getClientRect(true)
-            : editor.window.getFrame().getClientRect(true);
+          return editable.isInline() ? editable.getClientRect(true) : editor.window.getFrame().getClientRect(true);
         }
       }
     },
