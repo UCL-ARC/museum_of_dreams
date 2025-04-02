@@ -16,23 +16,21 @@
 
   {% comment %} content of those tabs {% endcomment %}
 
-  <a href="#" class="ref-link" data-id="{{ ref.id }}">[{{ forloop.counter }}]</a>
-  <script src= "{% static 'js/footnote_modal.js' %}"></script>
   <!-- Modal -->
-  <div id="referenceModal" class="modal" style="display:none;">
+  <div id="referenceModal" class="modal">
     <div class="modal-content">
       <span class="close" id="closeModal">&times;</span>
       <div id="modalText"></div>
     </div>
   </div>
-
+  
   <div id="{{model}}__content" class="lh-15 tab__content active" name="content">{{ model.content | safe }}</div>
   
   <div id="films" class="tab__content" name="films">{% include "partial/film_card_grid.html" with film_list=model.films.all %}</div>
-
-{% if modelname == "analysis" %}
-<div id="teaching-resources" class="tab__content" name="teaching-resources"></div>
-{% else %}
+  
+  {% if modelname == "analysis" %}
+  <div id="teaching-resources" class="tab__content" name="teaching-resources"></div>
+  {% else %}
 <div id="clips" class="tab__content" name="clips"></div>
 {% endif %}
 
@@ -40,3 +38,4 @@
 </div>
 
 <script src="{% static 'js/openTab.js' %}"></script>
+<script src= "{% static 'js/footnote_modal.js' %}"></script>

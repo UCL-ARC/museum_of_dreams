@@ -1,18 +1,32 @@
 // hide footnote
-document.querySelector("section.footnotes").style.display = "none";
+const footnoteSection = document.querySelector("section.footnotes");
 
-// placeholder code
+
+// placeholder event handler code 
 document.addEventListener('DOMContentLoaded', function () {
+    const markers = document.querySelector(".tabbed-area").querySelectorAll("sup>a[rel='footnote']");
     const modal = document.getElementById('referenceModal');
     const modalText = document.getElementById('modalText');
     const closeBtn = document.getElementById('closeModal');
-  
-    document.querySelectorAll('.ref-link').forEach(link => {
-      link.addEventListener('click', function (e) {
+
+    markers.forEach((link) => {
+        link.addEventListener('click', function (e) {
         e.preventDefault();
-        const id = this.dataset.id;
-        const content = document.getElementById('ref-content-' + id).innerHTML;
-        modalText.innerHTML = content;
+
+        let id = e.target.id;
+
+        // get the tag information of element that was clicked on
+        const anchor = document.getElementById(id);
+        // trace back to the href attribute (e.g., "#footnote-1")
+        const footnoteId = anchor.getAttribute('href').substring(1); // removes '#'
+
+        // Find the footnote associated with that id ref
+        const footnoteItem = document.getElementById(footnoteId);
+
+        // Get the citation text from the footnote
+        const cite = footnoteItem.querySelector('cite');
+
+        modalText.innerHTML = cite.textContent;
         modal.style.display = 'block';
       });
     });
