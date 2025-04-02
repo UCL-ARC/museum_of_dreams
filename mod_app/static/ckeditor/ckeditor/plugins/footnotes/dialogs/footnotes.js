@@ -148,7 +148,7 @@
             { name: "clipboard", groups: ["clipboard"] },
             { name: "basicstyles", groups: ["basicstyles", "cleanup"] },
           ];
-          config.allowedContent = "br em strong[*]; a[!href] @";
+          config.allowedContent = "br em strong[*](*); a[!href] @";
           config.enterMode = CKEDITOR.ENTER_BR;
           config.autoParagraph = false;
           config.height = 80;

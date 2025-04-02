@@ -64,7 +64,7 @@
         def.header = {
           selector: "header > *",
           //allowedContent: ''
-          allowedContent: "strong[*]; em span sub sup;",
+          allowedContent: "strong[*](*); em span sub sup;",
         };
       }
 
@@ -79,7 +79,7 @@
       for (i; i <= l; i++) {
         def["footnote_" + i] = {
           selector: "#footnote" + prefix + "-" + i + " cite",
-          allowedContent: "a[*]; cite[*](*); strong[*]; em span br",
+          allowedContent: "a[*]; cite[*](*); strong[*](*); em span br",
         };
       }
 
@@ -112,7 +112,7 @@
         "footnotes",
         new CKEDITOR.dialogCommand("footnotesDialog", {
           // @TODO: This needs work:
-          allowedContent: "section[*](*);header[*](*);li[*];a[*];cite(*)[*];sup[*];strong[*];",
+          allowedContent: "section[*](*);header[*](*);li[*];a[*];cite(*)[*];sup[*];strong[*](*);",
           requiredContent: "section(footnotes);header;li[id,data-footnote-id];a[href,id,rel];cite;sup[data-footnote-id]",
         })
       );
@@ -376,7 +376,7 @@
         n = parseInt(i) + 1;
         footnote_widget.initEditable("footnote_" + n, {
           selector: "#footnote" + prefix + "-" + n + " cite",
-          allowedContent: "a[*]; cite[*](*); em strong[*]; span",
+          allowedContent: "a[*]; cite[*](*); em strong[*](*); span",
         });
       }
 
