@@ -55,13 +55,15 @@
   }
 
   .tabbed-area {
+    --underline-colour: var(--coral);
     width: 100%;
 
     .tab-selection {
       overflow: hidden;
-      justify-content: center;
+      justify-content: start;
       display: flex;
       gap: 1rem;
+      margin-inline-start: 2.2rem;
     }
     .tab__link {
       background-color: transparent;
@@ -72,11 +74,11 @@
       padding-bottom: 0;
 
       &.active {
-        border-bottom: 1px solid var(--beige);
+        border-bottom: 1px solid var(--underline-colour);
       }
 
       &:hover:not(.active) {
-        border-bottom: 2px solid var(--beige);
+        border-bottom: 2px solid var(--underline-colour);
       }
     }
     .tab__content {
@@ -232,12 +234,20 @@
 }
 
 .tag {
+  --border-colour: var(--card-border--hover);
+  --text-colour: var(--choco-0);
+
+  @media (prefers-color-scheme: light) {
+    --border-colour: var(--card-border--hover);
+    --text-colour: var(--camo-10);
+  }
+
   display: inline-flex;
   border-radius: 20px;
   padding: 0.4rem;
   border: 2px solid var(--card-border--hover);
   /* color: var(--light-blue); */
-  color: var(--choco-0);
+  color: var(--text-colour);
   opacity: 0.8;
   font-family: "Montserrat", sans-serif;
   font-size: 0.75rem;

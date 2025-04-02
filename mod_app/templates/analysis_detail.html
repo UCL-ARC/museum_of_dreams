@@ -1,5 +1,5 @@
 {% extends "base.html" %} {% load i18n %} {% block title %}{{ analysis.title }} (Analysis) {% endblock %} {% block content %}
-  <h1 id="title">{{analysis.title}}</h1>
+  <div class="heading"><h1 id="title">{{analysis.title}}</h1></div>
   <script>
     async function downloadAnalysis(pk) {
       const url = `/download-analysis/${pk}`;
