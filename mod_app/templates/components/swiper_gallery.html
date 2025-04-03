@@ -4,7 +4,7 @@
   <div class="swiper-wrapper" auto-height="true" {% if coverflow %} effect="coverflow" grab-cursor="true" centered-slides="true" slides-per-view="auto" coverflow-effect-rotate="50" coverflow-effect-stretch="0" coverflow-effect-depth="100" coverflow-effect-modifier="1" coverflow-effect-slide-shadows="true" {% endif %}>
     <!-- Slides -->
     {% comment %} define slides[] in the view {% endcomment %} {% for slide in slides %}
-      <div class="swiper-slide">
+      <div class="swiper-slide" lazy="true">
         {% if slide_images %}
           <div class="slide__content">
             <img src="{{slide}}" class="slide__image--bg" />
