@@ -485,4 +485,9 @@ swiper-container {
   &#pm {
     width: fit-content;
   }
+  swiper-slide {
+    text-align: center;
+    width: fit-content;
+    object-fit: contain;
+  }
 }
