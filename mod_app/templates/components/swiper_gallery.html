@@ -6,9 +6,7 @@
     {% comment %} define slides[] in the view {% endcomment %} {% for slide in slides %}
       <div class="swiper-slide" lazy="true">
         {% if slide_images %}
-          <div class="slide__content">
-            <img src="{{slide}}" class="slide__image--bg" />
-          </div>
+          <img loading="lazy" src="{{slide}}" class="slide__image--bg" />
         {% else %}
           <div class="slide__content">{{slide}}</div>
         {% endif %}
@@ -49,7 +47,5 @@
         el: "#{{id}} .swiper-scrollbar",
       },
     });
-
-    console.log("hello", {{id}}Swiper)
   </script>
 </div>
