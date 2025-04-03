@@ -263,6 +263,7 @@
     transform: scale(1.05);
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     opacity: 1;
+    cursor: pointer;
   }
 
   /* could do colours based on type of tag */
