@@ -480,4 +480,9 @@ footer {
       object-fit: contain;
     }
   }
+
+  &#vr,
+  &#pm {
+    width: fit-content;
+  }
 }
