@@ -1,11 +1,11 @@
 <div>
   <h2>Printed Materials</h2>
-  {{pm_loop}} {% if pm_slides|length > 0 %} {% include "components/swiper_gallery.html" with slides=pm_slides id="pm" coverflow=True loop=pm_loop %} {% endif %}
+  {% include "components/swiper_gallery.html" with slides=pm_slides id="pm" coverflow=True loop=pm_loop %}
 </div>
 
 <div>
   <h2>Visual Resources</h2>
-  {{vr_loop}} {% if vr_slides|length > 0 %} {% include "components/swiper_gallery.html" with slides=vr_slides id="vr" slide_images=True coverflow=True loop=vr_loop %} {% endif %}
+  {% include "components/swiper_gallery.html" with slides=vr_slides id="vr" slide_images=True coverflow=True loop=vr_loop %}
 </div>
 <hr />
 <div>
