@@ -471,7 +471,7 @@ footer {
 swiper-container {
   width: 100%;
 
-  &:not(#film__video) {
+  &#main {
     height: clamp(50vh, 80vh, 100vh);
   }
   &:not(#vr) {

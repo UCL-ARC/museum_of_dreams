@@ -1,11 +1,11 @@
 <div>
   <h2>Printed Materials</h2>
-  {% comment %} maybe have a "stack" for each that expands when clicked on? Use swiper gallery {% endcomment %} {% include "components/swiper_gallery.html" with slides=pm_slides id="pm" coverflow=True %}
+  {% if pm_slides|length > 0 %} {% include "components/swiper_gallery.html" with slides=pm_slides id="pm" coverflow=True %} {% endif %}
 </div>
 
 <div>
   <h2>Visual Resources</h2>
-  {% comment %} as above {% endcomment %} {% include "components/swiper_gallery.html" with slides=vr_slides id="vr" slide_images=True coverflow=True %}
+  {% if vr_slides|length > 0 %} {% include "components/swiper_gallery.html" with slides=vr_slides id="vr" slide_images=True coverflow=True %} {% endif %}
 </div>
 <hr />
 <div>
