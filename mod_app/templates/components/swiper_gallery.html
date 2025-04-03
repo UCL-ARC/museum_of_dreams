@@ -1,5 +1,5 @@
 <!-- Slider main container -->
-<swiper-container id="{{id}}" auto-height="true" navigation="true" pagination="true" pagination-clickable="true" {% if coverflow %} effect="coverflow" grab-cursor="true" centered-slides="true" slides-per-view="auto" {% if slides|length 2 %} loop="true" loopAddBlankSlides="true" {% endif %} {% endif %}>
+<swiper-container id="{{id}}" auto-height="true" navigation="true" pagination="true" pagination-clickable="true" {% if coverflow %} effect="coverflow" grab-cursor="true" centered-slides="true" slides-per-view="auto" {% if loop %}% loop="true" loopAddBlankSlides="true" {% endif %} {% endif %}>
   <!-- Slides -->
   {% comment %} define slides[] in the view {% endcomment %} {% for slide in slides %}
     <swiper-slide lazy="true">
