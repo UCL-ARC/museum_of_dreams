@@ -1,6 +1,6 @@
 <div>
   <h2>Printed Materials</h2>
-  {{vr_slides|length}} {% if pm_slides|length > 0 %} {% include "components/swiper_gallery.html" with slides=pm_slides id="pm" coverflow=True %} {% endif %}
+  {{pm_slides|length}} {% if pm_slides|length > 0 %} {% include "components/swiper_gallery.html" with slides=pm_slides id="pm" coverflow=True %} {% endif %}
 </div>
 
 <div>
