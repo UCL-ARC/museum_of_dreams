@@ -76,9 +76,13 @@ class FilmDetailView(DetailView):
             + list(film.posters.all())
             + list(film.postcards.all())
         )
-        print(len(list(film.videos.all())))
         context["pm_slides"] = printed_material_slides
+        context["pm_loop"] = bool(
+            len(printed_material_slides) > 2
+        )  # greater than 2 because of swiper defaults (1+1)
         context["vr_slides"] = visual_resources_slides
+        context["vr_loop"] = bool(len(visual_resources_slides) > 2)
+
         context["video_slides"] = list(film.videos.all())
         return context
 
