@@ -20,9 +20,10 @@
         {% if slide_images %}
           <div class="slide__content">
             <img src="{{slide}}" class="slide__image--bg" />
+          </div>
         {% else %}
-          <div class="slide__content">{{slide}} {% endif %}</div>
-      </div>
+          <div class="slide__content">{{slide}}</div>
+        {% endif %}
       </div>
     {% endfor %}
     <!-- If we need pagination -->
