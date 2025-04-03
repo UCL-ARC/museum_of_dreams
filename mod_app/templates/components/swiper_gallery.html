@@ -1,5 +1,5 @@
 <!-- Slider main container -->
-<swiper-container id="{{id}}" auto-height="true" navigation="true" pagination="true" pagination-clickable="true" {% if coverflow %} effect="coverflow" grab-cursor="true" centered-slides="true" slides-per-view="auto" coverflow-effect-rotate="50" coverflow-effect-stretch="0" coverflow-effect-depth="100" coverflow-effect-modifier="1" coverflow-effect-slide-shadows="true" {% endif %}>
+<swiper-container id="{{id}}" auto-height="true" navigation="true" pagination="true" pagination-clickable="true" {% if coverflow %} effect="coverflow" grab-cursor="true" centered-slides="true" slides-per-view="auto" {% endif %}>
   <!-- Slides -->
   {% comment %} define slides[] in the view {% endcomment %} {% for slide in slides %}
     <swiper-slide lazy="true">
@@ -18,31 +18,3 @@
     </swiper-slide>
   {% endfor %}
 </swiper-container>
-
-{% comment %}
-<script>
-  const {{id}}Swiper = new Swiper("#{{id}}.swiper", {
-
-
-    // Optional parameters
-    direction: "horizontal",
-    loop: true,
-
-    // If we need pagination
-    pagination: {
-      el: "#{{id}} .swiper-pagination",
-    },
-
-    // Navigation arrows
-    navigation: {
-      nextEl: "#{{id}} .swiper-button-next",
-      prevEl: "#{{id}} .swiper-button-prev",
-    },
-
-    // And if we need scrollbar
-    scrollbar: {
-      el: "#{{id}} .swiper-scrollbar",
-    },
-  });
-</script>
-{% endcomment %}

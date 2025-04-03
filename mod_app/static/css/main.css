@@ -468,7 +468,7 @@ footer {
   }
 }
 
-.swiper {
+swiper-container {
   width: 100%;
 
   &:not(#film__video) {
