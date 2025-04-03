@@ -21,15 +21,20 @@
     <div class="modal-content">
       <span class="close" id="closeModal">&times;</span>
       <div id="modalText"></div>
+      <div id="bibModal">
+        <div>
+          {% comment %} {% include "partial/individual_bib.html" with bib_list=model.bibliography.all %}# {% endcomment %}
+        </div>
     </div>
   </div>
+
 
   {% comment %} <dialog id="dialog-modal">
     <button autofocus>Close</button>
     <div id="modalText"></div>
   </dialog>
    {% endcomment %}
-   
+
   <div id="{{model}}__content" class="lh-15 tab__content active" name="content">{{ model.content | safe }}</div>
   
   <div id="films" class="tab__content" name="films">{% include "partial/film_card_grid.html" with film_list=model.films.all %}</div>
