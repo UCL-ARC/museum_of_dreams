@@ -1,58 +1,48 @@
 <!-- Slider main container -->
-<div class="swiper" id="{{id}}">
-  <!-- Additional required wrapper -->
-  <div class="swiper-wrapper" auto-height="true" {% if coverflow %} effect="coverflow" grab-cursor="true" centered-slides="true" slides-per-view="auto" coverflow-effect-rotate="50" coverflow-effect-stretch="0" coverflow-effect-depth="100" coverflow-effect-modifier="1" coverflow-effect-slide-shadows="true" {% endif %}>
-    <!-- Slides -->
-    {% comment %} define slides[] in the view {% endcomment %} {% for slide in slides %}
-      <div class="swiper-slide" lazy="true">
-        {% if slide_images %}
-          <img loading="lazy" src="{{slide}}" class="slide__image" />
+<swiper-container id="{{id}}" auto-height="true" navigation="true" pagination="true" pagination-clickable="true" {% if coverflow %} effect="coverflow" grab-cursor="true" centered-slides="true" slides-per-view="auto" coverflow-effect-rotate="50" coverflow-effect-stretch="0" coverflow-effect-depth="100" coverflow-effect-modifier="1" coverflow-effect-slide-shadows="true" {% endif %}>
+  <!-- Slides -->
+  {% comment %} define slides[] in the view {% endcomment %} {% for slide in slides %}
+    <swiper-slide lazy="true">
+      {% if slide_images %}
+        <img loading="lazy" src="{{slide}}" class="slide__image" />
 
-        {% elif slide_videos %}
-          <video controls>
-            <source src="{{slide}}" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+      {% elif slide_videos %}
+        <video controls>
+          <source src="{{slide}}" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
 
-        {% else %}
-          <div class="slide__content">{{slide}}</div>
-        {% endif %}
-      </div>
-    {% endfor %}
-    <!-- If we need pagination -->
-    <div class="swiper-pagination"></div>
+      {% else %}
+        <div class="slide__content">{{slide}}</div>
+      {% endif %}
+    </swiper-slide>
+  {% endfor %}
+</swiper-container>
 
-    <!-- If we need navigation buttons -->
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-button-next"></div>
-
-    <!-- If we need scrollbar -->
-    <div class="swiper-scrollbar"></div>
-  </div>
-
-  <script>
-    const {{id}}Swiper = new Swiper("#{{id}}.swiper", {
+{% comment %}
+<script>
+  const {{id}}Swiper = new Swiper("#{{id}}.swiper", {
 
 
-      // Optional parameters
-      direction: "horizontal",
-      loop: true,
+    // Optional parameters
+    direction: "horizontal",
+    loop: true,
 
-      // If we need pagination
-      pagination: {
-        el: "#{{id}} .swiper-pagination",
-      },
+    // If we need pagination
+    pagination: {
+      el: "#{{id}} .swiper-pagination",
+    },
 
-      // Navigation arrows
-      navigation: {
-        nextEl: "#{{id}} .swiper-button-next",
-        prevEl: "#{{id}} .swiper-button-prev",
-      },
+    // Navigation arrows
+    navigation: {
+      nextEl: "#{{id}} .swiper-button-next",
+      prevEl: "#{{id}} .swiper-button-prev",
+    },
 
-      // And if we need scrollbar
-      scrollbar: {
-        el: "#{{id}} .swiper-scrollbar",
-      },
-    });
-  </script>
-</div>
+    // And if we need scrollbar
+    scrollbar: {
+      el: "#{{id}} .swiper-scrollbar",
+    },
+  });
+</script>
+{% endcomment %}
