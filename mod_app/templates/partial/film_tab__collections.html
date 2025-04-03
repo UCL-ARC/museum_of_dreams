@@ -5,7 +5,7 @@
 
 <div>
   <h2>Visual Resources</h2>
-  {{vr_slides|length}} {% if vr_slides|length > 0 %} {% include "components/swiper_gallery.html" with slides=vr_slides id="vr" slide_images=True coverflow=True %} {% endif %}
+  {% include "components/swiper_gallery.html" with slides=vr_slides id="vr" slide_images=True coverflow=True %}
 </div>
 <hr />
 <div>
