@@ -1,17 +1,5 @@
-<style>
-  .swiper {
-    width: 100%;
-    height: clamp(50vh, 80vh, 100vh);
-  }
-
-  .slide__image--bg {
-    width: 100%;
-    object-fit: contain;
-  }
-</style>
-
 <!-- Slider main container -->
-<div class="swiper coverflow" id="{{id}}">
+<div class="swiper" id="{{id}}">
   <!-- Additional required wrapper -->
   <div class="swiper-wrapper" auto-height="true" {% if coverflow %} effect="coverflow" grab-cursor="true" centered-slides="true" slides-per-view="auto" coverflow-effect-rotate="50" coverflow-effect-stretch="0" coverflow-effect-depth="100" coverflow-effect-modifier="1" coverflow-effect-slide-shadows="true" {% endif %}>
     <!-- Slides -->
@@ -40,7 +28,7 @@
   <script>
     const swiper = new Swiper("#{{id}}.swiper", {
       // Optional parameters
-      direction: "vertical",
+      direction: "horizontal",
       loop: true,
 
       // If we need pagination
