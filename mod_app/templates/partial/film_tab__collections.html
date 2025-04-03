@@ -1,18 +1,21 @@
 <div>
   <h2>Printed Materials</h2>
-  {% comment %} maybe have a "stack" for each that expands when clicked on? Use swiper gallery {% endcomment %}
+  {% comment %} maybe have a "stack" for each that expands when clicked on? Use swiper gallery {% endcomment %} {% include "components/swiper_gallery--coverflow.html" with slides=pm_slides id="pm" %}
 </div>
 
 <div>
   <h2>Visual Resources</h2>
-  {% comment %} as above {% endcomment %}
+  {% comment %} as above {% endcomment %} {% include "components/swiper_gallery--coverflow.html" with slides=vr_slides id="vr" %}
 </div>
 <hr />
 <div>
   <h2>Critical Essays and Discussions</h2>
   {% include "partial/analysis_card_grid.html" with analysis_list=film.analyses.all %}
 </div>
+<hr />
 <div>
   <h3>You may also want to look at...</h3>
-  {% comment %} essays and other links {% endcomment %}
+  {% comment %} other links {% endcomment %} {% for link in film.otherlinks.all %}
+    <li>{{link}}</li>
+  {% endfor %}
 </div>

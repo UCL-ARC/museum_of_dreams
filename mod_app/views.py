@@ -24,11 +24,20 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if Film.objects.first():
-            context["slides"] = [
-                Film.objects.first().title,
-                Analysis.objects.first().title,
-            ]
+
+        films_with_images = Film.objects.filter(cardimages__isnull=False)
+        random_films = films_with_images.order_by("?")[:5]
+
+        slides = []
+        if random_films:
+            for film in random_films:
+                if film.cardimages.first().url:
+                    slides.append(film.cardimages.first().url)
+                else:
+                    slides.append(film.cardimages.first().file.url)
+
+        context["slides"] = slides
+        context["slide_images"] = True
         return context
 
 
@@ -49,6 +58,29 @@ class FilmDetailView(DetailView):
     model = Film
     template_name = "film_detail.html"
     context_object_name = "film"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        film = self.object
+
+        printed_material_slides = (
+            list(film.scripts.all())
+            + list(film.pressbooks.all())
+            + list(film.programmes.all())
+            + list(film.publicitys.all())
+        )
+
+        visual_resources_slides = (
+            list(film.stills.all())
+            + list(film.drawings.all())
+            + list(film.posters.all())
+            + list(film.postcards.all())
+        )
+        context["pm_slides"] = printed_material_slides
+        context["vr_slides"] = visual_resources_slides
+        context["slide_images"] = False
+        context["coverflow"] = True
+        return context
 
 
 class MentionsApiView(View):

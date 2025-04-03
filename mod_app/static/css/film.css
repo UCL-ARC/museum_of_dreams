@@ -31,6 +31,11 @@
   p {
     margin-block: 0.2rem;
   }
+
+  #alt-titles > :not(h4) {
+    font-size: 1.8vh;
+    line-height: 2.4vh;
+  }
 }
 
 /***************** tabs ***************/
