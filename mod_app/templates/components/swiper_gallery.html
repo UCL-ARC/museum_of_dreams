@@ -26,7 +26,9 @@
   </div>
 
   <script>
-    const swiper = new Swiper("#{{id}}.swiper", {
+    const {{id}}Swiper = new Swiper("#{{id}}.swiper", {
+
+
       // Optional parameters
       direction: "horizontal",
       loop: true,
@@ -47,5 +49,7 @@
         el: "#{{id}} .swiper-scrollbar",
       },
     });
+
+    console.log("hello", {{id}}Swiper)
   </script>
 </div>
