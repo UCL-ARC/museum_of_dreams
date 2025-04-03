@@ -7,6 +7,12 @@
       <div class="swiper-slide" lazy="true">
         {% if slide_images %}
           <img loading="lazy" src="{{slide}}" class="slide__image--bg" />
+
+        {% elif slide_videos %}
+          <video controls>
+            <source src="{{slide}}" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
         {% else %}
           <div class="slide__content">{{slide}}</div>
         {% endif %}
