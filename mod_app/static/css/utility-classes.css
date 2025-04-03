@@ -30,6 +30,10 @@
   }
 }
 
+.btn--link {
+  border: none;
+}
+
 .teaching-analysis__content-wrapper,
 .film__content-wrapper {
   padding: 1rem;

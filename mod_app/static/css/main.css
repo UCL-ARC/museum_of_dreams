@@ -53,6 +53,10 @@ a {
     text-decoration: none;
   }
 }
+button {
+  font-family: "Epilogue";
+  font-weight: normal;
+}
 
 main {
   margin: 1rem;
@@ -411,19 +415,31 @@ footer {
 
 /* shared across list views */
 .page__description {
-  display: flex;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* justify-content: space-around; */
   margin-bottom: 2rem;
+
+  .viewby {
+    font-size: 0.7rem;
+  }
 }
 
 /* pagination */
 .button--toggle-pagination {
-  float: right;
+  /* float: right; */
   background-color: transparent;
   color: var(--cyan-6);
   font-weight: 600;
   padding: 0.5vw 1vw;
-  border-color: var(--light-blue);
+  font-size: inherit;
+  /* border-color: var(--light-blue); */
+
+  transition: color 0.3s ease;
+  &:hover {
+    color: var(--light-blue);
+    text-decoration: underline;
+  }
 }
 .pagination {
   margin-inline: auto;
@@ -449,5 +465,15 @@ footer {
     &:hover {
       background-color: var(--pink-9);
     }
+  }
+}
+
+.swiper {
+  width: 100%;
+  height: clamp(50vh, 80vh, 100vh);
+
+  .slide__image--bg {
+    width: 100%;
+    object-fit: contain;
   }
 }
