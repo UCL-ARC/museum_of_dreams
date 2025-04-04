@@ -1,7 +1,7 @@
 <!-- Slider main container -->
-<swiper-container id="{{id}}" auto-height="true" navigation="true" pagination="true" pagination-clickable="true" initial-slide="1" {% if coverflow %} effect="coverflow" grab-cursor="true" centered-slides="true" slides-per-view="auto" {% endif %}>
+<swiper-container id="{{id}}" auto-height="true" navigation="true" pagination="true" rewind="true" pagination-clickable="true" initial-slide="1" {% if coverflow %} effect="coverflow" grab-cursor="true" centered-slides="true" slides-per-view="auto" lazy-preload-prev-next="1" {% endif %}>
   <!-- Slides -->
-  {% comment %} define slides[] in the view {% endcomment %} {% for slide in slides %}
+  {% comment %} define slides[] in the view and ref in the include {% endcomment %} {% for slide in slides %}
     <swiper-slide lazy="true">
       {% if slide_images %}
         <img loading="lazy" src="{{slide}}" class="slide__image" />
