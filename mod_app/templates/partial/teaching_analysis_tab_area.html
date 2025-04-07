@@ -41,7 +41,7 @@
     <div id="clips" class="tab__content" name="clips"></div>
   {% endif %}
 
-  <div id="bibliography" class="tab__content" name="bibliography">{% include "partial/individual_bib.html" with bib_list=model.bibliography.all %}</div>
+  <div id="bibliography" class="tab__content bibliography-area" name="bibliography">{% include "partial/individual_bib.html" with bib_list=model.bibliography.all %}</div>
 </div>
 
 <script src="{% static 'js/openTab.js' %}"></script>
