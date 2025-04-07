@@ -23,18 +23,11 @@
       <div id="modalText"></div>
       <div id="modal-bibliography">
         {% for bib in model.bibliography.all%}
-          <div class="bibliography__item" data-bib-citation-id="{{ bib.id }}" style="display:none">{{bib.full_citation|safe}}</div>
+          <div class="bibliography-modal" data-bib-citation-id="{{ bib.id }}" style="display:none">{{bib.full_citation|safe}}</div>
         {% endfor %}
       </div>
     </div>
   </div>
-
-  {% comment %}
-  <dialog id="dialog-modal">
-    <button autofocus>Close</button>
-    <div id="modalText"></div>
-  </dialog>
-  {% endcomment %}
 
   <div id="{{model}}__content" class="lh-15 tab__content active" name="content">{{ model.content | safe }}</div>
 
