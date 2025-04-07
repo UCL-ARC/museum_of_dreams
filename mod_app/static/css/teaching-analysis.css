@@ -37,21 +37,25 @@
   }
 }
 
-#reference-modal {
+#reference-modal,
+#bibliography-modal {
+  color: var(--contrast-text);
+  background-color: var(--background-colour);
   width: 60vw;
   border-radius: 5px;
+  line-height: 1.75rem;
 
-  #modal__btn--close {
+  &::backdrop {
+    backdrop-filter: blur(3px);
+  }
+
+  
+  .modal__btn--close {
     cursor: pointer;
+    float: right;
   }
 
   .bib-mention {
-    cursor: pointer;
-  }
-}
-
-.bibliography-modal {
-  .clickable {
     cursor: pointer;
   }
 }
