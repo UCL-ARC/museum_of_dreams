@@ -9,7 +9,7 @@
     grid-column: 2;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: start;
     text-align: left;
     padding-inline: 2rem;
     margin-inline-start: 1.4rem;
@@ -17,6 +17,7 @@
     h1,
     h2 {
       display: inline-flex;
+      padding-inline-start: 2vw;
     }
   }
 }
