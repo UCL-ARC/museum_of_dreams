@@ -38,13 +38,9 @@
 }
 
 #reference-modal {
-  display: none;
   width: 60vw;
   border-radius: 5px;
 
-  &.visible {
-    display: block;
-  }
   #modal__btn--close {
     cursor: pointer;
   }
