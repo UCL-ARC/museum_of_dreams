@@ -4,11 +4,9 @@ const footnoteSection = document.querySelector("section.footnotes");
 // opening references as modal
 document.addEventListener("DOMContentLoaded", function () {
   const markers = document.querySelector(".tabbed-area").querySelectorAll("sup>a[rel='footnote']");
-  const modal = document.getElementById("reference-modal");
-  const modalText = document.getElementById("modal__text");
+  const referenceModal = document.getElementById("reference-modal");
+  const referenceModalText = referenceModal.querySelector("#modal__text");
   const closeBtn = document.getElementById("modal__btn--close");
-
-  console.log(document.querySelectorAll("[data-bib-citation-id]"));
 
   markers.forEach((link) => {
     link.addEventListener("click", function (e) {
@@ -28,37 +26,45 @@ document.addEventListener("DOMContentLoaded", function () {
       // Get the citation text from the footnote
       let cite = footnoteItem.querySelector("cite");
 
-      modalText.innerHTML = cite.innerHTML;
+      referenceModalText.innerHTML = cite.innerHTML;
 
       // modal.style.display = "block";
-      modal.classList.add("visible");
+      // referenceModal.classList.add("visible");
+      referenceModal.showModal()
 
       closeBtn.onclick = function () {
-        // todo: check modal.close() function?
-        // modal.style.display = "none";
-        modal.classList.remove("visible");
+        referenceModal.close()
       };
 
-      window.onclick = function (e) {
+      //window.onclick = function (e) {
         // todo: make into if not modal clicked, close modal?
-        if (e.target === modal) {
-          modal.style.display = "none";
-        }
-      };
+        // if (e.target === referenceModal) {
+        //   modal.style.display = "none";
+        // }
+      //};
     });
   });
 });
 
-document.querySelectorAll("strong.bib-mention").forEach(function (strong) {
-  addEventListener("click", function (e) {
-    const id = e.target.getAttribute("data-bib-id");
-    const bib = document.querySelector(`[data-bib-citation-id="${id}"]`);
+const mentions = document.querySelectorAll(".bib-mention");
+console.log("mentions", mentions);
+const bibModal = document.getElementById("bibliography-modal");
+const bibModalContent = bibModal.querySelector(".modal__content");
+const closeButton = document.getElementById("modal__btn--close");
 
-    // toggle visiblity of each bibliography citations
-    if (bib?.style.display === "none") {
-      bib.style.display = "block";
-    } else {
-      bib.style.display = "none";
-    }
+closeButton.addEventListener("click", () => {
+  dialog.close();
+});
+
+mentions.forEach((mention) => {
+  mention.addEventListener("click", function (e) {
+    e.preventDefault();
+    console.log(e)
+    const id = e.target.getAttribute("data-bib-id");
+    console.log("data-bib-id", id);
+    const bib = document.querySelector(`[data-bib-citation-id="${id}"]`);
+    bibModalContent.innerHTML = bib.innerHTML;
+    // bibModal.showModal();
+    
   });
 });
