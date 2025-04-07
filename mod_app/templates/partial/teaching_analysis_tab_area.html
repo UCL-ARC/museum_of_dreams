@@ -17,16 +17,18 @@
   {% comment %} content of those tabs {% endcomment %}
 
   <!-- Modal -->
-  <dialog id="referenceModal" class="modal">
-    <div class="modal-content">
-      <span id="closeModal">&times;</span>
-      <div id="modalText"></div>
-      <div>
-        {% for bib in model.bibliography.all%}
-          <div class="bibliography-modal" data-bib-citation-id="{{ bib.id }}">{{bib.full_citation|safe}}</div>
-        {% endfor %}
-      </div>
-    </div>s
+  <dialog id="reference-modal" class="modal">
+    <span id="modal__btn--close">&times;</span>
+    <div class="modal__content">
+      <div id="modal__text"></div>
+    </div>
+  </dialog>
+
+  <dialog id="bibliography-modal" class="modal">
+    <span id="modal__btn--close">&times;</span>
+    <div class="modal__content">
+      <div id="modal__text"></div>
+    </div>
   </dialog>
 
   <div id="{{model}}__content" class="lh-15 tab__content active" name="content">{{ model.content | safe }}</div>

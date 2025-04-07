@@ -37,19 +37,25 @@
   }
 }
 
-#referenceModal {
+#reference-modal {
   display: none;
-}
+  width: 60vw;
+  border-radius: 5px;
 
-#closeModal {
-  .clickable {
+  &.visible {
+    display: block;
+  }
+  #modal__btn--close {
+    cursor: pointer;
+  }
+
+  .bib-mention {
     cursor: pointer;
   }
 }
+
 .bibliography-modal {
   .clickable {
     cursor: pointer;
   }
 }
-
-
