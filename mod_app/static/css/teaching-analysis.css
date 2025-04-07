@@ -41,3 +41,15 @@
   display: none;
 }
 
+#closeModal {
+  .clickable {
+    cursor: pointer;
+  }
+}
+.bibliography-modal {
+  .clickable {
+    cursor: pointer;
+  }
+}
+
+
