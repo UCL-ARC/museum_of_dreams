@@ -30,6 +30,10 @@
   }
 }
 
+.btn--link {
+  border: none;
+}
+
 .teaching-analysis__content-wrapper,
 .film__content-wrapper {
   padding: 1rem;
@@ -86,14 +90,16 @@
       margin-top: 1.4rem;
       margin-inline-start: 2.2rem;
       margin-inline-end: 3.2rem;
-      max-height: 90vh;
-      overflow-y: scroll;
 
       &.active {
         display: block;
       }
     }
   }
+}
+.teaching-analysis__content-wrapper .tab__content {
+  max-height: 90vh;
+  overflow-y: scroll;
 }
 
 .card-grid {
@@ -259,6 +265,7 @@
     transform: scale(1.05);
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     opacity: 1;
+    cursor: pointer;
   }
 
   /* could do colours based on type of tag */
