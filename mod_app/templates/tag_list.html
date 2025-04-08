@@ -1,16 +1,31 @@
-{% extends "base.html" %}
-{% load i18n %}
-{% block title %}{% trans 'Tags' %} {% endblock %}
-{% block content %}
+{% extends "base.html" %} {% load i18n %} {% block title %}{% trans 'Tags' %} {% endblock %} {% block content %}
 
 <div class="container">
-    <div class="row">
-        <div class="column">Keywords</div>
-        {% for tag in tag_list %}
-            <a href="{% url 'tag_detail' pk=tag.pk %}"> {% tag %} </a>
-        {% endfor %}
-        <div class="column">Genres</div>
-        <div class="column">Topics</div>
+  <div class="column" style="display: inline-block">
+    Keywords
+    <div>
+      {% for tag in tag_list %}
+      <a href="{% url 'tag_detail' pk=tag.pk %}" class="tag tag--list">{{tag}}</a>
+      {% endfor %}
     </div>
+  </div>
+
+  <div class="column" style="display: inline-block">
+    Genres
+    <div>
+      {% for tag in tag_list %}
+      <a href="{% url 'tag_detail' pk=tag.pk %}" class="tag tag--list">{{tag}}</a>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="column" style="display: inline-block">
+    Topics
+    <div>
+      {% for tag in tag_list %}
+      <a href="{% url 'tag_detail' pk=tag.pk %}" class="tag tag--list">{{tag}}</a>
+      {% endfor %}
+    </div>
+  </div>
 </div>
 {% endblock %}
