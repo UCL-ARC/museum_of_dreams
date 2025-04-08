@@ -145,6 +145,7 @@ class TagListView(ListView):
 class TagDetailView(DetailView):
     model = Tag
     template_name = "tag_detail.html"
+    context_object_name = "tag"
 
 class BibliographyListView(ListView):
     model = BibliographyItem
