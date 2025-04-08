@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans 'Tags' %} {% endblock %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="column">Keywords</div>
+        {% for tag in tag_list %}
+            <a href="{% url 'tag_detail' pk=tag.pk %}"> {% tag %} </a>
+        {% endfor %}
+        <div class="column">Genres</div>
+        <div class="column">Topics</div>
+    </div>
+</div>
+{% endblock %}
