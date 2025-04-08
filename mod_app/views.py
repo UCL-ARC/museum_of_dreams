@@ -16,7 +16,7 @@ from museum_of_dreams_project.settings.aws import (
     AWS_SECRET_ACCESS_KEY,
     AWS_STORAGE_BUCKET_NAME,
 )
-from .models import Film, BibliographyItem, Analysis, TeachingResources
+from .models import Film, BibliographyItem, Analysis, TeachingResources, Tag
 
 
 class HomeView(TemplateView):
@@ -138,6 +138,13 @@ class TRDetailView(DetailView):
     template_name = "tr_detail.html"
     context_object_name = "tr"
 
+class TagListView(ListView):
+    model = Tag
+    template_name = "tag_list.html"
+
+class TagDetailView(DetailView):
+    model = Tag
+    template_name = "tag_detail.html"
 
 class BibliographyListView(ListView):
     model = BibliographyItem
