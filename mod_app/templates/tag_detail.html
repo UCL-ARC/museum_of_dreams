@@ -1,0 +1,17 @@
+{% extends "base.html" %} {% load i18n %} {% block title %}{{ tag.name }}{% endblock %} {% block content %}
+
+<h2>{{tag.name}}</h2>
+<div>
+  <div>Films</div>
+  {% include "partial/film_card_grid.html" with film_list=films %}
+  <div>Analyses</div>
+  {% include "partial/analysis_card_grid.html" with analysis_list=analyses %}
+  <div>Teaching Resources</div>
+  <div class="card-grid">
+    {% for tr in teaching_resources %}
+    <a href="{% url 'tr_detail' pk=tr.pk %}" class="card-wrapper"> {% include "components/card.html" with obj=tr %} </a>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}
