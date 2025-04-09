@@ -49,6 +49,9 @@
     backdrop-filter: blur(3px);
   }
 
+  .modal__content {
+    margin: 1vw 2vw;
+  }
 
   .modal__btn--close {
     cursor: pointer;
