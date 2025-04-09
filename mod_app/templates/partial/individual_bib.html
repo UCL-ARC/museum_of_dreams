@@ -1,5 +1,5 @@
 {% for bib in bib_list %}
   <div class="bibliography__item {% cycle 'ro' 're' %}">
-    <div>{{bib.full_citation|safe}}</div>
+    <div data-bib-citation-id="{{ bib.id }}">{{bib.full_citation|safe}}</div>
   </div>
 {% endfor %}

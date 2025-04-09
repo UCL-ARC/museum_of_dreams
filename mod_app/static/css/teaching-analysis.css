@@ -32,4 +32,33 @@
     max-width: 100% !important;
     object-fit: contain;
   }
+  section.footnotes {
+    display: none;
+  }
+}
+
+#reference-modal,
+#bibliography-modal {
+  color: var(--contrast-text);
+  background-color: var(--background-colour);
+  width: 60vw;
+  border-radius: 5px;
+  line-height: 1.75rem;
+
+  &::backdrop {
+    backdrop-filter: blur(3px);
+  }
+
+  .modal__content {
+    margin: 1vw 2vw;
+  }
+
+  .modal__btn--close {
+    cursor: pointer;
+    float: right;
+  }
+
+  .bib-mention {
+    cursor: pointer;
+  }
 }
