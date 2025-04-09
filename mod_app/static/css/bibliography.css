@@ -18,6 +18,9 @@
   .ro {
     /* odd rows get a colour to make things more readable */
     background-color: color-mix(in srgb, var(--cyan-0) 5%, transparent);
+    @media (prefers-color-scheme: light) {
+      background-color: color-mix(in srgb, var(--cyan-0) 45%, transparent);
+    }
   }
 }
 
