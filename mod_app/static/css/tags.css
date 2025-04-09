@@ -1,0 +1,25 @@
+h2 {
+  text-align: center;
+  color: grey;
+  font-size: medium;
+}
+
+.tag-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  .column {
+    /* border-radius: 20px;
+    border-style: solid; */
+    padding: 1vw;
+    text-align: center;
+    p {
+      font-size: small;
+      color: grey;
+    }
+    h2 {
+      text-align: center;
+      color: black;
+      font-size: x-large;
+    }
+  }
+}
