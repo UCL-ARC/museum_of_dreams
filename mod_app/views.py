@@ -147,6 +147,12 @@ class TagDetailView(DetailView):
     template_name = "tag_detail.html"
     context_object_name = "tag"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["analyses"] = self.object.analysis_genres.all()
+        context["films"] = self.object.films.all()
+        context["teaching_resources"] = self.object.tr_tags.all()
+        return context
 class BibliographyListView(ListView):
     model = BibliographyItem
     template_name = "bibliography.html"
