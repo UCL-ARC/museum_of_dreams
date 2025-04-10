@@ -36,12 +36,14 @@
     overflow-x: auto;
     overflow-y: hidden;
     overscroll-behavior-inline: contain;
-    .card {
-      overflow: hidden;
-    }
+    margin-inline: 0;
+  }
+  .card {
+    overflow: hidden;
+    height: clamp(10vw, 20vw, 30vw);
   }
 }
 
 section {
-  padding-bottom: 4vw;
+  padding-bottom: 2vw;
 }
