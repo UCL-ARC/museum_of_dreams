@@ -1,16 +1,29 @@
 {% extends "base.html" %} {% load i18n %} {% block title %}{{ tag.name }}{% endblock %} {% block content %}
 
-<h2>{{tag.name}}</h2>
-<div>
-  <div>Films</div>
-  {% include "partial/film_card_grid.html" with film_list=films %}
-  <div>Analyses</div>
-  {% include "partial/analysis_card_grid.html" with analysis_list=analyses %}
-  <div>Teaching Resources</div>
-  <div class="card-grid">
-    {% for tr in teaching_resources %}
-    <a href="{% url 'tr_detail' pk=tr.pk %}" class="card-wrapper"> {% include "components/card.html" with obj=tr %} </a>
-    {% endfor %}
+<head>
+  <link rel="stylesheet" href="../static/css/tags.css" />
+</head>
+
+<a href="/tags">Back to all tags</a>
+<h2 class="tag-title-name">{{tag.name}}</h2>
+<div class="container-wrapper">
+  <section class ="scroller">
+    {% if tag.is_genre %}
+    <h2>Films<h2>
+        {% include "partial/film_card_grid.html" with film_list=films %}
+    {% endif %}
+  </section >
+  <section class ="scroller">
+    <h2>Analyses</h2>
+    {% include "partial/analysis_card_grid.html" with analysis_list=analyses %}
+  </section>
+  <section class="scroller">
+    <h2>Teaching Resources<h2>
+    <div class="card-grid">
+      {% for tr in teaching_resources %}
+      <a href="{% url 'tr_detail' pk=tr.pk %}" class="card-wrapper"> {% include "components/card.html" with obj=tr %} </a>
+      {% endfor %}
+    </section>
   </div>
 </div>
 
