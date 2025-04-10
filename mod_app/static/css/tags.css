@@ -1,7 +1,10 @@
-h2 {
+.subheading {
   text-align: center;
   color: grey;
   font-size: medium;
+}
+.tag-title-name {
+  text-align: center;
 }
 
 .tag-container {
@@ -22,4 +25,23 @@ h2 {
       font-size: x-large;
     }
   }
+}
+
+.scroller {
+  .card-grid {
+    padding: 1vw;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 23%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-inline: contain;
+    .card {
+      overflow: hidden;
+    }
+  }
+}
+
+section {
+  padding-bottom: 4vw;
 }
