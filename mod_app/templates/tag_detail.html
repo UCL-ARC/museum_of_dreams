@@ -10,19 +10,32 @@
   <section class ="scroller">
     {% if tag.is_genre %}
     <h2>Films<h2>
+      {% if films %}
         {% include "partial/film_card_grid.html" with film_list=films %}
+      {%else%}
+        <p>No films found with this tag </p>
+      {% endif%}
     {% endif %}
   </section >
   <section class ="scroller">
     <h2>Analyses</h2>
-    {% include "partial/analysis_card_grid.html" with analysis_list=analyses %}
+    {% if analyses %}
+      {% include "partial/analysis_card_grid.html" with analysis_list=analyses %}
+      {%else%}
+        <p>No analyses found with this tag </p>
+    {% endif%}
   </section>
   <section class="scroller">
     <h2>Teaching Resources<h2>
     <div class="card-grid">
+      {% if tr %}
       {% for tr in teaching_resources %}
       <a href="{% url 'tr_detail' pk=tr.pk %}" class="card-wrapper"> {% include "components/card.html" with obj=tr %} </a>
       {% endfor %}
+      {% else %}
+        <p>No analyses found with this tag </p>
+      {% endif %}
+      
     </section>
   </div>
 </div>
