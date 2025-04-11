@@ -5,6 +5,7 @@
 }
 .tag-title-name {
   text-align: center;
+  font-size: xx-large;
 }
 
 .tag-container {
@@ -36,7 +37,10 @@
     overflow-x: auto;
     overflow-y: hidden;
     overscroll-behavior-inline: contain;
-    margin-inline: 0;
+    margin-inline: 1vw;
+  }
+  .card-wrapper {
+    min-height: 20vh;
   }
   .card {
     overflow: hidden;
@@ -46,4 +50,19 @@
 
 section {
   padding-bottom: 2vw;
+}
+
+/* when screen is less than 300px 
+disable grid auto flow for card grid*/
+@media screen and (max-width: 500px) {
+  .scroller {
+    .card-grid {
+      grid-auto-flow: row;
+      overflow: unset;
+      margin-inline: 2vw;
+    }
+    .card {
+      height: 50vw;
+    }
+  }
 }
