@@ -1,22 +1,24 @@
-import boto3
 import re
+
+import boto3
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse, HttpResponse
+from django.db.models import Q
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.template.defaultfilters import striptags
+from django.template.loader import render_to_string
+from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.generic import DetailView, ListView, TemplateView
-from django.utils.decorators import method_decorator
-from django.template.loader import render_to_string
 from xhtml2pdf import pisa
-
 
 from museum_of_dreams_project.settings.aws import (
     AWS_ACCESS_KEY_ID,
     AWS_SECRET_ACCESS_KEY,
     AWS_STORAGE_BUCKET_NAME,
 )
-from .models import Film, BibliographyItem, Analysis, TeachingResources, Tag, Keyword
+
+from .models import Analysis, BibliographyItem, Film, Keyword, Tag, TeachingResources
 
 
 class HomeView(TemplateView):
@@ -142,7 +144,11 @@ class TRDetailView(DetailView):
 class TagListView(ListView):
     model = Tag
     keyword = Keyword
+    topics = Tag.objects.filter(
+        (Q(analysis_topics__isnull=False) | Q(tr_topics__isnull=False))
+    ).distinct()
     template_name = "tag_list.html"
+    context_object_name = "tags"
 
 
 class TagDetailView(DetailView):
