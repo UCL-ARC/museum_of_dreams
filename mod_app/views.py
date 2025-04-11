@@ -2,7 +2,6 @@ import re
 
 import boto3
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.template.defaultfilters import striptags

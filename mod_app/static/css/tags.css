@@ -52,7 +52,7 @@ section {
   padding-bottom: 2vw;
 }
 
-/* when screen is less than 300px 
+/* when screen is less than 300px
 disable grid auto flow for card grid*/
 @media screen and (max-width: 500px) {
   .scroller {
