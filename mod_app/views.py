@@ -146,13 +146,6 @@ class TagListView(ListView):
     template_name = "tag_list.html"
     context_object_name = "tags"
 
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-        context["topics"] = self.model.objects.filter(
-            (Q(analysis_topics__isnull=False) | Q(tr_topics__isnull=False))
-        ).distinct()
-        return context
-
 
 class TagDetailView(DetailView):
     model = Tag
