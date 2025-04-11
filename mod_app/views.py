@@ -18,7 +18,7 @@ from museum_of_dreams_project.settings.aws import (
     AWS_STORAGE_BUCKET_NAME,
 )
 
-from .models import Analysis, BibliographyItem, Film, Keyword, Tag, TeachingResources
+from .models import Analysis, BibliographyItem, Film, Tag, TeachingResources
 
 
 class HomeView(TemplateView):
