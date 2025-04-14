@@ -92,6 +92,8 @@ class FileLink(BaseLinkModel):
         ],
     )
 
+    archive = models.CharField(max_length=255, blank=True)
+
 
 class Video(FileLink):
     class Meta:
