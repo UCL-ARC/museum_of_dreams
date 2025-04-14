@@ -161,6 +161,7 @@ class TagDetailView(DetailView):
 
 class BibliographyListView(ListView):
     model = BibliographyItem
+    ordering = ["short_citation"]
     template_name = "bibliography.html"
 
 
