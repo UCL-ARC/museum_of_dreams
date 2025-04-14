@@ -241,3 +241,8 @@ class TagAdmin(admin.ModelAdmin):
 @admin.register(Keyword)
 class KeywordAdmin(admin.ModelAdmin):
     search_fields = ["name"]
+
+
+@admin.register(Topic)
+class TopicAdmin(admin.ModelAdmin):
+    search_fields = ["name"]

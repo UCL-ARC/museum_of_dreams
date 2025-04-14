@@ -8,6 +8,7 @@ from .support_models import (
     Location,
     Tag,
     Keyword,
+    Topic,
     Script,
     PressBook,
     Programme,
@@ -55,4 +56,5 @@ __all__ = [
     "WrittenInfluences",
     "CardImage",
     "PublicVisualInfluence",
+    "Topic",
 ]

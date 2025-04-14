@@ -92,8 +92,13 @@ urlpatterns = (
         ),
         distill_path(
             "tags",
-            views.custom_404,
+            views.TagListView.as_view(),
             name="tag_list",
+        ),
+        distill_path(
+            "tags/<pk>",
+            views.TagDetailView.as_view(),
+            name="tag_detail",
         ),
         path(
             "download-analysis/<pk>", views.downloadAnalysis, name="download_analysis"
