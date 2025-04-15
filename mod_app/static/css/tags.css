@@ -1,6 +1,6 @@
 .subheading {
   text-align: center;
-  color: grey;
+  color: var(--contrast-text--secondary);
   font-size: medium;
 }
 .tag-title-name {
@@ -12,17 +12,15 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   .column {
-    /* border-radius: 20px;
-    border-style: solid; */
     padding: 1vw;
     text-align: center;
     p {
       font-size: small;
-      color: grey;
+      color: var(--contrast-text--secondary);
     }
     h2 {
       text-align: center;
-      color: black;
+      color: var(--contrast-text);
       font-size: x-large;
     }
   }
