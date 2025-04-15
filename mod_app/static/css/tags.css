@@ -1,4 +1,4 @@
-.tag-title-name {
+.tag__name {
   text-align: center;
   font-size: xx-large;
 }
@@ -25,41 +25,45 @@
   }
 }
 
-.scroller {
-  .card-grid {
-    padding: 1vw;
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: 23%;
-    overflow-x: auto;
-    overflow-y: hidden;
-    overscroll-behavior-inline: contain;
-    margin-inline: 1vw;
-  }
-  .card-wrapper {
-    min-height: 20vh;
-  }
-  .card {
-    overflow: hidden;
-    height: clamp(10vw, 20vw, 30vw);
-  }
-}
+.tag__related__wrapper {
+  margin-inline: 3vw;
 
-section {
-  padding-bottom: 2vw;
-}
-
-/* when screen is less than 300px
-disable grid auto flow for card grid*/
-@media screen and (max-width: 500px) {
   .scroller {
     .card-grid {
-      grid-auto-flow: row;
-      overflow: unset;
-      margin-inline: 2vw;
+      padding: 1vw;
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 23%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      overscroll-behavior-inline: contain;
+      margin-inline: 1vw;
+    }
+    .card-wrapper {
+      min-height: 20vh;
     }
     .card {
-      height: 50vw;
+      overflow: hidden;
+      height: clamp(10vw, 20vw, 30vw);
+    }
+  }
+
+  section {
+    padding-bottom: 2vw;
+  }
+
+  /* when screen is less than 300px
+disable grid auto flow for card grid*/
+  @media screen and (max-width: 500px) {
+    .scroller {
+      .card-grid {
+        grid-auto-flow: row;
+        overflow: unset;
+        margin-inline: 2vw;
+      }
+      .card {
+        height: 50vw;
+      }
     }
   }
 }

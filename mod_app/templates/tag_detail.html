@@ -2,12 +2,12 @@
 
 
   <a href="{% url 'tag_list' %}" class="back-to">&larr; Back to all tags</a>
-  <h2 class="tag-title-name">{{tag.name}}</h2>
-  <div class="container-wrapper">
+  <h2 class="tag__name">{{tag.name}}</h2>
+  <div class="tag__related__wrapper">
     {% if tag.is_genre %}
       <h2>Films</h2>
       {% if films %}
-        <section class ="scroller">
+        <section class="scroller">
           {% include "partial/film_card_grid.html" with film_list=films %}
         </section >
       {%else%}
@@ -19,7 +19,7 @@
 
     <h2>Analyses</h2>
     {% if analyses %}
-      <section class ="scroller">
+      <section class="scroller">
         {% include "partial/analysis_card_grid.html" with analysis_list=analyses %}
       </section>
     {%else%}
