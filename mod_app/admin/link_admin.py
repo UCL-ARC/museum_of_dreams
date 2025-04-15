@@ -1,7 +1,25 @@
 from django.contrib import admin
-from mod_app.utils.mixins import PreviewMixin, s3BrowserButtonMixin
 
-from mod_app.models import *
+from mod_app.models.film_model import Film
+from mod_app.models.support_models import (
+    CardImage,
+    Drawing,
+    Keyword,
+    OtherLink,
+    Postcard,
+    Poster,
+    PressBook,
+    Programme,
+    Publicity,
+    PublicVisualInfluence,
+    Script,
+    Source,
+    Still,
+    Tag,
+    Topic,
+    Video,
+)
+from mod_app.utils.mixins import PreviewMixin, s3BrowserButtonMixin
 
 
 class SourceInline(PreviewMixin, admin.TabularInline):
