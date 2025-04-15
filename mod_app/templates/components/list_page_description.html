@@ -5,12 +5,12 @@
   <div class="utility__wrapper">
     <div class="filter__wrapper"></div>
     <div class="viewby">
-      {% if is_paginated %} Showing {{ page_obj.start_index }} to {{ page_obj.end_index }} of {{ page_obj.paginator.count }} {{ model }}
+      {% if is_paginated %} Showing {{ page_obj.start_index }} to {{ page_obj.end_index }} of {{ page_obj.paginator.count }} {{ model }}s
 
         <a href="{% url view %}"><button class="btn--link button--toggle-pagination">View All</button></a>
-      {% else %}
+      {% else %} {% if not no_pagination_available %}
         <a href="{% url view %}?page=1"><button class="btn--link button--toggle-pagination">View by page</button></a>
-      {% endif %}
+      {% endif %} {% endif %}
     </div>
   </div>
 </div>

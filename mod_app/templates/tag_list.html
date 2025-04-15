@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% load i18n %} {% block title %}{% trans 'Tags' %} {% endblock %} {% block content %} {% include "components/list_page_description.html" with model="tag" description="Browse tags used across our Films, Analyses and Teaching Resources" view="tag_list" %}
+{% extends "base.html" %} {% load i18n %} {% block title %}{% trans 'Tags' %} {% endblock %} {% block content %} {% with page_obj=page_obj is_paginated=is_paginated page=page %}{% include "components/list_page_description.html" with model="tag" description="Browse tags used across our Films, Analyses and Teaching Resources" view="tag_list" no_pagination_available=True %}{% endwith %}
 
   <div class="tag-container">
     <div class="column">
