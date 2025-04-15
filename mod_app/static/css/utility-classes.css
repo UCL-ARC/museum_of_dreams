@@ -280,10 +280,16 @@
   background-color: var(--bg);
   font-size: 0.55rem;
   padding: 0.2rem;
+  text-decoration: none;
 }
 .columnar-area .tag {
   font-size: 0.6rem;
   background-color: color-mix(in srgb, var(--card-shadow) 20%, transparent 50%);
+}
+
+.back-to {
+  text-decoration: none;
+  font-size: 0.8rem;
 }
 
 .mobile-view-only {

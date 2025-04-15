@@ -1,27 +1,8 @@
-{% extends "base.html" %}
-{% load i18n %}
-{% block title %}{% trans 'Teaching Resources' %} {% endblock %}
-{% block content %}
+{% extends "base.html" %} {% load i18n %} {% block title %}{% trans 'Teaching Resources' %} {% endblock %} {% block content %} {% with page_obj=page_obj is_paginated=is_paginated page=page %}{% include "components/list_page_description.html" with model="tr" description=" Teaching Resources available on this site" view="tr_list" %}{% endwith %}
+  <div class="card-grid">
+    {% for tr in teachingresources_list %}
+      <a href="{% url 'tr_detail' pk=tr.pk %}"> {% include "components/card.html" with obj=tr %} </a>
+    {% endfor %}
+  </div>
 
-
-    <h3>
-        Teaching Resources available on this site
-    </h3>
-    {% if is_paginated %}
-        <a href="{% url 'tr_list' %}"><button class="btn button--toggle-pagination">View All</button></a>
-    {% else %}
-        <a href="{% url 'tr_list' %}?page=1"><button class="btn button--toggle-pagination">View by page</button></a>
-    {% endif %}
-
-    <div class="card-grid">
-        {% for tr in teachingresources_list %}
-            <a href="{% url 'tr_detail' pk=tr.pk %}">
-                {% include "components/card.html" with obj=tr %}
-            </a>
-        {% endfor %}
-    </div>
-
-    {% if is_paginated %}
-        {% include "components/pagination_buttons.html" %}
-    {% endif %}
-{% endblock %}
+  {% if is_paginated %} {% include "components/pagination_buttons.html" %} {% endif %} {% endblock %}
