@@ -1,7 +1,7 @@
 {% extends "base.html" %} {% load i18n %} {% block title %}{{ tag.name }}{% endblock %} {% block content %}
 
 
-  <a href="/tags">&lt; Back to all tags</a>
+  <a href="{% url 'tag_list' %}" class="back-to">&larr; Back to all tags</a>
   <h2 class="tag-title-name">{{tag.name}}</h2>
   <div class="container-wrapper">
     {% if tag.is_genre %}
