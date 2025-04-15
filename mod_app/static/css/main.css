@@ -415,13 +415,21 @@ footer {
 
 /* shared across list views */
 .page__description {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  /* justify-content: space-around; */
-  margin-bottom: 2rem;
+  text-align: center;
+  color: var(--contrast-text--secondary);
+  font-size: medium;
 
-  .viewby {
-    font-size: 0.7rem;
+  .utility__wrapper {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    /* justify-content: space-around; */
+    margin-bottom: 2rem;
+
+    .viewby {
+      grid-column: 3;
+      font-size: 0.7rem;
+      text-align: end;
+    }
   }
 }
 

@@ -1,12 +1,9 @@
-{% extends "base.html" %} {% load i18n %} {% block title %}{% trans 'Tags' %} {% endblock %} {% block content %}
+{% extends "base.html" %} {% load i18n %} {% block title %}{% trans 'Tags' %} {% endblock %} {% block content %} {% include "components/list_page_description.html" with model="tag" description="Browse tags used across our Films, Analyses and Teaching Resources" view="tag_list" %}
 
-  <h2 class="subheading">Browse tags used across our Films, Analyses and Teaching Resources</h2>
-
-{% comment %} inline styles to be changed later {% endcomment %}
   <div class="tag-container">
     <div class="column">
       <h2>Keywords</h2>
-      <p>associated Analyses and Teaching_resources</p>
+      <p>associated Analyses and Teaching Resources</p>
       <div>
         {% for tag in tags %} {% if tag.keyword %}
           <a href="{% url 'tag_detail' pk=tag.pk %}" class="tag tag--list">{{tag}}</a>
@@ -16,7 +13,7 @@
 
     <div class="column">
       <h2>Genres</h2>
-      <p>associated Films, Analyses and Teaching_resources</p>
+      <p>associated Films, Analyses and Teaching Resources</p>
       <div>
         {% for tag in tags %} {%if tag.is_genre %}
           <a href="{% url 'tag_detail' pk=tag.pk %}" class="tag tag--list">{{tag.name}}</a>
@@ -26,7 +23,7 @@
 
     <div class="column">
       <h2>Topics</h2>
-      <p>associated Analyses and Teaching_resources</p>
+      <p>associated Analyses and Teaching Resources</p>
       <div>
         {% for tag in tags %}{% if tag.topic %}
           <a href="{% url 'tag_detail' pk=tag.pk %}" class="tag tag--list">{{tag}}</a>
