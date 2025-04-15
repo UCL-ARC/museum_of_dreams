@@ -67,7 +67,9 @@ class Film(models.Model):
 
     synopsis = models.TextField(blank=True)
 
-    keyword = models.ManyToManyField(Keyword, related_name="films_keyword")
+    keyword = models.ManyToManyField(
+        Keyword, related_name="films_keyword", blank="True"
+    )
     genre = models.ManyToManyField(Tag, related_name="films", blank=True)
 
     bfi_category = models.CharField(
