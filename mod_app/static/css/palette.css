@@ -23,6 +23,7 @@
     --background-colour: #252525;
 
     --contrast-text: #e8edee;
+    --conteast-text--secondary: var(--grey-5);
 
     --footer-colour: var(--dark-grey);
     --footer-text-colour: var(--turquoise);
@@ -41,6 +42,7 @@
     --background-colour: #eaf0f1;
 
     --contrast-text: #1e1f20;
+    --conteast-text--secondary: #404041;
 
     --footer-colour: var(--turquoise);
     --footer-text-colour: var(--dark-grey);
