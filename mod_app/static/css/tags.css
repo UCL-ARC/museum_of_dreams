@@ -3,7 +3,7 @@
   font-size: xx-large;
 }
 
-.tag-container {
+.tag-list__container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   .column {
@@ -17,6 +17,10 @@
       text-align: center;
       color: var(--contrast-text);
       font-size: x-large;
+    }
+    .tag {
+      font-size: 0.9rem;
+      padding: 0.5rem;
     }
   }
 }
