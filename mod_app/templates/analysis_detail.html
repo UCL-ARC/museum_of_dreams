@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% load i18n %} {% block title %}{{ analysis.title }} (Analysis) {% endblock %} {% block content %}
+{% extends "base.html" %} {% load i18n %} {% block title %}{{ analysis.title }} (Analysis) {% endblock %} {% block content %} <a href="{% url 'analysis_list' %}" class="back-to">&larr; Back to all analyses</a>
   <div class="heading"><h1 id="title">{{analysis.title}}</h1></div>
   <script>
     async function downloadAnalysis(pk) {

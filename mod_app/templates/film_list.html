@@ -1,14 +1,1 @@
-{% extends "base.html" %} {% load i18n %} {% block title %}{% trans 'Films' %} {% endblock %} {% block content %}
-
-  <div class="page__description">
-    <div class="filter area"></div>
-    <div class="viewby">
-      {% if is_paginated %} Showing {{ page_obj.start_index }} to {{ page_obj.end_index }} of {{ page_obj.paginator.count }} films
-
-        <a href="{% url 'film_list' %}"><button class="btn--link button--toggle-pagination">View All</button></a>
-      {% else %}
-        <a href="{% url 'film_list' %}?page=1"><button class="btn--link button--toggle-pagination">View by page</button></a>
-      {% endif %}
-    </div>
-  </div>
-  {% include "partial/film_card_grid.html" %} {% if is_paginated %} {% include "components/pagination_buttons.html" %} {% endif %} {% endblock %}
+{% extends "base.html" %} {% load i18n %} {% block title %}{% trans 'Films' %} {% endblock %} {% block content %} {% with page_obj=page_obj is_paginated=is_paginated page=page %} {% include "components/list_page_description.html" with model="film" view="film_list" %} {% endwith %} {% include "partial/film_card_grid.html" %} {% if is_paginated %} {% include "components/pagination_buttons.html" %} {% endif %} {% endblock %}
