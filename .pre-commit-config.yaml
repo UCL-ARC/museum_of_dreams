@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.0.1
+    rev: v5.0.0
     hooks:
       - id: trailing-whitespace
         exclude: (static|vendor|admin|images|svgs)/.*\.(js|svg)$
@@ -28,3 +28,4 @@ repos:
     rev: 1.2.1
     hooks:
       - id: unimport
+        language_version: python3.12
