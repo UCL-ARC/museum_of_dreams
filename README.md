@@ -29,7 +29,6 @@ python manage.py migrate
 python manage.py createsuperuser
 ```
 
-
 To populate the db with data, run
 
 ```

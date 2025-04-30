@@ -32,8 +32,7 @@ class CustomIndexDashboard(Dashboard):
                 column=3,
                 collapsible=True,
                 children=[
-                    modules.AppList(
-                        _("Auth"),
+                    modules.ModelList(
                         column=1,
                         collapsible=False,
                         models=("django.contrib.*",),
