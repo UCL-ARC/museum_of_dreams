@@ -94,6 +94,7 @@ class CustomIndexDashboard(Dashboard):
                             "mod_app.models.feedback_model.Feedback",
                             "mod_app.models.visual_written_influences_model.VisualInfluences",
                             "mod_app.models.visual_written_influences_model.WrittenInfluences",
+                            "mod_app.models.support_models.Archive",
                         ),
                     ),
                 ],
