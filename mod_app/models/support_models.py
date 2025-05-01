@@ -99,7 +99,9 @@ class FileLink(BaseLinkModel):
         ],
     )
 
-    archive = models.ManyToManyField("Archive", blank=True, related_name="archive")
+    archive = models.ManyToManyField(
+        "Archive", related_name="%(class)s_archives", blank=True
+    )
 
 
 class Video(FileLink):
