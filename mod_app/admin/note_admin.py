@@ -2,7 +2,13 @@ from django.contrib import admin
 
 
 from mod_app.admin.utils import safe_content
-from mod_app.models import ProjectNote, Feedback, VisualInfluences, WrittenInfluences
+from mod_app.models import (
+    ProjectNote,
+    Feedback,
+    VisualInfluences,
+    WrittenInfluences,
+    Archive,
+)
 from mod_app.utils.mixins import s3BrowserButtonMixin
 
 
@@ -88,3 +94,8 @@ class WrittenInfluencesAdmin(admin.ModelAdmin):
         return safe_content(obj)
 
     safe_content_display.short_description = "Content"
+
+
+@admin.register(Archive)
+class ArchiveAdmin(admin.ModelAdmin):
+    search_fields = ["name"]
