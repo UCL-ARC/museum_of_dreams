@@ -2,8 +2,8 @@
 import os
 
 import aws_cdk as cdk
-from production_stack import ProductionStack
-from staging_stack import StagingStack
+from stacks.production_stack import ProductionStack
+from stacks.staging_stack import StagingStack
 
 app = cdk.App()
 StagingStack(
