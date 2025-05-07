@@ -19,7 +19,12 @@ class StagingStack(Stack):
 
         # VPC
         vpc = ec2.Vpc(self, "MyVPC", max_azs=2)
-        # pipeline: CfnPipeline, CfnWebhook
+
+        # Security Group - EBS
+        eb_sg = ec2.SecurityGroup(
+            self, "EBInstanceSG", vpc=vpc, allow_all_outbound=True
+        )
+        eb_sg.add_ingress_rule(ec2.Peer.any_ipv4(), ec2.Port.tcp(80))  # public access
 
         # ELastic beanstalk
 
@@ -71,8 +76,13 @@ class StagingStack(Stack):
                 },
                 {
                     "namespace": "aws:autoscaling:launchconfiguration",
-                    "optionName": "SecurityGroups",
+                    "optionName": "IamInstanceProfile",
                     "value": eb_profile.ref,
+                },
+                {
+                    "namespace": "aws:autoscaling:launchconfiguration",
+                    "optionName": "SecurityGroups",
+                    "value": eb_sg.security_group_id,
                 },
                 {
                     "namespace": "aws:elasticbeanstalk:environment",
