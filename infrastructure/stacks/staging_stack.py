@@ -58,12 +58,16 @@ class StagingStack(Stack):
                 {
                     "namespace": "aws:ec2:vpc",
                     "optionName": "Subnets",
-                    "value": ",".join([subnet.subnet for subnet in vpc.public_subnets]),
+                    "value": ",".join(
+                        [subnet.subnet_id for subnet in vpc.public_subnets]
+                    ),
                 },
                 {
                     "namespace": "aws:ec2:vpc",
                     "optionName": "ELBSubnets",
-                    "value": ",".join([subnet.subnet for subnet in vpc.public_subnets]),
+                    "value": ",".join(
+                        [subnet.subnet_id for subnet in vpc.public_subnets]
+                    ),
                 },
                 {
                     "namespace": "aws:autoscaling:launchconfiguration",
