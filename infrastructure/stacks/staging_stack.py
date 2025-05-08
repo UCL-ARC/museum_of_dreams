@@ -1,13 +1,9 @@
 from aws_cdk import (
     Stack,
     aws_ec2 as ec2,
-    aws_rds as rds,
     aws_elasticbeanstalk as eb,
     aws_iam as iam,
-    aws_s3 as s3,
-    aws_codebuild as codebuild,
-    aws_codepipeline as codepipeline,
-    aws_codepipeline_actions as cpactions,
+    # aws_s3_assets,
 )
 
 from constructs import Construct
@@ -18,7 +14,7 @@ class StagingStack(Stack):
         super().__init__(scope, construct_id, **kwargs)
 
         # VPC
-        vpc = ec2.Vpc(self, "MyVPC", max_azs=2)
+        vpc = ec2.Vpc(self, "StagingVPC", max_azs=2)
 
         # Security Group - EBS
         eb_sg = ec2.SecurityGroup(
@@ -33,6 +29,21 @@ class StagingStack(Stack):
             self, "Staging", application_name="MOD-staging-test-app"
         )
 
+        # App version bucket - path to be replace with app zip file or use pipeline to deploy?
+        """eb_app_version_asset = aws_s3_assets.Asset(
+            self, "AppZip", path="./placeholder_version_assets"
+        )
+
+        eb_app_version = eb.CfnApplicationVersion(
+            self,
+            "AppVersion",
+            application_name=eb_app.application_name,
+            source_bundle={
+                "s3Bucket": eb_app_version_asset.s3_bucket_name,
+                "s3Key": eb_app_version_asset.s3_object_key,
+            },
+        )
+"""
         # permissions
         eb_role = iam.Role(
             self,
@@ -90,9 +101,13 @@ class StagingStack(Stack):
                     "value": "LoadBalanced",
                 },
             ],
+            # version_label=eb_app_version.ref,
         )
 
+        # Elastic beanstalk dependencies
         eb_env.add_dependency(eb_profile)
         eb_env.add_dependency(
             eb_role.node.default_child
         )  # Convert IAM Role(L2 construct) to CfnRole
+
+        # Codepipeline
