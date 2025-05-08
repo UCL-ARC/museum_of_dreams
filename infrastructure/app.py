@@ -4,6 +4,7 @@ import os
 import aws_cdk as cdk
 from stacks.production_stack import ProductionStack
 from stacks.staging_stack import StagingStack
+from stacks.codepipeline_stack import CodePipelineStack
 
 app = cdk.App()
 StagingStack(
@@ -13,6 +14,7 @@ StagingStack(
         account=os.getenv("CDK_DEFAULT_ACCOUNT"), region=os.getenv("CDK_DEFAULT_REGION")
     ),
 )
+
 ProductionStack(
     app,
     "ProductionStack",
@@ -28,6 +30,14 @@ ProductionStack(
     # want to deploy the stack to. */
     # env=cdk.Environment(account='123456789012', region='us-east-1'),
     # For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html
+)
+
+CodePipelineStack(
+    app,
+    "CodePipelineStack",
+    env=cdk.Environment(
+        account=os.getenv("CDK_DEFAULT_ACCOUNT"), region=os.getenv("CDK_DEFAULT_REGION")
+    ),
 )
 
 app.synth()
