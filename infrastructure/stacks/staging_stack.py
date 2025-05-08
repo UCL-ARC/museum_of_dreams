@@ -29,22 +29,7 @@ class StagingStack(Stack):
             self, "Staging", application_name="MOD-staging-test-app"
         )
 
-        # App version bucket - path to be replace with app zip file or use pipeline to deploy?
-        """eb_app_version_asset = aws_s3_assets.Asset(
-            self, "AppZip", path="./placeholder_version_assets"
-        )
-
-        eb_app_version = eb.CfnApplicationVersion(
-            self,
-            "AppVersion",
-            application_name=eb_app.application_name,
-            source_bundle={
-                "s3Bucket": eb_app_version_asset.s3_bucket_name,
-                "s3Key": eb_app_version_asset.s3_object_key,
-            },
-        )
-"""
-        # permissions
+        # Create IAM role with necessary permission for web server environment
         eb_role = iam.Role(
             self,
             "EBRole",
@@ -55,6 +40,8 @@ class StagingStack(Stack):
                 )
             ],
         )
+
+        # Create Instance Profile for EB, this could then be assumed by EC2 instances when they're launched via beanstalk
         eb_profile = iam.CfnInstanceProfile(
             self, "InstanceProfile", roles=[eb_role.role_name]
         )
@@ -101,7 +88,6 @@ class StagingStack(Stack):
                     "value": "LoadBalanced",
                 },
             ],
-            # version_label=eb_app_version.ref,
         )
 
         # Elastic beanstalk dependencies
@@ -109,5 +95,3 @@ class StagingStack(Stack):
         eb_env.add_dependency(
             eb_role.node.default_child
         )  # Convert IAM Role(L2 construct) to CfnRole
-
-        # Codepipeline
