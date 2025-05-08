@@ -5,6 +5,7 @@ from aws_cdk import (
     aws_s3 as s3,
     aws_codebuild as codebuild,
     aws_codepipeline_actions as cpactions,
+    aws_ssm as ssm,
 )
 from constructs import Construct
 
@@ -16,26 +17,31 @@ class CodePipelineStack(Stack):
         artifact_bucket = s3.Buckect(self, "ArtifactBucket")
         source_output = codepipeline.Artifact()
         build_output = codepipeline.Artifact()
+        build_spec = codebuild.BuildSpec.from_source_filename("buildspec.yaml")
 
         # Code build project, can be customised with env var, buildspec, ect.
-        build_project = codebuild.PipelineProject(self, "CdkProject")
+        build_project = codebuild.PipelineProject(
+            self, "CdkProject", build_spec=build_spec
+        )
 
         # Pipeline
         pipeline = codepipeline.Pipeline(
             self, "CdkPipeline", artifact_bucket=artifact_bucket
         )
 
-        # Source stage
+        # Source stage - configured different for production/staging/dev branches
         pipeline.add_stage(
             stage_name="Source",
             actions=[
                 cpactions.GitHubSourceAction(
                     action_name="GitHub_Source",
-                    owner="",
-                    repo="",
-                    oauth_token=cdk.SecretValue.secrets_manager(""),
+                    owner="UCL-ARC",
+                    repo="museum_of_dreams",
+                    branch="feature/cdk-codepipeline",
                     output=source_output,
-                    branch="",
+                    connection_arn=ssm.StringParameter.value_for_string_parameter(
+                        self, "/pipeline/github-connection-arn"
+                    ),  # needs to setup a parameter first in system manager
                 )
             ],
         )
