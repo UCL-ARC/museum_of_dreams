@@ -23,7 +23,7 @@ class StagingStack(Stack):
             self, "Staging", application_name="MOD-staging-test-app"
         )
 
-        # permissions
+        # Create IAM role with necessary permission for web server environment
         eb_role = iam.Role(
             self,
             "EBRole",
@@ -34,6 +34,8 @@ class StagingStack(Stack):
                 )
             ],
         )
+
+        # Create Instance Profile for EB, this could then be assumed by EC2 instances when they're launched via beanstalk
         eb_profile = iam.CfnInstanceProfile(
             self, "InstanceProfile", roles=[eb_role.role_name]
         )
