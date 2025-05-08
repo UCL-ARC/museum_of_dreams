@@ -64,11 +64,11 @@ class CodePipelineStack(Stack):
         iam.Role(
             self,
             "EBDeployRole",
-            assumed_by=iam.ServicePrincipal("codepipeline.amazonzws.com"),
+            assumed_by=iam.ServicePrincipal("codepipeline.amazonaws.com"),
             managed_policies=[
                 iam.ManagedPolicy.from_aws_managed_policy_name(
-                    "AWSElasticBeanstalkFullAccess"
-                )  # to be limited in the future
+                    "AWSElasticBeanstalkManagedUpdatesCustomerRolePolicy"
+                )
             ],
         )
 
