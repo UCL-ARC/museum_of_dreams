@@ -7,7 +7,7 @@ from stacks.staging_stack import StagingStack
 from stacks.codepipeline_stack import CodePipelineStack
 
 app = cdk.App()
-StagingStack(
+staging_stack = StagingStack(
     app,
     "StagingStack",
     env=cdk.Environment(
@@ -15,7 +15,7 @@ StagingStack(
     ),
 )
 
-ProductionStack(
+production_stack = ProductionStack(
     app,
     "ProductionStack",
     # If you don't specify 'env', this stack will be environment-agnostic.
@@ -31,13 +31,14 @@ ProductionStack(
     # env=cdk.Environment(account='123456789012', region='us-east-1'),
     # For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html
 )
-
-CodePipelineStack(
+pipeline_stack = CodePipelineStack(
     app,
     "CodePipelineStack",
     env=cdk.Environment(
         account=os.getenv("CDK_DEFAULT_ACCOUNT"), region=os.getenv("CDK_DEFAULT_REGION")
     ),
 )
+
+pipeline_stack.add_dependency(staging_stack)
 
 app.synth()
