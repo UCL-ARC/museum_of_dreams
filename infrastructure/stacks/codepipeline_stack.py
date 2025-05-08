@@ -8,7 +8,7 @@ from aws_cdk import (
 )
 from constructs import Construct
 
-from staging_stack import STAGING_APP_NAME, STAGING_ENV_NAME
+from stacks.staging_stack import STAGING_APP_NAME, STAGING_ENV_NAME
 
 
 class CodePipelineStack(Stack):
@@ -61,14 +61,14 @@ class CodePipelineStack(Stack):
 
         # Grant Permission via IAM Role to Pipeline for Elastic Beanstalk Deployment
 
-        eb_deploy_role = iam.Role(
+        iam.Role(
             self,
             "EBDeployRole",
             assumed_by=iam.ServicePrincipal("codepipeline.amazonzws.com"),
             managed_policies=[
                 iam.ManagedPolicy.from_aws_managed_policy_name(
                     "AWSElasticBeanstalkFullAccess"
-                )  # to be limited
+                )  # to be limited in the future
             ],
         )
 
