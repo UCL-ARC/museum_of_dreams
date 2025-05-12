@@ -12,13 +12,8 @@ class StagingStack(Stack):
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
-        # VPC
-        vpc = ec2.Vpc(self, "MyVPC", max_azs=2)
-        # pipeline: CfnPipeline, CfnWebhook
+        # Defining ELastic Beanstalk App
 
-        # ELastic beanstalk
-
-        # App
         eb_app = eb.CfnApplication(
             self, "Staging", application_name="MOD-staging-test-app"
         )
@@ -40,7 +35,7 @@ class StagingStack(Stack):
             self, "InstanceProfile", roles=[eb_role.role_name]
         )
 
-        # Environment creation
+        # Defining an Elastic Beanstalk Environment Instance within our App
         eb_env = eb.CfnEnvironment(
             self,
             "MODStagingEnv",
@@ -79,7 +74,6 @@ class StagingStack(Stack):
             ],
         )
 
+        # Elastic beanstalk dependencies (to ensure correct order of creation/deployment/deletion)
         eb_env.add_dependency(eb_profile)
-        eb_env.add_dependency(
-            eb_role.node.default_child
-        )  # Convert IAM Role(L2 construct) to CfnRole
+        eb_env.add_dependency(eb_role.node.default_child)
