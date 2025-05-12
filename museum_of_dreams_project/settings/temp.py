@@ -11,7 +11,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = []
 
-ROOT_URLCONF = "my_project.urls"
+ROOT_URLCONF = "museum_of_dreams_project.urls"
 
 DATABASES = {
     "default": {
