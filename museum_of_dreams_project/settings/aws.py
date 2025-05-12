@@ -1,6 +1,6 @@
-from .base import *
+from .base import CKEDITOR_CONFIGS
 import socket
-
+import os
 
 SECRET_KEY = os.environ.get("SECRET_KEY", "none")
 
@@ -16,6 +16,7 @@ ENVIRONMENT = "production"
 LOCAL_IP = str(socket.gethostbyname(socket.gethostname()))
 
 ALLOWED_HOSTS = [
+    ".elasticbeanstalk.com",
     "museumofdreamworlds.eu-west-2.elasticbeanstalk.com",
     "museumofdreamworlds.org",
     LOCAL_IP,
