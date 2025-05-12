@@ -18,11 +18,11 @@ class StagingStack(Stack):
         super().__init__(scope, construct_id, **kwargs)
 
         # VPC
-        vpc = ec2.Vpc(self, "StagingVPC", max_azs=2)
+        self.vpc = ec2.Vpc(self, "StagingVPC", max_azs=2)
 
         # Security Group - EBS
         eb_sg = ec2.SecurityGroup(
-            self, "EBInstanceSG", vpc=vpc, allow_all_outbound=True
+            self, "EBInstanceSG", vpc=self.vpc, allow_all_outbound=True
         )
         eb_sg.add_ingress_rule(ec2.Peer.any_ipv4(), ec2.Port.tcp(80))  # public access
 
@@ -59,20 +59,20 @@ class StagingStack(Stack):
                 {
                     "namespace": "aws:ec2:vpc",
                     "optionName": "VPCId",
-                    "value": vpc.vpc_id,
+                    "value": self.vpc.vpc_id,
                 },
                 {
                     "namespace": "aws:ec2:vpc",
                     "optionName": "Subnets",
                     "value": ",".join(
-                        [subnet.subnet_id for subnet in vpc.public_subnets]
+                        [subnet.subnet_id for subnet in self.vpc.public_subnets]
                     ),
                 },
                 {
                     "namespace": "aws:ec2:vpc",
                     "optionName": "ELBSubnets",
                     "value": ",".join(
-                        [subnet.subnet_id for subnet in vpc.public_subnets]
+                        [subnet.subnet_id for subnet in self.vpc.public_subnets]
                     ),
                 },
                 {

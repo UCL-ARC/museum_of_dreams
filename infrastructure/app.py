@@ -5,6 +5,7 @@ import aws_cdk as cdk
 from stacks.production_stack import ProductionStack
 from stacks.staging_stack import StagingStack
 from stacks.codepipeline_stack import CodePipelineStack
+from stacks.database_stack import DatabaseStack
 
 app = cdk.App()
 staging_stack = StagingStack(
@@ -38,7 +39,15 @@ pipeline_stack = CodePipelineStack(
         account=os.getenv("CDK_DEFAULT_ACCOUNT"), region=os.getenv("CDK_DEFAULT_REGION")
     ),
 )
+database_stack = DatabaseStack(
+    app,
+    "DatabaseStack",
+    vpc=staging_stack.vpc,
+    env=cdk.Environment(
+        account=os.getenv("CDK_DEFAULT_ACCOUNT"), region=os.getenv("CDK_DEFAULT_REGION")
+    ),
+)
 
 pipeline_stack.add_dependency(staging_stack)
-
+database_stack.add_dependency(staging_stack)
 app.synth()
