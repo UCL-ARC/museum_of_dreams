@@ -90,11 +90,19 @@ class StagingStack(Stack):
                     "optionName": "EnvironmentType",
                     "value": "LoadBalanced",
                 },
+                {
+                    "namespace": "aws:elasticbeanstalk:container:python",
+                    "optionName": "WSGIPath",
+                    "value": "museum_of_dreams_project.wsgi",
+                },
             ],
         )
 
-        # Elastic beanstalk dependencies
+        # Elastic beanstalk dependencies (to ensure correct order of creation/deployment/deletion)
         eb_env.add_dependency(eb_profile)
         eb_env.add_dependency(
             eb_role.node.default_child
         )  # Convert IAM Role(L2 construct) to CfnRole
+
+        # For easier cdk destroys, need to setup environment to delete before the app
+        # eb_app.node.add_dependency(eb_env)
