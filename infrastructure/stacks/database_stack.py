@@ -10,23 +10,34 @@ from constructs import Construct
 
 class DatabaseStack(Stack):
     def __init__(
-        self, scope: Construct, construct_id: str, env_vpc: ec2.IVpc, **kwargs
+        self,
+        scope: Construct,
+        construct_id: str,
+        env_vpc: ec2.IVpc,
+        eb_sg: ec2.ISecurityGroup,
+        **kwargs,
     ) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
         # Security group for RDS
         rds_sg = ec2.SecurityGroup(self, "RDSInstanceSG", vpc=env_vpc)
 
+        rds_sg.add_ingress_rule(
+            eb_sg,
+            ec2.Port.tcp(3306),
+            "Allow EB access to MySQL",
+        )
+
         rds.DatabaseInstance(
             self,
             "CdkSQLDatabase",
             engine=rds.DatabaseInstanceEngine.mysql(
-                version=rds.MysqlEngineVersion.VER_8_0_39
+                version=rds.MysqlEngineVersion.VER_8_0_41
             ),
             credentials=rds.Credentials.from_generated_secret("admin"),
             vpc=env_vpc,
             instance_type=ec2.InstanceType.of(
-                ec2.InstanceClass.BURSTABLE2, ec2.InstanceSize.MICRO
+                ec2.InstanceClass.BURSTABLE4_GRAVITON, ec2.InstanceSize.MICRO
             ),
             allocated_storage=10,
             vpc_subnets=ec2.SubnetSelection(
