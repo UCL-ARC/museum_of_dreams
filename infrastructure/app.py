@@ -42,7 +42,7 @@ pipeline_stack = CodePipelineStack(
 database_stack = DatabaseStack(
     app,
     "DatabaseStack",
-    vpc=staging_stack.vpc,
+    env_vpc=staging_stack.vpc,
     env=cdk.Environment(
         account=os.getenv("CDK_DEFAULT_ACCOUNT"), region=os.getenv("CDK_DEFAULT_REGION")
     ),
