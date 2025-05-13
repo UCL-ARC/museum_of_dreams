@@ -14,32 +14,14 @@ STAGING_ENV_NAME = "MODStagingEnv"
 
 
 class StagingStack(Stack):
-    def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
+    def __init__(
+        self, scope: Construct, construct_id: str, vpc: ec2.IVpc, **kwargs
+    ) -> None:
         super().__init__(scope, construct_id, **kwargs)
-
-        # VPC
-        self.vpc = ec2.Vpc(
-            self,
-            "StagingVPC",
-            max_azs=2,
-            nat_gateways=0,
-            subnet_configuration=[
-                ec2.SubnetConfiguration(
-                    name="PublicSubnet",
-                    subnet_type=ec2.SubnetType.PUBLIC,
-                    cidr_mask=24,
-                ),
-                ec2.SubnetConfiguration(
-                    name="PrivateSubnet",
-                    subnet_type=ec2.SubnetType.PRIVATE_WITH_EGRESS,
-                    cidr_mask=24,
-                ),
-            ],
-        )
 
         # Security Group - EBS
         self.eb_sg = ec2.SecurityGroup(
-            self, "EBInstanceSG", vpc=self.vpc, allow_all_outbound=True
+            self, "EBInstanceSG", vpc=vpc, allow_all_outbound=True
         )
         self.eb_sg.add_ingress_rule(
             ec2.Peer.any_ipv4(), ec2.Port.tcp(80)
@@ -79,21 +61,17 @@ class StagingStack(Stack):
                 value=eb_profile.ref,
             ),
             eb.CfnEnvironment.OptionSettingProperty(
-                namespace="aws:ec2:vpc", option_name="VPCId", value=self.vpc.vpc_id
+                namespace="aws:ec2:vpc", option_name="VPCId", value=vpc.vpc_id
             ),
             eb.CfnEnvironment.OptionSettingProperty(
                 namespace="aws:ec2:vpc",
                 option_name="Subnets",
-                value=",".join(
-                    [subnet.subnet_id for subnet in self.vpc.public_subnets]
-                ),
+                value=",".join([subnet.subnet_id for subnet in vpc.public_subnets]),
             ),
             eb.CfnEnvironment.OptionSettingProperty(
                 namespace="aws:ec2:vpc",
                 option_name="ELBSubnets",
-                value=",".join(
-                    [subnet.subnet_id for subnet in self.vpc.public_subnets]
-                ),
+                value=",".join([subnet.subnet_id for subnet in vpc.public_subnets]),
             ),
             eb.CfnEnvironment.OptionSettingProperty(
                 namespace="aws:autoscaling:launchconfiguration",
@@ -124,6 +102,37 @@ class StagingStack(Stack):
                 namespace="aws:elasticbeanstalk:container:python",
                 option_name="WSGIPath",
                 value="museum_of_dreams_project.wsgi",
+            ),
+            # Environment variables
+            eb.CfnEnvironment.OptionSettingProperty(
+                namespace="aws:elasticbeanstalk:application:environment",
+                option_name="DJANGO_SETTINGS_MODULE",
+                value="museum_of_dream_project.settings.aws",
+            ),
+            eb.CfnEnvironment.OptionSettingProperty(
+                namespace="aws:elasticbeanstalk:application:environment",
+                option_name="RDS_HOSTNAME",
+                value="",
+            ),
+            eb.CfnEnvironment.OptionSettingProperty(
+                namespace="aws:elasticbeanstalk:application:environment",
+                option_name="RDS_PORT",
+                value="3306",
+            ),
+            eb.CfnEnvironment.OptionSettingProperty(
+                namespace="aws:elasticbeanstalk:application:environment",
+                option_name="RDS_DB_NAME",
+                value="",
+            ),
+            eb.CfnEnvironment.OptionSettingProperty(
+                namespace="aws:elasticbeanstalk:application:environment",
+                option_name="RDS_USERNAME",
+                value="",
+            ),
+            eb.CfnEnvironment.OptionSettingProperty(
+                namespace="aws:elasticbeanstalk:application:environment",
+                option_name="RDS_PASSWORD",
+                value="",
             ),
         ]
 

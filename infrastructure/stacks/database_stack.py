@@ -13,29 +13,29 @@ class DatabaseStack(Stack):
         self,
         scope: Construct,
         construct_id: str,
-        env_vpc: ec2.IVpc,
-        eb_sg: ec2.ISecurityGroup,
+        vpc: ec2.IVpc,
         **kwargs,
     ) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
         # Security group for RDS
-        rds_sg = ec2.SecurityGroup(self, "RDSInstanceSG", vpc=env_vpc)
+        rds_sg = ec2.SecurityGroup(self, "RDSInstanceSG", vpc=vpc)
 
-        rds_sg.add_ingress_rule(
-            eb_sg,
-            ec2.Port.tcp(3306),
-            "Allow EB access to MySQL",
-        )
+        # rds_sg.add_ingress_rule(
+        #     eb_sg,
+        #     ec2.Port.tcp(3306),
+        #     "Allow EB access to MySQL",
+        # )
 
         rds.DatabaseInstance(
             self,
             "CdkSQLDatabase",
+            database_name="mod-cdk-db",
             engine=rds.DatabaseInstanceEngine.mysql(
                 version=rds.MysqlEngineVersion.VER_8_0_41
             ),
             credentials=rds.Credentials.from_generated_secret("admin"),
-            vpc=env_vpc,
+            vpc=vpc,
             instance_type=ec2.InstanceType.of(
                 ec2.InstanceClass.BURSTABLE4_GRAVITON, ec2.InstanceSize.MICRO
             ),
