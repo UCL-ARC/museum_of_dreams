@@ -1,13 +1,18 @@
-from aws_cdk import aws_ec2 as ec2, aws_rds as rds, RemovalPolicy
+from aws_cdk import (
+    Stack,
+    aws_ec2 as ec2,
+    aws_rds as rds,
+    RemovalPolicy,
+)
 
 from constructs import Construct
 
 
-class DatabaseStack:
+class DatabaseStack(Stack):
     def __init__(
         self, scope: Construct, construct_id: str, env_vpc: ec2.IVpc, **kwargs
     ) -> None:
-        super.__init__(scope, construct_id, **kwargs)
+        super().__init__(scope, construct_id, **kwargs)
 
         # Security group for RDS
         rds_sg = ec2.SecurityGroup(self, "RDSInstanceSG", vpc=env_vpc)
@@ -16,7 +21,7 @@ class DatabaseStack:
             self,
             "CdkSQLDatabase",
             engine=rds.DatabaseInstanceEngine.mysql(
-                "version=rds.MysqlEngineVersion.VER_8_0_34"
+                version=rds.MysqlEngineVersion.VER_8_0_39
             ),
             credentials=rds.Credentials.from_generated_secret("admin"),
             vpc=env_vpc,
