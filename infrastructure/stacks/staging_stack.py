@@ -21,17 +21,10 @@ class StagingStack(Stack):
         vpc: ec2.IVpc,
         database_name: str,
         database_instance: rds.IDatabaseInstance,
+        security_group: ec2.ISecurityGroup,
         **kwargs,
     ) -> None:
         super().__init__(scope, construct_id, **kwargs)
-
-        # Security Group - EBS
-        self.eb_sg = ec2.SecurityGroup(
-            self, "EBInstanceSG", vpc=vpc, allow_all_outbound=True
-        )
-        self.eb_sg.add_ingress_rule(
-            ec2.Peer.any_ipv4(), ec2.Port.tcp(80)
-        )  # allow public access
 
         # ELastic beanstalk
 
@@ -87,7 +80,7 @@ class StagingStack(Stack):
             eb.CfnEnvironment.OptionSettingProperty(
                 namespace="aws:autoscaling:launchconfiguration",
                 option_name="SecurityGroups",
-                value=self.eb_sg.security_group_id,
+                value=security_group.security_group_id,
             ),
             eb.CfnEnvironment.OptionSettingProperty(
                 namespace="aws:elasticbeanstalk:environment",

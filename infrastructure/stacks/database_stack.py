@@ -18,14 +18,28 @@ class DatabaseStack(Stack):
     ) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
-        # Security group for RDS
-        rds_sg = ec2.SecurityGroup(self, "RDSInstanceSG", vpc=vpc)
+        # Security group
 
-        # rds_sg.add_ingress_rule(
-        #     eb_sg,
-        #     ec2.Port.tcp(3306),
-        #     "Allow EB access to MySQL",
-        # )
+        # EB
+        self.elasticbeanstalk_sg = ec2.SecurityGroup(
+            self,
+            "CDkElasticBeanstalkSG",
+            vpc=vpc,
+            security_group_name="CdkElasticBeanstalkSG",
+        )
+
+        # Database
+        self.database_sg = ec2.SecurityGroup(
+            self,
+            "CdkDatabaseSG",
+            vpc=vpc,
+            security_group_name="CdkDatabaseSG",
+        )
+        # expose elasticbeanstalk's security group to the database
+        self.database_sg.add_ingress_rule(
+            self.elasticbeanstalk_sg, ec2.Port.tcp(3306), "Allow EB access to MySQL"
+        )
+
         self.database_name = "cdk-sql-db"
 
         self.db_instance = rds.DatabaseInstance(
@@ -44,7 +58,7 @@ class DatabaseStack(Stack):
             vpc_subnets=ec2.SubnetSelection(
                 subnet_type=ec2.SubnetType.PRIVATE_WITH_EGRESS
             ),
-            security_groups=[rds_sg],
+            security_groups=[self.database_sg],
             publicly_accessible=False,
             removal_policy=RemovalPolicy.DESTROY,
             deletion_protection=False,
