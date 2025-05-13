@@ -39,8 +39,16 @@ class StagingStack(Stack):
             managed_policies=[
                 iam.ManagedPolicy.from_aws_managed_policy_name(
                     "AWSElasticBeanstalkWebTier"
-                )
+                ),
             ],
+        )
+
+        # for accessing database secret
+        eb_role.add_to_policy(
+            iam.PolicyStatement(
+                actions=["secretsmanager:GetSecretValue"],
+                resources=[database_instance.secret.secret_arn],
+            )
         )
 
         # Create Instance Profile for EB, this could then be assumed by EC2 instances when they're launched via beanstalk
@@ -126,16 +134,12 @@ class StagingStack(Stack):
             eb.CfnEnvironment.OptionSettingProperty(
                 namespace="aws:elasticbeanstalk:application:environment",
                 option_name="RDS_USERNAME",
-                value=database_instance.secret.secret_value_from_json(
-                    "username"
-                ).to_string(),
+                value=f"{{resolve:secretsmanager:{database_instance.secret.secret_arn}:SecretString:username}}",
             ),
             eb.CfnEnvironment.OptionSettingProperty(
                 namespace="aws:elasticbeanstalk:application:environment",
                 option_name="RDS_PASSWORD",
-                value=database_instance.secret.secret_value_from_json(
-                    "password"
-                ).to_string(),
+                value=f"{{resolve:secretsmanager:{database_instance.secret.secret_arn}:SecretString:password}}",
             ),
         ]
 
