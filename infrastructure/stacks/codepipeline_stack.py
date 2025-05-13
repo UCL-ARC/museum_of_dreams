@@ -5,6 +5,7 @@ from aws_cdk import (
     aws_codepipeline_actions as cpactions,
     aws_iam as iam,
     aws_ssm as ssm,
+    RemovalPolicy,
 )
 
 from constructs import Construct
@@ -16,7 +17,12 @@ class CodePipelineStack(Stack):
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
-        artifact_bucket = s3.Bucket(self, "ArtifactBucket")
+        artifact_bucket = s3.Bucket(
+            self,
+            "ArtifactBucket",
+            removal_policy=RemovalPolicy.DESTROY,
+            auto_delete_objects=True,
+        )
         source_output = codepipeline.Artifact()
 
         # Pipeline
