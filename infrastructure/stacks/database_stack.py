@@ -27,7 +27,7 @@ class DatabaseStack(Stack):
         #     "Allow EB access to MySQL",
         # )
 
-        rds.DatabaseInstance(
+        db_instance = rds.DatabaseInstance(
             self,
             "CdkSQLDatabase",
             database_name="mod-cdk-db",
@@ -49,3 +49,5 @@ class DatabaseStack(Stack):
             deletion_protection=False,
             multi_az=False,
         )
+
+        self.secret = db_instance.secret

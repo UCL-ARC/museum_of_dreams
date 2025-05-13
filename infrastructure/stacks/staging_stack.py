@@ -15,7 +15,7 @@ STAGING_ENV_NAME = "MODStagingEnv"
 
 class StagingStack(Stack):
     def __init__(
-        self, scope: Construct, construct_id: str, vpc: ec2.IVpc, **kwargs
+        self, scope: Construct, construct_id: str, vpc: ec2.IVpc, db_secret, **kwargs
     ) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
