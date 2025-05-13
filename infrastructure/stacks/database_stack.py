@@ -40,7 +40,7 @@ class DatabaseStack(Stack):
             self.elasticbeanstalk_sg, ec2.Port.tcp(3306), "Allow EB access to MySQL"
         )
 
-        self.database_name = "cdk-sql-db"
+        self.database_name = "CdkDatabase"
 
         self.db_instance = rds.DatabaseInstance(
             self,
