@@ -18,13 +18,32 @@ class StagingStack(Stack):
         super().__init__(scope, construct_id, **kwargs)
 
         # VPC
-        self.vpc = ec2.Vpc(self, "StagingVPC", max_azs=2)
+        self.vpc = ec2.Vpc(
+            self,
+            "StagingVPC",
+            max_azs=2,
+            nat_gateways=0,
+            subnet_configuration=[
+                ec2.SubnetConfiguration(
+                    name="PublicSubnet",
+                    subnet_type=ec2.SubnetType.PUBLIC,
+                    cidr_mask=24,
+                ),
+                ec2.SubnetConfiguration(
+                    name="PrivateSubnet",
+                    subnet_type=ec2.SubnetType.PRIVATE_WITH_EGRESS,
+                    cidr_mask=24,
+                ),
+            ],
+        )
 
         # Security Group - EBS
-        eb_sg = ec2.SecurityGroup(
+        self.eb_sg = ec2.SecurityGroup(
             self, "EBInstanceSG", vpc=self.vpc, allow_all_outbound=True
         )
-        eb_sg.add_ingress_rule(ec2.Peer.any_ipv4(), ec2.Port.tcp(80))  # public access
+        self.eb_sg.add_ingress_rule(
+            ec2.Peer.any_ipv4(), ec2.Port.tcp(80)
+        )  # allow public access
 
         # ELastic beanstalk
 
@@ -84,12 +103,22 @@ class StagingStack(Stack):
             eb.CfnEnvironment.OptionSettingProperty(
                 namespace="aws:autoscaling:launchconfiguration",
                 option_name="SecurityGroups",
-                value=eb_sg.security_group_id,
+                value=self.eb_sg.security_group_id,
             ),
             eb.CfnEnvironment.OptionSettingProperty(
                 namespace="aws:elasticbeanstalk:environment",
                 option_name="EnvironmentType",
                 value="SingleInstance",
+            ),
+            eb.CfnEnvironment.OptionSettingProperty(
+                namespace="aws:autoscaling:asg",
+                option_name="MinSize",
+                value="1",
+            ),
+            eb.CfnEnvironment.OptionSettingProperty(
+                namespace="aws:autoscaling:asg",
+                option_name="MaxSize",
+                value="1",
             ),
             eb.CfnEnvironment.OptionSettingProperty(
                 namespace="aws:elasticbeanstalk:container:python",
