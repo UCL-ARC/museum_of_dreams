@@ -26,9 +26,9 @@ class DatabaseStack(Stack):
             credentials=rds.Credentials.from_generated_secret("admin"),
             vpc=env_vpc,
             instance_type=ec2.InstanceType.of(
-                ec2.InstanceClass.BURSTABLE3, ec2.InstanceSize.MICRO
+                ec2.InstanceClass.BURSTABLE2, ec2.InstanceSize.MICRO
             ),
-            allocated_storage=20,
+            allocated_storage=10,
             vpc_subnets=ec2.SubnetSelection(
                 subnet_type=ec2.SubnetType.PRIVATE_WITH_EGRESS
             ),
