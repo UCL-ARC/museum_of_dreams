@@ -23,7 +23,8 @@ staging_stack = StagingStack(
     app,
     "StagingStack",
     vpc=vpc_stack.vpc,
-    db_secret=database_stack.secret,
+    database_name=database_stack.database_name,
+    database_instance=database_stack.db_instance,
 )
 
 production_stack = ProductionStack(

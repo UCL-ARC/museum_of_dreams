@@ -3,7 +3,7 @@ from aws_cdk import (
     aws_ec2 as ec2,
     aws_elasticbeanstalk as eb,
     aws_iam as iam,
-    # aws_s3_assets,
+    aws_rds as rds,
 )
 
 from constructs import Construct
@@ -15,7 +15,13 @@ STAGING_ENV_NAME = "MODStagingEnv"
 
 class StagingStack(Stack):
     def __init__(
-        self, scope: Construct, construct_id: str, vpc: ec2.IVpc, db_secret, **kwargs
+        self,
+        scope: Construct,
+        construct_id: str,
+        vpc: ec2.IVpc,
+        database_name: str,
+        database_instance: rds.IDatabaseInstance,
+        **kwargs,
     ) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
@@ -112,27 +118,31 @@ class StagingStack(Stack):
             eb.CfnEnvironment.OptionSettingProperty(
                 namespace="aws:elasticbeanstalk:application:environment",
                 option_name="RDS_HOSTNAME",
-                value="",
+                value=database_instance.db_instance_endpoint_address,
             ),
             eb.CfnEnvironment.OptionSettingProperty(
                 namespace="aws:elasticbeanstalk:application:environment",
                 option_name="RDS_PORT",
-                value="3306",
+                value=database_instance.db_instance_endpoint_port,
             ),
             eb.CfnEnvironment.OptionSettingProperty(
                 namespace="aws:elasticbeanstalk:application:environment",
                 option_name="RDS_DB_NAME",
-                value="",
+                value=database_name,
             ),
             eb.CfnEnvironment.OptionSettingProperty(
                 namespace="aws:elasticbeanstalk:application:environment",
                 option_name="RDS_USERNAME",
-                value="",
+                value=database_instance.secret.secret_value_from_json(
+                    "username"
+                ).to_string(),
             ),
             eb.CfnEnvironment.OptionSettingProperty(
                 namespace="aws:elasticbeanstalk:application:environment",
                 option_name="RDS_PASSWORD",
-                value="",
+                value=database_instance.secret.secret_value_from_json(
+                    "password"
+                ).to_string(),
             ),
         ]
 
