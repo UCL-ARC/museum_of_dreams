@@ -44,12 +44,12 @@ class StagingStack(Stack):
         )
 
         # for accessing database secret
-        eb_role.add_to_policy(
-            iam.PolicyStatement(
-                actions=["secretsmanager:GetSecretValue"],
-                resources=[database_instance.secret.secret_arn],
-            )
-        )
+        # eb_role.add_to_policy(
+        #     iam.PolicyStatement(
+        #         actions=["secretsmanager:GetSecretValue"],
+        #         resources=[database_instance.secret.secret_arn],
+        #     )
+        # )
 
         # Create Instance Profile for EB, this could then be assumed by EC2 instances when they're launched via beanstalk
         eb_profile = iam.CfnInstanceProfile(
@@ -68,7 +68,9 @@ class StagingStack(Stack):
                 value=eb_profile.ref,
             ),
             eb.CfnEnvironment.OptionSettingProperty(
-                namespace="aws:ec2:vpc", option_name="VPCId", value=vpc.vpc_id
+                namespace="aws:ec2:vpc",
+                option_name="VPCId",
+                value=vpc.vpc_id,
             ),
             eb.CfnEnvironment.OptionSettingProperty(
                 namespace="aws:ec2:vpc",
@@ -134,12 +136,12 @@ class StagingStack(Stack):
             eb.CfnEnvironment.OptionSettingProperty(
                 namespace="aws:elasticbeanstalk:application:environment",
                 option_name="RDS_USERNAME",
-                value=f"{{resolve:secretsmanager:{database_instance.secret.secret_arn}:SecretString:username}}",
+                value="",
             ),
             eb.CfnEnvironment.OptionSettingProperty(
                 namespace="aws:elasticbeanstalk:application:environment",
                 option_name="RDS_PASSWORD",
-                value=f"{{resolve:secretsmanager:{database_instance.secret.secret_arn}:SecretString:password}}",
+                value="",
             ),
         ]
 
@@ -157,7 +159,4 @@ class StagingStack(Stack):
         eb_env.add_dependency(eb_profile)
         eb_env.add_dependency(
             eb_role.node.default_child
-        )  # Convert IAM Role(L2 construct) to CfnRole
-
-        # For easier cdk destroys, need to setup environment to delete before the app
-        # eb_app.node.add_dependency(eb_env)
+        )  # Allowing add dependency by converting IAM Role(L2 construct) to CfnRole (L1 construct)
