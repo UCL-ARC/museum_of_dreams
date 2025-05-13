@@ -48,6 +48,56 @@ class StagingStack(Stack):
             self, "InstanceProfile", roles=[eb_role.role_name]
         )
 
+        eb_env_settings = [
+            eb.CfnEnvironment.OptionSettingProperty(
+                namespace="aws:autoscaling:launchconfiguration",
+                option_name="InstanceType",
+                value="t2.micro",
+            ),
+            eb.CfnEnvironment.OptionSettingProperty(
+                namespace="aws:autoscaling:launchconfiguration",
+                option_name="IamInstanceProfile",
+                value=eb_profile.ref,
+            ),
+            eb.CfnEnvironment.OptionSettingProperty(
+                namespace="aws:ec2:vpc", option_name="VPCId", value=self.vpc.vpc_id
+            ),
+            eb.CfnEnvironment.OptionSettingProperty(
+                namespace="aws:ec2:vpc",
+                option_name="Subnets",
+                value=",".join(
+                    [subnet.subnet_id for subnet in self.vpc.public_subnets]
+                ),
+            ),
+            eb.CfnEnvironment.OptionSettingProperty(
+                namespace="aws:ec2:vpc",
+                option_name="ELBSubnets",
+                value=",".join(
+                    [subnet.subnet_id for subnet in self.vpc.public_subnets]
+                ),
+            ),
+            eb.CfnEnvironment.OptionSettingProperty(
+                namespace="aws:autoscaling:launchconfiguration",
+                option_name="IamInstanceProfile",
+                value=eb_profile.ref,
+            ),
+            eb.CfnEnvironment.OptionSettingProperty(
+                namespace="aws:autoscaling:launchconfiguration",
+                option_name="SecurityGroups",
+                value=eb_sg.security_group_id,
+            ),
+            eb.CfnEnvironment.OptionSettingProperty(
+                namespace="aws:elasticbeanstalk:environment",
+                option_name="EnvironmentType",
+                value="SingleInstance",
+            ),
+            eb.CfnEnvironment.OptionSettingProperty(
+                namespace="aws:elasticbeanstalk:container:python",
+                option_name="WSGIPath",
+                value="museum_of_dreams_project.wsgi",
+            ),
+        ]
+
         # Environment creation
         eb_env = eb.CfnEnvironment(
             self,
@@ -55,47 +105,7 @@ class StagingStack(Stack):
             application_name=STAGING_APP_NAME,
             environment_name=STAGING_ENV_NAME,
             solution_stack_name="64bit Amazon Linux 2023 v4.5.1 running Python 3.11",
-            option_settings=[
-                {
-                    "namespace": "aws:ec2:vpc",
-                    "optionName": "VPCId",
-                    "value": self.vpc.vpc_id,
-                },
-                {
-                    "namespace": "aws:ec2:vpc",
-                    "optionName": "Subnets",
-                    "value": ",".join(
-                        [subnet.subnet_id for subnet in self.vpc.public_subnets]
-                    ),
-                },
-                {
-                    "namespace": "aws:ec2:vpc",
-                    "optionName": "ELBSubnets",
-                    "value": ",".join(
-                        [subnet.subnet_id for subnet in self.vpc.public_subnets]
-                    ),
-                },
-                {
-                    "namespace": "aws:autoscaling:launchconfiguration",
-                    "optionName": "IamInstanceProfile",
-                    "value": eb_profile.ref,
-                },
-                {
-                    "namespace": "aws:autoscaling:launchconfiguration",
-                    "optionName": "SecurityGroups",
-                    "value": eb_sg.security_group_id,
-                },
-                {
-                    "namespace": "aws:elasticbeanstalk:environment",
-                    "optionName": "EnvironmentType",
-                    "value": "LoadBalanced",
-                },
-                {
-                    "namespace": "aws:elasticbeanstalk:container:python",
-                    "optionName": "WSGIPath",
-                    "value": "museum_of_dreams_project.wsgi",
-                },
-            ],
+            option_settings=eb_env_settings,
         )
 
         # Elastic beanstalk dependencies (to ensure correct order of creation/deployment/deletion)
