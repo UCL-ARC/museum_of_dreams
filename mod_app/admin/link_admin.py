@@ -19,7 +19,11 @@ from mod_app.models.support_models import (
     Topic,
     Video,
 )
-from mod_app.utils.mixins import PreviewMixin, s3BrowserButtonMixin
+from mod_app.admin.utils import register_custom_admin
+from mod_app.utils.mixins import (
+    PreviewMixin,
+    s3BrowserButtonMixin,
+)
 
 
 class SourceInline(PreviewMixin, admin.TabularInline):
@@ -166,10 +170,43 @@ class OtherLinkInline(PreviewMixin, admin.TabularInline):
     ]
 
 
-@admin.register(Video)
-class VideoAdmin(PreviewMixin, admin.ModelAdmin):
-    search_fields = ["description", "url"]
-    list_display = ["description", "film", "url", "preview"]
+# Registering models based off the Filelink abstract class
+for model in [Video]:
+    register_custom_admin(
+        model=model,
+        mixins=(PreviewMixin),
+        search_fields=["description", "url"],
+        list_display=["description", "film", "url", "preview"],
+        autocomplete_fields=["archive"],
+    )
+
+for model in [CardImage]:
+    register_custom_admin(
+        model=model,
+        mixins=(PreviewMixin, s3BrowserButtonMixin),
+        search_fields=["description", "url"],
+        list_display=["description", "film", "url", "preview"],
+        exclude=["archive"],
+    )
+
+for model in [
+    Script,
+    PressBook,
+    Programme,
+    Publicity,
+    Still,
+    Postcard,
+    Poster,
+    Drawing,
+    PublicVisualInfluence,
+]:
+    register_custom_admin(
+        model=model,
+        mixins=(PreviewMixin, s3BrowserButtonMixin),
+        search_fields=["description", "url"],
+        list_display=["description", "film", "file", "url", "preview"],
+        autocomplete_fields=["archive"],
+    )
 
 
 @admin.register(Source)
@@ -189,66 +226,6 @@ class SourceAdmin(PreviewMixin, admin.ModelAdmin):
 class OtherLinkAdmin(PreviewMixin, admin.ModelAdmin):
     search_fields = ["description", "url"]
     list_display = ["description", "film", "url", "preview"]
-
-
-@admin.register(Script)
-class ScriptAdmin(PreviewMixin, s3BrowserButtonMixin, admin.ModelAdmin):
-    search_fields = ["description", "url"]
-    list_display = ["description", "film", "file", "url", "preview"]
-
-
-@admin.register(PressBook)
-class PressBookAdmin(PreviewMixin, s3BrowserButtonMixin, admin.ModelAdmin):
-    search_fields = ["description", "url"]
-    list_display = ["description", "film", "file", "url", "preview"]
-
-
-@admin.register(Publicity)
-class PublicityAdmin(PreviewMixin, s3BrowserButtonMixin, admin.ModelAdmin):
-    search_fields = ["description", "url"]
-    list_display = ["description", "film", "file", "url", "preview"]
-
-
-@admin.register(Programme)
-class ProgrammeAdmin(PreviewMixin, s3BrowserButtonMixin, admin.ModelAdmin):
-    search_fields = ["description", "url"]
-    list_display = ["description", "film", "file", "url", "preview"]
-
-
-@admin.register(Still)
-class StillAdmin(PreviewMixin, s3BrowserButtonMixin, admin.ModelAdmin):
-    search_fields = ["description", "url"]
-    list_display = ["description", "film", "file", "url", "preview"]
-
-
-@admin.register(Postcard)
-class PostcardAdmin(PreviewMixin, s3BrowserButtonMixin, admin.ModelAdmin):
-    search_fields = ["description", "url"]
-    list_display = ["description", "film", "file", "url", "preview"]
-
-
-@admin.register(Poster)
-class PosterAdmin(PreviewMixin, s3BrowserButtonMixin, admin.ModelAdmin):
-    search_fields = ["description", "url"]
-    list_display = ["description", "film", "file", "url", "preview"]
-
-
-@admin.register(Drawing)
-class DrawingAdmin(PreviewMixin, s3BrowserButtonMixin, admin.ModelAdmin):
-    search_fields = ["description", "url"]
-    list_display = ["description", "film", "file", "url", "preview"]
-
-
-@admin.register(CardImage)
-class CardImageAdmin(PreviewMixin, s3BrowserButtonMixin, admin.ModelAdmin):
-    search_fields = ["description", "url"]
-    list_display = ["description", "film", "file", "url", "preview"]
-
-
-@admin.register(PublicVisualInfluence)
-class PublicVisualInfluenceAdmin(PreviewMixin, s3BrowserButtonMixin, admin.ModelAdmin):
-    search_fields = ["description", "url"]
-    list_display = ["description", "film", "file", "url", "preview"]
 
 
 @admin.register(Tag)
