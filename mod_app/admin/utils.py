@@ -1,6 +1,10 @@
+import html
+from typing import Iterable
+
+from django.contrib import admin
 from django.template.defaultfilters import truncatechars_html
 from django.utils.html import format_html
-import html
+from django.contrib.admin.sites import AlreadyRegistered
 
 
 def safe_bibliography(obj):
@@ -31,3 +35,40 @@ def list_genres(obj):
 def list_tags(obj):
     tags = obj.tags.all()
     return ", ".join(str(t) for t in tags)
+
+
+#
+
+
+def register_custom_admin(model, mixins=(), **options):
+    """To be used to register django admin models:\n
+    parameters:\n
+    model : the django model you are registering\n
+    mixins : mixin(s) that you want to apply\n
+    options: kwargs - fields for the admin.ModelAdmin\n
+
+    Example usage:\n
+    for model in [Model1, Model2]:\n
+        register_custom_admin(
+            model=model,
+            mixins=(PreviewMixin),
+            search_fields=["description", "url"],
+            list_display=["description", "film", "url", "preview"],
+            autocomplete_fields=["archive"],
+            )
+
+
+    """
+    if not isinstance(mixins, Iterable) or isinstance(mixins, type):
+        mixins = (mixins,)
+
+    base_classes = tuple(mixins) + (admin.ModelAdmin,)
+    admin_class_name = f"{model.__name__}Admin"
+    admin_class_attrs = options
+
+    admin_class = type(admin_class_name, base_classes, admin_class_attrs)
+
+    try:
+        admin.site.register(model, admin_class)
+    except AlreadyRegistered:
+        pass
