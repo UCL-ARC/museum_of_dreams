@@ -10,6 +10,8 @@ The offical versions are https://museumofdreamworlds.org and https://staging.mus
 
 Development should be done locally and pushed to the staging website where researchers can test features and sign off on them before putting the code on production.
 
+[Documentation for MOD](./docs/table-of-contents.md)
+
 ## Getting Started
 
 To work on this project as is, clone the repo into an appropriate folder (eg. `museum_of_dreams_project`). Create a venv at the top level and start it. Then install the requirements and launch the app. We use `requirements-base.txt` as AWS looks for `requirements.txt` and we don't need to install MySQL locally (we use a local sqlite db).
