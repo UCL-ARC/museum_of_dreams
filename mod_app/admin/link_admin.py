@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from mod_app.models import Film
+from mod_app.models.film_model import Film
 from mod_app.models.support_models import (
     CardImage,
     Drawing,
