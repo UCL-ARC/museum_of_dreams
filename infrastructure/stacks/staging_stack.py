@@ -8,7 +8,7 @@ from aws_cdk import (
 
 from constructs import Construct
 
-# EB APP AND ENV NAMES SHOULD NOT BE A EMPTY VALUE
+# EB APP AND ENV NAMES SHOULD NOT BE AN EMPTY VALUE
 STAGING_APP_NAME = "MOD-staging-test-app"
 STAGING_ENV_NAME = "MODStagingEnv"
 
