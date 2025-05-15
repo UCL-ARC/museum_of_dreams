@@ -38,7 +38,7 @@ class CodePipelineStack(Stack):
                     action_name="GitHub_Source",
                     owner="UCL-ARC",
                     repo="museum_of_dreams",
-                    branch="feature/cdk-rds",
+                    branch="feature/development",
                     output=source_output,
                     connection_arn=ssm.StringParameter.value_for_string_parameter(
                         self, "/pipeline/github-connection-arn"
