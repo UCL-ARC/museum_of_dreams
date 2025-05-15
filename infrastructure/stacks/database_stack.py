@@ -26,7 +26,12 @@ class DatabaseStack(Stack):
             "CDkElasticBeanstalkSG",
             vpc=vpc,
             security_group_name="CdkElasticBeanstalkSG",
+            allow_all_outbound=True,
         )
+
+        self.elasticbeanstalk_sg.add_ingress_rule(
+            ec2.Peer.any_ipv4(), ec2.Port.tcp(80)
+        )  # allow public access
 
         # Database
         self.database_sg = ec2.SecurityGroup(
