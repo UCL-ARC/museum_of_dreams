@@ -116,7 +116,7 @@ class StagingStack(Stack):
             eb.CfnEnvironment.OptionSettingProperty(
                 namespace="aws:elasticbeanstalk:application:environment",
                 option_name="DJANGO_SETTINGS_MODULE",
-                value="museum_of_dreams_project.settings.aws",
+                value="museum_of_dreams_project.settings.staging",
             ),
             eb.CfnEnvironment.OptionSettingProperty(
                 namespace="aws:elasticbeanstalk:application:environment",
