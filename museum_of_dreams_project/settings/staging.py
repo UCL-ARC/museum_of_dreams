@@ -1,7 +1,8 @@
-from .aws import *
+from .aws import LOCAL_IP, AWS_STORAGE_BUCKET_NAME, AWS_S3_REGION_NAME
 
 ENVIRONMENT = "staging"
 ALLOWED_HOSTS = [
+    ".elasticbeanstalk.com",
     "museumofdreams.eu-west-2.elasticbeanstalk.com",
     "staging.museumofdreamworlds.org",
     LOCAL_IP,
