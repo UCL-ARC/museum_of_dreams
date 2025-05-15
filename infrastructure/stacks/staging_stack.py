@@ -51,6 +51,8 @@ class StagingStack(Stack):
             ],
         )
 
+        eb_bucket.grant_read(eb_role)
+
         # Create Instance Profile for EB, this could then be assumed by EC2 instances when they're launched via beanstalk
         eb_profile = iam.CfnInstanceProfile(
             self, "InstanceProfile", roles=[eb_role.role_name]
