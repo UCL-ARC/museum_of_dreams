@@ -4,6 +4,8 @@ from aws_cdk import (
     aws_elasticbeanstalk as eb,
     aws_iam as iam,
     aws_rds as rds,
+    aws_s3 as s3,
+    RemovalPolicy,
 )
 
 from constructs import Construct
@@ -26,8 +28,14 @@ class StagingStack(Stack):
     ) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
-        # ELastic beanstalk
+        eb_bucket = s3.Bucket(
+            self,
+            "EBStaticFileBucket",
+            removal_policy=RemovalPolicy.DESTROY,
+            auto_delete_objects=True,
+        )
 
+        # ELastic beanstalk
         # App
         eb.CfnApplication(self, "Staging", application_name=STAGING_APP_NAME)
 
@@ -42,14 +50,6 @@ class StagingStack(Stack):
                 ),
             ],
         )
-
-        # for accessing database secret
-        # eb_role.add_to_policy(
-        #     iam.PolicyStatement(
-        #         actions=["secretsmanager:GetSecretValue"],
-        #         resources=[database_instance.secret.secret_arn],
-        #     )
-        # )
 
         # Create Instance Profile for EB, this could then be assumed by EC2 instances when they're launched via beanstalk
         eb_profile = iam.CfnInstanceProfile(
@@ -142,6 +142,11 @@ class StagingStack(Stack):
                 namespace="aws:elasticbeanstalk:application:environment",
                 option_name="RDS_PASSWORD",
                 value="",
+            ),
+            eb.CfnEnvironment.OptionSettingProperty(
+                namespace="aws:elasticbeanstalk:application:environment",
+                option_name="BUCKET_NAME",
+                value=eb_bucket.bucket_name,
             ),
         ]
 
