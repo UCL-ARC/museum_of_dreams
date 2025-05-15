@@ -1,4 +1,4 @@
-from .aws import LOCAL_IP, AWS_STORAGE_BUCKET_NAME, AWS_S3_REGION_NAME
+from .aws import *
 
 ENVIRONMENT = "staging"
 ALLOWED_HOSTS = [
