@@ -1,3 +1,4 @@
+from typing import Dict, Tuple
 from django.contrib import admin
 
 from mod_app.models.film_model import Film
@@ -37,27 +38,47 @@ class SourceInline(PreviewMixin, admin.TabularInline):
     verbose_name_plural = "Sources of Adaptations"
 
 
-inline_classes = []
-mixin = [PreviewMixin, s3BrowserButtonMixin]
+def custom_inline(model, mixins: Tuple, options: Dict):
+    base_classes = tuple(mixins) + (admin.TabularInline,)
+    inline_class_name = f"{model.__name__}Inline"
+    inline_class_attrs = options
 
-for model, mixin in []:
-    inline = type(
-        f"{model.__name}Inline",
-        (
-            mixin,
-            admin.TabularInline,
+    inline = type(inline_class_name, base_classes, inline_class_attrs)
+
+    return inline
+
+
+common_filelink_class_inlines = []
+
+for model in [
+    Script,
+    PressBook,
+    Programme,
+    Publicity,
+    Still,
+    Postcard,
+    Poster,
+    Drawing,
+    PublicVisualInfluence,
+]:
+    inline = custom_inline(
+        model,
+        mixins=(
+            PreviewMixin,
+            s3BrowserButtonMixin,
         ),
-        {
+        options={
             "model": model,
             "extra": 1,
+            "classes": [
+                "inline-inline",
+                "grp-collaps",
+                "grp-closed",
+            ],
         },
-        classes=[
-            "inline-inline",
-            "grp-collaps",
-            "grp-closed",
-        ],
     )
-    inline_classes.append(inline)
+
+    common_filelink_class_inlines.append(inline)
 
 
 class VideoInline(PreviewMixin, admin.TabularInline):
@@ -71,78 +92,8 @@ class VideoInline(PreviewMixin, admin.TabularInline):
     exclude = ("file",)
 
 
-class ScriptInline(PreviewMixin, s3BrowserButtonMixin, admin.TabularInline):
-    model = Script
-    extra = 1
-    classes = [
-        "inline-inline",
-        "grp-collapse",
-        "grp-closed",
-    ]
-
-
-class PressBookInline(PreviewMixin, s3BrowserButtonMixin, admin.TabularInline):
-    model = PressBook
-    extra = 1
-    classes = [
-        "inline-inline",
-        "grp-collapse",
-        "grp-closed",
-    ]
-
-
-class ProgrammeInline(PreviewMixin, s3BrowserButtonMixin, admin.TabularInline):
-    model = Programme
-    extra = 1
-    classes = [
-        "inline-inline",
-        "grp-collapse",
-        "grp-closed",
-    ]
-
-
-class PublicityInline(PreviewMixin, s3BrowserButtonMixin, admin.TabularInline):
-    model = Publicity
-    extra = 1
-    classes = [
-        "inline-inline",
-        "grp-collapse",
-        "grp-closed",
-    ]
-
-
-class StillInline(PreviewMixin, s3BrowserButtonMixin, admin.TabularInline):
-    model = Still
-    extra = 1
-    classes = [
-        "inline-inline",
-        "grp-collapse",
-        "grp-closed",
-    ]
-
-
-class PostcardInline(PreviewMixin, s3BrowserButtonMixin, admin.TabularInline):
-    model = Postcard
-    extra = 1
-    classes = [
-        "inline-inline",
-        "grp-collapse",
-        "grp-closed",
-    ]
-
-
-class PosterInline(PreviewMixin, s3BrowserButtonMixin, admin.TabularInline):
-    model = Poster
-    extra = 1
-    classes = [
-        "inline-inline",
-        "grp-collapse",
-        "grp-closed",
-    ]
-
-
-class DrawingInline(PreviewMixin, s3BrowserButtonMixin, admin.TabularInline):
-    model = Drawing
+class OtherLinkInline(PreviewMixin, admin.TabularInline):
+    model = OtherLink
     extra = 1
     classes = [
         "inline-inline",
@@ -170,28 +121,6 @@ class CardImageInline(PreviewMixin, s3BrowserButtonMixin, admin.TabularInline):
         if db_field.name == "description":
             field.initial = "card header img"
         return field
-
-
-class PublicVisualInfluenceInline(
-    PreviewMixin, s3BrowserButtonMixin, admin.TabularInline
-):
-    model = PublicVisualInfluence
-    extra = 1
-    classes = [
-        "inline-inline",
-        "grp-collapse",
-        "grp-closed",
-    ]
-
-
-class OtherLinkInline(PreviewMixin, admin.TabularInline):
-    model = OtherLink
-    extra = 1
-    classes = [
-        "inline-inline",
-        "grp-collapse",
-        "grp-closed",
-    ]
 
 
 # Registering models based off the Filelink abstract class
@@ -229,7 +158,7 @@ for model in [
         search_fields=["description", "url"],
         list_display=["description", "film", "file", "url", "preview"],
         autocomplete_fields=["archive"],
-        inline=[],
+        inline=common_filelink_class_inlines,
     )
 
 
