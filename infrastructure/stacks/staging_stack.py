@@ -10,6 +10,7 @@ from aws_cdk import (
 
 from constructs import Construct
 
+
 # EB APP AND ENV NAMES SHOULD NOT BE AN EMPTY VALUE
 STAGING_APP_NAME = "MOD-staging-test-app"
 STAGING_ENV_NAME = "MODStagingEnv"
@@ -108,17 +109,6 @@ class StagingStack(Stack):
                 namespace="aws:autoscaling:asg",
                 option_name="MaxSize",
                 value="1",
-            ),
-            eb.CfnEnvironment.OptionSettingProperty(
-                namespace="aws:elasticbeanstalk:container:python",
-                option_name="WSGIPath",
-                value="museum_of_dreams_project.wsgi",
-            ),
-            # Environment variables
-            eb.CfnEnvironment.OptionSettingProperty(
-                namespace="aws:elasticbeanstalk:application:environment",
-                option_name="DJANGO_SETTINGS_MODULE",
-                value="museum_of_dreams_project.settings.staging",
             ),
             eb.CfnEnvironment.OptionSettingProperty(
                 namespace="aws:elasticbeanstalk:application:environment",
