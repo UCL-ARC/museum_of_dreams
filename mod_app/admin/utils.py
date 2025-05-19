@@ -37,9 +37,6 @@ def list_tags(obj):
     return ", ".join(str(t) for t in tags)
 
 
-#
-
-
 def register_custom_admin(model, mixins=(), **options):
     """To be used to register django admin models:\n
     parameters:\n

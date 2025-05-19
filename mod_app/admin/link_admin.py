@@ -41,6 +41,7 @@ class SourceInline(PreviewMixin, admin.TabularInline):
 def custom_inline(model, mixins: Tuple, options: Dict):
     base_classes = tuple(mixins) + (admin.TabularInline,)
     inline_class_name = f"{model.__name__}Inline"
+    options.setdefault("model", model)
     inline_class_attrs = options
 
     inline = type(inline_class_name, base_classes, inline_class_attrs)
@@ -68,7 +69,6 @@ for model in [
             s3BrowserButtonMixin,
         ),
         options={
-            "model": model,
             "extra": 1,
             "classes": [
                 "inline-inline",
@@ -80,16 +80,19 @@ for model in [
 
     common_filelink_class_inlines.append(inline)
 
-
-class VideoInline(PreviewMixin, admin.TabularInline):
-    model = Video
-    extra = 1
-    classes = [
-        "inline-inline",
-        "grp-collapse",
-        "grp-closed",
-    ]
-    exclude = ("file",)
+video_inline = custom_inline(
+    Video,
+    mixins=(PreviewMixin,),
+    options={
+        "extra": 1,
+        "classes": [
+            "inline-inline",
+            "grp-collapse",
+            "grp-closed",
+        ],
+        "exclude": ("file",),
+    },
+)
 
 
 class OtherLinkInline(PreviewMixin, admin.TabularInline):
@@ -131,6 +134,7 @@ for model in [Video]:
         search_fields=["description", "url"],
         list_display=["description", "film", "url", "preview"],
         autocomplete_fields=["archive"],
+        inline=video_inline,
     )
 
 for model in [CardImage]:
