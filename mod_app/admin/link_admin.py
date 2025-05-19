@@ -37,6 +37,29 @@ class SourceInline(PreviewMixin, admin.TabularInline):
     verbose_name_plural = "Sources of Adaptations"
 
 
+inline_classes = []
+mixin = [PreviewMixin, s3BrowserButtonMixin]
+
+for model, mixin in []:
+    inline = type(
+        f"{model.__name}Inline",
+        (
+            mixin,
+            admin.TabularInline,
+        ),
+        {
+            "model": model,
+            "extra": 1,
+        },
+        classes=[
+            "inline-inline",
+            "grp-collaps",
+            "grp-closed",
+        ],
+    )
+    inline_classes.append(inline)
+
+
 class VideoInline(PreviewMixin, admin.TabularInline):
     model = Video
     extra = 1
@@ -206,6 +229,7 @@ for model in [
         search_fields=["description", "url"],
         list_display=["description", "film", "file", "url", "preview"],
         autocomplete_fields=["archive"],
+        inline=[],
     )
 
 
