@@ -33,6 +33,10 @@ class DatabaseStack(Stack):
             ec2.Peer.any_ipv4(), ec2.Port.tcp(80)
         )  # allow public access
 
+        self.elasticbeanstalk_sg.add_ingress_rule(
+            ec2.Peer.any_ipv4(), ec2.Port.tcp(443), "Allow HTTPS"
+        )
+
         # Database
         self.database_sg = ec2.SecurityGroup(
             self,
