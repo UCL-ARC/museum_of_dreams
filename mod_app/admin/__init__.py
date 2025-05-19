@@ -8,18 +8,18 @@ from .teaching_analysis_admin import (
 )
 from .bibliography_admin import BibliographyItemAdmin
 from .link_admin import (
-    SourceInline,
-    SourceAdmin,
-    ScriptInline,
-    PressBookInline,
-    ProgrammeInline,
-    PublicityInline,
-    StillInline,
-    DrawingInline,
-    VideoInline,
-    OtherLinkInline,
+    # SourceInline,
+    # SourceAdmin,
+    # ScriptInline,
+    # PressBookInline,
+    # ProgrammeInline,
+    # PublicityInline,
+    # StillInline,
+    # DrawingInline,
+    # VideoInline,
+    # OtherLinkInline,
+    # PostcardInline,
     OtherLinkAdmin,
-    PostcardInline,
     TagAdmin,
 )
 from .note_admin import ProjectNoteAdmin, FeedbackAdmin, ArchiveAdmin
