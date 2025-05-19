@@ -138,6 +138,7 @@ class CardImageInline(PreviewMixin, s3BrowserButtonMixin, admin.TabularInline):
         "grp-closed",
     ]
     verbose_name_plural = "Card Image"
+    exclude = ("archive",)
 
     def formfield_for_dbfield(self, db_field, request, **kwargs):
         field = super(CardImageInline, self).formfield_for_dbfield(
@@ -186,7 +187,6 @@ for model in [CardImage]:
         mixins=(PreviewMixin, s3BrowserButtonMixin),
         search_fields=["description", "url"],
         list_display=["description", "film", "url", "preview"],
-        exclude=["archive"],
     )
 
 for model in [
