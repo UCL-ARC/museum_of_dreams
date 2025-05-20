@@ -38,63 +38,6 @@ class SourceInline(PreviewMixin, admin.TabularInline):
     verbose_name_plural = "Sources of Adaptations"
 
 
-def custom_inline(model, mixins: Tuple, options: Dict):
-    base_classes = tuple(mixins) + (admin.TabularInline,)
-    inline_class_name = f"{model.__name__}Inline"
-    options.setdefault("model", model)
-    inline_class_attrs = options
-
-    inline = type(inline_class_name, base_classes, inline_class_attrs)
-
-    return inline
-
-
-common_filelink_class_inlines = []
-
-for model in [
-    Script,
-    PressBook,
-    Programme,
-    Publicity,
-    Still,
-    Postcard,
-    Poster,
-    Drawing,
-    PublicVisualInfluence,
-]:
-    inline = custom_inline(
-        model,
-        mixins=(
-            PreviewMixin,
-            s3BrowserButtonMixin,
-        ),
-        options={
-            "extra": 1,
-            "classes": [
-                "inline-inline",
-                "grp-collaps",
-                "grp-closed",
-            ],
-        },
-    )
-
-    common_filelink_class_inlines.append(inline)
-
-video_inline = custom_inline(
-    Video,
-    mixins=(PreviewMixin,),
-    options={
-        "extra": 1,
-        "classes": [
-            "inline-inline",
-            "grp-collapse",
-            "grp-closed",
-        ],
-        "exclude": ("file",),
-    },
-)
-
-
 class OtherLinkInline(PreviewMixin, admin.TabularInline):
     model = OtherLink
     extra = 1
@@ -126,26 +69,18 @@ class CardImageInline(PreviewMixin, s3BrowserButtonMixin, admin.TabularInline):
         return field
 
 
-# Registering models based off the Filelink abstract class
-for model in [Video]:
-    register_custom_admin(
-        model=model,
-        mixins=(PreviewMixin),
-        search_fields=["description", "url"],
-        list_display=["description", "film", "url", "preview"],
-        autocomplete_fields=["archive"],
-        inline=video_inline,
-    )
+def custom_inline(model, mixins: Tuple, options: Dict):
+    base_classes = tuple(mixins) + (admin.TabularInline,)
+    inline_class_name = f"{model.__name__}Inline"
+    options.setdefault("model", model)
+    inline_class_attrs = options
 
-for model in [CardImage]:
-    register_custom_admin(
-        model=model,
-        mixins=(PreviewMixin, s3BrowserButtonMixin),
-        search_fields=["description", "url"],
-        list_display=["description", "film", "url", "preview"],
-    )
+    inline = type(inline_class_name, base_classes, inline_class_attrs)
 
-for model in [
+    return inline
+
+
+COMMON_FILELINK_CLASSES = [
     Script,
     PressBook,
     Programme,
@@ -155,14 +90,70 @@ for model in [
     Poster,
     Drawing,
     PublicVisualInfluence,
-]:
+]
+
+COMMON_FILELINK_CLASS_INLINES = [
+    custom_inline(
+        model,
+        mixins=(
+            PreviewMixin,
+            s3BrowserButtonMixin,
+        ),
+        options={
+            "extra": 1,
+            "classes": [
+                "inline-inline",
+                "grp-collaps",
+                "grp-closed",
+            ],
+        },
+    )
+    for model in COMMON_FILELINK_CLASSES
+]
+
+VIDEO_INLINE = custom_inline(
+    Video,
+    mixins=(PreviewMixin,),
+    options={
+        "extra": 1,
+        "classes": [
+            "inline-inline",
+            "grp-collapse",
+            "grp-closed",
+        ],
+        "exclude": ("file",),
+    },
+)
+
+
+# Registering models based off the Filelink abstract class
+for model in COMMON_FILELINK_CLASSES:
     register_custom_admin(
         model=model,
         mixins=(PreviewMixin, s3BrowserButtonMixin),
         search_fields=["description", "url"],
         list_display=["description", "film", "file", "url", "preview"],
         autocomplete_fields=["archive"],
-        inline=common_filelink_class_inlines,
+        inline=COMMON_FILELINK_CLASS_INLINES,
+    )
+
+for model in [Video]:
+    register_custom_admin(
+        model=model,
+        mixins=(PreviewMixin),
+        search_fields=["description", "url"],
+        list_display=["description", "film", "url", "preview"],
+        autocomplete_fields=["archive"],
+        inline=VIDEO_INLINE,
+    )
+
+for model in [CardImage]:
+    register_custom_admin(
+        model=model,
+        mixins=(PreviewMixin, s3BrowserButtonMixin),
+        search_fields=["description", "url"],
+        list_display=["description", "film", "url", "preview"],
+        inline=CardImageInline,
     )
 
 

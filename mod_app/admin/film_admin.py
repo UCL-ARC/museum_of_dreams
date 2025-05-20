@@ -19,7 +19,7 @@ from django.utils.html import format_html, mark_safe
 #     StillInline,
 #     VideoInline,
 # )
-from mod_app.admin.link_admin import common_filelink_class_inlines
+from mod_app.admin.link_admin import COMMON_FILELINK_CLASS_INLINES
 from mod_app.admin.note_admin import VisInline, WritInline
 from mod_app.admin.utils import safe_bibliography
 from mod_app.utils.mixins import EmailMixin
@@ -90,7 +90,7 @@ class FilmAdmin(EmailMixin, admin.ModelAdmin):
         # DrawingInline,
         # CardImageInline,
         # PublicVisualInfluenceInline,
-    ] + common_filelink_class_inlines
+    ] + COMMON_FILELINK_CLASS_INLINES
     list_display = [
         "title",
         "bfi_identifier",
