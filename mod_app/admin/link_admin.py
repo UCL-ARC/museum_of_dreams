@@ -48,9 +48,10 @@ COMMON_FILELINK_CLASS_INLINES = [
             "extra": 1,
             "classes": [
                 "inline-inline",
-                "grp-collaps",
+                "grp-collapse",
                 "grp-closed",
             ],
+            "autocomplete_fields": ("archive",),
         },
     )
     for model in COMMON_FILELINK_CLASSES
@@ -68,6 +69,7 @@ VIDEO_INLINE = [
                 "grp-closed",
             ],
             "exclude": ("file",),
+            "autocomplete_fields": ("archive",),
         },
     )
 ]
