@@ -72,4 +72,5 @@ class DatabaseStack(Stack):
             removal_policy=RemovalPolicy.DESTROY,
             deletion_protection=False,
             multi_az=False,
+            parameters={"sql_mode": "STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION"},
         )
