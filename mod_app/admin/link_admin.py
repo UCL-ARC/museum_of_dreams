@@ -144,6 +144,7 @@ for model in [CardImage]:
         mixins=(PreviewMixin, s3BrowserButtonMixin),
         search_fields=["description", "url"],
         list_display=["description", "film", "url", "preview"],
+        exclude=["archive"],
         inline=CardImageInline,
     )
 
