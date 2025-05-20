@@ -1,5 +1,5 @@
 import html
-from typing import Iterable
+from typing import Dict, Iterable, Tuple
 
 from django.contrib import admin
 from django.template.defaultfilters import truncatechars_html
@@ -69,3 +69,14 @@ def register_custom_admin(model, mixins=(), **options):
         admin.site.register(model, admin_class)
     except AlreadyRegistered:
         pass
+
+
+def custom_inline(model, mixins: Tuple, options: Dict):
+    base_classes = tuple(mixins) + (admin.TabularInline,)
+    inline_class_name = f"{model.__name__}Inline"
+    options.setdefault("model", model)
+    inline_class_attrs = options
+
+    inline = type(inline_class_name, base_classes, inline_class_attrs)
+
+    return inline

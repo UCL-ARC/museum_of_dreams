@@ -1,4 +1,3 @@
-from typing import Dict, Tuple
 from django.contrib import admin
 
 from mod_app.models.film_model import Film
@@ -20,7 +19,7 @@ from mod_app.models.support_models import (
     Topic,
     Video,
 )
-from mod_app.admin.utils import register_custom_admin
+from mod_app.admin.utils import register_custom_admin, custom_inline
 from mod_app.utils.mixins import (
     PreviewMixin,
     s3BrowserButtonMixin,
@@ -67,17 +66,6 @@ class CardImageInline(PreviewMixin, s3BrowserButtonMixin, admin.TabularInline):
         if db_field.name == "description":
             field.initial = "card header img"
         return field
-
-
-def custom_inline(model, mixins: Tuple, options: Dict):
-    base_classes = tuple(mixins) + (admin.TabularInline,)
-    inline_class_name = f"{model.__name__}Inline"
-    options.setdefault("model", model)
-    inline_class_attrs = options
-
-    inline = type(inline_class_name, base_classes, inline_class_attrs)
-
-    return inline
 
 
 COMMON_FILELINK_CLASSES = [
