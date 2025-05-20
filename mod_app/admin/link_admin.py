@@ -25,7 +25,7 @@ from mod_app.utils.mixins import (
     s3BrowserButtonMixin,
 )
 
-COMMON_FILELINK_CLASSES = [
+COMMON_FILELINK_MODELS = [
     Script,
     PressBook,
     Programme,
@@ -54,7 +54,7 @@ COMMON_FILELINK_CLASS_INLINES = [
             "autocomplete_fields": ("archive",),
         },
     )
-    for model in COMMON_FILELINK_CLASSES
+    for model in COMMON_FILELINK_MODELS
 ]
 
 VIDEO_INLINE = [
@@ -118,7 +118,7 @@ class CardImageInline(PreviewMixin, s3BrowserButtonMixin, admin.TabularInline):
 
 
 # Registering models based off the Filelink abstract class
-for model in COMMON_FILELINK_CLASSES:
+for model in COMMON_FILELINK_MODELS:
     register_custom_admin(
         model=model,
         mixins=(PreviewMixin, s3BrowserButtonMixin),
