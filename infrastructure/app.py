@@ -2,11 +2,11 @@
 import os
 
 import aws_cdk as cdk
-from stacks.vpc_stack import CdkVPCStack
+from stacks.vpc_stack import VPCStack
 
 app = cdk.App()
 
-vpc_stack = CdkVPCStack(
+vpc_stack = VPCStack(
     app,
     "CdkVPCStack",
 )
