@@ -71,6 +71,7 @@ class VisualInfluencesAdmin(admin.ModelAdmin):
 
     search_fields = ["title"]
     list_display = ["title", "safe_content_display"]
+    autocomplete_fields = ["archive"]
     readonly_fields = ("bibliography",)
     filter_horizontal = ("films",)
 
@@ -87,6 +88,7 @@ class WrittenInfluencesAdmin(admin.ModelAdmin):
 
     search_fields = ["title"]
     list_display = ["title", "safe_content_display"]
+    autocomplete_fields = ["archive"]
     readonly_fields = ("bibliography",)
     filter_horizontal = ("films",)
 
