@@ -56,19 +56,21 @@ COMMON_FILELINK_CLASS_INLINES = [
     for model in COMMON_FILELINK_CLASSES
 ]
 
-VIDEO_INLINE = custom_inline(
-    Video,
-    mixins=(PreviewMixin,),
-    options={
-        "extra": 1,
-        "classes": [
-            "inline-inline",
-            "grp-collapse",
-            "grp-closed",
-        ],
-        "exclude": ("file",),
-    },
-)
+VIDEO_INLINE = [
+    custom_inline(
+        Video,
+        mixins=(PreviewMixin,),
+        options={
+            "extra": 1,
+            "classes": [
+                "inline-inline",
+                "grp-collapse",
+                "grp-closed",
+            ],
+            "exclude": ("file",),
+        },
+    )
+]
 
 
 class SourceInline(PreviewMixin, admin.TabularInline):
