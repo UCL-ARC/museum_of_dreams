@@ -25,49 +25,6 @@ from mod_app.utils.mixins import (
     s3BrowserButtonMixin,
 )
 
-
-class SourceInline(PreviewMixin, admin.TabularInline):
-    model = Film.sources.through
-    extra = 1
-    classes = [
-        "grp-collapse",
-        "grp-closed",
-    ]
-    verbose_name = "Source"
-    verbose_name_plural = "Sources of Adaptations"
-
-
-class OtherLinkInline(PreviewMixin, admin.TabularInline):
-    model = OtherLink
-    extra = 1
-    classes = [
-        "inline-inline",
-        "grp-collapse",
-        "grp-closed",
-    ]
-
-
-class CardImageInline(PreviewMixin, s3BrowserButtonMixin, admin.TabularInline):
-    model = CardImage
-    extra = 1
-    max_num = 1
-    classes = [
-        "inline-inline",
-        "grp-collapse",
-        "grp-closed",
-    ]
-    verbose_name_plural = "Card Image"
-    exclude = ("archive",)
-
-    def formfield_for_dbfield(self, db_field, request, **kwargs):
-        field = super(CardImageInline, self).formfield_for_dbfield(
-            db_field, request, **kwargs
-        )
-        if db_field.name == "description":
-            field.initial = "card header img"
-        return field
-
-
 COMMON_FILELINK_CLASSES = [
     Script,
     PressBook,
@@ -112,6 +69,48 @@ VIDEO_INLINE = custom_inline(
         "exclude": ("file",),
     },
 )
+
+
+class SourceInline(PreviewMixin, admin.TabularInline):
+    model = Film.sources.through
+    extra = 1
+    classes = [
+        "grp-collapse",
+        "grp-closed",
+    ]
+    verbose_name = "Source"
+    verbose_name_plural = "Sources of Adaptations"
+
+
+class OtherLinkInline(PreviewMixin, admin.TabularInline):
+    model = OtherLink
+    extra = 1
+    classes = [
+        "inline-inline",
+        "grp-collapse",
+        "grp-closed",
+    ]
+
+
+class CardImageInline(PreviewMixin, s3BrowserButtonMixin, admin.TabularInline):
+    model = CardImage
+    extra = 1
+    max_num = 1
+    classes = [
+        "inline-inline",
+        "grp-collapse",
+        "grp-closed",
+    ]
+    verbose_name_plural = "Card Image"
+    exclude = ("archive",)
+
+    def formfield_for_dbfield(self, db_field, request, **kwargs):
+        field = super(CardImageInline, self).formfield_for_dbfield(
+            db_field, request, **kwargs
+        )
+        if db_field.name == "description":
+            field.initial = "card header img"
+        return field
 
 
 # Registering models based off the Filelink abstract class
