@@ -51,7 +51,7 @@ COMMON_FILELINK_CLASS_INLINES = [
                 "grp-collapse",
                 "grp-closed",
             ],
-            "autocomplete_fields": ("archive",),
+            "autocomplete_fields": ["archive"],
         },
     )
     for model in COMMON_FILELINK_MODELS
@@ -69,7 +69,7 @@ VIDEO_INLINE = [
                 "grp-closed",
             ],
             "exclude": ("file",),
-            "autocomplete_fields": ("archive",),
+            "autocomplete_fields": ["archive"],
         },
     )
 ]
@@ -106,7 +106,7 @@ class CardImageInline(PreviewMixin, s3BrowserButtonMixin, admin.TabularInline):
         "grp-closed",
     ]
     verbose_name_plural = "Card Image"
-    exclude = ("archive",)
+    exclude = ["archive"]
 
     def formfield_for_dbfield(self, db_field, request, **kwargs):
         field = super(CardImageInline, self).formfield_for_dbfield(
