@@ -2,6 +2,7 @@
 
 ## Table of contents
 
-[AWS Code Development Cloudkit]()
+### AWS Code Development Cloudkit
 
-[First Time Setup](aws-cdk/first-time-setup.md)
+- [CDK Infrastructure Overview](./aws/cdk/overview.md)
+- [First Time Setup](./aws/cdk/first-time-setup.md)
