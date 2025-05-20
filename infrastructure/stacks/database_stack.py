@@ -18,37 +18,44 @@ class DatabaseStack(Stack):
     ) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
-        # Security group
-
-        # EB
+        # Setting up Security Group for Elastic Beanstalk, adding appropriate ingress rules
         self.elasticbeanstalk_sg = ec2.SecurityGroup(
             self,
             "CDkElasticBeanstalkSG",
             vpc=vpc,
             security_group_name="CdkElasticBeanstalkSG",
+            description="Security Group for ElasticBeanstalk environment, created via CDK",
             allow_all_outbound=True,
         )
 
         self.elasticbeanstalk_sg.add_ingress_rule(
-            ec2.Peer.any_ipv4(), ec2.Port.tcp(80)
-        )  # allow public access
-
-        self.elasticbeanstalk_sg.add_ingress_rule(
-            ec2.Peer.any_ipv4(), ec2.Port.tcp(443), "Allow HTTPS"
+            peer=ec2.Peer.any_ipv4(),
+            connection=ec2.Port.tcp(80),
+            description="Allow inbound access via HTTP from any Ipv4 address",
         )
 
-        # Database
+        self.elasticbeanstalk_sg.add_ingress_rule(
+            peer=ec2.Peer.any_ipv4(),
+            connection=ec2.Port.tcp(443),
+            description="Allow inbound access via HTTPS from any Ipv4 address",
+        )
+
+        # Setting up Security Group for MySQL, adding appropriate ingress rules
         self.database_sg = ec2.SecurityGroup(
             self,
             "CdkDatabaseSG",
             vpc=vpc,
             security_group_name="CdkDatabaseSG",
-        )
-        # expose elasticbeanstalk's security group to the database
-        self.database_sg.add_ingress_rule(
-            self.elasticbeanstalk_sg, ec2.Port.tcp(3306), "Allow EB access to MySQL"
+            description="Security Group for CdkDatabase, created via CDK",
         )
 
+        self.database_sg.add_ingress_rule(
+            peer=self.elasticbeanstalk_sg,
+            port=ec2.Port.tcp(3306),
+            description="Allow inbound access of the database from the ElasticBeanstalk security group",
+        )
+
+        # Defining MySQL database
         self.database_name = "CdkDatabase"
 
         self.db_instance = rds.DatabaseInstance(
