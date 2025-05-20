@@ -26,11 +26,12 @@ class DatabaseStack(Stack):
         #     ec2.Port.tcp(3306),
         #     "Allow EB access to MySQL",
         # )
+        self.database_name = "cdk-sql-db"
 
-        rds.DatabaseInstance(
+        self.db_instance = rds.DatabaseInstance(
             self,
             "CdkSQLDatabase",
-            database_name="mod-cdk-db",
+            database_name=self.database_name,
             engine=rds.DatabaseInstanceEngine.mysql(
                 version=rds.MysqlEngineVersion.VER_8_0_41
             ),
