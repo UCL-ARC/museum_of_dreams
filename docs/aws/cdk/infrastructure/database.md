@@ -22,7 +22,7 @@ View [Official AWS doc on DatabaseInstance](https://docs.aws.amazon.com/cdk/api/
 
 ## Example configuration:
 
-Below is a list of example parameters for configuring a database instance:
+Below is a list of parameters we have used for configuring a database instance:
 
 - `database_name`: your database name (Only alpha-numeric characters allowed)
 - `engine`: database engine type (e.g. `rds.DatabaseInstanceEngine.mysql`)
