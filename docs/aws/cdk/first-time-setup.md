@@ -22,7 +22,7 @@ The `cdk` command should be now callable in your terminal given you are in the c
 
 ## Note
 
-For the Museum of Dreamworlds Project, the cdk directory would be `/infrastructure`, but in other cases, it will usually where app.py is located in your cdk project
+For the Museum of Dreamworlds Project, the cdk directory would be `/infrastructure`. In other cases, it will usually be where app.py is located in your cdk project.
 
 ## Setting up profile (wip)
 
