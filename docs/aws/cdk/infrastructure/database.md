@@ -4,7 +4,7 @@ RDS stacks should be deployed after VPC stack and before Elastic Beanstalk envir
 
 ## Security Group:
 
-Security group for both database and elastic beanstalk environment are setup in `database_stack.py`
+Security group for both database and elastic beanstalk environment are set up in `database_stack.py`
 
 ## Defining a database instance:
 
