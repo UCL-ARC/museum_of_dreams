@@ -1,10 +1,10 @@
 # Relational Database Service
 
-RDS stacks should be deployed after VPC stack and before Elastic Beanstalk environments, this is because the Elastic Beanstalk Stack will need information from database to use as environment variables.
+RDS stacks should be deployed after VPC stack and before Elastic Beanstalk environments, this is because the Elastic Beanstalk Stack will need information from the database to use as environment variables.
 
 ## Security Group:
 
-Security group for both database and elastic beanstalk environment are setup in `database_stack.py`
+Security group for both database and elastic beanstalk environment are set up in `database_stack.py`
 
 ## Defining a database instance:
 
@@ -22,7 +22,7 @@ View [Official AWS doc on DatabaseInstance](https://docs.aws.amazon.com/cdk/api/
 
 ## Example configuration:
 
-Below is a list of example parameters for configuring a database instance:
+Below is a list of parameters we have used for configuring a database instance:
 
 - `database_name`: your database name (Only alpha-numeric characters allowed)
 - `engine`: database engine type (e.g. `rds.DatabaseInstanceEngine.mysql`)
