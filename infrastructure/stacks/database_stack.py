@@ -60,7 +60,7 @@ class DatabaseStack(Stack):
 
         self.db_instance = rds.DatabaseInstance(
             self,
-            "CdkSQLDatabase",
+            "CdkDatabase",
             database_name=self.database_name,
             engine=rds.DatabaseInstanceEngine.mysql(
                 version=rds.MysqlEngineVersion.VER_8_0_41
