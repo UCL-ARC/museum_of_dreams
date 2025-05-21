@@ -6,3 +6,8 @@
 
 - [CDK Infrastructure Overview](./aws/cdk/overview.md)
 - [First Time Setup](./aws/cdk/first-time-setup.md)
+
+### Infrastructure
+
+- [VPC Stack](./aws/cdk/infrastructure/vpc.md)
+- [Database Stack](./aws/cdk/infrastructure/database.md)
