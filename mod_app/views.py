@@ -11,6 +11,7 @@ from django.views import View
 from django.views.generic import DetailView, ListView, TemplateView
 from xhtml2pdf import pisa
 
+# you may need to comment out the bwlow import when running locally if you get a socket error
 from museum_of_dreams_project.settings.aws import (
     AWS_ACCESS_KEY_ID,
     AWS_SECRET_ACCESS_KEY,

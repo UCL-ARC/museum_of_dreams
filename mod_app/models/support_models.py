@@ -29,6 +29,13 @@ class Topic(Tag):
         super().save(*args, **kwargs)
 
 
+class Archive(models.Model):
+    def __str__(self):
+        return self.name
+
+    name = models.CharField(max_length=255, unique=True)
+
+
 class BaseLinkModel(models.Model):
     class Meta:
         abstract = True
@@ -90,6 +97,10 @@ class FileLink(BaseLinkModel):
         validators=[
             validate_max_size,
         ],
+    )
+
+    archive = models.ManyToManyField(
+        "Archive", related_name="%(class)s_archives", blank=True
     )
 
 

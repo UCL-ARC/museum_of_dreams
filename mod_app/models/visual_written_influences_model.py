@@ -15,6 +15,9 @@ class VisualInfluences(models.Model):
 
     title = models.CharField(max_length=255, null=False)
     films = models.ManyToManyField("Film", related_name="visual_influences", blank=True)
+    archive = models.ManyToManyField(
+        "Archive", related_name="visual_influence_archives", blank=True
+    )
 
     content = RichTextUploadingField(
         null=True,
@@ -46,6 +49,9 @@ class WrittenInfluences(models.Model):
     title = models.CharField(max_length=255, null=False)
     films = models.ManyToManyField(
         "Film", related_name="written_influences", blank=True
+    )
+    archive = models.ManyToManyField(
+        "Archive", related_name="written_influence_archives", blank=True
     )
 
     content = RichTextUploadingField(

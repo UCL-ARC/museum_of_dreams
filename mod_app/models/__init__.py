@@ -22,6 +22,7 @@ from .support_models import (
     Video,
     CardImage,
     PublicVisualInfluence,
+    Archive,
 )
 from .teaching_analysis_models import (
     Analysis,
@@ -57,4 +58,5 @@ __all__ = [
     "CardImage",
     "PublicVisualInfluence",
     "Topic",
+    "Archive",
 ]
