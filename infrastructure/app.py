@@ -6,14 +6,8 @@ from stacks.database_stack import DatabaseStack
 
 app = cdk.App()
 
-vpc_stack = VPCStack(
-    app,
-    "CdkVPCStack",
-)
+vpc_stack = VPCStack(app, "CdkVPCStack")
 
-database_stack = DatabaseStack(
-    app,
-    "CdkDatabaseStack",
-)
+database_stack = DatabaseStack(app, "CdkDatabaseStack", vpc=vpc_stack.vpc)
 
 app.synth()
