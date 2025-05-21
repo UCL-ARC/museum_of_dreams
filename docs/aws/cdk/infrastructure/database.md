@@ -1,6 +1,6 @@
 # Relational Database Service
 
-RDS stacks should be deployed after VPC stack and before Elastic Beanstalk environments, this is because the Elastic Beanstalk Stack will need information from database to use as environment variables.
+RDS stacks should be deployed after VPC stack and before Elastic Beanstalk environments, this is because the Elastic Beanstalk Stack will need information from the database to use as environment variables.
 
 ## Security Group:
 
