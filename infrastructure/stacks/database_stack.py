@@ -51,7 +51,7 @@ class DatabaseStack(Stack):
 
         self.database_sg.add_ingress_rule(
             peer=self.elasticbeanstalk_sg,
-            port=ec2.Port.tcp(3306),
+            connection=ec2.Port.tcp(3306),
             description="Allow inbound access of the database from the ElasticBeanstalk security group",
         )
 
