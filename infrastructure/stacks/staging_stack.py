@@ -3,6 +3,7 @@ from aws_cdk import (
     aws_ec2 as ec2,
     aws_elasticbeanstalk as eb,
     aws_iam as iam,
+    aws_rds as rds,
 )
 
 from constructs import Construct
@@ -15,7 +16,8 @@ class StagingStack(Stack):
         construct_id: str,
         vpc: ec2.IVpc,
         security_group: ec2.ISecurityGroup,
-        database,
+        database_name: str,
+        database_instance: rds.IDatabaseInstance,
         **kwargs,
     ) -> None:
         super().__init__(scope, construct_id, **kwargs)
@@ -78,6 +80,31 @@ class StagingStack(Stack):
                 namespace="aws:elasticbeanstalk:environment",
                 option_name="EnvironmentType",
                 value="SingleInstance",
+            ),
+            eb.CfnEnvironment.OptionSettingProperty(
+                namespace="aws:elasticbeanstalk:application:environment",
+                option_name="RDS_DB_NAME",
+                value=database_name,
+            ),
+            eb.CfnEnvironment.OptionSettingProperty(
+                namespace="aws:elasticbeanstalk:application:environment",
+                option_name="RDS_HOSTNAME",
+                value=database_instance.db_instance_endpoint_address,
+            ),
+            eb.CfnEnvironment.OptionSettingProperty(
+                namespace="aws:elasticbeanstalk:application:environment",
+                option_name="RDS_PORT",
+                value=database_instance.db_instance_endpoint_port,
+            ),
+            eb.CfnEnvironment.OptionSettingProperty(
+                namespace="aws:elasticbeanstalk:application:environment",
+                option_name="RDS_USERNAME",
+                value="",
+            ),
+            eb.CfnEnvironment.OptionSettingProperty(
+                namespace="aws:elasticbeanstalk:application:environment",
+                option_name="RDS_PASSWORD",
+                value="",
             ),
         ]
 
