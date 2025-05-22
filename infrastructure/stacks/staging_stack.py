@@ -23,7 +23,6 @@ class StagingStack(Stack):
         super().__init__(scope, construct_id, **kwargs)
 
         # Defining ELastic Beanstalk App
-
         eb_app = eb.CfnApplication(
             self, "Staging", application_name="MOD-staging-test-app"
         )
@@ -105,6 +104,11 @@ class StagingStack(Stack):
                 namespace="aws:elasticbeanstalk:application:environment",
                 option_name="RDS_PASSWORD",
                 value="",
+            ),
+            eb.CfnEnvironment.OptionSettingProperty(
+                namespace="aws:elasticbeanstalk:application:environment",
+                option_name="BUCKET_NAME",
+                value="moddevbucket",
             ),
         ]
 
