@@ -9,7 +9,15 @@ from constructs import Construct
 
 
 class StagingStack(Stack):
-    def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
+    def __init__(
+        self,
+        scope: Construct,
+        construct_id: str,
+        vpc: ec2.IVpc,
+        security_group: ec2.ISecurityGroup,
+        database,
+        **kwargs,
+    ) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
         # Defining ELastic Beanstalk App
@@ -35,7 +43,7 @@ class StagingStack(Stack):
             self, "InstanceProfile", roles=[eb_role.role_name]
         )
 
-        eb_env_settings = [
+        staging_env_settings = [
             eb.CfnEnvironment.OptionSettingProperty(
                 namespace="aws:autoscaling:launchconfiguration",
                 option_name="InstanceType",
@@ -47,21 +55,14 @@ class StagingStack(Stack):
                 value=eb_profile.ref,
             ),
             eb.CfnEnvironment.OptionSettingProperty(
-                namespace="aws:ec2:vpc", option_name="VPCId", value=self.vpc.vpc_id
+                namespace="aws:ec2:vpc",
+                option_name="VPCId",
+                value=vpc.vpc_id,
             ),
             eb.CfnEnvironment.OptionSettingProperty(
                 namespace="aws:ec2:vpc",
                 option_name="Subnets",
-                value=",".join(
-                    [subnet.subnet_id for subnet in self.vpc.public_subnets]
-                ),
-            ),
-            eb.CfnEnvironment.OptionSettingProperty(
-                namespace="aws:ec2:vpc",
-                option_name="ELBSubnets",
-                value=",".join(
-                    [subnet.subnet_id for subnet in self.vpc.public_subnets]
-                ),
+                value=",".join([subnet.subnet_id for subnet in vpc.public_subnets]),
             ),
             eb.CfnEnvironment.OptionSettingProperty(
                 namespace="aws:autoscaling:launchconfiguration",
@@ -71,7 +72,7 @@ class StagingStack(Stack):
             eb.CfnEnvironment.OptionSettingProperty(
                 namespace="aws:autoscaling:launchconfiguration",
                 option_name="SecurityGroups",
-                value=eb_sg.security_group_id,
+                value=security_group.security_group_id,
             ),
             eb.CfnEnvironment.OptionSettingProperty(
                 namespace="aws:elasticbeanstalk:environment",
@@ -86,7 +87,7 @@ class StagingStack(Stack):
             "MODStagingEnv",
             application_name=eb_app.application_name,
             solution_stack_name="64bit Amazon Linux 2023 v4.5.1 running Python 3.11",
-            option_settings=eb_env_settings,
+            option_settings=staging_env_settings,
         )
 
         # Elastic beanstalk dependencies (to ensure correct order of creation/deployment/deletion)
