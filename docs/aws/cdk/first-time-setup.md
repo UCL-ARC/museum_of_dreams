@@ -10,7 +10,7 @@ Before starting, you will need to have the following installed:
 
 Optional, but highly recommended:
 
-- Installing the AWS Toolkit extension for VSCode users
+- Installing the AWS Toolkit extension (if using VSCode)
 
 ### Using SSO connections & profiles
 
