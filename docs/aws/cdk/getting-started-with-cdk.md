@@ -1,6 +1,7 @@
 # Getting started with AWS CDK
 
-Once these are in place, you can start working by:
+Once you've completed the steps in
+[First time setup](./first-time-setup.md), you can start using the Cloud Development Kit in Museum of Dreamworlds by running the following:
 
 ```bash
 $ cd infrastructure # ensures that you are working from the cdk project directory
