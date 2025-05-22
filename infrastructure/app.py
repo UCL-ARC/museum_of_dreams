@@ -15,6 +15,8 @@ staging_stack = StagingStack(
     "StagingStack",
     vpc=vpc_stack.vpc,
     security_group=staging_db_stack.elasticbeanstalk_sg,
+    database_name=staging_db_stack.db_name,
+    database_instance=staging_db_stack.db_instance,
 )
 production_stack = ProductionStack(app, "ProductionStack")
 
