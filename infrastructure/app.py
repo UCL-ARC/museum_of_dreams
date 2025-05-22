@@ -9,8 +9,13 @@ from stacks.staging_database_stack import StagingDatabaseStack
 app = cdk.App()
 
 vpc_stack = VPCStack(app, "VPCStack")
-database_stack = StagingDatabaseStack(app, "StagingDbStack", vpc=vpc_stack.vpc)
-staging_stack = StagingStack(app, "StagingStack")
+staging_db_stack = StagingDatabaseStack(app, "StagingDbStack", vpc=vpc_stack.vpc)
+staging_stack = StagingStack(
+    app,
+    "StagingStack",
+    vpc=vpc_stack.vpc,
+    security_group=staging_db_stack.elasticbeanstalk_sg,
+)
 production_stack = ProductionStack(app, "ProductionStack")
 
 app.synth()
