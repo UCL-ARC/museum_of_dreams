@@ -9,7 +9,7 @@
 ## Official AWS documentation/ resources (Python)
 
 - [AWS API reference for RDS](https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_rds.html)
-- [Examples/ parameters for DatabaseInstance construct](https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_rds/DatabaseInstance.html)
+- [Examples/ parameters for the DatabaseInstance construct](https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_rds/DatabaseInstance.html)
 
 ## Defining a database instance:
 
@@ -80,7 +80,7 @@ self.db_instance = rds.DatabaseInstance(
 ## Parameters notes:
 
 - `id`: specifies a construct id for the instance - this must be unique within the Relational Database Service scope.
-- `database_name`: your database name as shown (is restricted to only alpha-numeric characters)
+- `database_name`: your database name as shown (restricted to only alpha-numeric characters)
 - `engine`: database engine type (e.g. `PostgreSQL`,`MySQL`)
 - `version`: database engine version (e.g. `8.0.41`)
 - `instance_type`: the compute name and memory capacity (e.g `db.t4g.micro`)
