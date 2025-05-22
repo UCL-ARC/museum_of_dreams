@@ -18,7 +18,7 @@ from aws_cdk import aws_rds as rds
 
 rds.DatabaseInstance(
     self,
-    "CdkSQLDatabase", # The database construct ID, must be unique relative to the scope of
+    "CdkSQLDatabase", # provide a construct ID for your database
     # include any additional parameters
 )
 ```

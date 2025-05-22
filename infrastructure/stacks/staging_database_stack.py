@@ -8,7 +8,7 @@ from aws_cdk import (
 from constructs import Construct
 
 
-class DatabaseStack(Stack):
+class StagingDatabaseStack(Stack):
     def __init__(
         self,
         scope: Construct,
@@ -43,10 +43,10 @@ class DatabaseStack(Stack):
         # Setting up Security Group for MySQL, adding appropriate ingress rules
         self.database_sg = ec2.SecurityGroup(
             self,
-            "CdkDatabaseSG",
+            "StagingDatabaseSG",
             vpc=vpc,
-            security_group_name="CdkDatabaseSG",
-            description="Security Group for CdkDatabase, created via CDK",
+            security_group_name="StagingDatabaseSG",
+            description="Security Group for StagingDatabase, created via CDK",
         )
 
         self.database_sg.add_ingress_rule(
@@ -56,11 +56,11 @@ class DatabaseStack(Stack):
         )
 
         # Defining MySQL database
-        self.database_name = "CdkDatabase"
+        self.database_name = "StagingDatabase"
 
         self.db_instance = rds.DatabaseInstance(
             self,
-            "CdkDatabase",
+            "StagingDatabase",
             database_name=self.database_name,
             engine=rds.DatabaseInstanceEngine.mysql(
                 version=rds.MysqlEngineVersion.VER_8_0_41

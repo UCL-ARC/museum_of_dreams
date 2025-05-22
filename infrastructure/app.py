@@ -4,12 +4,12 @@ import aws_cdk as cdk
 from stacks.production_stack import ProductionStack
 from stacks.staging_stack import StagingStack
 from stacks.vpc_stack import VPCStack
-from stacks.database_stack import DatabaseStack
+from stacks.staging_database_stack import StagingDatabaseStack
 
 app = cdk.App()
 
-vpc_stack = VPCStack(app, "CdkVPCStack")
-database_stack = DatabaseStack(app, "CdkDatabaseStack", vpc=vpc_stack.vpc)
+vpc_stack = VPCStack(app, "VPCStack")
+database_stack = StagingDatabaseStack(app, "StagingDbStack", vpc=vpc_stack.vpc)
 staging_stack = StagingStack(app, "StagingStack")
 production_stack = ProductionStack(app, "ProductionStack")
 
