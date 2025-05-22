@@ -9,7 +9,7 @@
 ## Official AWS documentation/ resources (Python)
 
 - [AWS API reference for RDS](https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_rds.html)
-- [Examples/ parameters for DatabaseInstance construct](https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_rds/DatabaseInstance.html)
+- [Examples/ parameters for the DatabaseInstance construct](https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_rds/DatabaseInstance.html)
 
 ## Defining a database instance:
 
