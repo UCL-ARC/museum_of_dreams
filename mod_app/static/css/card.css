@@ -42,7 +42,7 @@
   border-radius: var(--radius-2);
   padding: 1vw 1.5vw;
   overflow: auto;
-  height: clamp(28vw, 32vw, 40vw);
+  height: clamp(28vw, 32vw, 36vw);
   font-size: 85%;
   min-height: fit-content;
 
