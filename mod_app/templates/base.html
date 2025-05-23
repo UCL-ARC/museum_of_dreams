@@ -3,17 +3,6 @@
   {% comment %} header area {% endcomment %}
 
     <div class="title-bar">
-      <a href="{% url 'home' %}" class="link--home">
-        <div class="title-logo">
-          <img id="title__logo-img" src="{% static 'images/logos/mod_lady_grey.png' %}" alt="MOD logo" />
-        </div>
-        <h2 class="title--mobile mnt">MUSEUM of DREAMWORLDS</h2>
-      </a>
-
-      {% block non_production_message %} {% if not request.get_host|lower == 'museumofdreamworlds.org' %}
-        <span style="color: orange; padding: 10px; position: absolute; left: 2vw; top: 10px"> STAGING </span>
-      {% endif %} {% endblock %} {% include "components/logo_text.html" with extra_classes="title__logo-text" %}
-
       <div class="title-bar__icons">
         {% if user.is_authenticated and user.is_staff %}
           <a href="/admin">
@@ -24,11 +13,7 @@
           <a href="{% url 'admin:index' %}">
             <span title="Log in" class="material-symbols-outlined"> login </span>
           </a>
-        {% endif %} {% if user.is_authenticated%} {% comment %}
-      <a href="{% url 'home' %}">
-        <span class="material-symbols-outlined"> search </span>
-      </a>
-      {% endcomment %}
+        {% endif %} {% if user.is_authenticated%}
           <span class="material-symbols-outlined" id="menu-icon"> menu </span>
 
           <div class="drawer" id="drawer">
@@ -102,6 +87,16 @@
             </div>
         {% endif %}
       </div>
+      <a href="{% url 'home' %}" class="link--home">
+        <div class="title-logo">
+          <img id="title__logo-img" src="{% static 'images/logos/mod_lady_grey.png' %}" alt="MOD logo" />
+        </div>
+        <h2 class="title--mobile mnt">MUSEUM of DREAMWORLDS</h2>
+      </a>
+
+      {% block non_production_message %} {% if not request.get_host|lower == 'museumofdreamworlds.org' %}
+        <span style="color: orange; padding: 10px; position: absolute; left: 2vw; top: 10px"> STAGING </span>
+      {% endif %} {% endblock %} {% include "components/logo_text.html" with extra_classes="title__logo-text" %}
     </div>
 
     {% block notice %} {% if not user.is_authenticated %}

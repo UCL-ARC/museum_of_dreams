@@ -195,33 +195,7 @@ footer {
 /* class level */
 
 /* header */
-.title__logo-text {
-  align-self: end;
-  padding-top: 2.4vh;
-  color: var(--turquoise);
-  text-shadow: 0px 2px 1px var(--red-12);
-  font-size: 100% !important;
-  /* text-align: center; */
-  grid-column: 2;
-  text-align: end;
 
-  a {
-    &:hover {
-      color: var(--light-blue);
-    }
-    h1 {
-      margin-bottom: 1.6vh;
-      font-family: Boldonse;
-    }
-    h3 {
-      margin: 0;
-    }
-  }
-
-  @media screen and (max-width: 767px) {
-    display: none;
-  }
-}
 .title-bar {
   /* background-color: var(--off-white); maybe make this the case when sticky?*/
   background-image: url("../images/logos/mod_header_bg.png");
@@ -234,10 +208,38 @@ footer {
   align-items: center;
   justify-content: space-between;
   display: grid;
-  grid-template-columns: 3fr 5fr 1fr;
+  grid-template-columns: 1fr 6fr 5fr;
   z-index: 2;
   /* position: sticky;
   top: -15rem; */
+
+  .title__logo-text {
+    align-self: end;
+    padding-top: 2.4vh;
+    color: var(--turquoise);
+    text-shadow: 0px 2px 1px var(--red-12);
+    font-size: 86% !important;
+    /* text-align: center; */
+    grid-column: 3;
+    text-align: end;
+
+    a {
+      &:hover {
+        color: var(--light-blue);
+      }
+      h1 {
+        margin-bottom: 1.6vh;
+        font-family: Boldonse;
+      }
+      h3 {
+        margin: 0;
+      }
+    }
+
+    @media screen and (max-width: 767px) {
+      display: none;
+    }
+  }
 
   .material-symbols-outlined {
     color: var(--cyan-6);
@@ -267,7 +269,7 @@ footer {
   flex-direction: column;
   gap: 0.8rem;
   justify-content: space between;
-  align-items: end;
+  align-items: start;
 
   .material-symbols-outlined:not(#drawer .material-symbols-outlined) {
     padding-inline: 0.25rem;
