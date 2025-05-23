@@ -3,7 +3,7 @@
 import ckeditor.fields
 from django.db import migrations, models
 import django.db.models.deletion
-import mod_app.models.support_models
+import mod_app.models
 
 
 class Migration(migrations.Migration):
@@ -185,7 +185,7 @@ class Migration(migrations.Migration):
                     models.FileField(
                         blank=True,
                         null=True,
-                        upload_to=mod_app.models.support_models.FileLink.upload_to,
+                        upload_to=mod_app.models.FileLink.upload_to,
                     ),
                 ),
             ],
