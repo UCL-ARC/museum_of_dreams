@@ -475,27 +475,3 @@ footer {
     }
   }
 }
-
-swiper-container {
-  width: 100%;
-
-  &#main {
-    height: clamp(50vh, 80vh, 100vh);
-  }
-  &:not(#vr) {
-    .slide__image {
-      width: 100%;
-      object-fit: contain;
-    }
-  }
-
-  &#vr,
-  &#pm {
-    width: fit-content;
-  }
-  swiper-slide {
-    text-align: center;
-    width: fit-content;
-    object-fit: contain;
-  }
-}
