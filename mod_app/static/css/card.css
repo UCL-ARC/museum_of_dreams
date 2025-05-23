@@ -103,15 +103,13 @@
   .card__body__heading {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     margin-bottom: 1vw;
     border-bottom: 1px solid var(--light-grey);
     margin-top: 0;
 
     @media screen and (max-width: 767px) {
-      justify-content: space-evenly;
-      align-items: center;
       .card__body__title,
       .card__release-date {
         margin-bottom: 0.1rem;
