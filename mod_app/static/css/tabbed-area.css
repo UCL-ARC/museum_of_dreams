@@ -54,9 +54,18 @@
       margin-top: 1.4rem;
       margin-inline-start: 2.2rem;
       margin-inline-end: 3.2rem;
+      padding: 0.5rem;
 
       &.active {
         display: block;
+      }
+
+      img {
+        max-width: 100% !important;
+        object-fit: contain;
+      }
+      section.footnotes {
+        display: none;
       }
     }
   }
