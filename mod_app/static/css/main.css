@@ -346,9 +346,10 @@ footer {
   z-index: 3;
 
   @media screen and (max-width: 767px) {
-    left: -100vw;
-    width: 60%;
+    left: -150vw;
+    width: 70vw;
   }
+
   .drawer__menu-icons {
     display: flex;
     justify-content: center;
@@ -370,6 +371,7 @@ footer {
     margin-inline-end: 2vw;
     font-size: 1.2rem;
     line-height: 1rem;
+    padding-bottom: 0.2rem;
     transition: transform 0.3s ease, color 0.3s ease;
     &:hover {
       transform: scale(1.05);
