@@ -8,8 +8,6 @@ from aws_cdk import (
     RemovalPolicy,
 )
 
-import datetime
-
 from constructs import Construct
 
 
@@ -27,9 +25,8 @@ class StagingStack(Stack):
         super().__init__(scope, construct_id, **kwargs)
 
         # display names
-        timestamp = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-        self.eb_app_name = f"MODStagingApp-{timestamp}"
-        self.eb_env_name = f"MODStagingEnv-{timestamp}"
+        self.eb_app_name = "MODStagingApp"
+        self.eb_env_name = "MODStagingEnv"
 
         # Defining ELastic Beanstalk App
         self.eb_app = eb.CfnApplication(
