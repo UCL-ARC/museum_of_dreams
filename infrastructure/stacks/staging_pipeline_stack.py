@@ -43,7 +43,7 @@ class StagingPipelineStack(Stack):
                     action_name="GitHub_Source",
                     owner="UCL-ARC",
                     repo="museum_of_dreams",
-                    branch="feature/cdk-codepipeline",
+                    branch="feature/cdk-eb",
                     output=source_output,
                     connection_arn=ssm.StringParameter.value_for_string_parameter(
                         self, "/pipeline/github-connection-arn"
@@ -57,7 +57,7 @@ class StagingPipelineStack(Stack):
         iam.Role(
             self,
             "EBDeployRole",
-            assumed_by=iam.ServicePrincipal("codepipeline.amazonzws.com"),
+            assumed_by=iam.ServicePrincipal("codepipeline.amazonaws.com"),
             managed_policies=[
                 iam.ManagedPolicy.from_aws_managed_policy_name(
                     "AWSElasticBeanstalkManagedUpdatesCustomerRolePolicy"
