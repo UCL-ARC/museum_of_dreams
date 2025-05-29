@@ -212,7 +212,7 @@ footer {
   z-index: 2;
 
   h1,
-  h2 {
+  h2.title--mobile {
     font-family: Boldonse;
   }
 

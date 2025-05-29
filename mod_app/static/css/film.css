@@ -5,6 +5,10 @@
   gap: 1rem;
   text-align: left;
 
+  img {
+    max-width: 20vw;
+  }
+
   .title-release {
     grid-column: 2;
     display: flex;
