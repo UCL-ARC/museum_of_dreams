@@ -45,6 +45,25 @@ class StagingStack(Stack):
             self, "InstanceProfile", roles=[eb_role.role_name]
         )
 
+        staging_bucket = s3.Bucket(
+            self,
+            "StagingBucket",
+            versioned=False,
+            public_read_access=False,
+            block_public_access=s3.BlockPublicAccess.BLOCK_ALL,
+            cors=[
+                s3.CorsRule(
+                    allowed_methods=[s3.HttpMethods.GET],
+                    allowed_origins=["*"],
+                    allowed_headers=["*"],
+                )
+            ],
+            removal_policy=s3.RemovalPolicy.DESTROY,  # Only for dev/test environments
+            auto_delete_objects=True,  # Only for dev/test
+        )
+
+        staging_bucket.grant_read_write(eb_role)
+
         staging_env_settings = [
             eb.CfnEnvironment.OptionSettingProperty(
                 namespace="aws:autoscaling:launchconfiguration",
@@ -121,25 +140,6 @@ class StagingStack(Stack):
             solution_stack_name="64bit Amazon Linux 2023 v4.5.1 running Python 3.11",
             option_settings=staging_env_settings,
         )
-
-        staging_bucket = s3.Bucket(
-            self,
-            "StagingBucket",
-            versioned=False,
-            public_read_access=False,
-            block_public_access=s3.BlockPublicAccess.BLOCK_ALL,
-            cors=[
-                s3.CorsRule(
-                    allowed_methods=[s3.HttpMethods.GET],
-                    allowed_origins=["*"],
-                    allowed_headers=["*"],
-                )
-            ],
-            removal_policy=s3.RemovalPolicy.DESTROY,  # Only for dev/test environments
-            auto_delete_objects=True,  # Only for dev/test
-        )
-
-        staging_bucket.grant_read_write(eb_role)
 
         # Elastic beanstalk dependencies (to ensure correct order of creation/deployment/deletion)
         eb_env.add_dependency(eb_profile)
