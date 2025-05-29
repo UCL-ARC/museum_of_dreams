@@ -24,9 +24,14 @@ class StagingStack(Stack):
     ) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
+        # display names
+
+        self.eb_app_name = "MODStagingApp"
+        self.eb_env_name = "MODStagingEnvironment"
+
         # Defining ELastic Beanstalk App
         self.eb_app = eb.CfnApplication(
-            self, "Staging", application_name="MOD-staging-test-app"
+            self, "StagingApp", application_name=self.eb_app_name
         )
 
         # Create IAM role with necessary permission for web server environment
@@ -61,6 +66,19 @@ class StagingStack(Stack):
             ],
             removal_policy=RemovalPolicy.DESTROY,  # Only for dev/test environments
             auto_delete_objects=True,  # Only for dev/test
+        )
+        staging_bucket.add_to_resource_policy(
+            iam.PolicyStatement(
+                actions=[
+                    "s3:GetObject",
+                    "s3:PutObject",
+                    "s3:DeleteObject",
+                    "s3:ListBucket",
+                    "s3:HeadObject",
+                ],
+                principals=[iam.ArnPrincipal(eb_role.role_arn)],
+                resources=[staging_bucket.bucket_arn, f"{staging_bucket.bucket_arn}/*"],
+            )
         )
 
         staging_bucket.grant_read_write(eb_role)
@@ -136,9 +154,9 @@ class StagingStack(Stack):
         # Environment creation
         self.eb_env = eb.CfnEnvironment(
             self,
-            "MODStagingEnv",
-            environment_name="MODStagingEnv",
-            application_name=self.eb_app.application_name,
+            "StagingEnv",
+            environment_name=self.eb_env_name,
+            application_name=self.eb_app_name,
             solution_stack_name="64bit Amazon Linux 2023 v4.5.1 running Python 3.11",
             option_settings=staging_env_settings,
         )
