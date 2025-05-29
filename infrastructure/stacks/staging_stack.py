@@ -4,6 +4,7 @@ from aws_cdk import (
     aws_elasticbeanstalk as eb,
     aws_iam as iam,
     aws_rds as rds,
+    aws_s3 as s3,
 )
 
 from constructs import Construct
@@ -38,6 +39,18 @@ class StagingStack(Stack):
                 )
             ],
         )
+
+        staging_bucket = s3.Bucket(
+            self,
+            "StagingBucket",
+            versioned=False,
+            public_read_access=False,
+            block_public_access=s3.BlockPublicAccess.BLOCK_ALL,
+            removal_policy=s3.RemovalPolicy.DESTROY,  # Only for dev/test environments
+            auto_delete_objects=True,  # Only for dev/test
+        )
+
+        staging_bucket.grant_read_write(eb_role)
 
         # Create Instance Profile for EB, this could then be assumed by EC2 instances when they're launched via beanstalk
         eb_profile = iam.CfnInstanceProfile(
@@ -108,7 +121,7 @@ class StagingStack(Stack):
             eb.CfnEnvironment.OptionSettingProperty(
                 namespace="aws:elasticbeanstalk:application:environment",
                 option_name="BUCKET_NAME",
-                value="moddevbucket",
+                value=staging_bucket.bucket_name,
             ),
         ]
 
