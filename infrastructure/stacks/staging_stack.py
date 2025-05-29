@@ -25,7 +25,7 @@ class StagingStack(Stack):
         super().__init__(scope, construct_id, **kwargs)
 
         # Defining ELastic Beanstalk App
-        eb_app = eb.CfnApplication(
+        self.eb_app = eb.CfnApplication(
             self, "Staging", application_name="MOD-staging-test-app"
         )
 
@@ -134,14 +134,14 @@ class StagingStack(Stack):
         ]
 
         # Environment creation
-        eb_env = eb.CfnEnvironment(
+        self.eb_env = eb.CfnEnvironment(
             self,
             "MODStagingEnv",
-            application_name=eb_app.application_name,
+            application_name=self.eb_app.application_name,
             solution_stack_name="64bit Amazon Linux 2023 v4.5.1 running Python 3.11",
             option_settings=staging_env_settings,
         )
 
         # Elastic beanstalk dependencies (to ensure correct order of creation/deployment/deletion)
-        eb_env.add_dependency(eb_profile)
-        eb_env.add_dependency(eb_role.node.default_child)
+        self.eb_env.add_dependency(eb_profile)
+        self.eb_env.add_dependency(eb_role.node.default_child)
