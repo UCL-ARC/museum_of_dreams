@@ -7,7 +7,7 @@ from aws_cdk import (
     aws_ssm as ssm,
     RemovalPolicy,
 )
-
+import datetime
 from constructs import Construct
 
 
@@ -28,7 +28,9 @@ class StagingPipelineStack(Stack):
             removal_policy=RemovalPolicy.DESTROY,
             auto_delete_objects=True,
         )
-        source_output = codepipeline.Artifact()
+        source_output = codepipeline.Artifact(
+            artifact_name=datetime.now().strftime("%Y%m%d-%H%M%S")
+        )
 
         # Pipeline
         pipeline = codepipeline.Pipeline(
