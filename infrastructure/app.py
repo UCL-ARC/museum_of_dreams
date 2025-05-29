@@ -5,6 +5,7 @@ from stacks.production_stack import ProductionStack
 from stacks.staging_stack import StagingStack
 from stacks.vpc_stack import VPCStack
 from stacks.staging_database_stack import StagingDatabaseStack
+from stacks.staging_pipeline_stack import StagingPipelineStack
 
 app = cdk.App()
 
@@ -28,5 +29,13 @@ staging_stack = StagingStack(
     database_instance=staging_db_stack.db_instance,
 )
 production_stack = ProductionStack(app, "ProductionStack")
+
+staging_pipeline_stack = StagingPipelineStack(
+    app,
+    "StagingPipeline",
+    staging_app_name=staging_stack.eb_app.application_name,
+    staging_env_name=staging_stack.eb_env.environment_name,
+)
+
 
 app.synth()
