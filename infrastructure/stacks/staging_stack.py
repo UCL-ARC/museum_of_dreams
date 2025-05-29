@@ -69,20 +69,23 @@ class StagingStack(Stack):
             removal_policy=RemovalPolicy.DESTROY,  # Only for dev/test environments
             auto_delete_objects=True,  # Only for dev/test
         )
+
         staging_bucket.add_to_resource_policy(
             iam.PolicyStatement(
+                effect=iam.Effect.ALLOW,
+                principals=[iam.ServicePrincipal("ec2.amazonaws.com")],
                 actions=[
                     "s3:GetObject",
                     "s3:PutObject",
                     "s3:DeleteObject",
                     "s3:ListBucket",
-                    "s3:HeadObject",
                 ],
-                principals=[iam.ArnPrincipal(eb_role.role_arn)],
-                resources=[staging_bucket.bucket_arn, f"{staging_bucket.bucket_arn}/*"],
+                resources=[
+                    staging_bucket.bucket_arn,  # for ListBucket
+                    f"{staging_bucket.bucket_arn}/*",  # for object-level actions
+                ],
             )
         )
-
         staging_bucket.grant_read_write(eb_role)
 
         staging_env_settings = [
