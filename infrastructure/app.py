@@ -33,8 +33,8 @@ production_stack = ProductionStack(app, "ProductionStack")
 staging_pipeline_stack = StagingPipelineStack(
     app,
     "StagingPipelineStack",
-    staging_app_name=staging_stack.eb_app.application_name,
-    staging_env_name=staging_stack.eb_env.environment_name,
+    staging_app_name=staging_stack.eb_app_name,
+    staging_env_name=staging_stack.eb_env_name,
 )
 
 
