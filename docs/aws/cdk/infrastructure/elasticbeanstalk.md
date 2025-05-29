@@ -1,8 +1,28 @@
 # Elastic Beanstalk Stack
 
-(to be changed)
+There will be two different stack for spinning up Elastic Beanstalk Environment Instances: `staging_stack.py` and `production_stack.py`. Specific settings will vary accordingly to serve their purpose.
 
-There will be two different stack for spinning up Elastic Beanstalk Environment Instances: `staging_stack.py` and `production_stack.py`, their settings will vary accordingly
+## Stack configuration in `app.py`
+
+The elastic beanstalk stack(s) itself require a few extra arguments to initialise:
+
+- `vpc`: an vpc instance
+- `security_group`: an security group for the elastic beanstalk
+- `database_name`: an alphanumeric string
+- `database_instance`: an database instance
+
+### Example Usage
+
+```python
+staging_stack = StagingStack(
+    app,
+    "StagingStack",
+    vpc=vpc_stack.vpc, # referencing the vpc instance defined in VPCStack
+    security_group=staging_db_stack.elasticbeanstalk_sg, # referencing the elastic beanstalk security group defined in StagingDatabaseStack
+    database_name=staging_db_stack.db_name, # referencing the database name defined in StagingDatabaseStack
+    database_instance=staging_db_stack.db_instance, # referencing the database instance defined in StagingDatabaseStack
+)
+```
 
 ## Official AWS documentation/ resources (Python)
 
