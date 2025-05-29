@@ -5,6 +5,7 @@ from aws_cdk import (
     aws_iam as iam,
     aws_rds as rds,
     aws_s3 as s3,
+    RemovalPolicy,
 )
 
 from constructs import Construct
@@ -58,7 +59,7 @@ class StagingStack(Stack):
                     allowed_headers=["*"],
                 )
             ],
-            removal_policy=s3.RemovalPolicy.DESTROY,  # Only for dev/test environments
+            removal_policy=RemovalPolicy.DESTROY,  # Only for dev/test environments
             auto_delete_objects=True,  # Only for dev/test
         )
 
