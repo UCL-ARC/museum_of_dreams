@@ -11,7 +11,7 @@ from aws_cdk import (
 from constructs import Construct
 
 
-class CodePipelineStack(Stack):
+class StagingPipelineStack(Stack):
     def __init__(
         self,
         scope: Construct,
@@ -32,7 +32,7 @@ class CodePipelineStack(Stack):
 
         # Pipeline
         pipeline = codepipeline.Pipeline(
-            self, "CdkPipeline", artifact_bucket=artifact_bucket
+            self, "StagingPipeline", artifact_bucket=artifact_bucket
         )
 
         # Source stage - to be configured differently for production/staging/dev branches
@@ -54,7 +54,7 @@ class CodePipelineStack(Stack):
 
         # Grant Permission via IAM Role to Pipeline for Elastic Beanstalk Deployment
 
-        eb_deploy_role = iam.Role(
+        iam.Role(
             self,
             "EBDeployRole",
             assumed_by=iam.ServicePrincipal("codepipeline.amazonzws.com"),
