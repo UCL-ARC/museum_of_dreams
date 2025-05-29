@@ -29,7 +29,7 @@ class StagingPipelineStack(Stack):
             auto_delete_objects=True,
         )
         source_output = codepipeline.Artifact(
-            artifact_name=datetime.now().strftime("%Y%m%d-%H%M%S")
+            artifact_name=datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
         )
 
         # Pipeline
