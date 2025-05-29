@@ -137,6 +137,7 @@ class StagingStack(Stack):
         self.eb_env = eb.CfnEnvironment(
             self,
             "MODStagingEnv",
+            environment_name="MODStagingEnv",
             application_name=self.eb_app.application_name,
             solution_stack_name="64bit Amazon Linux 2023 v4.5.1 running Python 3.11",
             option_settings=staging_env_settings,
