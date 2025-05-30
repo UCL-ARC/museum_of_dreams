@@ -40,7 +40,8 @@ class StagingStack(Stack):
             managed_policies=[
                 iam.ManagedPolicy.from_aws_managed_policy_name(
                     "AWSElasticBeanstalkWebTier"
-                )
+                ),
+                iam.ManagedPolicy.from_aws_managed_policy_name("AmazonS3FullAccess"),
             ],
         )
 
