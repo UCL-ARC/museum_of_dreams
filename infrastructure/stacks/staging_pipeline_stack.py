@@ -24,18 +24,34 @@ class StagingPipelineStack(Stack):
 
         artifact_bucket = s3.Bucket(
             self,
-            "ArtifactBucket",
+            "StagingArtifactBucket",
             removal_policy=RemovalPolicy.DESTROY,
             auto_delete_objects=True,
         )
         source_output = codepipeline.Artifact()
 
+        # Grant Permission via IAM Role to Pipeline for Elastic Beanstalk Deployment
+
+        pipeline_role = iam.Role(
+            self,
+            "EBDeployRole",
+            assumed_by=iam.ServicePrincipal("codepipeline.amazonaws.com"),
+            managed_policies=[
+                iam.ManagedPolicy.from_aws_managed_policy_name(
+                    "AWSElasticBeanstalkManagedUpdatesCustomerRolePolicy"
+                ),
+                iam.ManagedPolicy.from_aws_managed_policy_name(
+                    "CloudWatchLogsFullAccess"
+                ),
+            ],
+        )
         # Pipeline
         pipeline = codepipeline.Pipeline(
             self,
             "StagingPipeline",
+            role=pipeline_role,
             artifact_bucket=artifact_bucket,
-            execution_mode=codepipeline.PipelineExecutionMode.QUEUED,
+            execution_mode=codepipeline.ExecutionMode.QUEUED,
         )
 
         # Source stage - to be configured differently for production/staging/dev branches
@@ -52,22 +68,6 @@ class StagingPipelineStack(Stack):
                         self, "/pipeline/github-connection-arn"
                     ),
                 )
-            ],
-        )
-
-        # Grant Permission via IAM Role to Pipeline for Elastic Beanstalk Deployment
-
-        iam.Role(
-            self,
-            "EBDeployRole",
-            assumed_by=iam.ServicePrincipal("codepipeline.amazonaws.com"),
-            managed_policies=[
-                iam.ManagedPolicy.from_aws_managed_policy_name(
-                    "AWSElasticBeanstalkManagedUpdatesCustomerRolePolicy"
-                ),
-                iam.ManagedPolicy.from_aws_managed_policy_name(
-                    "CloudWatchLogsFullAccess"
-                ),
             ],
         )
 
