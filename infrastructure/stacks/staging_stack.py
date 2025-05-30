@@ -8,6 +8,9 @@ from aws_cdk import (
 
 from constructs import Construct
 
+STAGING_APP_NAME = "MODStagingApp"
+STAGING_ENV_NAME = "MODStagingEnv"
+
 
 class StagingStack(Stack):
     def __init__(
@@ -24,7 +27,9 @@ class StagingStack(Stack):
 
         # Defining ELastic Beanstalk App
         eb_app = eb.CfnApplication(
-            self, "Staging", application_name="MOD-staging-test-app"
+            self,
+            "MODStagingApp",
+            application_name=STAGING_APP_NAME,
         )
 
         # Create IAM role with necessary permission for web server environment
@@ -86,7 +91,8 @@ class StagingStack(Stack):
         eb_env = eb.CfnEnvironment(
             self,
             "MODStagingEnv",
-            application_name=eb_app.application_name,
+            application_name=STAGING_APP_NAME,
+            environment_name=STAGING_ENV_NAME,
             solution_stack_name="64bit Amazon Linux 2023 v4.5.1 running Python 3.11",
             option_settings=staging_env_settings,
         )
