@@ -5,6 +5,7 @@ from aws_cdk import (
     aws_codepipeline_actions as cpactions,
     aws_iam as iam,
     aws_ssm as ssm,
+    aws_codebuild as codebuild,
     RemovalPolicy,
 )
 
@@ -29,6 +30,7 @@ class StagingPipelineStack(Stack):
             auto_delete_objects=True,
         )
         source_output = codepipeline.Artifact()
+        build_output = codepipeline.Artifact()
 
         # Grant Permission via IAM Role to Pipeline for Elastic Beanstalk Deployment
 
@@ -54,6 +56,9 @@ class StagingPipelineStack(Stack):
             execution_mode=codepipeline.ExecutionMode.QUEUED,
         )
 
+        # Code build project, can be customised with env var, buildspec, ect.
+        build_project = codebuild.PipelineProject(self, "StagingBuildProject")
+
         # Source stage - to be configured differently for production/staging/dev branches
         pipeline.add_stage(
             stage_name="Source",
@@ -71,6 +76,19 @@ class StagingPipelineStack(Stack):
             ],
         )
 
+        # Build stage
+        pipeline.add_stage(
+            stage_name="Build",
+            action=[
+                cpactions.CodeBuildAction(
+                    action_name="CodeBuild",
+                    project=build_project,
+                    input=source_output,
+                    outputs=[build_output],
+                )
+            ],
+        )
+
         # Deploy stage
 
         pipeline.add_stage(
@@ -80,7 +98,7 @@ class StagingPipelineStack(Stack):
                     action_name="DeployToElasticBeanstalk",
                     application_name=STAGING_APP_NAME,
                     environment_name=STAGING_ENV_NAME,
-                    input=source_output,
+                    input=build_output,
                 )
             ],
         )
