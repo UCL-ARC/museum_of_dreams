@@ -10,14 +10,14 @@ from aws_cdk import (
 
 from constructs import Construct
 
+from stacks.staging_stack import STAGING_APP_NAME, STAGING_ENV_NAME
+
 
 class StagingPipelineStack(Stack):
     def __init__(
         self,
         scope: Construct,
         construct_id: str,
-        staging_app_name,
-        staging_env_name,
         **kwargs,
     ) -> None:
         super().__init__(scope, construct_id, **kwargs)
@@ -75,8 +75,8 @@ class StagingPipelineStack(Stack):
             actions=[
                 cpactions.ElasticBeanstalkDeployAction(
                     action_name="DeployToElasticBeanstalk",
-                    application_name=staging_app_name,
-                    environment_name=staging_env_name,
+                    application_name=STAGING_APP_NAME,
+                    environment_name=STAGING_ENV_NAME,
                     input=source_output,
                 )
             ],
