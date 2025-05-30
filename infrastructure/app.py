@@ -34,6 +34,6 @@ staging_pipeline_stack = StagingPipelineStack(
     app,
     "StagingPipelineStack",
 )
-
+staging_pipeline_stack.add_dependency(staging_stack)
 
 app.synth()
