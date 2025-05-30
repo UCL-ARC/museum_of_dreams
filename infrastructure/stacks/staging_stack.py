@@ -58,7 +58,11 @@ class StagingStack(Stack):
             block_public_access=s3.BlockPublicAccess.BLOCK_ALL,
             cors=[
                 s3.CorsRule(
-                    allowed_methods=[s3.HttpMethods.GET],
+                    allowed_methods=[
+                        s3.HttpMethods.GET,
+                        s3.HttpMethods.PUT,
+                        s3.HttpMethods.HEAD,
+                    ],
                     allowed_origins=["*"],
                     allowed_headers=["*"],
                 )
