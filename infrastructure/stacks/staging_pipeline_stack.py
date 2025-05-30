@@ -31,6 +31,7 @@ class StagingPipelineStack(Stack):
         )
         source_output = codepipeline.Artifact()
         build_output = codepipeline.Artifact()
+        build_spec = codebuild.BuildSpec.from_source_filename("buildspec.yaml")
 
         # Grant Permission via IAM Role to Pipeline for Elastic Beanstalk Deployment
 
@@ -57,7 +58,9 @@ class StagingPipelineStack(Stack):
         )
 
         # Code build project, can be customised with env var, buildspec, ect.
-        build_project = codebuild.PipelineProject(self, "StagingBuildProject")
+        build_project = codebuild.PipelineProject(
+            self, "StagingBuildProject", build_spec=build_spec
+        )
 
         # Source stage - to be configured differently for production/staging/dev branches
         pipeline.add_stage(
