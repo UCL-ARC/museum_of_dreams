@@ -1,4 +1,15 @@
 #!/bin/bash
+
+set -e  # exit on unhandled errors by default
+
+log() {
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1"
+}
+
+fail_safe_run() {
+    "$@" || log "WARNING: Command '$*' failed, continuing..."
+}
+
 if [ -f /var/app/current/manage.py ]; then
     # Start venv
     cd /var/app
@@ -6,12 +17,14 @@ if [ -f /var/app/current/manage.py ]; then
     cd current
 
     # Run migrations
-    python manage.py migrate
+    fail_safe_run manage.py migrate
+
     echo `date`
-    echo `python manage.py showmigrations`
+    
+    fail_safe_run python manage.py showmigrations
 
     # Collect static files
-    #python manage.py collectstatic --no-input --verbosity 0
+    fail_safe_run python manage.py collectstatic --no-input --verbosity 0
 else
     echo "manage.py not found."
     exit 1
