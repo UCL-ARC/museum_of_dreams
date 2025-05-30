@@ -32,7 +32,10 @@ class StagingPipelineStack(Stack):
 
         # Pipeline
         pipeline = codepipeline.Pipeline(
-            self, "StagingPipeline", artifact_bucket=artifact_bucket
+            self,
+            "StagingPipeline",
+            artifact_bucket=artifact_bucket,
+            execution_mode=codepipeline.PipelineExecutionMode.QUEUED,
         )
 
         # Source stage - to be configured differently for production/staging/dev branches
