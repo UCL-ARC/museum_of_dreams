@@ -40,8 +40,8 @@ AWS_QUERYSTRING_AUTH = False  # needed by grappelli to work with s3
 DEFAULT_FILE_STORAGE = "static.MediaStorage"
 STATICFILES_STORAGE = "static.StaticStorage"
 
-AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", "none")
-AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", "none")
+# AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", "none")
+# AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", "none")
 AWS_STORAGE_BUCKET_NAME = os.environ.get("BUCKET_NAME", "none")
 AWS_S3_REGION_NAME = "eu-west-2"
 AWS_S3_CUSTOM_DOMAIN = (
