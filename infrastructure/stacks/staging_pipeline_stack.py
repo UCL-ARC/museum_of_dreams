@@ -70,7 +70,7 @@ class StagingPipelineStack(Stack):
                     action_name="GitHub_Source",
                     owner="UCL-ARC",
                     repo="museum_of_dreams",
-                    branch="feature/cdk-eb",
+                    branch="feature/cdk-staging-env",
                     output=source_output,
                     connection_arn=ssm.StringParameter.value_for_string_parameter(
                         self, "/pipeline/github-connection-arn"
@@ -82,7 +82,7 @@ class StagingPipelineStack(Stack):
         # Build stage
         pipeline.add_stage(
             stage_name="Build",
-            action=[
+            actions=[
                 cpactions.CodeBuildAction(
                     action_name="CodeBuild",
                     project=build_project,
