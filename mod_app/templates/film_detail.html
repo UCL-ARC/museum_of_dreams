@@ -17,6 +17,10 @@
           <h4>Alternative Titles</h4>
           {{film.alt_titles|safe}}
         </div>
+        <div id="bfi-identifier">
+          <h4>BFI identifier</h4>
+          {{film.bfi_identifier}}
+        </div>
         <div id="genres">
           <h4>Genres</h4>
           {% for g in film.genre.all %}
