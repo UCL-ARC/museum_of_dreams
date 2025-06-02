@@ -65,8 +65,13 @@ class StagingStack(Stack):
             self,
             "StagingBucket",
             versioned=False,
-            public_read_access=False,
-            block_public_access=s3.BlockPublicAccess.BLOCK_ALL,
+            public_read_access=True,
+            block_public_access=s3.BlockPublicAccess(
+                block_public_acls=False,
+                block_public_policy=False,
+                ignore_public_acls=False,
+                restrict_public_buckets=False,
+            ),
             cors=[
                 s3.CorsRule(
                     allowed_methods=[
