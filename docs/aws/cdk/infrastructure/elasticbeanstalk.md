@@ -2,6 +2,34 @@
 
 There will be two different stack for spinning up Elastic Beanstalk Environment Instances: `staging_stack.py` and `production_stack.py`. Specific settings will vary accordingly to serve their purpose.
 
+## Important:
+
+## Setting environment variables for S3 bucket static files
+
+In the post deploy script, collectstatic will fail if:
+
+- The environment variable `AWS_ACCESS_KEY_ID` and `AWS_SECRET_KEY` is not set
+
+In the current setup, all elastic beanstalk instances are using the access key ID and secret key from IAM user `mod_site`. When spinning up new instance via CDK, we'll need to also manually update the IAM policy `get-put-objets` for this `mod_site` user to allow access:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "VisualEditor0",
+      "Effect": "Allow",
+      "Action": ["s3:PutObject", "s3:GetObject", "s3:GetObjectAttributes", "s3:DeleteObject", "s3:ListBucket"],
+      "Resource": [
+        // add your arn of your bucket followed by /*
+        // example:
+        "arn:aws:s3:::your-cdk-bucket-name/*"
+      ]
+    }
+  ]
+}
+```
+
 ## Stack configuration in `app.py`
 
 The elastic beanstalk stack(s) itself require a few extra arguments to initialise:
