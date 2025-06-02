@@ -145,6 +145,11 @@ class StagingStack(Stack):
                 value="SingleInstance",
             ),
             eb.CfnEnvironment.OptionSettingProperty(
+                namespace="aws:autoscaling:launchconfiguration",
+                option_name="EC2KeyName",
+                value="modstaginenv",
+            ),
+            eb.CfnEnvironment.OptionSettingProperty(
                 namespace="aws:elasticbeanstalk:application:environment",
                 option_name="RDS_DB_NAME",
                 value=database_name,
