@@ -11,7 +11,7 @@ if [ -f /var/app/current/manage.py ]; then
     echo `python manage.py showmigrations`
 
     # Collect static files
-    #python manage.py collectstatic --no-input --verbosity 0
+    python manage.py collectstatic --no-input --verbosity 0
 else
     echo "manage.py not found."
     exit 1
