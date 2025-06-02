@@ -4,6 +4,8 @@ from aws_cdk import (
     aws_elasticbeanstalk as eb,
     aws_iam as iam,
     aws_rds as rds,
+    aws_s3 as s3,
+    RemovalPolicy,
 )
 
 from constructs import Construct
@@ -50,6 +52,25 @@ class StagingStack(Stack):
             self, "InstanceProfile", roles=[eb_role.role_name]
         )
 
+        staging_bucket = s3.Bucket(
+            self,
+            "StagingBucket",
+            versioned=False,
+            public_read_access=False,
+            block_public_access=s3.BlockPublicAccess.BLOCK_ALL,
+            cors=[
+                s3.CorsRule(
+                    allowed_methods=[s3.HttpMethods.GET],
+                    allowed_origins=["*"],
+                    allowed_headers=["*"],
+                )
+            ],
+            removal_policy=RemovalPolicy.DESTROY,  # Only for dev/test environments
+            auto_delete_objects=True,  # Only for dev/test
+        )
+
+        staging_bucket.grant_read_write(eb_role)
+
         staging_env_settings = [
             eb.CfnEnvironment.OptionSettingProperty(
                 namespace="aws:autoscaling:launchconfiguration",
@@ -85,6 +106,36 @@ class StagingStack(Stack):
                 namespace="aws:elasticbeanstalk:environment",
                 option_name="EnvironmentType",
                 value="SingleInstance",
+            ),
+            eb.CfnEnvironment.OptionSettingProperty(
+                namespace="aws:elasticbeanstalk:application:environment",
+                option_name="RDS_DB_NAME",
+                value=database_name,
+            ),
+            eb.CfnEnvironment.OptionSettingProperty(
+                namespace="aws:elasticbeanstalk:application:environment",
+                option_name="RDS_HOSTNAME",
+                value=database_instance.db_instance_endpoint_address,
+            ),
+            eb.CfnEnvironment.OptionSettingProperty(
+                namespace="aws:elasticbeanstalk:application:environment",
+                option_name="RDS_PORT",
+                value=database_instance.db_instance_endpoint_port,
+            ),
+            eb.CfnEnvironment.OptionSettingProperty(
+                namespace="aws:elasticbeanstalk:application:environment",
+                option_name="RDS_USERNAME",
+                value="",
+            ),
+            eb.CfnEnvironment.OptionSettingProperty(
+                namespace="aws:elasticbeanstalk:application:environment",
+                option_name="RDS_PASSWORD",
+                value="",
+            ),
+            eb.CfnEnvironment.OptionSettingProperty(
+                namespace="aws:elasticbeanstalk:application:environment",
+                option_name="BUCKET_NAME",
+                value=staging_bucket.bucket_name,
             ),
         ]
 
