@@ -174,6 +174,21 @@ class StagingStack(Stack):
                 option_name="BUCKET_NAME",
                 value=staging_bucket.bucket_name,
             ),
+            eb.CfnEnvironment.OptionSettingProperty(
+                namespace="aws:elasticbeanstalk:application:environment",
+                option_name="AWS_ACCESS_KEY_ID",
+                value="",
+            ),
+            eb.CfnEnvironment.OptionSettingProperty(
+                namespace="aws:elasticbeanstalk:application:environment",
+                option_name="AWS_SECRET_ACCESS_KEY",
+                value="",
+            ),
+            eb.CfnEnvironment.OptionSettingProperty(
+                namespace="aws:elasticbeanstalk:application:environment",
+                option_name="SECRET_KEY",
+                value="",
+            ),
         ]
 
         # Environment creation
