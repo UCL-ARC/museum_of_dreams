@@ -82,6 +82,25 @@ class StagingStack(Stack):
             auto_delete_objects=True,  # Only for dev/test
         )
 
+        staging_bucket.add_to_resource_policy(
+            iam.PolicyStatement(
+                effect=iam.Effect.ALLOW,
+                actions=["s3:ListBucket"],
+                resources=[staging_bucket.bucket_arn],
+                principals=[iam.AnyPrincipal()],
+            )
+        )
+
+        # Allow public GetObject on all objects in the bucket
+        staging_bucket.add_to_resource_policy(
+            iam.PolicyStatement(
+                sid="PublicReadGetObject",
+                effect=iam.Effect.ALLOW,
+                actions=["s3:GetObject"],
+                resources=[f"{staging_bucket.bucket_arn}/*"],
+                principals=[iam.AnyPrincipal()],
+            )
+        )
         staging_bucket.grant_read_write(eb_role)
 
         staging_env_settings = [
