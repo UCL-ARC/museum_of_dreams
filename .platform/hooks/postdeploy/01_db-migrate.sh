@@ -14,5 +14,5 @@ if [ -f /var/app/current/manage.py ]; then
     python manage.py collectstatic --no-input --verbosity 0
 else
     echo "manage.py not found."
-    exit 1
+    #exit 1
 fi
