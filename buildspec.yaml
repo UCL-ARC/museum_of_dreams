@@ -12,4 +12,7 @@ phases:
 
 artifacts:
   files:
-  - mod_app.zip
+    - '**/*'
+    - '.ebextensions/**/*'
+    - '.platform/**/*'
+  discard-paths: no
