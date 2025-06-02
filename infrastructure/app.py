@@ -2,10 +2,10 @@
 
 import aws_cdk as cdk
 from stacks.production_stack import ProductionStack
-from stacks.staging_stack import StagingStack
-from stacks.vpc_stack import VPCStack
 from stacks.staging_database_stack import StagingDatabaseStack
 from stacks.staging_pipeline_stack import StagingPipelineStack
+from stacks.staging_stack import StagingStack
+from stacks.vpc_stack import VPCStack
 
 app = cdk.App()
 

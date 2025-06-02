@@ -1,13 +1,22 @@
 from aws_cdk import (
-    Stack,
-    aws_ec2 as ec2,
-    aws_elasticbeanstalk as eb,
-    aws_iam as iam,
-    aws_rds as rds,
-    aws_s3 as s3,
     RemovalPolicy,
+    Stack,
 )
-
+from aws_cdk import (
+    aws_ec2 as ec2,
+)
+from aws_cdk import (
+    aws_elasticbeanstalk as eb,
+)
+from aws_cdk import (
+    aws_iam as iam,
+)
+from aws_cdk import (
+    aws_rds as rds,
+)
+from aws_cdk import (
+    aws_s3 as s3,
+)
 from constructs import Construct
 
 STAGING_APP_NAME = "MODStagingApp"

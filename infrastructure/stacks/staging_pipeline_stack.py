@@ -1,13 +1,22 @@
 from aws_cdk import (
-    Stack,
-    aws_codepipeline as codepipeline,
-    aws_s3 as s3,
-    aws_codepipeline_actions as cpactions,
-    aws_iam as iam,
-    aws_ssm as ssm,
     RemovalPolicy,
+    Stack,
 )
-
+from aws_cdk import (
+    aws_codepipeline as codepipeline,
+)
+from aws_cdk import (
+    aws_codepipeline_actions as cpactions,
+)
+from aws_cdk import (
+    aws_iam as iam,
+)
+from aws_cdk import (
+    aws_s3 as s3,
+)
+from aws_cdk import (
+    aws_ssm as ssm,
+)
 from constructs import Construct
 
 from stacks.staging_stack import STAGING_APP_NAME, STAGING_ENV_NAME

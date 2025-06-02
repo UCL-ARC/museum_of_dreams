@@ -1,10 +1,13 @@
 from aws_cdk import (
-    Stack,
-    aws_ec2 as ec2,
-    aws_rds as rds,
     RemovalPolicy,
+    Stack,
 )
-
+from aws_cdk import (
+    aws_ec2 as ec2,
+)
+from aws_cdk import (
+    aws_rds as rds,
+)
 from constructs import Construct
 
 
