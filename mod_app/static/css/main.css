@@ -53,6 +53,10 @@ a {
     text-decoration: none;
   }
 }
+button {
+  font-family: "Epilogue";
+  font-weight: normal;
+}
 
 main {
   margin: 1rem;
@@ -411,19 +415,39 @@ footer {
 
 /* shared across list views */
 .page__description {
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 2rem;
+  text-align: center;
+  color: var(--contrast-text--secondary);
+  font-size: medium;
+
+  .utility__wrapper {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    /* justify-content: space-around; */
+    margin-bottom: 2rem;
+
+    .viewby {
+      grid-column: 3;
+      font-size: 0.7rem;
+      text-align: end;
+    }
+  }
 }
 
 /* pagination */
 .button--toggle-pagination {
-  float: right;
+  /* float: right; */
   background-color: transparent;
   color: var(--cyan-6);
   font-weight: 600;
   padding: 0.5vw 1vw;
-  border-color: var(--light-blue);
+  font-size: inherit;
+  /* border-color: var(--light-blue); */
+
+  transition: color 0.3s ease;
+  &:hover {
+    color: var(--light-blue);
+    text-decoration: underline;
+  }
 }
 .pagination {
   margin-inline: auto;
@@ -449,5 +473,29 @@ footer {
     &:hover {
       background-color: var(--pink-9);
     }
+  }
+}
+
+swiper-container {
+  width: 100%;
+
+  &#main {
+    height: clamp(50vh, 80vh, 100vh);
+  }
+  &:not(#vr) {
+    .slide__image {
+      width: 100%;
+      object-fit: contain;
+    }
+  }
+
+  &#vr,
+  &#pm {
+    width: fit-content;
+  }
+  swiper-slide {
+    text-align: center;
+    width: fit-content;
+    object-fit: contain;
   }
 }

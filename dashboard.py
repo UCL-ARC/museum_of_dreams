@@ -32,8 +32,7 @@ class CustomIndexDashboard(Dashboard):
                 column=3,
                 collapsible=True,
                 children=[
-                    modules.AppList(
-                        _("Auth"),
+                    modules.ModelList(
                         column=1,
                         collapsible=False,
                         models=("django.contrib.*",),
@@ -90,9 +89,12 @@ class CustomIndexDashboard(Dashboard):
                             "mod_app.models.support_models.Source",
                             "mod_app.models.support_models.OtherLink",
                             "mod_app.models.support_models.Tag",
+                            "mod_app.models.support_models.Keyword",
+                            "mod_app.models.support_models.Topic",
                             "mod_app.models.feedback_model.Feedback",
                             "mod_app.models.visual_written_influences_model.VisualInfluences",
                             "mod_app.models.visual_written_influences_model.WrittenInfluences",
+                            "mod_app.models.support_models.Archive",
                         ),
                     ),
                 ],

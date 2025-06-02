@@ -1,0 +1,34 @@
+{% extends "base.html" %} {% load i18n %} {% block title %}{% trans 'Tags' %} {% endblock %} {% block content %} {% with page_obj=page_obj is_paginated=is_paginated page=page %}{% include "components/list_page_description.html" with model="tag" description="Browse tags used across our Films, Analyses and Teaching Resources" view="tag_list" no_pagination_available=True %}{% endwith %}
+
+  <div class="tag-list__container">
+    <div class="column">
+      <h2>Keywords</h2>
+      <p>associated Analyses and Teaching Resources</p>
+      <div>
+        {% for tag in tags %} {% if tag.keyword %}
+          <a href="{% url 'tag_detail' pk=tag.pk %}" class="tag tag--list">{{tag}}</a>
+        {% endif %} {% endfor %}
+      </div>
+    </div>
+
+    <div class="column">
+      <h2>Genres</h2>
+      <p>associated Films, Analyses and Teaching Resources</p>
+      <div>
+        {% for tag in tags %} {%if tag.is_genre %}
+          <a href="{% url 'tag_detail' pk=tag.pk %}" class="tag tag--list">{{tag.name}}</a>
+        {% endif %} {% endfor %}
+      </div>
+    </div>
+
+    <div class="column">
+      <h2>Topics</h2>
+      <p>associated Analyses and Teaching Resources</p>
+      <div>
+        {% for tag in tags %}{% if tag.topic %}
+          <a href="{% url 'tag_detail' pk=tag.pk %}" class="tag tag--list">{{tag}}</a>
+        {% endif %}{% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

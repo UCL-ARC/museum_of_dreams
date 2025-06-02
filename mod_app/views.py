@@ -1,22 +1,24 @@
-import boto3
 import re
+
+import boto3
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse, HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.template.defaultfilters import striptags
+from django.template.loader import render_to_string
+from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.generic import DetailView, ListView, TemplateView
-from django.utils.decorators import method_decorator
-from django.template.loader import render_to_string
 from xhtml2pdf import pisa
 
-
+# you may need to comment out the bwlow import when running locally if you get a socket error
 from museum_of_dreams_project.settings.aws import (
     AWS_ACCESS_KEY_ID,
     AWS_SECRET_ACCESS_KEY,
     AWS_STORAGE_BUCKET_NAME,
 )
-from .models import Film, BibliographyItem, Analysis, TeachingResources
+
+from .models import Analysis, BibliographyItem, Film, Tag, TeachingResources
 
 
 class HomeView(TemplateView):
@@ -24,11 +26,20 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if Film.objects.first():
-            context["slides"] = [
-                Film.objects.first().title,
-                Analysis.objects.first().title,
-            ]
+
+        films_with_images = Film.objects.filter(cardimages__isnull=False)
+        random_films = films_with_images.order_by("?")[:5]
+
+        slides = []
+        if random_films:
+            for film in random_films:
+                if film.cardimages.first().url:
+                    slides.append(film.cardimages.first().url)
+                else:
+                    slides.append(film.cardimages.first().file.url)
+
+        context["slides"] = slides
+        context["slide_images"] = True
         return context
 
 
@@ -49,6 +60,29 @@ class FilmDetailView(DetailView):
     model = Film
     template_name = "film_detail.html"
     context_object_name = "film"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        film = self.object
+
+        printed_material_slides = (
+            list(film.scripts.all())
+            + list(film.pressbooks.all())
+            + list(film.programmes.all())
+            + list(film.publicitys.all())
+        )
+
+        visual_resources_slides = (
+            list(film.stills.all())
+            + list(film.drawings.all())
+            + list(film.posters.all())
+            + list(film.postcards.all())
+        )
+        context["pm_slides"] = printed_material_slides
+        context["vr_slides"] = visual_resources_slides
+
+        context["video_slides"] = list(film.videos.all())
+        return context
 
 
 class MentionsApiView(View):
@@ -105,6 +139,25 @@ class TRDetailView(DetailView):
     model = TeachingResources
     template_name = "tr_detail.html"
     context_object_name = "tr"
+
+
+class TagListView(ListView):
+    model = Tag
+    template_name = "tag_list.html"
+    context_object_name = "tags"
+
+
+class TagDetailView(DetailView):
+    model = Tag
+    template_name = "tag_detail.html"
+    context_object_name = "tag"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["analyses"] = self.object.analysis_genres.all()
+        context["films"] = self.object.films.all()
+        context["teaching_resources"] = self.object.tr_tags.all()
+        return context
 
 
 class BibliographyListView(ListView):

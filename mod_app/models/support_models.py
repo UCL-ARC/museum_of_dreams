@@ -8,6 +8,7 @@ class Tag(models.Model):
 
     name = models.CharField(max_length=255, unique=True)
     is_genre = models.BooleanField(default=True)
+    # maybe assigning keyword, topic, genre attribute rather than inheritance?
 
 
 class Keyword(Tag):
@@ -17,6 +18,22 @@ class Keyword(Tag):
     def save(self, *args, **kwargs):
         self.is_genre = False
         super().save(*args, **kwargs)
+
+
+class Topic(Tag):
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        self.is_genre = False
+        super().save(*args, **kwargs)
+
+
+class Archive(models.Model):
+    def __str__(self):
+        return self.name
+
+    name = models.CharField(max_length=255, unique=True)
 
 
 class BaseLinkModel(models.Model):
@@ -80,6 +97,10 @@ class FileLink(BaseLinkModel):
         validators=[
             validate_max_size,
         ],
+    )
+
+    archive = models.ManyToManyField(
+        "Archive", related_name="%(class)s_archives", blank=True
     )
 
 

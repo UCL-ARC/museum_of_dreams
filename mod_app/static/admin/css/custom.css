@@ -14,6 +14,7 @@ th.column-safe_alt_titles,
 
 a.grp-link-external {
   color: #3b7588;
+}
 
 a.grp-change-related[title="Change selected analysis"] {
   width: 8rem;
@@ -22,5 +23,14 @@ a.grp-change-related[title="Change selected analysis"] {
     content: "Edit Analysis";
     position: absolute;
     top: 15%;
+  }
+}
+
+.archive.grp-td {
+  max-width: 20rem;
+
+  select,
+  .select2 {
+    max-width: 16rem;
   }
 }

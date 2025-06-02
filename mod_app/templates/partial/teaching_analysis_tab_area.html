@@ -16,6 +16,19 @@
 
   {% comment %} content of those tabs {% endcomment %}
 
+  <!-- Modal -->
+  <dialog id="reference-modal" class="modal">
+    <span class="modal__btn--close">&times;</span>
+    <div class="modal__content">
+      <div class="modal__text"></div>
+    </div>
+  </dialog>
+
+  <dialog id="bibliography-modal" class="modal">
+    <span class="modal__btn--close">&times;</span>
+    <div class="modal__content"></div>
+  </dialog>
+
   <div id="{{model}}__content" class="lh-15 tab__content active" name="content">{{ model.content | safe }}</div>
 
   <div id="films" class="tab__content" name="films">{% include "partial/film_card_grid.html" with film_list=model.films.all %}</div>
@@ -26,7 +39,8 @@
     <div id="clips" class="tab__content" name="clips"></div>
   {% endif %}
 
-  <div id="bibliography" class="tab__content" name="bibliography">{% include "partial/individual_bib.html" with bib_list=model.bibliography.all %}</div>
+  <div id="bibliography" class="tab__content bibliography-area" name="bibliography">{% include "partial/individual_bib.html" with bib_list=model.bibliography.all %}</div>
 </div>
 
 <script src="{% static 'js/openTab.js' %}"></script>
+<script src="{% static 'js/footnote_modal.js' %}"></script>

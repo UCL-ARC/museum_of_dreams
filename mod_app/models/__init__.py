@@ -8,6 +8,7 @@ from .support_models import (
     Location,
     Tag,
     Keyword,
+    Topic,
     Script,
     PressBook,
     Programme,
@@ -21,6 +22,7 @@ from .support_models import (
     Video,
     CardImage,
     PublicVisualInfluence,
+    Archive,
 )
 from .teaching_analysis_models import (
     Analysis,
@@ -55,4 +57,6 @@ __all__ = [
     "WrittenInfluences",
     "CardImage",
     "PublicVisualInfluence",
+    "Topic",
+    "Archive",
 ]

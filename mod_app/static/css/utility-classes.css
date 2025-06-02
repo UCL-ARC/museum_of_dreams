@@ -30,6 +30,10 @@
   }
 }
 
+.btn--link {
+  border: none;
+}
+
 .teaching-analysis__content-wrapper,
 .film__content-wrapper {
   padding: 1rem;
@@ -86,14 +90,16 @@
       margin-top: 1.4rem;
       margin-inline-start: 2.2rem;
       margin-inline-end: 3.2rem;
-      max-height: 90vh;
-      overflow-y: scroll;
 
       &.active {
         display: block;
       }
     }
   }
+}
+.teaching-analysis__content-wrapper .tab__content {
+  max-height: 90vh;
+  overflow-y: scroll;
 }
 
 .card-grid {
@@ -239,14 +245,13 @@
 
   @media (prefers-color-scheme: light) {
     --border-colour: var(--card-border--hover);
-    --text-colour: var(--camo-10);
+    --text-colour: var(--sand-11);
   }
 
   display: inline-flex;
   border-radius: 20px;
   padding: 0.4rem;
   border: 2px solid var(--card-border--hover);
-  /* color: var(--light-blue); */
   color: var(--text-colour);
   opacity: 0.8;
   font-family: "Montserrat", sans-serif;
@@ -259,19 +264,32 @@
     transform: scale(1.05);
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     opacity: 1;
+    cursor: pointer;
   }
 
   /* could do colours based on type of tag */
 }
 .tag--list {
+  --bg: var(--deep-blue);
+
+  @media (prefers-color-scheme: light) {
+    --bg: var(--light-blue);
+  }
+
   border: 1px solid var(--card-border--hover);
-  background-color: var(--deep-blue);
+  background-color: var(--bg);
   font-size: 0.55rem;
   padding: 0.2rem;
+  text-decoration: none;
 }
 .columnar-area .tag {
   font-size: 0.6rem;
   background-color: color-mix(in srgb, var(--card-shadow) 20%, transparent 50%);
+}
+
+.back-to {
+  text-decoration: none;
+  font-size: 0.8rem;
 }
 
 .mobile-view-only {

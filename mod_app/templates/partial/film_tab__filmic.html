@@ -1,18 +1,17 @@
 <div class="top-level">
   <div class="video">
-    {% if film.videos.first.file %}
-      <video controls>
-        <source src="{{film.videos.first.file.url}}" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-    {% else %} {% comment %}
+    {% include "components/swiper_gallery.html" with slides=video_slides id="film__video" slide_videos=True %} {% comment %} {% if film.videos.first.file %}
+    <video controls>
+      <source src="{{film.videos.first.file.url}}" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+    {% else %}
     <video controls>
       <source src="{{film.videos.first.url}}" type="video/mp4" />
       Your browser does not support the video tag.
     </video>
-    {% endcomment %}
-      <iframe src="{{film.videos.first.url}}" frameborder="0" scrolling="no" allowfullscreen></iframe>
-    {% endif %}
+    <iframe src="{{film.videos.first.url}}" frameborder="0" scrolling="no" allowfullscreen></iframe>
+    {% endif %} {% endcomment %}
   </div>
   <dl class="triple-c">
     <dt>Production Country: {{ film.production_country }}</dt>

@@ -1,52 +1,20 @@
-<style>
-  .swiper {
-    width: 60vw;
-    height: clamp(30vh, 36vh, 40vh);
-  }
-</style>
-
 <!-- Slider main container -->
-<div class="swiper">
-  <!-- Additional required wrapper -->
-  <div class="swiper-wrapper">
-    <!-- Slides -->
-    {% comment %} define slides[] in the view {% endcomment %} {% for slide in slides %}
-      <div class="swiper-slide">
+<swiper-container id="{{id}}" auto-height="true" navigation="true" pagination="true" {% if loop %} rewind="true" {% endif %} pagination-clickable="true" initial-slide="1" {% if coverflow %} effect="coverflow" grab-cursor="true" centered-slides="true" slides-per-view="auto" lazy-preload-prev-next="1" {% endif %}>
+  <!-- Slides -->
+  {% comment %} define slides[] in the view and ref in the include {% endcomment %} {% for slide in slides %}
+    <swiper-slide lazy="true">
+      {% if slide_images %}
+        <img loading="lazy" src="{{slide}}" class="slide__image" />
+
+      {% elif slide_videos %}
+        <video controls>
+          <source src="{{slide}}" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+
+      {% else %}
         <div class="slide__content">{{slide}}</div>
-      </div>
-    {% endfor %}
-  </div>
-  <!-- If we need pagination -->
-  <div class="swiper-pagination"></div>
-
-  <!-- If we need navigation buttons -->
-  <div class="swiper-button-prev"></div>
-  <div class="swiper-button-next"></div>
-
-  <!-- If we need scrollbar -->
-  <div class="swiper-scrollbar"></div>
-</div>
-
-<script>
-  const swiper = new Swiper(".swiper", {
-    // Optional parameters
-    direction: "vertical",
-    loop: true,
-
-    // If we need pagination
-    pagination: {
-      el: ".swiper-pagination",
-    },
-
-    // Navigation arrows
-    navigation: {
-      nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev",
-    },
-
-    // And if we need scrollbar
-    scrollbar: {
-      el: ".swiper-scrollbar",
-    },
-  });
-</script>
+      {% endif %}
+    </swiper-slide>
+  {% endfor %}
+</swiper-container>

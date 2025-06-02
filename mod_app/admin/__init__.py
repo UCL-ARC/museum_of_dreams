@@ -10,27 +10,11 @@ from .bibliography_admin import BibliographyItemAdmin
 from .link_admin import (
     SourceInline,
     SourceAdmin,
-    ScriptAdmin,
-    ScriptInline,
-    PressBookInline,
-    PressBookAdmin,
-    ProgrammeInline,
-    ProgrammeAdmin,
-    PublicityInline,
-    PublicityAdmin,
-    StillInline,
-    StillAdmin,
-    DrawingInline,
-    DrawingAdmin,
-    VideoInline,
     OtherLinkInline,
     OtherLinkAdmin,
-    VideoAdmin,
-    PostcardInline,
-    PostcardAdmin,
     TagAdmin,
 )
-from .note_admin import ProjectNoteAdmin, FeedbackAdmin
+from .note_admin import ProjectNoteAdmin, FeedbackAdmin, ArchiveAdmin
 
 __all__ = [
     "BibliographyItemAdmin",
@@ -67,4 +51,5 @@ __all__ = [
     "CustomUserAdmin",
     "ProjectNoteAdmin",
     "FeedbackAdmin",
+    "ArchiveAdmin",
 ]

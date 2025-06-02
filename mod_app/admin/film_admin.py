@@ -6,19 +6,10 @@ from django.utils.html import format_html, mark_safe
 
 from mod_app.admin.link_admin import (
     CardImageInline,
-    DrawingInline,
     OtherLinkInline,
-    PostcardInline,
-    PosterInline,
-    PressBookInline,
-    ProgrammeInline,
-    PublicVisualInfluenceInline,
-    PublicityInline,
-    ScriptInline,
     SourceInline,
-    StillInline,
-    VideoInline,
 )
+from mod_app.admin.link_admin import COMMON_FILELINK_CLASS_INLINES, VIDEO_INLINE
 from mod_app.admin.note_admin import VisInline, WritInline
 from mod_app.admin.utils import safe_bibliography
 from mod_app.utils.mixins import EmailMixin
@@ -56,7 +47,7 @@ class FilmAdmin(EmailMixin, admin.ModelAdmin):
         }
         js = ("admin/js/mentionsPluginConfig.js",)
 
-    autocomplete_fields = ["genre"]
+    autocomplete_fields = ["genre", "keyword"]
     search_fields = [
         "bfi_identifier",
         "title",
@@ -71,25 +62,19 @@ class FilmAdmin(EmailMixin, admin.ModelAdmin):
         },
     }
 
-    inlines = [
-        FilmAnalysisInline,
-        TRInline,
-        VisInline,
-        WritInline,
-        SourceInline,
-        OtherLinkInline,
-        VideoInline,
-        ScriptInline,
-        PressBookInline,
-        ProgrammeInline,
-        PublicityInline,
-        StillInline,
-        PostcardInline,
-        PosterInline,
-        DrawingInline,
-        CardImageInline,
-        PublicVisualInfluenceInline,
-    ]
+    inlines = (
+        [
+            FilmAnalysisInline,
+            TRInline,
+            VisInline,
+            WritInline,
+            SourceInline,
+            OtherLinkInline,
+            CardImageInline,
+        ]
+        + COMMON_FILELINK_CLASS_INLINES
+        + VIDEO_INLINE
+    )
     list_display = [
         "title",
         "bfi_identifier",
@@ -164,7 +149,7 @@ class FilmAdmin(EmailMixin, admin.ModelAdmin):
                     ("production_country", "production_company"),
                     "synopsis",
                     ("cast", "crew"),
-                    ("genre", "bfi_category"),
+                    ("genre", "keyword", "bfi_category"),
                 ),
             },
         ),

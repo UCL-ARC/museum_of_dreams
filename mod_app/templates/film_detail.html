@@ -1,4 +1,6 @@
 {% extends "base.html" %} {% load i18n %} {% block title %}{{ film.title }} (Film) {% endblock %} {% block content %}
+
+  <a href="{% url 'film_list' %}" class="back-to">&larr; Back to all films</a> <img src="{% if film.cardimages.first.url %}{{film.cardimages.first.url}}{% elif film.cardimages.first.file.url %}{{film.cardimages.first.file.url}}{% endif %}" />
   <div class="film__heading">
     <div class="title-release">
       <h1>{{film.title}}</h1>
@@ -8,7 +10,6 @@
 
   <div class="film__content-wrapper">
     <div class="columnar-area">
-      <img src="{% if film.cardimages.first.url %}{{film.cardimages.first.url}}{% elif film.cardimages.first.file.url %}{{film.cardimages.first.file.url}}{% endif %}" />
       <div id="film__info" class="info">
         <div id="alt-titles">
           <h4>Alternative Titles</h4>
@@ -18,6 +19,12 @@
           <h4>Genres</h4>
           {% for g in film.genre.all %}
             <span class="tag">{{g.name}}</span>
+          {% endfor %}
+        </div>
+        <div id="keywords">
+          <h4>Keywords</h4>
+          {% for k in film.keyword.all %}
+            <span class="tag">{{k.name}}</span>
           {% endfor %}
         </div>
         <div id="topics">
@@ -35,7 +42,7 @@
       </div>
     </div>
 
-    <div class="tabbed-area">{% include "partial/film_tab_area.html" %}</div>
+    {% include "partial/film_tab_area.html" %}
   </div>
 
 {% endblock %}
