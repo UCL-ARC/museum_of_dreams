@@ -17,7 +17,6 @@ from aws_cdk import (
 from aws_cdk import (
     aws_ssm as ssm,
     aws_codebuild as codebuild,
-    RemovalPolicy,
 )
 from constructs import Construct
 

@@ -37,7 +37,7 @@ class StagingStack(Stack):
         super().__init__(scope, construct_id, **kwargs)
 
         # Defining ELastic Beanstalk App
-        eb_app = eb.CfnApplication(
+        eb.CfnApplication(
             self,
             "MODStagingApp",
             application_name=STAGING_APP_NAME,
