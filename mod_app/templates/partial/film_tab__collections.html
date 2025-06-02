@@ -8,13 +8,6 @@
   {% include "components/swiper_gallery.html" with slides=vr_slides id="vr" slide_images=True coverflow=True loop=True %}
 </section>
 <hr />
-{% comment %}
-<div>
-  <h2>Critical Essays and Discussions</h2>
-  {% include "partial/analysis_card_grid.html" with analysis_list=film.analyses.all %}
-</div>
-<hr />
-{% endcomment %}
 <section>
   <h3>You may also want to look at...</h3>
   {% comment %} other links {% endcomment %} {% for link in film.otherlinks.all %}
