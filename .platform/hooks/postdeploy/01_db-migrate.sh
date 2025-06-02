@@ -1,4 +1,7 @@
 #!/bin/bash
+
+set -e # exit on unhandled errors by default
+
 if [ -f /var/app/current/manage.py ]; then
     # Start venv
     cd /var/app
@@ -14,5 +17,5 @@ if [ -f /var/app/current/manage.py ]; then
     python manage.py collectstatic --no-input --verbosity 0
 else
     echo "manage.py not found."
-    exit 1
+    #exit 1
 fi
