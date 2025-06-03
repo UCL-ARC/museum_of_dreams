@@ -20,7 +20,7 @@ if [ -f /var/app/current/manage.py ]; then
     fail_safe_run manage.py migrate
 
     echo `date`
-    
+
     fail_safe_run python manage.py showmigrations
 
     # Collect static files

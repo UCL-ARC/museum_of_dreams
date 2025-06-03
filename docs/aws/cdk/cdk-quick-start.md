@@ -1,4 +1,4 @@
-# Quickstart with CDK
+# Quick start with CDK
 
 ## Note
 
