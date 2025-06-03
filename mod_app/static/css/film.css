@@ -5,6 +5,11 @@
   gap: 1rem;
   text-align: left;
 
+  img {
+    min-width: 10vw;
+    max-width: 20vw;
+  }
+
   .title-release {
     grid-column: 2;
     display: flex;
@@ -34,8 +39,7 @@
   }
 
   #alt-titles > :not(h4) {
-    font-size: 1.8vh;
-    line-height: 2.4vh;
+    font-size: 0.8rem;
   }
 }
 

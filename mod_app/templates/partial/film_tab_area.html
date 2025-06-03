@@ -7,6 +7,8 @@
 
     <button class="tab__link" type="button" name="collections" onclick="openTab(event, 'collections')"><h3>Collections</h3></button>
 
+    <button class="tab__link" type="button" name="analyses" onclick="openTab(event, 'analyses')"><h3>Analyses</h3></button>
+
     <button class="tab__link" type="button" name="bibliography" onclick="openTab(event, 'bibliography')"><h3>Bibliography</h3></button>
   </div>
 
@@ -17,6 +19,8 @@
   <div id="technical" class="tab__content" name="technical">{% include "partial/film_tab__technical.html" %}</div>
 
   <div id="collections" class="tab__content" name="collections">{% include "partial/film_tab__collections.html" %}</div>
+
+  <div id="analyses" class="tab__content" name="analyses">{% include "partial/analysis_card_grid.html" with analysis_list=film.analyses.all %}</div>
 
   <div id="bibliography" class="tab__content" name="bibliography">{% include "partial/individual_bib.html" with bib_list=film.bibliography.all %}</div>
 </div>

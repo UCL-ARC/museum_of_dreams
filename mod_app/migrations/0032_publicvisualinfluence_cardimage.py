@@ -2,7 +2,7 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
-import mod_app.models.support_models
+import mod_app.models
 
 
 class Migration(migrations.Migration):
@@ -42,10 +42,8 @@ class Migration(migrations.Migration):
                     models.FileField(
                         blank=True,
                         null=True,
-                        upload_to=mod_app.models.support_models.FileLink.upload_to,
-                        validators=[
-                            mod_app.models.support_models.FileLink.validate_max_size
-                        ],
+                        upload_to=mod_app.models.FileLink.upload_to,
+                        validators=[mod_app.models.FileLink.validate_max_size],
                     ),
                 ),
                 (
@@ -93,10 +91,8 @@ class Migration(migrations.Migration):
                     models.FileField(
                         blank=True,
                         null=True,
-                        upload_to=mod_app.models.support_models.FileLink.upload_to,
-                        validators=[
-                            mod_app.models.support_models.FileLink.validate_max_size
-                        ],
+                        upload_to=mod_app.models.FileLink.upload_to,
+                        validators=[mod_app.models.FileLink.validate_max_size],
                     ),
                 ),
                 (

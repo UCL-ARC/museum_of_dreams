@@ -27,16 +27,6 @@
   }
 }
 
-.tab__content {
-  img {
-    max-width: 100% !important;
-    object-fit: contain;
-  }
-  section.footnotes {
-    display: none;
-  }
-}
-
 #reference-modal,
 #bibliography-modal {
   color: var(--contrast-text);
@@ -56,6 +46,12 @@
   .modal__btn--close {
     cursor: pointer;
     float: right;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: var(--coral);
+    }
   }
 
   .bib-mention {

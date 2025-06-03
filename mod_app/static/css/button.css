@@ -1,0 +1,24 @@
+.btn {
+  border: var(--border-size-1) solid var(--sand-3);
+  padding: 0.3rem;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+  font-family: "Montserrat";
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.btn--link {
+  border: none;
+}
+
+.back-to {
+  text-decoration: none;
+  font-size: 0.8rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
