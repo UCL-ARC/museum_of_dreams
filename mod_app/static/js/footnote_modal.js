@@ -33,6 +33,9 @@ document.addEventListener("DOMContentLoaded", function () {
     };
   });
 
+  closeModalOnOutsideClick(referenceModal);
+  closeModalOnOutsideClick(bibModal);
+
   markers.forEach((link) => {
     link.addEventListener("click", function (e) {
       e.preventDefault();
