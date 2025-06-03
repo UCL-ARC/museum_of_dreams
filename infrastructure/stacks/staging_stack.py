@@ -76,7 +76,6 @@ class StagingStack(Stack):
                 s3.CorsRule(
                     allowed_methods=[
                         s3.HttpMethods.GET,
-                        s3.HttpMethods.PUT,
                         s3.HttpMethods.HEAD,
                     ],
                     allowed_origins=["*"],
