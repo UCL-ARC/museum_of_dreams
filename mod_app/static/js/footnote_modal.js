@@ -1,6 +1,22 @@
 // hide footnote
 const footnoteSection = document.querySelector("section.footnotes");
 
+// closing modal function
+function closeModalOnOutsideClick(modal) {
+  modal.addEventListener("click", function (event) {
+    // get modal box's boundaries
+    const modalBox = modal.getBoundingClientRect();
+
+    // sets True if the click is within the modal, False elsewise
+    const isInModal = event.clientX >= modalBox.left && event.clientX <= modalBox.right && event.clientY >= modalBox.top && event.clientY <= modalBox.bottom;
+
+    // close dialog (modal) if click is outside of the modal box
+    if (!isInModal) {
+      modal.close();
+    }
+  });
+}
+
 // opening references as modal
 document.addEventListener("DOMContentLoaded", function () {
   const markers = document.querySelector(".tabbed-area").querySelectorAll("sup>a[rel='footnote']");
@@ -16,6 +32,9 @@ document.addEventListener("DOMContentLoaded", function () {
       e.target.parentNode.close();
     };
   });
+
+  closeModalOnOutsideClick(referenceModal);
+  closeModalOnOutsideClick(bibModal);
 
   markers.forEach((link) => {
     link.addEventListener("click", function (e) {
@@ -52,13 +71,6 @@ document.addEventListener("DOMContentLoaded", function () {
       closeBtn.onclick = function () {
         e.target.parentNode.close();
       };
-
-      //window.onclick = function (e) {
-      // todo: make into if not modal clicked, close modal?
-      // if (e.target === referenceModal) {
-      //   modal.style.display = "none";
-      // }
-      //};
     });
   });
 });
