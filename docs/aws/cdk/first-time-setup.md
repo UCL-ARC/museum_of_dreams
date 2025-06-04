@@ -46,4 +46,4 @@ This will open you browser to login/authorise access to Application and AWS acco
 
 ## Next steps
 
-[Getting started with AWS CDK](./cdk-quick-start.md)
+[Getting started with AWS CDK](./getting-started-with-cdk.md)
