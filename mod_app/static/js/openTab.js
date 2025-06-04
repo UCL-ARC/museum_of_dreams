@@ -1,7 +1,8 @@
-function openTab(evt) {
-  const selected = evt.currentTarget.name;
-  const contentElems = document.getElementsByClassName("tab__content");
-  const tabs = document.getElementsByClassName("tab__link");
+function openTab(evt, tabName) {
+  var selected, content, tab;
+  selected = evt.currentTarget.name;
+  contentElems = document.getElementsByClassName("tab__content");
+  tabs = document.getElementsByClassName("tab__link");
 
   [...tabs].forEach((tab) => {
     if (tab.name !== selected) tab.classList.remove("active");
