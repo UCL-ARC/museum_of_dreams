@@ -1,7 +1,7 @@
 <div class="tabbed-area">
   {% comment %} tabs the user clicks to navigate {% endcomment %}
   <div class="tab-selection">
-    <button class="tab__link active" type="button" name="content" onclick="openTab(event, '{{model}}__content')"><h3>Content</h3></button>
+    <button class="tab__link active" type="button" name="content" onclick="openTab(event, '{{ model|escapejs }}__content')"><h3>Content</h3></button>
 
     <button class="tab__link" type="button" name="films" onclick="openTab(event, 'films')"><h3>Films</h3></button>
 
