@@ -1,6 +1,6 @@
 <div class="top-level">
   <div class="video">
-    {% include "components/swiper_gallery.html" with slides=video_slides id="film__video" slide_videos=True %} {% if film.videos.first.file %}
+    {% comment %} {% include "components/swiper_gallery.html" with slides=video_slides id="film__video" slide_videos=True %} {% endcomment %} {% if film.videos.first.file %}
     <video controls>
       <source src="{{film.videos.first.file.url}}" type="video/mp4" />
       Your browser does not support the video tag.
