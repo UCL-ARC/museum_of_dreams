@@ -65,6 +65,8 @@ If you're getting any errors related to static files, try running
 python manage.py collectstatic --noinput
 ```
 
+For more in-depth help with migration issues, see our [troubleshooting doc](docs/troubleshooting.md)
+
 ### Technologies used
 
 This project uses a number of technologies, including:
