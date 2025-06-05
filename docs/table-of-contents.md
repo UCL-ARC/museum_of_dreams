@@ -1,4 +1,4 @@
-# Documentation for Museum of Dreamsworld Project
+# Documentation for Museum of Dreamworlds Project
 
 ## Table of contents
 
