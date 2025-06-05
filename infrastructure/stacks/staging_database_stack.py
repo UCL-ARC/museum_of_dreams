@@ -1,10 +1,13 @@
 from aws_cdk import (
-    Stack,
-    aws_ec2 as ec2,
-    aws_rds as rds,
     RemovalPolicy,
+    Stack,
 )
-
+from aws_cdk import (
+    aws_ec2 as ec2,
+)
+from aws_cdk import (
+    aws_rds as rds,
+)
 from constructs import Construct
 
 
@@ -56,12 +59,12 @@ class StagingDatabaseStack(Stack):
         )
 
         # Defining MySQL database
-        self.database_name = "StagingDatabase"
+        self.db_name = "StagingDatabase"
 
         self.db_instance = rds.DatabaseInstance(
             self,
             "StagingDatabase",
-            database_name=self.database_name,
+            database_name=self.db_name,
             engine=rds.DatabaseInstanceEngine.mysql(
                 version=rds.MysqlEngineVersion.VER_8_0_41
             ),
