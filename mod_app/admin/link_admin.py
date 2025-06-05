@@ -176,8 +176,10 @@ class TagAdmin(admin.ModelAdmin):
 @admin.register(Keyword)
 class KeywordAdmin(admin.ModelAdmin):
     search_fields = ["name"]
+    exclude = ["is_genre"]
 
 
 @admin.register(Topic)
 class TopicAdmin(admin.ModelAdmin):
     search_fields = ["name"]
+    exclude = ["is_genre"]
