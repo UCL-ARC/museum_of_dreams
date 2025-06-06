@@ -1,69 +1,57 @@
 {% extends "base.html" %} {% load i18n %} {% block title %}{{ analysis.title }} (Analysis) {% endblock %} {% block content %} <a href="{% url 'analysis_list' %}" class="back-to">&larr; Back to all analyses</a>
-  <div class="heading"><h1 id="title">{{analysis.title}}</h1></div>
-  <script>
-    async function downloadAnalysis(pk) {
-      const url = `/download-analysis/${pk}`;
-      const response = await fetch(url);
+<div class="heading"><h1 id="title">{{analysis.title}}</h1></div>
+<script>
+  async function downloadAnalysis(pk) {
+    const url = `/download-analysis/${pk}`;
+    const response = await fetch(url);
 
-      if (response.ok) {
+    if (response.ok) {
       // Retrieve the filename from the Content-Disposition header
-        const contentDisposition = response.headers.get("Content-Disposition");
-        let filename = "download.pdf"; // Default filename if not specified
-        if (contentDisposition) {
-          const filenameMatch = contentDisposition.match(/filename="?(.+)"?/);
-          if (filenameMatch.length === 2) {
-            filename = filenameMatch[1];
-          }
+      const contentDisposition = response.headers.get("Content-Disposition");
+      let filename = "download.pdf"; // Default filename if not specified
+      if (contentDisposition) {
+        const filenameMatch = contentDisposition.match(/filename="?(.+)"?/);
+        if (filenameMatch.length === 2) {
+          filename = filenameMatch[1];
         }
+      }
 
       // Convert the response body to a Blob
-        const blob = await response.blob();
-        const blobUrl = window.URL.createObjectURL(blob);
+      const blob = await response.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
 
       // Create a temporary anchor element and trigger the download
-        const a = document.createElement("a");
-        a.href = blobUrl;
-        a.download = filename;
-        document.body.appendChild(a); // Append to the document
-        a.click(); // Trigger the download
+      const a = document.createElement("a");
+      a.href = blobUrl;
+      a.download = filename;
+      document.body.appendChild(a); // Append to the document
+      a.click(); // Trigger the download
 
       // Clean up by revoking the object URL and removing the temporary anchor element
-        window.URL.revokeObjectURL(blobUrl);
-        document.body.removeChild(a);
-      } else {
+      window.URL.revokeObjectURL(blobUrl);
+      document.body.removeChild(a);
+    } else {
       // Handle errors or unsuccessful responses
-        console.error("Failed to download PDF:", response.statusText);
-      }
+      console.error("Failed to download PDF:", response.statusText);
     }
-  </script>
+  }
+</script>
 
-  <div class="teaching-analysis__content-wrapper">
-    <div class="columnar-area">
-      <div>
-        <button class="btn teaching-analysis__download" onclick="downloadAnalysis({{analysis.pk}})" type="button">Download PDF</button>
-      </div>
+<div class="teaching-analysis__content-wrapper">
+  <div class="columnar-area">
+    <div>
+      <button class="btn teaching-analysis__download" onclick="downloadAnalysis({{analysis.pk}})" type="button">Download PDF</button>
+    </div>
 
-      <div id="analysis__info" class="info">
-        <div id="topics">
-          <h4>Topics</h4>
-          {% for topic in analysis.topics.all %}
-            <span class="tag">{{topic.name}}</span>
-          {% endfor %}
-        </div>
-        <div id="keywords">
-          <h4>Keywords</h4>
-          {% for kw in analysis.keywords.all %}
-            <span class="tag">{{kw.name}}</span>
-          {% endfor %}
-        </div>
-      {% comment %}
-      <div>
-        <h3>Information</h3>
-        <hr />
-      </div>
-      {% endcomment %}
+    <div id="analysis__info" class="info">
+      <div id="topics">
+        <h4>Topics</h4>
+        {% for topic in analysis.topics.all %}
+        <span class="tag">{{topic.name}}</span>
+        {% endfor %}
       </div>
     </div>
-    {% include "partial/teaching_analysis_tab_area.html" with model=analysis modelname="analysis" %}
   </div>
+  {% include "partial/teaching_analysis_tab_area.html" with model=analysis modelname="analysis" %}
+</div>
 {% endblock %}
