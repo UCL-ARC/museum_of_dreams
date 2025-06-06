@@ -27,15 +27,9 @@
             <span class="tag">{{g.name}}</span>
           {% endfor %}
         </div>
-        <div id="keywords">
-          <h4>Keywords</h4>
-          {% for k in film.keyword.all %}
-            <span class="tag">{{k.name}}</span>
-          {% endfor %}
-        </div>
         <div id="topics">
           <h4>Topics</h4>
-          {% for topic in film.topics.all %}
+          {% for topic in film.topic.all %}
             <span class="tag">{{topic.name}}</span>
           {% endfor %}
         </div>

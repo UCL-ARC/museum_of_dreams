@@ -8,6 +8,7 @@ from django.urls import reverse
 from mod_app.models.support_models import (
     Keyword,
     Tag,
+    Topic,
 )
 from .bibliography_model import BibliographyItem
 from mod_app.utils.extract_citations import update_bibliography
@@ -67,9 +68,8 @@ class Film(models.Model):
 
     synopsis = models.TextField(blank=True)
 
-    keyword = models.ManyToManyField(
-        Keyword, related_name="films_keyword", blank="True"
-    )
+    keyword = models.ManyToManyField(Keyword, related_name="films_keyword", blank=True)
+    topic = models.ManyToManyField(Topic, related_name="films_topic", blank=True)
     genre = models.ManyToManyField(Tag, related_name="films", blank=True)
 
     bfi_category = models.CharField(
