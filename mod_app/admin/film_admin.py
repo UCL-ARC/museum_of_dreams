@@ -47,7 +47,8 @@ class FilmAdmin(EmailMixin, admin.ModelAdmin):
         }
         js = ("admin/js/mentionsPluginConfig.js",)
 
-    autocomplete_fields = ["genre", "keyword", "topic"]
+    autocomplete_fields = ["genre", "topic"]
+    exclude = ["keyword"]
     search_fields = [
         "bfi_identifier",
         "title",
