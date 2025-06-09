@@ -9,7 +9,6 @@ class Tag(models.Model):
         max_length=255, unique=True
     )  # this unique constrain is shared between tags and all of its child classes
     is_genre = models.BooleanField(default=True)
-    # maybe assigning keyword, topic, genre attribute rather than inheritance?
 
 
 class Keyword(Tag):
