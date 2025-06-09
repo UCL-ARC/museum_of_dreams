@@ -1,5 +1,23 @@
 # Troubleshooting
 
+## Precommit
+
+If you get a CI precommit error, try running
+
+```
+pre-commit run --all
+```
+
+## Static
+
+If you're getting any errors related to static files, try running
+
+```
+python manage.py collectstatic --noinput
+```
+
+## Migrations
+
 One of the most common problems you might run into whilst developing a Django project is a mismatch or conflict with migrations.
 
 If you see an error like this, it's a good indication it's a migration issue.
