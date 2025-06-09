@@ -31,16 +31,18 @@ class TestUserCopyMigration(TransactionTestCase):
 
         # Assert Keywords was deleted
         self.assertFalse(
-            KeywordPostMigration.objects.filter(name="Keyword1", is_genre=False)
-        ).exists()
+            KeywordPostMigration.objects.filter(
+                name="Keyword1", is_genre=False
+            ).exists()
+        )
         self.assertFalse(
-            KeywordPostMigration.objects.filter(name="Keyword1", is_genre=True)
-        ).exists()
+            KeywordPostMigration.objects.filter(name="Keyword2", is_genre=True).exists()
+        )
 
         # Assert Topics were copied
         self.assertTrue(
-            TopicPostMigration.objects.filter(name="Keyword1", is_genre=False)
-        ).exists()
+            TopicPostMigration.objects.filter(name="Keyword1", is_genre=False).exists()
+        )
         self.assertTrue(
-            TopicPostMigration.objects.filter(name="Keyword1", is_genre=False)
-        ).exists()
+            TopicPostMigration.objects.filter(name="Keyword2", is_genre=False).exists()
+        )
