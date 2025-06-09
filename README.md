@@ -10,7 +10,7 @@ The offical versions are https://museumofdreamworlds.org and https://staging.mus
 
 Development should be done locally and pushed to the staging website where researchers can test features and sign off on them before putting the code on production.
 
-[Documentation for MOD](./docs/table-of-contents.md)
+## [See our documentation & help guide](docs/table-of-contents.md)
 
 ## Getting Started
 
@@ -40,7 +40,7 @@ python manage.py loaddata path/to/dump/file
 ### AWS
 
 This project is hosted on AWS, if you do not have access to the account, let [Amanda Ho-Lyn](mailto:a.ho-lyn@ucl.ac.uk) know and she will arrange this.
-You may find it beneficial to read through the [current AWS setup docs](docs/baseAWSSetup.md) to gain an understanding of the architecture of the project. Also have a look at the [development SOP](docs/developmentSOP.md) for an idea of the general development flow.
+You may find it beneficial to read through the [the documentation](docs/table-of-contents.md) to gain an understanding of the architecture of the project. Also have a look at the [development SOP](docs/developmentSOP.md) for an idea of the general development flow.
 
 ### Running tests
 
@@ -50,22 +50,6 @@ To run the tests locally, run
 ```
 python manage.py test mod_app/tests
 ```
-
-### Troubleshooting
-
-If you get a CI precommit error, try running
-
-```
-pre-commit run --all
-```
-
-If you're getting any errors related to static files, try running
-
-```
-python manage.py collectstatic --noinput
-```
-
-For more in-depth help with migration issues, see our [troubleshooting doc](docs/troubleshooting.md)
 
 ### Technologies used
 
@@ -83,15 +67,3 @@ Others which have tangentially helped with development:
 - Figma
 
 ---
-
-### See these other files for recreating the AWS setup and other features.
-
-#### [Setting up from scratch](docs/howtoSetupBase.md) This covers how you'd go about recreating the AWS setup from scratch
-
-#### [Current AWS Settings](docs/baseAWSSetup.md) This describes our current AWS settings without the processes of setting up, with a bit more explanation of why they are what they are
-
-#### [How to set up the AWS chatbot for notifications](docs/AWSchatbot.md)
-
-#### [Using S3 for staticfiles](docs/s3ForStatic.md)
-
-#### [Setting up email notifications](docs/AWSses.md)
