@@ -5,19 +5,18 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
     def transfer_keyword_to_topic(apps, schema_editor):
-        try:
-            Keyword = apps.get_model("mod_app", "Keyword")
-            Topic = apps.get_model("mod_app", "Topic")
+        Keyword = apps.get_model("mod_app", "Keyword")
+        Topic = apps.get_model("mod_app", "Topic")
 
-            for keyword in Keyword.objects.all():
-                base_id = keyword.id
-                base_name = keyword.name
+        for keyword in Keyword.objects.all():
+            base_id = keyword.id
+            base_name = keyword.name
 
+            try:
                 keyword.delete()
-
                 Topic.objects.create(id=base_id, name=base_name, is_genre=False)
-        except Exception as e:
-            print(e)
+            except Exception as e:
+                print(e)
 
     dependencies = [
         ("mod_app", "0039_add_topic_field_to_Film"),
