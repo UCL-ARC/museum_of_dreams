@@ -105,9 +105,9 @@ class TeachingResourcesAdmin(AnalysisAdmin):
 
     form = TRAdminForm
     inlines = [TRAnalysisInline]
-    autocomplete_fields = ["films", "keywords", "tags", "clips", "topics"]
+    autocomplete_fields = ["films", "tags", "clips", "topics"]
     readonly_fields = ("safe_bib",)
-    exclude = ["bibliography"]
+    exclude = ["bibliography", "keywords"]
     filter_horizontal = ("films",)
 
     list_display = [
