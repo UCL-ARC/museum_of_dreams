@@ -11,7 +11,7 @@ function openTab(evt, tabName) {
     if (tab.name !== selected) tab.classList.remove("active");
   });
 
-  selectedTabNContent = document.querySelectorAll(`[name=${selected}]`);
+  selectedTabNContent = document.querySelectorAll(`[name="${CSS.escape(selected)}"]`);
 
   selectedTabNContent.forEach((elem) => elem.classList.add("active"));
 }

@@ -5,7 +5,10 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("mod_app", "0035_topic_model"),
+        (
+            "mod_app",
+            "0035b_alter_analysis_teaching_resources_topic_field_data_migration",
+        ),
     ]
 
     operations = [

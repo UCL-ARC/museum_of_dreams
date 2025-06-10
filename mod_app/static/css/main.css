@@ -9,7 +9,7 @@ html {
 
 body {
   margin: 0;
-  font-family: Montserrat, "Open sans", sans-serif;
+  font-family: "Mulish", "Open sans", sans-serif;
   font-weight: 500;
 
   background-color: var(--background-colour);
@@ -17,33 +17,33 @@ body {
 }
 
 h1 {
-  font-family: Boldonse, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-family: "Arima", Boldonse, Haettenschweiler, "Arial Narrow Bold", sans-serif;
 }
 
 h2 {
-  font-family: "Epilogue";
+  font-family: "Arima";
   font-weight: bold;
 }
 
 h3 {
-  font-family: "Epilogue";
+  font-family: "Arima";
   font-weight: normal;
 }
 
 h4,
 h5,
 h6 {
-  font-family: "Montserrat";
+  font-family: "Arima";
   font-weight: bold;
 }
 
 p {
-  font-family: "Montserrat";
+  font-family: "Mulish";
   font-weight: normal;
 }
 
 a {
-  font-family: "Open Sans", "Montserrat";
+  font-family: "Mulish", "Open Sans", "Montserrat";
   color: inherit;
   transition: color 0.25s ease;
   &:hover,
@@ -54,7 +54,7 @@ a {
   }
 }
 button {
-  font-family: "Epilogue";
+  font-family: "Mulish";
   font-weight: normal;
 }
 
@@ -195,32 +195,7 @@ footer {
 /* class level */
 
 /* header */
-.title__logo-text {
-  align-self: end;
-  padding-top: 2.4vh;
-  color: var(--turquoise);
-  text-shadow: 0px 2px 1px var(--red-12);
-  font-size: 100% !important;
-  /* text-align: center; */
-  grid-column: 2;
-  text-align: end;
 
-  a {
-    &:hover {
-      color: var(--light-blue);
-    }
-    h1 {
-      margin-bottom: 1.6vh;
-    }
-    h3 {
-      margin: 0;
-    }
-  }
-
-  @media screen and (max-width: 767px) {
-    display: none;
-  }
-}
 .title-bar {
   /* background-color: var(--off-white); maybe make this the case when sticky?*/
   background-image: url("../images/logos/mod_header_bg.png");
@@ -233,10 +208,39 @@ footer {
   align-items: center;
   justify-content: space-between;
   display: grid;
-  grid-template-columns: 3fr 5fr 1fr;
+  grid-template-columns: 1fr 6fr 5fr;
   z-index: 2;
-  /* position: sticky;
-  top: -15rem; */
+
+  h1,
+  h2.title--mobile {
+    font-family: Boldonse;
+  }
+
+  .title__logo-text {
+    align-self: end;
+    padding-top: 2.4vh;
+    color: var(--turquoise);
+    text-shadow: 0px 2px 1px var(--red-12);
+    font-size: 86% !important;
+    grid-column: 3;
+    text-align: end;
+
+    a {
+      &:hover {
+        color: var(--light-blue);
+      }
+      h1 {
+        margin-bottom: 1.6vh;
+      }
+      h3 {
+        margin: 0;
+      }
+    }
+
+    @media screen and (max-width: 767px) {
+      display: none;
+    }
+  }
 
   .material-symbols-outlined {
     color: var(--cyan-6);
@@ -248,25 +252,42 @@ footer {
   .title--mobile {
     display: none;
   }
+}
 
-  @media screen and (max-width: 767px) {
+@media screen and (max-width: 767px) {
+  /* mobile header styling */
+  .title-bar {
     align-items: center;
+    background-color: var(--stone-9);
+    grid-template-columns: 6fr 5fr 1fr;
+    grid-template-rows: 0.5fr 1fr;
+
     .link--home {
-      grid-column: 1/3;
+      grid-column: 1;
+      grid-row: 2;
+
+      .title--mobile {
+        display: block;
+        color: var(--turquoise);
+        text-align: center;
+      }
     }
-    .title--mobile {
-      display: block;
-      color: var(--turquoise);
-      text-align: center;
+
+    .title-bar__icons {
+      grid-column: 3;
+      grid-row: 2;
+      align-items: end;
+      justify-items: end;
     }
   }
 }
+
 .title-bar__icons {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
-  justify-content: space between;
-  align-items: end;
+  justify-content: space-between;
+  align-items: start;
 
   .material-symbols-outlined:not(#drawer .material-symbols-outlined) {
     padding-inline: 0.25rem;
@@ -347,8 +368,9 @@ footer {
 
   @media screen and (max-width: 767px) {
     right: -100vw;
-    width: 60%;
+    width: 70vw;
   }
+
   .drawer__menu-icons {
     display: flex;
     justify-content: center;
@@ -365,14 +387,15 @@ footer {
     background-color: rgba(255, 255, 255, 0.3);
     border: var(--border-size-1) solid var(--cyan-6);
     border-radius: var(--radius-2);
-    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
     color: var(--cyan-7);
     float: right;
     margin-inline-end: 2vw;
-    font-size: 90%;
+    font-size: 1.2rem;
+    line-height: 1rem;
+    padding-bottom: 0.2rem;
     transition: transform 0.3s ease, color 0.3s ease;
     &:hover {
-      transform: scale(1.3);
+      transform: scale(1.05);
       color: var(--coral);
     }
   }
@@ -409,7 +432,7 @@ footer {
   }
 
   &.open {
-    right: 0;
+    left: 0;
   }
 }
 
@@ -473,29 +496,5 @@ footer {
     &:hover {
       background-color: var(--pink-9);
     }
-  }
-}
-
-swiper-container {
-  width: 100%;
-
-  &#main {
-    height: clamp(50vh, 80vh, 100vh);
-  }
-  &:not(#vr) {
-    .slide__image {
-      width: 100%;
-      object-fit: contain;
-    }
-  }
-
-  &#vr,
-  &#pm {
-    width: fit-content;
-  }
-  swiper-slide {
-    text-align: center;
-    width: fit-content;
-    object-fit: contain;
   }
 }

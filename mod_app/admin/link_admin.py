@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from mod_app.models.film_model import Film
-from mod_app.models.support_models import (
+from mod_app.models import (
+    Film,
     CardImage,
     Drawing,
     Keyword,
@@ -176,8 +176,10 @@ class TagAdmin(admin.ModelAdmin):
 @admin.register(Keyword)
 class KeywordAdmin(admin.ModelAdmin):
     search_fields = ["name"]
+    exclude = ["is_genre"]
 
 
 @admin.register(Topic)
 class TopicAdmin(admin.ModelAdmin):
     search_fields = ["name"]
+    exclude = ["is_genre"]

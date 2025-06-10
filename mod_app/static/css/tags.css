@@ -1,3 +1,47 @@
+.tag {
+  --border-colour: var(--card-border--hover);
+  --text-colour: var(--choco-0);
+
+  @media (prefers-color-scheme: light) {
+    --border-colour: var(--card-border--hover);
+    --text-colour: var(--sand-11);
+  }
+
+  display: inline-flex;
+  border-radius: 20px;
+  padding: 0.4rem;
+  border: 2px solid var(--card-border--hover);
+  color: var(--text-colour);
+  opacity: 0.8;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.75rem;
+  transition: transform 0.3s, box-shadow 0.3s;
+  z-index: 1;
+  margin: 0.2rem 0.1rem;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    opacity: 1;
+    cursor: pointer;
+  }
+
+  /* could do colours based on type of tag */
+}
+.tag--list {
+  --bg: var(--deep-blue);
+
+  @media (prefers-color-scheme: light) {
+    --bg: var(--light-blue);
+  }
+
+  border: 1px solid var(--card-border--hover);
+  background-color: var(--bg);
+  font-size: 0.55rem;
+  padding: 0.2rem;
+  text-decoration: none;
+}
+
 .tag__name {
   text-align: center;
   font-size: xx-large;
@@ -66,4 +110,9 @@ disable grid auto flow for card grid*/
       }
     }
   }
+}
+
+.columnar-area .tag {
+  font-size: 0.6rem;
+  background-color: color-mix(in srgb, var(--card-shadow) 20%, transparent 50%);
 }

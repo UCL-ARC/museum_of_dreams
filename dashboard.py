@@ -63,10 +63,10 @@ class CustomIndexDashboard(Dashboard):
                         _("Printed Material"),
                         collapsible=False,
                         models=(
-                            "mod_app.models.support_models.Script",
-                            "mod_app.models.support_models.PressBook",
-                            "mod_app.models.support_models.Programme",
-                            "mod_app.models.support_models.Publicity",
+                            "mod_app.models.baselink_models.Script",
+                            "mod_app.models.baselink_models.PressBook",
+                            "mod_app.models.baselink_models.Programme",
+                            "mod_app.models.baselink_models.Publicity",
                         ),
                     ),
                     modules.ModelList(
@@ -74,10 +74,10 @@ class CustomIndexDashboard(Dashboard):
                         column=1,
                         collapsible=False,
                         models=(
-                            "mod_app.models.support_models.Still",
-                            "mod_app.models.support_models.Postcard",
-                            "mod_app.models.support_models.Poster",
-                            "mod_app.models.support_models.Drawing",
+                            "mod_app.models.baselink_models.Still",
+                            "mod_app.models.baselink_models.Postcard",
+                            "mod_app.models.baselink_models.Poster",
+                            "mod_app.models.baselink_models.Drawing",
                         ),
                     ),
                     modules.ModelList(
@@ -85,9 +85,9 @@ class CustomIndexDashboard(Dashboard):
                         column=1,
                         collapsible=False,
                         models=(
-                            "mod_app.models.support_models.Video",
-                            "mod_app.models.support_models.Source",
-                            "mod_app.models.support_models.OtherLink",
+                            "mod_app.models.baselink_models.Video",
+                            "mod_app.models.baselink_models.Source",
+                            "mod_app.models.baselink_models.OtherLink",
                             "mod_app.models.support_models.Tag",
                             "mod_app.models.support_models.Keyword",
                             "mod_app.models.support_models.Topic",

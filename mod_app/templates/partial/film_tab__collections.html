@@ -1,21 +1,16 @@
-<div>
+<section>
   <h2>Printed Materials</h2>
   {% include "components/swiper_gallery.html" with slides=pm_slides id="pm" coverflow=True loop=True %}
-</div>
+</section>
 
-<div>
+<section>
   <h2>Visual Resources</h2>
   {% include "components/swiper_gallery.html" with slides=vr_slides id="vr" slide_images=True coverflow=True loop=True %}
-</div>
+</section>
 <hr />
-<div>
-  <h2>Critical Essays and Discussions</h2>
-  {% include "partial/analysis_card_grid.html" with analysis_list=film.analyses.all %}
-</div>
-<hr />
-<div>
+<section>
   <h3>You may also want to look at...</h3>
   {% comment %} other links {% endcomment %} {% for link in film.otherlinks.all %}
     <li>{{link}}</li>
   {% endfor %}
-</div>
+</section>
