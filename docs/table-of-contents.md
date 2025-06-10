@@ -4,9 +4,9 @@
 
 ## Development
 
-- [Development workflow](docs/developmentSOP.md)
-- [Adding CK Editor plugins](docs/addingCKEPlugins.md)
-- [Troubleshooting](docs/troubleshooting.md)
+- [Development workflow](./developmentSOP.md)
+- [Adding CK Editor plugins](./addingCKEPlugins.md)
+- [Troubleshooting](./troubleshooting.md)
 
 ## AWS
 
@@ -23,9 +23,9 @@
 
 ### Console
 
-- [Original AWS setup docs](docs/aws/baseSetup.md)
-- [How to set up the base build in the AWS console](docs/aws/baseConsoleWalkthrough.md)
-- [SSL setup](docs/aws/SSL.md)
-- [Setting up S3 for static](docs/aws/s3ForStatic.md)
-- [Setting up email notifications](docs/aws/SES.md)
-- [Setting up AWS chatbot](docs/aws/chatbot.md) (used for Slack notifications)
+- [Original AWS setup docs](./aws/baseSetup.md)
+- [How to set up the base build in the AWS console](./aws/baseConsoleWalkthrough.md)
+- [SSL setup](./aws/SSL.md)
+- [Setting up S3 for static](./aws/s3ForStatic.md)
+- [Setting up email notifications](./aws/SES.md)
+- [Setting up AWS chatbot](./aws/chatbot.md) (used for Slack notifications)
