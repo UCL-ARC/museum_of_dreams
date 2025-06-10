@@ -7,6 +7,32 @@ class Migration(migrations.Migration):
     def transfer_keyword_to_topic(apps, schema_editor):
         Keyword = apps.get_model("mod_app", "Keyword")
         Topic = apps.get_model("mod_app", "Topic")
+        Film = apps.get_model("mod_app", "Film")
+        Analysis = apps.get_model("mod_app", "Analysis")
+        TeachingResources = apps.get_model("mod_app", "TeachingResources")
+
+        # save a dict of a list of keyword id
+        film_relationships = {}
+        analysis_relationships = {}
+        tr_relationships = {}
+
+        for film in Film.objects.prefetch_related("keyword").all():
+            film_id = film.id
+            keywords = film.keyword.all()
+            keyword_ids = [keyword.id for keyword in keywords]
+            film_relationships[film_id][keyword_ids]
+
+        for analysis in Analysis.objects.prefetch_related("keyword").all():
+            analysis_id = analysis.id
+            keywords = analysis.keyword.all()
+            keyword_ids = [keyword.id for keyword in keywords]
+            analysis_relationships[analysis_id][keyword_ids]
+
+        for tr in TeachingResources.objects.prefetch_related("keyword").all():
+            tr_id = tr.id
+            keywords = tr.keyword.all()
+            keyword_ids = [keyword.id for keyword in keywords]
+            tr_relationships[tr_id][keyword_ids]
 
         for keyword in Keyword.objects.all():
             base_id = keyword.id
@@ -15,6 +41,17 @@ class Migration(migrations.Migration):
             try:
                 keyword.delete()
                 Topic.objects.create(id=base_id, name=base_name, is_genre=False)
+
+                for film in Film.objects.prefetch_related("keyword").all():
+                    ...
+
+                for analysis in Analysis.objects.prefetch_related("keyword").all():
+                    # create entry in the topic field of analysis based
+                    ...
+
+                for tr in TeachingResources.objects.prefetch_related("keyword").all():
+                    ...
+
             except Exception as e:
                 print(e)
 
