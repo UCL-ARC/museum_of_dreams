@@ -88,10 +88,17 @@ class TestUserCopyMigration(TransactionTestCase):
         teaching_resource = TeachingResourcesPreMigration.objects.create(
             title="TeachingResource1"
         )
+        film.keyword.add(keyword)
 
         mod_app_post_migration = self.migrate_to(
             "0040_data_migration_transfer_keyword_to_topic"
         )
+        self.assertTrue(
+            self.is_migration_applied(
+                "mod_app", "0040_data_migration_transfer_keyword_to_topic"
+            )
+        )
+
         FilmPostMigration = mod_app_post_migration.get_model("mod_app", "Film")
         TopicPostMigration = mod_app_post_migration.get_model("mod_app", "Topic")
 
@@ -103,6 +110,8 @@ class TestUserCopyMigration(TransactionTestCase):
             topic=topic_post_migration.id
         )
 
+        for film in FilmPostMigration.objects.all():
+            print(film.id, film.topic)
         print(film_post_migration)
 
         self.assertTrue(film_post_migration.exists())
