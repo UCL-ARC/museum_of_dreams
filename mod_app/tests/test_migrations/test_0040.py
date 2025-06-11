@@ -71,3 +71,26 @@ class TestUserCopyMigration(TransactionTestCase):
         self.assertTrue(
             TopicPostMigration.objects.filter(name="Keyword2", is_genre=False).exists()
         )
+
+    def test_transfer_relationship(self):
+        mod_app_pre_migration = self.migrate_to("0039_add_topic_field_to_Film")
+
+        KeywordPreMigration = mod_app_pre_migration.get_model("mod_app", "Keyword")
+        FilmPreMigration = mod_app_pre_migration.get_model("mod_app", "Film")
+        AnalysisPreMigration = mod_app_pre_migration.get_model("mod_app", "Analysis")
+        TeachingResourcesPreMigration = mod_app_pre_migration.get_model(
+            "mod_app", "TeachingResources"
+        )
+
+        keyword = KeywordPreMigration.objects.create(name="Keyword")
+        film = FilmPreMigration.objects.create(title="Film1", release_date="2000")
+        analysis = AnalysisPreMigration.objects.create(title="Analysis1")
+        teaching_resource = TeachingResourcesPreMigration.objects.create(
+            title="TeachingResource1"
+        )
+
+        self.migrate_to("0040_data_migration_transfer_keyword_to_topic")
+
+        self.assertEqual(film.topic, keyword)
+        self.assertTrue(analysis.topic, keyword)
+        self.assertTrue(teaching_resource.topic, keyword)
