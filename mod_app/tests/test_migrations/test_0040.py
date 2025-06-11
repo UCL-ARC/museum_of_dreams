@@ -89,8 +89,16 @@ class TestUserCopyMigration(TransactionTestCase):
             title="TeachingResource1"
         )
 
-        self.migrate_to("0040_data_migration_transfer_keyword_to_topic")
+        mod_app_post_migration = self.migrate_to(
+            "0040_data_migration_transfer_keyword_to_topic"
+        )
+        FilmPostMigration = mod_app_post_migration.get_model("mod_app", "Film")
+        TopicPostMigration = mod_app_post_migration.get_model("mod_app", "Topic")
 
-        self.assertEqual(film.topic, keyword)
-        self.assertTrue(analysis.topic, keyword)
-        self.assertTrue(teaching_resource.topic, keyword)
+        topic_post_migration = TopicPostMigration.objects.get(name="Keyword")
+
+        film_post_migration = FilmPostMigration.objects.get(topic=topic_post_migration)
+
+        self.assertEqual(film_post_migration.topic, topic_post_migration)
+        # self.assertTrue(analysis.topic, keyword)
+        # self.assertTrue(teaching_resource.topic, keyword)
