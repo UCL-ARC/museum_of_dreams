@@ -9,42 +9,51 @@ def transfer_keyword_to_topic(apps, schema_editor):
     Film = apps.get_model("mod_app", "Film")
     Analysis = apps.get_model("mod_app", "Analysis")
     TeachingResources = apps.get_model("mod_app", "TeachingResources")
-    # save a dict of a list of keyword id
+
+    # save keyword field data of Film, Analysis, TeachingResources
     film_relationships = {}
     analysis_relationships = {}
     tr_relationships = {}
+
     for film in Film.objects.all():
-        film_id = film.id
-        keywords = film.keyword.all()
-        film_keyword_ids = [keyword.id for keyword in keywords]
-        try:
-            film_relationships[film_id] = film_keyword_ids
-        except KeyError as e:
-            print(e)
+        film_relationships[film.id] = [keyword.id for keyword in film.keyword.all()]
+
     for analysis in Analysis.objects.all():
-        analysis_id = analysis.id
-        keywords = analysis.keywords.all()
-        analysis_keyword_ids = [keyword.id for keyword in keywords]
-        analysis_relationships[analysis_id] = analysis_keyword_ids
+        analysis_relationships[analysis.id] = [
+            keyword.id for keyword in analysis.keywords.all()
+        ]
+
     for tr in TeachingResources.objects.all():
-        tr_id = tr.id
-        keywords = tr.keywords.all()
-        tr_keyword_ids = [keyword.id for keyword in keywords]
-        tr_relationships[tr_id] = tr_keyword_ids
+        tr_relationships[tr.id] = [keyword.id for keyword in tr.keywords.all()]
+
+    # Store data of Keyword objects and recreating them as Topic objects
     for keyword in Keyword.objects.all():
-        base_id = keyword.id
-        base_name = keyword.name
+        topic_id = keyword.id
+        topic_name = keyword.name
         try:
             keyword.delete()
-            Topic.objects.create(id=base_id, name=base_name, is_genre=False)
+            Topic.objects.create(id=topic_id, name=topic_name, is_genre=False)
         except Exception as e:
             print(e)
+
+    # Recreate existing keyword relationship as topics in Film, Analysis, Teaching Resources
     for film_id, keyword_ids in film_relationships.items():
         film = Film.objects.get(id=film_id)
-        print(film.id)
         for keyword_id in keyword_ids:
             topic = Topic.objects.get(id=keyword_id)
             film.topic.add(topic)
+
+    for analysis_id, keyword_ids in analysis_relationships.items():
+        analysis = Analysis.objects.get(id=analysis_id)
+        for keyword_id in keyword_ids:
+            topic = Topic.objects.get(id=keyword_id)
+            analysis.topics.add(topic)
+
+    for tr_id, keyword_ids in tr_relationships.items():
+        tr = TeachingResources.objects.get(id=tr_id)
+        for keyword_id in keyword_ids:
+            topic = Topic.objects.get(id=keyword_id)
+            tr.topics.add(topic)
 
 
 class Migration(migrations.Migration):
