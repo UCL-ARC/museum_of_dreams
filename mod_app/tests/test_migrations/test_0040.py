@@ -97,8 +97,14 @@ class TestUserCopyMigration(TransactionTestCase):
 
         topic_post_migration = TopicPostMigration.objects.get(name="Keyword")
 
-        film_post_migration = FilmPostMigration.objects.get(topic=topic_post_migration)
+        self.assertEqual(topic_post_migration.id, keyword.id)
 
-        self.assertEqual(film_post_migration.topic, topic_post_migration)
+        film_post_migration = FilmPostMigration.objects.filter(
+            topic=topic_post_migration.id
+        )
+
+        print(film_post_migration)
+
+        self.assertTrue(film_post_migration.exists())
         # self.assertTrue(analysis.topic, keyword)
         # self.assertTrue(teaching_resource.topic, keyword)
