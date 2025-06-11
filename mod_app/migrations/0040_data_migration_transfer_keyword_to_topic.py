@@ -16,23 +16,27 @@ class Migration(migrations.Migration):
         analysis_relationships = {}
         tr_relationships = {}
 
-        for film in Film.objects.prefetch_related("keyword").all():
+        for film in Film.objects.all():
             film_id = film.id
             keywords = film.keyword.all()
-            keyword_ids = [keyword.id for keyword in keywords]
-            film_relationships[film_id][keyword_ids]
+            film_keyword_ids = [keyword.id for keyword in keywords]
 
-        for analysis in Analysis.objects.prefetch_related("keyword").all():
+            try:
+                film_relationships[film_id] = film_keyword_ids
+            except KeyError as e:
+                print(e)
+
+        for analysis in Analysis.objects.all():
             analysis_id = analysis.id
-            keywords = analysis.keyword.all()
-            keyword_ids = [keyword.id for keyword in keywords]
-            analysis_relationships[analysis_id][keyword_ids]
+            keywords = analysis.keywords.all()
+            analysis_keyword_ids = [keyword.id for keyword in keywords]
+            analysis_relationships[analysis_id] = analysis_keyword_ids
 
-        for tr in TeachingResources.objects.prefetch_related("keyword").all():
+        for tr in TeachingResources.objects.all():
             tr_id = tr.id
-            keywords = tr.keyword.all()
-            keyword_ids = [keyword.id for keyword in keywords]
-            tr_relationships[tr_id][keyword_ids]
+            keywords = tr.keywords.all()
+            tr_keyword_ids = [keyword.id for keyword in keywords]
+            tr_relationships[tr_id] = tr_keyword_ids
 
         for keyword in Keyword.objects.all():
             base_id = keyword.id
@@ -41,19 +45,20 @@ class Migration(migrations.Migration):
             try:
                 keyword.delete()
                 Topic.objects.create(id=base_id, name=base_name, is_genre=False)
-
-                for film in Film.objects.prefetch_related("keyword").all():
-                    ...
-
-                for analysis in Analysis.objects.prefetch_related("keyword").all():
-                    # create entry in the topic field of analysis based
-                    ...
-
-                for tr in TeachingResources.objects.prefetch_related("keyword").all():
-                    ...
-
             except Exception as e:
                 print(e)
+
+        for film_id, keyword_ids in film_relationships.items():
+            film = Film.objects.get(id=film_id)
+            print(film.id)
+            for keyword_id in keyword_ids:
+                topic = Topic.objects.get(id=keyword_id)
+                film.topic.add(topic)
+
+            # for analysis in Analysis.objects.prefetch_related("keyword").all():
+            # create entry in the topic field of analysis based
+
+            # for tr in TeachingResources.objects.prefetch_related("keyword").all():
 
     dependencies = [
         ("mod_app", "0039_add_topic_field_to_Film"),
