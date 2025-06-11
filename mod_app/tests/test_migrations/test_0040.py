@@ -89,6 +89,8 @@ class TestUserCopyMigration(TransactionTestCase):
             title="TeachingResource1"
         )
         film.keyword.add(keyword)
+        analysis.keywords.add(keyword)
+        teaching_resource.keywords.add(keyword)
 
         mod_app_post_migration = self.migrate_to(
             "0040_data_migration_transfer_keyword_to_topic"
@@ -100,20 +102,32 @@ class TestUserCopyMigration(TransactionTestCase):
         )
 
         FilmPostMigration = mod_app_post_migration.get_model("mod_app", "Film")
+        AnalysisPostMigration = mod_app_post_migration.get_model("mod_app", "Analysis")
+        TeachingResourcesPostMigration = mod_app_post_migration.get_model(
+            "mod_app", "TeachingResources"
+        )
         TopicPostMigration = mod_app_post_migration.get_model("mod_app", "Topic")
-
         topic_post_migration = TopicPostMigration.objects.get(name="Keyword")
 
         self.assertEqual(topic_post_migration.id, keyword.id)
-
-        film_post_migration = FilmPostMigration.objects.filter(
-            topic=topic_post_migration.id
+        self.assertTrue(
+            FilmPostMigration.objects.filter(topic=topic_post_migration.id).exists()
+        )
+        self.assertTrue(
+            AnalysisPostMigration.objects.filter(
+                topics=topic_post_migration.id
+            ).exists()
+        )
+        self.assertTrue(
+            TeachingResourcesPostMigration.objects.filter(
+                topics=topic_post_migration.id
+            ).exists()
         )
 
+        # Debugging
         for film in FilmPostMigration.objects.all():
-            print(film.id, film.topic)
-        print(film_post_migration)
-
-        self.assertTrue(film_post_migration.exists())
-        # self.assertTrue(analysis.topic, keyword)
-        # self.assertTrue(teaching_resource.topic, keyword)
+            print(f"Film ID: {film.id}, Topic: {film.topic.all()}")
+        for analysis in AnalysisPostMigration.objects.all():
+            print(f"Analysis ID: {analysis.id}, Topic: {analysis.topics.all()}")
+        for tr in TeachingResourcesPostMigration.objects.all():
+            print(f"TeachingResource ID: {tr.id}, Topic: {tr.topics.all()}")
