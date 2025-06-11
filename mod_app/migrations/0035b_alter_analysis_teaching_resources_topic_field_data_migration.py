@@ -20,14 +20,22 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterField(
+        migrations.RemoveField(
+            model_name="analysis",
+            name="topics",
+        ),
+        migrations.RemoveField(
+            model_name="teachingresources",
+            name="topics",
+        ),
+        migrations.AddField(
             model_name="analysis",
             name="topics",
             field=models.ManyToManyField(
                 blank=True, related_name="analysis_topics", to="mod_app.topic"
             ),
         ),
-        migrations.AlterField(
+        migrations.AddField(
             model_name="teachingresources",
             name="topics",
             field=models.ManyToManyField(
