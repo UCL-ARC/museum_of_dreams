@@ -136,6 +136,7 @@ CKEDITOR_CONFIGS = {
                 "footnotes",
                 "popout",
                 "pastefromword",
+                "html5video",
             ]
         ),
         "toolbar": [
@@ -155,6 +156,7 @@ CKEDITOR_CONFIGS = {
             ["TextColor", "BGColor"],
             ["Smiley", "SpecialChar"],
             ["Popout"],
+            ["Html5video"],
         ],
         "removePlugins": "exportpdf",
         "uiColor": "#fcf5e7",
