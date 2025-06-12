@@ -4,7 +4,7 @@ from django.db.migrations.recorder import MigrationRecorder
 from django.test import TransactionTestCase
 
 
-class TestUserCopyMigration(TransactionTestCase):
+class TestKeywordToTopicMigration(TransactionTestCase):
     app = "mod_app"
 
     def setUp(self):
@@ -18,39 +18,37 @@ class TestUserCopyMigration(TransactionTestCase):
         self.executor.migrate([(self.app, migration_name)])
         return self.executor.loader.project_state((self.app, migration_name)).apps
 
-    def is_migration_applied(self, app, migration):
+    def test_apply_migration(self):
         recorder = MigrationRecorder(connection)
+        # Pre-migration
+        self.migrate_to("0039_add_topic_field_to_Film")
 
-        applied = recorder.applied_migrations()
-        return (app, migration) in applied
-
-    def test_transfer_keyword_to_topic(self):
-        # Migrate to state before the transfer
-        mod_app_pre_migration = self.migrate_to("0039_add_topic_field_to_Film")
+        # Post-migration
+        self.migrate_to("0040_data_migration_transfer_keyword_to_topic")
 
         self.assertTrue(
-            self.is_migration_applied("mod_app", "0039_add_topic_field_to_Film")
+            (self.app, "0040_data_migration_transfer_keyword_to_topic")
+            in recorder.applied_migrations()
         )
 
-        KeywordPreMigration = mod_app_pre_migration.get_model("mod_app", "Keyword")
+    def test_transfer_keyword_to_topic(self):
+        # Setup pre-migration state
+        mod_app_pre_migration = self.migrate_to("0039_add_topic_field_to_Film")
 
         # Create testcases in the pre-migration model
+        KeywordPreMigration = mod_app_pre_migration.get_model("mod_app", "Keyword")
         KeywordPreMigration.objects.create(name="Keyword1", is_genre=False)
         KeywordPreMigration.objects.create(name="Keyword2", is_genre=True)
 
+        # Asserts testcases were created correctly
         self.assertEqual(KeywordPreMigration.objects.count(), 2)
 
-        # Migrate to the state after the transfer,
+        # Apply migration
         mod_app_post_migration = self.migrate_to(
             "0040_data_migration_transfer_keyword_to_topic"
         )
 
-        self.assertTrue(
-            self.is_migration_applied(
-                "mod_app", "0040_data_migration_transfer_keyword_to_topic"
-            )
-        )
-
+        # Get state of models post-migration
         TopicPostMigration = mod_app_post_migration.get_model("mod_app", "Topic")
         KeywordPostMigration = mod_app_post_migration.get_model("mod_app", "Keyword")
 
@@ -82,23 +80,21 @@ class TestUserCopyMigration(TransactionTestCase):
             "mod_app", "TeachingResources"
         )
 
+        # mock data
         keyword = KeywordPreMigration.objects.create(name="Keyword")
         film = FilmPreMigration.objects.create(title="Film1", release_date="2000")
         analysis = AnalysisPreMigration.objects.create(title="Analysis1")
         teaching_resource = TeachingResourcesPreMigration.objects.create(
             title="TeachingResource1"
         )
+
         film.keyword.add(keyword)
         analysis.keywords.add(keyword)
         teaching_resource.keywords.add(keyword)
 
+        # migrate to the
         mod_app_post_migration = self.migrate_to(
             "0040_data_migration_transfer_keyword_to_topic"
-        )
-        self.assertTrue(
-            self.is_migration_applied(
-                "mod_app", "0040_data_migration_transfer_keyword_to_topic"
-            )
         )
 
         FilmPostMigration = mod_app_post_migration.get_model("mod_app", "Film")
@@ -108,6 +104,13 @@ class TestUserCopyMigration(TransactionTestCase):
         )
         TopicPostMigration = mod_app_post_migration.get_model("mod_app", "Topic")
         topic_post_migration = TopicPostMigration.objects.get(name="Keyword")
+
+        related_topics = list(film.topic.all())
+        self.assertEqual(
+            related_topics[0].id,
+            topic_post_migration.id,
+            f"Expected topic id {topic_post_migration.id}, got {related_topics[0].id}",
+        )
 
         self.assertEqual(topic_post_migration.id, keyword.id)
         self.assertTrue(
