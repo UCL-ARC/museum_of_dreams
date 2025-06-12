@@ -92,45 +92,33 @@ class TestKeywordToTopicMigration(TransactionTestCase):
         analysis.keywords.add(keyword)
         teaching_resource.keywords.add(keyword)
 
-        # migrate to the
+        # Apply migration
         mod_app_post_migration = self.migrate_to(
             "0040_data_migration_transfer_keyword_to_topic"
         )
 
-        FilmPostMigration = mod_app_post_migration.get_model("mod_app", "Film")
-        AnalysisPostMigration = mod_app_post_migration.get_model("mod_app", "Analysis")
-        TeachingResourcesPostMigration = mod_app_post_migration.get_model(
-            "mod_app", "TeachingResources"
-        )
+        # Get Topic object values after mi
         TopicPostMigration = mod_app_post_migration.get_model("mod_app", "Topic")
         topic_post_migration = TopicPostMigration.objects.get(name="Keyword")
 
-        related_topics = list(film.topic.all())
-        self.assertEqual(
-            related_topics[0].id,
-            topic_post_migration.id,
-            f"Expected topic id {topic_post_migration.id}, got {related_topics[0].id}",
-        )
+        film_related_topics = list(film.topic.all())
+        analysis_related_topics = list(analysis.topics.all())
+        tr_related_topics = list(teaching_resource.topics.all())
 
+        # Asserts previous relationship to keyword are now in the topic(s) field
         self.assertEqual(topic_post_migration.id, keyword.id)
-        self.assertTrue(
-            FilmPostMigration.objects.filter(topic=topic_post_migration.id).exists()
+        self.assertEqual(
+            film_related_topics[0].id,
+            topic_post_migration.id,
+            f"Expected topic id {topic_post_migration.id}, got {film_related_topics[0].id}",
         )
-        self.assertTrue(
-            AnalysisPostMigration.objects.filter(
-                topics=topic_post_migration.id
-            ).exists()
+        self.assertEqual(
+            analysis_related_topics[0].id,
+            topic_post_migration.id,
+            f"Expected topic id {topic_post_migration.id}, got {analysis_related_topics[0].id}",
         )
-        self.assertTrue(
-            TeachingResourcesPostMigration.objects.filter(
-                topics=topic_post_migration.id
-            ).exists()
+        self.assertEqual(
+            tr_related_topics[0].id,
+            topic_post_migration.id,
+            f"Expected topic id {topic_post_migration.id}, got {tr_related_topics[0].id}",
         )
-
-        # Debugging
-        for film in FilmPostMigration.objects.all():
-            print(f"Film ID: {film.id}, Topic: {film.topic.all()}")
-        for analysis in AnalysisPostMigration.objects.all():
-            print(f"Analysis ID: {analysis.id}, Topic: {analysis.topics.all()}")
-        for tr in TeachingResourcesPostMigration.objects.all():
-            print(f"TeachingResource ID: {tr.id}, Topic: {tr.topics.all()}")
