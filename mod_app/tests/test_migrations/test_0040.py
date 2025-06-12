@@ -70,7 +70,7 @@ class TestKeywordToTopicMigration(TransactionTestCase):
             TopicPostMigration.objects.filter(name="Keyword2", is_genre=False).exists()
         )
 
-    def test_transfer_relationship(self):
+    def test_transfer_keyword_relationship_to_topic(self):
         mod_app_pre_migration = self.migrate_to("0039_add_topic_field_to_Film")
 
         KeywordPreMigration = mod_app_pre_migration.get_model("mod_app", "Keyword")
