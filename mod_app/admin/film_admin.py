@@ -150,7 +150,7 @@ class FilmAdmin(EmailMixin, admin.ModelAdmin):
                     ("production_country", "production_company"),
                     "synopsis",
                     ("cast", "crew"),
-                    ("genre", "keyword", "bfi_category"),
+                    ("genre", "topic", "bfi_category"),
                 ),
             },
         ),
