@@ -2,6 +2,7 @@ from .aws import *
 
 ENVIRONMENT = "staging"
 ALLOWED_HOSTS = [
+    ".elasticbeanstalk.com",
     "museumofdreams.eu-west-2.elasticbeanstalk.com",
     "staging.museumofdreamworlds.org",
     LOCAL_IP,
