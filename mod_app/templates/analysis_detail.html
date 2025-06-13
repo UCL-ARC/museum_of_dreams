@@ -50,18 +50,6 @@
             <span class="tag">{{topic.name}}</span>
           {% endfor %}
         </div>
-        <div id="keywords">
-          <h4>Keywords</h4>
-          {% for kw in analysis.keywords.all %}
-            <span class="tag">{{kw.name}}</span>
-          {% endfor %}
-        </div>
-      {% comment %}
-      <div>
-        <h3>Information</h3>
-        <hr />
-      </div>
-      {% endcomment %}
       </div>
     </div>
     {% include "partial/teaching_analysis_tab_area.html" with model=analysis modelname="analysis" %}

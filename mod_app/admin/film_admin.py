@@ -47,7 +47,8 @@ class FilmAdmin(EmailMixin, admin.ModelAdmin):
         }
         js = ("admin/js/mentionsPluginConfig.js",)
 
-    autocomplete_fields = ["genre", "keyword"]
+    autocomplete_fields = ["genre", "topic"]
+    exclude = ["keyword"]
     search_fields = [
         "bfi_identifier",
         "title",
@@ -149,7 +150,7 @@ class FilmAdmin(EmailMixin, admin.ModelAdmin):
                     ("production_country", "production_company"),
                     "synopsis",
                     ("cast", "crew"),
-                    ("genre", "keyword", "bfi_category"),
+                    ("genre", "topic", "bfi_category"),
                 ),
             },
         ),
