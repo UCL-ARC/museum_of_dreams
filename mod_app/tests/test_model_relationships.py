@@ -16,7 +16,7 @@ from mod_app.models import (
 )
 
 
-class RelationshipFixtureTests(TestCase):
+class TestModelRelationships(TestCase):
     @classmethod
     def setUpTestData(cls):
         # class wide fixture intialisation
