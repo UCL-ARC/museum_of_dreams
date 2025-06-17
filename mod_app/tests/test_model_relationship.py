@@ -36,3 +36,63 @@ class RelationshipFixtureTests(TestCase):
         )
         cls.clip = Video.objects.create(description="Clip1")
         cls.archive = Archive.objects.create(name="Archive1")
+
+    def test_film_keyword(self):
+        self.film.keyword.add(self.keyword)
+        self.assertIn(self.keyword, self.film.keyword.all())
+
+    def test_film_topic(self):
+        self.film.topic.add(self.topic)
+        self.assertIn(self.topic, self.film.topic.all())
+
+    def test_film_genre(self):
+        self.film.genre.add(self.genre)
+        self.assertIn(self.genre, self.film.genre.all())
+
+    def test_film_bibliography(self):
+        self.film.bibliography.add(self.bibliography)
+        self.assertIn(self.bibliography, self.film.bibliography.all())
+
+    def test_analysis_films(self):
+        self.analysis.films.add(self.film)
+        self.assertIn(self.film, self.analysis.films.all())
+
+    def test_analysis_topics(self):
+        self.analysis.topics.add(self.topic)
+        self.assertIn(self.topic, self.analysis.topics.all())
+
+    def test_analysis_keywords(self):
+        self.analysis.keywords.add(self.keyword)
+        self.assertIn(self.keyword, self.analysis.keywords.all())
+
+    def test_analysis_genre(self):
+        self.analysis.genre.add(self.genre)
+        self.assertIn(self.genre, self.analysis.genre.all())
+
+    def test_analysis_teaching_resources(self):
+        self.analysis.teaching_resources.add(self.tr)
+        self.assertIn(self.tr, self.analysis.teaching_resources.all())
+
+    def test_analysis_bibliography(self):
+        self.analysis.bibliography.add(self.bibliography)
+        self.assertIn(self.bibliography, self.analysis.bibliography.all())
+
+    def test_teachingresources_clips(self):
+        self.tr.clips.add(self.clip)
+        self.assertIn(self.clip, self.tr.clips.all())
+
+    def test_teachingresources_tags(self):
+        self.tr.tags.add(self.tag)
+        self.assertIn(self.tag, self.tr.tags.all())
+
+    def test_visualinfluences_archive(self):
+        self.vi.archive.add(self.archive)
+        self.assertIn(self.archive, self.vi.archive.all())
+
+    def test_writteninfluences_archive(self):
+        self.wi.archive.add(self.archive)
+        self.assertIn(self.archive, self.wi.archive.all())
+
+    def test_source_film(self):
+        self.source.film.add(self.film)
+        self.assertIn(self.film, self.source.film.all())
