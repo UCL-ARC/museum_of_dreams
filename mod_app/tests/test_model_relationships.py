@@ -19,14 +19,14 @@ from mod_app.models import (
 class TestModelRelationships(TestCase):
     @classmethod
     def setUpTestData(cls):
-        # class wide fixture intialisation
+        # class-wide fixtures
         cls.film = Film.objects.create(title="Test Film", release_date=2025)
         cls.analysis = Analysis.objects.create(title="Test Analysis")
         cls.tr = TeachingResources.objects.create(title="Test Resource")
         cls.vi = VisualInfluences.objects.create(title="Test VisualInfluences")
         cls.baselinkmodel = OtherLink.objects.create(
             description="Test BaseLinkModel"
-        )  # testing on child model object because BaseLinkModel is abstract
+        )  # test is done on child model object of BaseLinkModel(OtherLink) because BaseLinkModel itself is an abstract class
         cls.source = Source.objects.create(description="Test Source")
 
         cls.tag = Tag.objects.create(name="Tag1", is_genre=False)
