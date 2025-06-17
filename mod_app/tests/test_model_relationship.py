@@ -6,13 +6,13 @@ from mod_app.models import (
     BibliographyItem,
     Film,
     Keyword,
+    OtherLink,
     Source,
     Tag,
     TeachingResources,
     Topic,
     Video,
     VisualInfluences,
-    OtherLink,
 )
 
 
@@ -82,7 +82,7 @@ class RelationshipFixtureTests(TestCase):
 
     def test_tr_relationships(self):
         for field_name, related_object in self.tr_relationships.items():
-            with self.subTest(msg="test", field=field_name):
+            with self.subTest(field=field_name):
                 related_manager = getattr(self.tr, field_name)
                 related_manager.add(related_object)
                 self.assertIn(related_object, related_manager.all())
@@ -93,6 +93,14 @@ class RelationshipFixtureTests(TestCase):
                 related_manager = getattr(self.vi, field_name)
                 related_manager.add(related_object)
                 self.assertIn(related_object, related_manager.all())
+
+    def test_baselinkmodel_relationship(self):
+        self.baselinkmodel.film = self.film
+        self.assertEqual(self.film, self.baselinkmodel.film)
+
+    def test_file_link_relationship(self):
+        self.clip.archive.add(self.archive)
+        self.assertIn(self.archive, self.clip.archive.all())
 
     def test_source_relationship(self):
         self.source.film.add(self.film)
