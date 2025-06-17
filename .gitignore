@@ -76,6 +76,7 @@ pytest_cache/
 /media
 
 secrets.py
+.env
 
 # ESLint
 node_modules/
