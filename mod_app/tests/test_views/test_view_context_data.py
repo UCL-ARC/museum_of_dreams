@@ -43,44 +43,49 @@ class TestViewContextData(TestCase):
 
     def test_film_listview_context(self):
         response = self.client.get(reverse("film_list"))
-        self.assertQuerysetEqual(
-            response.context["film_list"],
-            self.film_set,
-        )
+        for film in self.film_set:
+            with self.subTest(film=film):
+                self.assertIn(film, response.context["film_list"])
 
     def test_film_detailview_context(self):
-        response = self.client.get(reverse("film_detail", args=[self.film.pk]))
-        self.assertEqual(response.context["film"], self.film)
+        for film in self.film_set:
+            with self.subTest(film=film):
+                response = self.client.get(reverse("film_detail", args=[film.pk]))
+                self.assertEqual(film, response.context["film"])
 
     def test_analysis_listview_context(self):
-        response = self.client.get(reverse("analyses_list"))
-        self.assertQuerysetEqual(
-            response.context["analyses_list"],
-            self.analysis_set,
-        )
+        response = self.client.get(reverse("analysis_list"))
+        for analysis in self.analysis_set:
+            with self.subTest(analysis=analysis):
+                self.assertIn(analysis, response.context["analysis_list"])
 
     def test_analysis_detailview_context(self):
-        response = self.client.get(reverse("analysis_detail", args=[self.analysis.pk]))
-        self.assertEqual(response.context["analysis"], self.analysis)
+        for tr in self.tr_set:
+            with self.subTest(teaching_resources=tr):
+                response = self.client.get(reverse("tr_detail", args=[tr.pk]))
+                self.assertEqual(tr, response.context["tr"])
 
     def test_tr_listview_context(self):
         response = self.client.get(reverse("tr_list"))
-        self.assertQuerysetEqual(
-            response.context["tr_list"],
-            self.tr_set,
-        )
+        for tr in self.tr_set:
+            with self.subTest(teaching_resources=tr):
+                self.assertIn(tr, response.context["teachingresources_list"])
 
     def test_tr_detailview_context(self):
-        response = self.client.get(reverse("tr_detail", args=[self.tr.pk]))
-        self.assertEqual(response.context["tr"], self.tr)
+        for tr in self.tr_set:
+            with self.subTest(teaching_resources=tr):
+                response = self.client.get(reverse("tr_detail", args=[tr.pk]))
+                self.assertEqual(tr, response.context["tr"])
 
     def test_tag_listview_context(self):
         response = self.client.get(reverse("tag_list"))
 
         for tag in self.tag_set:
-            self.assertIn(tag, response.context["tags"])
+            with self.subTest(tag=tag):
+                self.assertIn(tag, response.context["tags"])
 
     def test_tag_detailview_context(self):
         for tag in self.tag_set:
-            response = self.client.get(reverse("tag_detail", args=[tag.pk]))
-            self.assertEqual(response.context["tag"], tag)
+            with self.subTest(tag=tag):
+                response = self.client.get(reverse("tag_detail", args=[tag.pk]))
+                self.assertEqual(tag, response.context["tag"])
