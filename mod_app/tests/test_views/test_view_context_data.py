@@ -35,6 +35,20 @@ class TestViewContextData(TestCase):
         cls.tag_set = [tag1, tag2, tag3]
         cls.bibliography_set = [bib1, bib2, bib3]
 
+        cls.test_detailveiw_data_set = {
+            "film_detail": {"film": cls.film_set},
+            "analysis_detail": {"analysis": cls.analysis_set},
+            "tr_detail": {"tr": cls.tr_set},
+            "tag_detail": {"tag": cls.tag_set},
+        }
+        cls.test_listview_data_set = {
+            "film_list": {"film_list": cls.film_set},
+            "analysis_list": {"analysis_list": cls.analysis_set},
+            "tr_list": {"teachingresources_list": cls.tr_set},
+            "tag_list": {"tags": cls.tag_set},
+            "bibliography": {"bibliographyitem_list": cls.bibliography_set},
+        }
+
     def test_homeview_context(self):
         response = self.client.get(reverse("home"))
         self.assertQuerysetEqual(
@@ -46,57 +60,18 @@ class TestViewContextData(TestCase):
             True,
         )
 
-    def test_film_listview_context(self):
-        response = self.client.get(reverse("film_list"))
-        for film in self.film_set:
-            with self.subTest(film=film):
-                self.assertIn(film, response.context["film_list"])
+    def test_detailview_context(self):
+        for url, test_context in self.test_detailveiw_data_set.items():
+            for context, test_objects in test_context.items():
+                for test_obj in test_objects:
+                    response = self.client.get(reverse(url, args=[test_obj.pk]))
+                    with self.subTest(test_set=test_obj):
+                        self.assertEqual(test_obj, response.context[context])
 
-    def test_film_detailview_context(self):
-        for film in self.film_set:
-            with self.subTest(film=film):
-                response = self.client.get(reverse("film_detail", args=[film.pk]))
-                self.assertEqual(film, response.context["film"])
-
-    def test_analysis_listview_context(self):
-        response = self.client.get(reverse("analysis_list"))
-        for analysis in self.analysis_set:
-            with self.subTest(analysis=analysis):
-                self.assertIn(analysis, response.context["analysis_list"])
-
-    def test_analysis_detailview_context(self):
-        for tr in self.tr_set:
-            with self.subTest(teaching_resources=tr):
-                response = self.client.get(reverse("tr_detail", args=[tr.pk]))
-                self.assertEqual(tr, response.context["tr"])
-
-    def test_tr_listview_context(self):
-        response = self.client.get(reverse("tr_list"))
-        for tr in self.tr_set:
-            with self.subTest(teaching_resources=tr):
-                self.assertIn(tr, response.context["teachingresources_list"])
-
-    def test_tr_detailview_context(self):
-        for tr in self.tr_set:
-            with self.subTest(teaching_resources=tr):
-                response = self.client.get(reverse("tr_detail", args=[tr.pk]))
-                self.assertEqual(tr, response.context["tr"])
-
-    def test_tag_listview_context(self):
-        response = self.client.get(reverse("tag_list"))
-
-        for tag in self.tag_set:
-            with self.subTest(tag=tag):
-                self.assertIn(tag, response.context["tags"])
-
-    def test_tag_detailview_context(self):
-        for tag in self.tag_set:
-            with self.subTest(tag=tag):
-                response = self.client.get(reverse("tag_detail", args=[tag.pk]))
-                self.assertEqual(tag, response.context["tag"])
-
-    def test_bibliography_context(self):
-        response = self.client.get(reverse("bibliography"))
-        for bib in self.bibliography_set:
-            with self.subTest(bibliography=bib):
-                self.assertIn(bib, response.context["bibliographyitem_list"])
+    def test_listview_context(self):
+        for url, test_context in self.test_listview_data_set.items():
+            for context, test_objects in test_context.items():
+                response = self.client.get(reverse(url))
+                for test_obj in test_objects:
+                    with self.subTest(test_set=test_obj):
+                        self.assertIn(test_obj, response.context[context])
