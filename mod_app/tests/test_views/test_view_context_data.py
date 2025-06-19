@@ -51,11 +51,11 @@ class TestViewContextData(TestCase):
 
     def test_homeview_context(self):
         response = self.client.get(reverse("home"))
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             response.context["slides"],
             self.test_slides,
         )
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             response.context["slide_images"],
             True,
         )
