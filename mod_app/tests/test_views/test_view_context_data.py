@@ -28,32 +28,32 @@ class TestViewContextData(TestCase):
         bib2 = BibliographyItem.objects.create(short_citation="Test Bibliography2")
         bib3 = BibliographyItem.objects.create(short_citation="Test Bibliography3")
 
-        cls.slides_set = []
-        cls.film_set = [film1, film2, film3]
-        cls.analysis_set = [analysis1, analysis2, analysis3]
-        cls.tr_set = [tr1, tr2, tr3]
-        cls.tag_set = [tag1, tag2, tag3]
-        cls.bibliography_set = [bib1, bib2, bib3]
+        cls.test_slides = []
+        cls.test_films = [film1, film2, film3]
+        cls.test_analyses = [analysis1, analysis2, analysis3]
+        cls.test_trs = [tr1, tr2, tr3]
+        cls.test_tags = [tag1, tag2, tag3]
+        cls.test_bibliographies = [bib1, bib2, bib3]
 
         cls.test_detailveiw_data_set = {
-            "film_detail": {"film": cls.film_set},
-            "analysis_detail": {"analysis": cls.analysis_set},
-            "tr_detail": {"tr": cls.tr_set},
-            "tag_detail": {"tag": cls.tag_set},
+            "film_detail": {"film": cls.test_films},
+            "analysis_detail": {"analysis": cls.test_analyses},
+            "tr_detail": {"tr": cls.test_trs},
+            "tag_detail": {"tag": cls.test_tags},
         }
         cls.test_listview_data_set = {
-            "film_list": {"film_list": cls.film_set},
-            "analysis_list": {"analysis_list": cls.analysis_set},
-            "tr_list": {"teachingresources_list": cls.tr_set},
-            "tag_list": {"tags": cls.tag_set},
-            "bibliography": {"bibliographyitem_list": cls.bibliography_set},
+            "film_list": {"film_list": cls.test_films},
+            "analysis_list": {"analysis_list": cls.test_analyses},
+            "tr_list": {"teachingresources_list": cls.test_trs},
+            "tag_list": {"tags": cls.test_tags},
+            "bibliography": {"bibliographyitem_list": cls.test_bibliographies},
         }
 
     def test_homeview_context(self):
         response = self.client.get(reverse("home"))
         self.assertQuerysetEqual(
             response.context["slides"],
-            self.slides_set,
+            self.test_slides,
         )
         self.assertQuerysetEqual(
             response.context["slide_images"],
