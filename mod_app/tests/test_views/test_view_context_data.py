@@ -1,6 +1,6 @@
 from django.test import Client, TestCase
 from django.urls import reverse
-from mod_app.models import Film, Analysis, TeachingResources, Tag
+from mod_app.models import Film, Analysis, TeachingResources, Tag, BibliographyItem
 
 
 class TestViewContextData(TestCase):
@@ -24,11 +24,16 @@ class TestViewContextData(TestCase):
         tag2 = Tag.objects.create(name="Test Tag2")
         tag3 = Tag.objects.create(name="Test Tag3")
 
+        bib1 = BibliographyItem.objects.create(short_citation="Test Bibliography1")
+        bib2 = BibliographyItem.objects.create(short_citation="Test Bibliography2")
+        bib3 = BibliographyItem.objects.create(short_citation="Test Bibliography3")
+
         cls.slides_set = []
         cls.film_set = [film1, film2, film3]
         cls.analysis_set = [analysis1, analysis2, analysis3]
         cls.tr_set = [tr1, tr2, tr3]
         cls.tag_set = [tag1, tag2, tag3]
+        cls.bibliography_set = [bib1, bib2, bib3]
 
     def test_homeview_context(self):
         response = self.client.get(reverse("home"))
@@ -89,3 +94,9 @@ class TestViewContextData(TestCase):
             with self.subTest(tag=tag):
                 response = self.client.get(reverse("tag_detail", args=[tag.pk]))
                 self.assertEqual(tag, response.context["tag"])
+
+    def test_bibliography_context(self):
+        response = self.client.get(reverse("bibliography"))
+        for bib in self.bibliography_set:
+            with self.subTest(bibliography=bib):
+                self.assertIn(bib, response.context["bibliographyitem_list"])
