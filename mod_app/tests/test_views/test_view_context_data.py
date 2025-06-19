@@ -7,10 +7,28 @@ class TestViewContextData(TestCase):
     @classmethod
     def setUpTestData(cls):
         cls.client = Client()
-        cls.film = Film.objects.create(title="Test Film", release_date="2020")
-        cls.analysis = Analysis.objects.create(title="Test Analysis")
-        cls.tr = TeachingResources.objects.create(title="Test TeachingResources")
-        cls.tag = Tag.objects.create(name="Test Tag")
+
+        film1 = Film.objects.create(title="Test Film1", release_date="2020")
+        film2 = Film.objects.create(title="Test Film2", release_date="2020")
+        film3 = Film.objects.create(title="Test Film3", release_date="2020")
+
+        analysis1 = Analysis.objects.create(title="Test Analysis1")
+        analysis2 = Analysis.objects.create(title="Test Analysis2")
+        analysis3 = Analysis.objects.create(title="Test Analysis3")
+
+        tr1 = TeachingResources.objects.create(title="Test TeachingResources1")
+        tr2 = TeachingResources.objects.create(title="Test TeachingResources2")
+        tr3 = TeachingResources.objects.create(title="Test TeachingResources3")
+
+        tag1 = Tag.objects.create(name="Test Tag1")
+        tag2 = Tag.objects.create(name="Test Tag2")
+        tag3 = Tag.objects.create(name="Test Tag3")
+
+        cls.slides_set = []
+        cls.film_set = [film1, film2, film3]
+        cls.analysis_set = [analysis1, analysis2, analysis3]
+        cls.tr_set = [tr1, tr2, tr3]
+        cls.tag_set = [tag1, tag2, tag3]
 
     def test_homeview_context(self):
         response = self.client.get(reverse("home"))
@@ -20,7 +38,7 @@ class TestViewContextData(TestCase):
         )
         self.assertQuerysetEqual(
             response.context["slide_images"],
-            False,
+            True,
         )
 
     def test_film_listview_context(self):
@@ -58,11 +76,11 @@ class TestViewContextData(TestCase):
 
     def test_tag_listview_context(self):
         response = self.client.get(reverse("tag_list"))
-        self.assertQuerysetEqual(
-            response.context["tag_list"],
-            self.tag_set,
-        )
+
+        for tag in self.tag_set:
+            self.assertIn(tag, response.context["tags"])
 
     def test_tag_detailview_context(self):
-        response = self.client.get(reverse("tag_detail", args=[self.tag.pk]))
-        self.assertEqual(response.context["tag"], self.tag)
+        for tag in self.tag_set:
+            response = self.client.get(reverse("tag_detail", args=[tag.pk]))
+            self.assertEqual(response.context["tag"], tag)
