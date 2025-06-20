@@ -130,10 +130,15 @@ class TestViewContextData(TestCase):
     def test_listview_context(self):
         for view in self.test_listview_data_set:
             with self.subTest(view=view["url_name"]):
+                # access relevant information from data set
                 url_name = view["url_name"]
                 context_key = view["context_key"]
                 test_objects = view["test_objects"]
+
+                # get HTTP Template response
                 response = self.client.get(reverse(url_name))
+
+                # checks that each object fixture in present in the context value
                 for obj in test_objects:
                     self.assertIn(obj, response.context[context_key])
 
@@ -158,6 +163,7 @@ class TestViewContextData(TestCase):
         self.assertCountEqual(self.test_video_slides, response.context["video_slides"])
         print(response.context["video_slides"])
 
+    # no context data tests are run at the very end because it will clear the database fixtures intialised in setUp
     def test_list_view_no_context_data(self):
         for view in self.test_listview_data_set:
             with self.subTest(view=view["url_name"]):
@@ -166,9 +172,8 @@ class TestViewContextData(TestCase):
                 context_key = view["context_key"]
                 fallback_text = view["fallback_text"]
 
-                # clear the model
+                # clear the model and get response
                 model.objects.all().delete()
-
                 response = self.client.get(reverse(url_name))
 
                 # check that the context key is present and empty
@@ -176,5 +181,4 @@ class TestViewContextData(TestCase):
                 self.assertFalse(response.context[context_key])
 
                 # check for fallback message in template
-
                 self.assertContains(response, fallback_text)
