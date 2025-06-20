@@ -88,6 +88,39 @@ class TestViewContextData(TestCase):
             "bibliography": {"bibliographyitem_list": cls.test_bibliographies},
         }
 
+        cls.test_no_context_data_set = [
+            {
+                "url_name": "analysis_list",
+                "model": Analysis,
+                "context_key": "analysis_list",
+                "fallback_text": "No Analyses found",
+            },
+            {
+                "url_name": "film_list",
+                "model": Film,
+                "context_key": "film_list",
+                "fallback_text": "No Films found",
+            },
+            {
+                "url_name": "tr_list",
+                "model": TeachingResources,
+                "context_key": "teachingresources_list",
+                "fallback_text": "No Teaching Resources found",
+            },
+            {
+                "url_name": "tag_list",
+                "model": Tag,
+                "context_key": "tags",
+                "fallback_text": "No Tags found",
+            },
+            {
+                "url_name": "bibliography",
+                "model": BibliographyItem,
+                "context_key": "bibliographyitem_list",
+                "fallback_text": "No Bibliographies found",
+            },
+        ]
+
     def test_detailview_context(self):
         for url, test_context in self.test_detailveiw_data_set.items():
             for context, test_objects in test_context.items():
@@ -124,3 +157,24 @@ class TestViewContextData(TestCase):
         )
         self.assertCountEqual(self.test_video_slides, response.context["video_slides"])
         print(response.context["video_slides"])
+
+    def test_list_view_no_context_data(self):
+        for view in self.test_no_context_data_set:
+            with self.subTest(view=view["url_name"]):
+                url_name = view["url_name"]
+                model = view["model"]
+                context_key = view["context_key"]
+                fallback_text = view["fallback_text"]
+
+                # clear the model
+                model.objects.all().delete()
+
+                response = self.client.get(reverse(url_name))
+
+                # check that the context key is present and empty
+                self.assertIn(context_key, response.context)
+                self.assertFalse(response.context[context_key])
+
+                # check for fallback message in template
+
+                self.assertContains(response, fallback_text)
