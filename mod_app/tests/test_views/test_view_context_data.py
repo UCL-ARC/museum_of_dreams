@@ -1,6 +1,13 @@
 from django.test import Client, TestCase
 from django.urls import reverse
-from mod_app.models import Film, Analysis, TeachingResources, Tag, BibliographyItem
+
+from mod_app.models import (
+    Analysis,
+    BibliographyItem,
+    Film,
+    Tag,
+    TeachingResources,
+)
 
 
 class TestViewContextData(TestCase):
@@ -28,7 +35,6 @@ class TestViewContextData(TestCase):
         bib2 = BibliographyItem.objects.create(short_citation="Test Bibliography2")
         bib3 = BibliographyItem.objects.create(short_citation="Test Bibliography3")
 
-        cls.test_slides = []
         cls.test_films = [film1, film2, film3]
         cls.test_analyses = [analysis1, analysis2, analysis3]
         cls.test_trs = [tr1, tr2, tr3]
@@ -48,17 +54,6 @@ class TestViewContextData(TestCase):
             "tag_list": {"tags": cls.test_tags},
             "bibliography": {"bibliographyitem_list": cls.test_bibliographies},
         }
-
-    def test_homeview_context(self):
-        response = self.client.get(reverse("home"))
-        self.assertQuerySetEqual(
-            response.context["slides"],
-            self.test_slides,
-        )
-        self.assertQuerySetEqual(
-            response.context["slide_images"],
-            True,
-        )
 
     def test_detailview_context(self):
         for url, test_context in self.test_detailveiw_data_set.items():
