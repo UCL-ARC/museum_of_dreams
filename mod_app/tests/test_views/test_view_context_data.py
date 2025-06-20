@@ -46,9 +46,15 @@ class TestViewContextData(TestCase):
         tag2 = Tag.objects.create(name="Test Tag2")
         tag3 = Tag.objects.create(name="Test Tag3")
 
-        bib1 = BibliographyItem.objects.create(short_citation="Test Bibliography1")
-        bib2 = BibliographyItem.objects.create(short_citation="Test Bibliography2")
-        bib3 = BibliographyItem.objects.create(short_citation="Test Bibliography3")
+        bib1 = BibliographyItem.objects.create(
+            short_citation="Test Bib1", full_citation="Test Bibliography1"
+        )
+        bib2 = BibliographyItem.objects.create(
+            short_citation="Test Bib2", full_citation="Test Bibliography2"
+        )
+        bib3 = BibliographyItem.objects.create(
+            short_citation="Test Bib3", full_citation="Test Bibliography3"
+        )
 
         pm1 = Script.objects.create(url="test_url1.com", film=cls.test_film_detail)
         pm2 = PressBook.objects.create(url="test_url2.com", film=cls.test_film_detail)
@@ -187,6 +193,13 @@ class TestViewContextData(TestCase):
         )
         self.assertCountEqual(self.test_video_slides, response.context["video_slides"])
         print(response.context["video_slides"])
+
+    def test_mentions_api_view(self):
+        response = self.client.get(reverse("mentions_api"), {"query": "Bibliography1"})
+        data = response.json()
+        self.assertEqual(len(data), 1)
+        self.assertEqual(data[0]["short_citation"], "Test Bib1")
+        self.assertEqual(data[0]["full_citation"], "Test Bibliography1")
 
     # no context data tests are run at the very end because it will clear the database fixtures intialised in setUp
     def test_list_view_no_context_data(self):
