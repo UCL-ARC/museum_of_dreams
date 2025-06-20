@@ -27,9 +27,12 @@ class TestViewContextData(TestCase):
     def setUpTestData(cls):
         cls.client = Client()
 
-        cls.film1 = Film.objects.create(title="Test Film1", release_date="2020")
+        film1 = Film.objects.create(title="Test Film1", release_date="2020")
         film2 = Film.objects.create(title="Test Film2", release_date="2020")
         film3 = Film.objects.create(title="Test Film3", release_date="2020")
+        cls.test_film_detail = Film.objects.create(
+            title="Test Film Detail", release_date="2020"
+        )
 
         analysis1 = Analysis.objects.create(title="Test Analysis1")
         analysis2 = Analysis.objects.create(title="Test Analysis2")
@@ -47,25 +50,25 @@ class TestViewContextData(TestCase):
         bib2 = BibliographyItem.objects.create(short_citation="Test Bibliography2")
         bib3 = BibliographyItem.objects.create(short_citation="Test Bibliography3")
 
-        pm1 = Script.objects.create(url="", film=cls.film1)
-        pm2 = PressBook.objects.create(url="", film=cls.film1)
-        pm3 = Programme.objects.create(url="", film=cls.film1)
-        pm4 = Publicity.objects.create(url="", film=cls.film1)
+        pm1 = Script.objects.create(url="test_url1.com", film=cls.test_film_detail)
+        pm2 = PressBook.objects.create(url="test_url2.com", film=cls.test_film_detail)
+        pm3 = Programme.objects.create(url="test_url3.com", film=cls.test_film_detail)
+        pm4 = Publicity.objects.create(url="test_url4.com", film=cls.test_film_detail)
 
-        vr1 = Still.objects.create(url="", film=cls.film1)
-        vr2 = Drawing.objects.create(url="", film=cls.film1)
-        vr3 = Poster.objects.create(url="", film=cls.film1)
-        vr4 = Postcard.objects.create(url="", film=cls.film1)
+        vr1 = Still.objects.create(url="test_url5.com", film=cls.test_film_detail)
+        vr2 = Drawing.objects.create(url="test_url6.com", film=cls.test_film_detail)
+        vr3 = Poster.objects.create(url="test_url7.com", film=cls.test_film_detail)
+        vr4 = Postcard.objects.create(url="test_url8.com", film=cls.test_film_detail)
 
-        video1 = Video.objects.create(url="", film=cls.film1)
-        video2 = Video.objects.create(url="", film=cls.film1)
-        video3 = Video.objects.create(url="", film=cls.film1)
+        video1 = Video.objects.create(url="test_url9.com", film=cls.test_film_detail)
+        video2 = Video.objects.create(url="test_url10.com", film=cls.test_film_detail)
+        video3 = Video.objects.create(url="test_url11.com", film=cls.test_film_detail)
 
         cls.test_pm_slides = [pm1, pm2, pm3, pm4]
         cls.test_vr_slides = [vr1, vr2, vr3, vr4]
         cls.test_video_slides = [video1, video2, video3]
 
-        cls.test_films = [cls.film1, film2, film3]
+        cls.test_films = [film1, film2, film3]
         cls.test_analyses = [analysis1, analysis2, analysis3]
         cls.test_trs = [tr1, tr2, tr3]
         cls.test_tags = [tag1, tag2, tag3]
@@ -102,16 +105,22 @@ class TestViewContextData(TestCase):
                         self.assertIn(test_obj, response.context[context])
 
     def test_film_detailview_printed_material_slides(self):
-        response = self.client.get(reverse("film_detail", args=[self.film1.pk]))
+        response = self.client.get(
+            reverse("film_detail", args=[self.test_film_detail.pk])
+        )
         self.assertCountEqual(self.test_pm_slides, response.context["pm_slides"])
         print(response.context["pm_slides"])
 
     def test_film_detailview_visual_resources_slides(self):
-        response = self.client.get(reverse("film_detail", args=[self.film1.pk]))
+        response = self.client.get(
+            reverse("film_detail", args=[self.test_film_detail.pk])
+        )
         self.assertCountEqual(self.test_vr_slides, response.context["vr_slides"])
         print(response.context["vr_slides"])
 
     def test_film_detailview_video_slides(self):
-        response = self.client.get(reverse("film_detail", args=[self.film1.pk]))
+        response = self.client.get(
+            reverse("film_detail", args=[self.test_film_detail.pk])
+        )
         self.assertCountEqual(self.test_video_slides, response.context["video_slides"])
         print(response.context["video_slides"])
