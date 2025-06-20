@@ -74,27 +74,47 @@ class TestViewContextData(TestCase):
         cls.test_tags = [tag1, tag2, tag3]
         cls.test_bibliographies = [bib1, bib2, bib3]
 
-        cls.test_detailveiw_data_set = {
-            "film_detail": {"film": cls.test_films},
-            "analysis_detail": {"analysis": cls.test_analyses},
-            "tr_detail": {"tr": cls.test_trs},
-            "tag_detail": {"tag": cls.test_tags},
-        }
+        cls.test_detailview_data_set = [
+            {
+                "url_name": "film_detail",
+                "model": Film,
+                "context_key": "film",
+                "test_objects": cls.test_films,
+            },
+            {
+                "url_name": "analysis_detail",
+                "model": Analysis,
+                "context_key": "analysis",
+                "test_objects": cls.test_analyses,
+            },
+            {
+                "url_name": "tr_detail",
+                "model": TeachingResources,
+                "test_objects": cls.test_trs,
+                "context_key": "tr",
+            },
+            {
+                "url_name": "tag_detail",
+                "model": Tag,
+                "context_key": "tag",
+                "test_objects": cls.test_tags,
+            },
+        ]
 
         cls.test_listview_data_set = [
-            {
-                "url_name": "analysis_list",
-                "model": Analysis,
-                "context_key": "analysis_list",
-                "test_objects": cls.test_analyses,
-                "fallback_text": "No Analyses found",
-            },
             {
                 "url_name": "film_list",
                 "model": Film,
                 "context_key": "film_list",
                 "test_objects": cls.test_films,
                 "fallback_text": "No Films found",
+            },
+            {
+                "url_name": "analysis_list",
+                "model": Analysis,
+                "context_key": "analysis_list",
+                "test_objects": cls.test_analyses,
+                "fallback_text": "No Analyses found",
             },
             {
                 "url_name": "tr_list",
@@ -120,12 +140,17 @@ class TestViewContextData(TestCase):
         ]
 
     def test_detailview_context(self):
-        for url, test_context in self.test_detailveiw_data_set.items():
-            for context, test_objects in test_context.items():
-                for test_obj in test_objects:
-                    response = self.client.get(reverse(url, args=[test_obj.pk]))
-                    with self.subTest(test_set=test_obj):
-                        self.assertEqual(test_obj, response.context[context])
+        for view in self.test_detailview_data_set:
+            # access relevant information from data set
+            url_name = view["url_name"]
+            context_key = view["context_key"]
+            test_objects = view["test_objects"]
+
+            # validate individual responses for each test object
+            for obj in test_objects:
+                with self.subTest(view=view["url_name"], test_object=obj):
+                    response = self.client.get(reverse(url_name, args=[obj.pk]))
+                    self.assertEqual(obj, response.context[context_key])
 
     def test_listview_context(self):
         for view in self.test_listview_data_set:
