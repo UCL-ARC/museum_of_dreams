@@ -9,6 +9,18 @@ from mod_app.models import (
     TeachingResources,
 )
 
+from mod_app.models.baselink_models import (
+    Script,
+    PressBook,
+    Programme,
+    Publicity,
+    Still,
+    Drawing,
+    Poster,
+    Postcard,
+    Video,
+)
+
 
 class TestViewContextData(TestCase):
     @classmethod
@@ -34,6 +46,24 @@ class TestViewContextData(TestCase):
         bib1 = BibliographyItem.objects.create(short_citation="Test Bibliography1")
         bib2 = BibliographyItem.objects.create(short_citation="Test Bibliography2")
         bib3 = BibliographyItem.objects.create(short_citation="Test Bibliography3")
+
+        pm1 = Script.objects.create(url="", film=film1)
+        pm2 = PressBook.objects.create(url="", film=film1)
+        pm3 = Programme.objects.create(url="", film=film1)
+        pm4 = Publicity.objects.create(url="", film=film1)
+
+        vr1 = Still.objects.create(url="", film=film1)
+        vr2 = Drawing.objects.create(url="", film=film1)
+        vr3 = Poster.objects.create(url="", film=film1)
+        vr4 = Postcard.objects.create(url="", film=film1)
+
+        video1 = Video.objects.create(url="", film=film1)
+        video2 = Video.objects.create(url="", film=film1)
+        video3 = Video.objects.create(url="", film=film1)
+
+        cls.test_pm_slides = [pm1, pm2, pm3, pm4]
+        cls.test_vr_slides = [vr1, vr2, vr3, vr4]
+        cls.test_video_slides = [video1, video2, video3]
 
         cls.test_films = [film1, film2, film3]
         cls.test_analyses = [analysis1, analysis2, analysis3]
@@ -70,3 +100,9 @@ class TestViewContextData(TestCase):
                 for test_obj in test_objects:
                     with self.subTest(test_set=test_obj):
                         self.assertIn(test_obj, response.context[context])
+
+    def test_film_detailview_printed_material_slides(): ...
+
+    def test_film_detailview_visual_resources_slides(): ...
+
+    def test_film_detailview_video_slides(): ...
