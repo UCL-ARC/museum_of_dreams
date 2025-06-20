@@ -80,30 +80,26 @@ class TestViewContextData(TestCase):
             "tr_detail": {"tr": cls.test_trs},
             "tag_detail": {"tag": cls.test_tags},
         }
-        cls.test_listview_data_set = {
-            "film_list": {"film_list": cls.test_films},
-            "analysis_list": {"analysis_list": cls.test_analyses},
-            "tr_list": {"teachingresources_list": cls.test_trs},
-            "tag_list": {"tags": cls.test_tags},
-            "bibliography": {"bibliographyitem_list": cls.test_bibliographies},
-        }
 
-        cls.test_no_context_data_set = [
+        cls.test_listview_data_set = [
             {
                 "url_name": "analysis_list",
                 "model": Analysis,
                 "context_key": "analysis_list",
+                "test_objects": cls.test_analyses,
                 "fallback_text": "No Analyses found",
             },
             {
                 "url_name": "film_list",
                 "model": Film,
                 "context_key": "film_list",
+                "test_objects": cls.test_films,
                 "fallback_text": "No Films found",
             },
             {
                 "url_name": "tr_list",
                 "model": TeachingResources,
+                "test_objects": cls.test_trs,
                 "context_key": "teachingresources_list",
                 "fallback_text": "No Teaching Resources found",
             },
@@ -111,11 +107,13 @@ class TestViewContextData(TestCase):
                 "url_name": "tag_list",
                 "model": Tag,
                 "context_key": "tags",
+                "test_objects": cls.test_tags,
                 "fallback_text": "No Tags found",
             },
             {
                 "url_name": "bibliography",
                 "model": BibliographyItem,
+                "test_objects": cls.test_bibliographies,
                 "context_key": "bibliographyitem_list",
                 "fallback_text": "No Bibliographies found",
             },
@@ -130,12 +128,14 @@ class TestViewContextData(TestCase):
                         self.assertEqual(test_obj, response.context[context])
 
     def test_listview_context(self):
-        for url, test_context in self.test_listview_data_set.items():
-            for context, test_objects in test_context.items():
-                response = self.client.get(reverse(url))
-                for test_obj in test_objects:
-                    with self.subTest(test_set=test_obj):
-                        self.assertIn(test_obj, response.context[context])
+        for view in self.test_listview_data_set:
+            with self.subTest(view=view["url_name"]):
+                url_name = view["url_name"]
+                context_key = view["context_key"]
+                test_objects = view["test_objects"]
+                response = self.client.get(reverse(url_name))
+                for obj in test_objects:
+                    self.assertIn(obj, response.context[context_key])
 
     def test_film_detailview_printed_material_slides(self):
         response = self.client.get(
@@ -159,7 +159,7 @@ class TestViewContextData(TestCase):
         print(response.context["video_slides"])
 
     def test_list_view_no_context_data(self):
-        for view in self.test_no_context_data_set:
+        for view in self.test_listview_data_set:
             with self.subTest(view=view["url_name"]):
                 url_name = view["url_name"]
                 model = view["model"]
