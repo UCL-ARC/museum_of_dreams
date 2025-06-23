@@ -180,21 +180,18 @@ class TestViewContextData(TestCase):
             reverse("film_detail", args=[self.test_film_detail.pk])
         )
         self.assertCountEqual(self.test_pm_slides, response.context["pm_slides"])
-        print(response.context["pm_slides"])
 
     def test_film_detailview_visual_resources_slides(self):
         response = self.client.get(
             reverse("film_detail", args=[self.test_film_detail.pk])
         )
         self.assertCountEqual(self.test_vr_slides, response.context["vr_slides"])
-        print(response.context["vr_slides"])
 
     def test_film_detailview_video_slides(self):
         response = self.client.get(
             reverse("film_detail", args=[self.test_film_detail.pk])
         )
         self.assertCountEqual(self.test_video_slides, response.context["video_slides"])
-        print(response.context["video_slides"])
 
     def test_mentions_api_view(self):
         response = self.client.get(reverse("mentions_api"), {"query": "Bibliography1"})
