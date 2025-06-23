@@ -52,3 +52,7 @@ class TestViewResponse(TestCase):
 
         response = self.client.get(reverse("view_bucket_items"))
         self.assertEqual(response.status_code, 200)
+
+    def test_bucket_items_view_unauthenticated_user(self):
+        response = self.client.get(reverse("view_bucket_items"))
+        self.assertEqual(response.status_code, 302)
