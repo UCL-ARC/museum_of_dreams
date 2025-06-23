@@ -1,5 +1,8 @@
+from unittest.mock import MagicMock, patch
+
 from django.test import Client, TestCase
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 from mod_app.models import (
     Analysis,
@@ -8,16 +11,15 @@ from mod_app.models import (
     Tag,
     TeachingResources,
 )
-
 from mod_app.models.baselink_models import (
-    Script,
+    Drawing,
+    Postcard,
+    Poster,
     PressBook,
     Programme,
     Publicity,
+    Script,
     Still,
-    Drawing,
-    Poster,
-    Postcard,
     Video,
 )
 
@@ -201,7 +203,46 @@ class TestViewContextData(TestCase):
         self.assertEqual(data[0]["short_citation"], "Test Bib1")
         self.assertEqual(data[0]["full_citation"], "Test Bibliography1")
 
-    # no context data tests are run at the very end because it will clear the database fixtures intialised in setUp
+    @patch("mod_app.views.boto3.Session")
+    def test_s3_bucket_view(self, mock_boto_session):
+        # set up authenticated user access for testing
+        User.objects.create_user(username="testuser", password="testpass")
+        self.client.login(username="testuser", password="testpass")
+
+        # mock file objects within s3 bucket
+        mock_obj1 = MagicMock()
+        mock_obj1.key = "media/files/file1"
+        mock_obj2 = MagicMock()
+        mock_obj2.key = "media/editor/file2"
+
+        # mock s3 bucket
+        mock_bucket = MagicMock()
+        mock_bucket.name = "mock-bucket"
+        mock_bucket.objects.filter.return_value = [mock_obj1, mock_obj2]
+
+        mock_s3_resource = MagicMock()
+        mock_s3_resource.Bucket.return_value = mock_bucket
+
+        # mock boto3 session
+        mock_session_instance = MagicMock()
+        mock_session_instance.resource.return_value = mock_s3_resource
+        mock_boto_session.return_value = mock_session_instance
+
+        response = self.client.get(
+            reverse("view_bucket_items"),
+            {
+                "not_ckeditor_browser": "test_query_string",
+                "CKEditorFuncNum": "test_query_string",
+            },
+        )
+        items = response.context["item_data"]["items"]
+
+        self.assertIn("media/files/file1", items)
+        self.assertIn("media/editor/file2", items)
+        self.assertEqual(items["media/files/file1"]["name"], "file1")
+        self.assertEqual(items["media/editor/file2"]["name"], "file2")
+
+    # this test should be placed at the very end because it involves clearing some of the database fixtures intialised in setUp
     def test_list_view_no_context_data(self):
         for view in self.test_listview_data_set:
             with self.subTest(view=view["url_name"]):
