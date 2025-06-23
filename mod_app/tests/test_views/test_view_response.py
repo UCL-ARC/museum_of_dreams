@@ -1,5 +1,7 @@
 from django.test import Client, TestCase
 from django.urls import reverse
+from django.contrib.auth.models import User
+from unittest.mock import MagicMock, patch
 from mod_app.models import Film, Analysis, TeachingResources, Tag, BibliographyItem
 
 
@@ -14,7 +16,6 @@ class TestViewResponse(TestCase):
             "tr_list",
             "tag_list",
             "bibliography",
-            "view_bucket_items",
             "mentions_api",
         ]
         cls.detail_view_urls = [
@@ -42,3 +43,12 @@ class TestViewResponse(TestCase):
             with self.subTest(view=detail_view_url):
                 response = self.client.get(reverse(detail_view_url, args=[1]))
                 self.assertEqual(response.status_code, 200)
+
+    @patch("mod_app.views.boto3.Session")
+    def test_bucket_items_view_http_response(self, mock_boto_session):
+        User.objects.create_user(username="testuser", password="testpass")
+        self.client.login(username="testuser", password="testpass")
+        mock_boto_session.return_value = MagicMock()
+
+        response = self.client.get(reverse("view_bucket_items"))
+        self.assertEqual(response.status_code, 200)
