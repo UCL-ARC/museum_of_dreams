@@ -19,5 +19,7 @@ swiper-container {
     text-align: center;
     width: fit-content;
     object-fit: contain;
+    max-width: 400px;
+    margin: auto;
   }
 }
