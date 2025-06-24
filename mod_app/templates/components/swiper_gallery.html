@@ -7,10 +7,7 @@
         <img loading="lazy" src="{{slide}}" class="slide__image" />
 
       {% elif slide_videos %}
-        <video controls>
-          <source src="{{slide}}" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+        <iframe src="{{slide}}" frameborder="0" scrolling="no" allowfullscreen></iframe>
 
       {% else %}
         <div class="slide__content">{{slide}}</div>
