@@ -6,6 +6,8 @@ ALLOWED_HOSTS = [
     "staging.museumofdreamworlds.org",
     LOCAL_IP,
 ]
+DEBUG = True
+
 GRAPPELLI_ADMIN_TITLE = "Museum of Dreams"
 AWS_S3_CUSTOM_DOMAIN = (
     f"{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com"
