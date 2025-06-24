@@ -1,7 +1,7 @@
 <!-- Slider main container -->
 <swiper-container id="{{ id }}" auto-height navigation pagination {% if loop %} rewind {% endif %} initial-slide="2" {% if coverflow %} effect="coverflow" grab-cursor centered-slides slides-per-view="auto" lazy-preload-prev-next="1" {% endif %}>
   <!-- Slides -->
-  {% comment %} define slides[] in the view and ref in the include {% endcomment %} {% for slide in slides %} {% if slide_images %}
+  {% for slide in slides %} {% if slide_images %}
     <swiper-slide lazy="true">
       <img loading="lazy" src="{{slide}}" class="slide__image" />
     </swiper-slide>
