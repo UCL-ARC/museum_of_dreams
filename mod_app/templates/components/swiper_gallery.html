@@ -1,15 +1,17 @@
 <!-- Slider main container -->
-<swiper-container id="{{ id }}" auto-height navigation pagination {% if loop %} rewind {% endif %} initial-slide="2" {% if coverflow %} effect="coverflow" grab-cursor centered-slides slides-per-view="auto" lazy-preload-prev-next="1" {% endif %}>
+<swiper-container id="{{id}}" auto-height="true" navigation="true" pagination="true" {% if loop %} rewind="true" {% endif %} pagination-clickable="true" initial-slide="2" {% if coverflow %} effect="coverflow" grab-cursor="true" centered-slides="true" slides-per-view="auto" lazy-preload-prev-next="1" {% endif %}>
   <!-- Slides -->
   {% for slide in slides %} {% if slide_images %}
-    <swiper-slide lazy="true">
-      <img loading="lazy" src="{{slide}}" class="slide__image" />
-    </swiper-slide>
-  {% elif slide_videos %}
-    <swiper-slide>
-      <iframe src="{{slide}}" frameborder="0" scrolling="no" allowfullscreen></iframe>
-    </swiper-slide>
-  {% else %}
+  <swiper-slide lazy="true">
+    {% if slide_images %}
+    <img loading="lazy" src="{{slide}}" class="slide__image" />
+
+    {% elif slide_videos %}
+    <iframe src="{{slide}}" frameborder="0" scrolling="no" allowfullscreen></iframe>
+
+    {% else %}
     <div class="slide__content">{{slide}}</div>
-  {% endif %} {% endfor %}
+    {% endif %}
+  </swiper-slide>
+  {% endfor %}
 </swiper-container>
