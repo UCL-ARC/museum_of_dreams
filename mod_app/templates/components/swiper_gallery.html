@@ -3,15 +3,16 @@
   <!-- Slides -->
   {% for slide in slides %} {% if slide_images %}
   <swiper-slide lazy="true">
-    {% if slide_images %}
     <img loading="lazy" src="{{slide}}" class="slide__image" />
-
-    {% elif slide_videos %}
-    <iframe src="{{slide}}" frameborder="0" scrolling="no" allowfullscreen></iframe>
-
-    {% else %}
-    <div class="slide__content">{{slide}}</div>
-    {% endif %}
   </swiper-slide>
-  {% endfor %}
+
+  {% elif slide_videos %}
+  <swiper-slide>
+    <iframe src="{{slide}}" frameborder="0" scrolling="no" allowfullscreen></iframe>
+  </swiper-slide>
+  {% else %}
+  <swiper-slide>
+    <div class="slide__content">{{slide}}</div>
+  </swiper-slide>
+  {% endif %} {% endfor %}
 </swiper-container>
