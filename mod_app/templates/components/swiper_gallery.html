@@ -1,5 +1,6 @@
+{% comment %}
 <!-- Slider main container -->
-<swiper-container id="{{id}}" auto-height="true" navigation="true" pagination="true" {% if loop %} rewind="true" {% endif %} pagination-clickable="true" initial-slide="2" {% if coverflow %} effect="coverflow" grab-cursor="true" centered-slides="true" slides-per-view="auto" lazy-preload-prev-next="1" {% endif %}>
+<swiper-container id="{{id}}" auto-height="true" navigation="true" pagination="true" {% if loop %} rewind="true" {% endif %} pagination-clickable="true" initial-slide="1" {% if coverflow %} effect="coverflow" grab-cursor="true" centered-slides="true" slides-per-view="1" lazy-preload-prev-next="1" {% endif %}>
   <!-- Slides -->
   {% for slide in slides %} {% if slide_images %}
   <swiper-slide lazy="true">
@@ -16,3 +17,18 @@
   </swiper-slide>
   {% endif %} {% endfor %}
 </swiper-container>
+{% endcomment %}
+
+<swiper-container id="{{id}}" effect="coverflow" grab-cursor="true" centered-slides="true" slides-per-view="auto" space-between="30" navigation="true" pagination="true" initial-slide="0">
+  {% if slide_images %} {% for slide in slides%}
+  <swiper-slide>
+    <img src="{{slide}}" />
+  </swiper-slide>
+  {% endfor %} {% elif slide_videos %} {%for slide in slides %}
+  <swiper-slide>
+    <iframe src="{{slide}}" frameborder="0" scrolling="no" allowfullscreen></iframe>
+  </swiper-slide>
+  {% endfor %} {% endif %}
+</swiper-container>
+
+<!--to do: videos shouldn't be playable unless its on the active slide-->

@@ -18,8 +18,22 @@ swiper-container {
   swiper-slide {
     text-align: center;
     width: fit-content;
-    object-fit: contain;
-    max-width: 400px;
+
+    /* videos or images that fails to load breaks the auto scaling, setting a min width for slide helps to preserve the layout */
+    min-width: 10vw;
+    max-width: 10vw;
+
     margin: auto;
+
+    iframe {
+      display: block;
+      max-width: 24vw;
+      min-width: 8vw;
+      object-fit: contain;
+    }
+    img {
+      max-width: 10vw;
+      max-height: 10vw;
+    }
   }
 }
