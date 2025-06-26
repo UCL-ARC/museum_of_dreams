@@ -18,18 +18,20 @@
   {% endif %} {% endfor %}
 </swiper-container>
 {% endcomment %}
-
-<swiper-container id="{{id}}" effect="coverflow" grab-cursor="true" centered-slides="true" slides-per-view="auto" space-between="30" navigation="true" pagination="true" initial-slide="0">
-  {% if slide_images %} {% for slide in slides%}
-  <swiper-slide>
-    <img src="{{slide}}" alt="Slide Image" />
-  </swiper-slide>
-  {% endfor %} {% elif slide_videos %} {%for slide in slides %}
-  <swiper-slide>
-    <iframe src="{{slide}}" alt="Slide Video" frameborder="0" scrolling="no" allowfullscreen></iframe>
-  </swiper-slide>
-  {% endfor %} {% endif %}
-</swiper-container>
-
-<script src="mod_app/static/js/swiperGallery.js"></script>
+<div class="swiper">
+  <div class="swiper-wrapper">
+    <!-- Slides -->
+    {%for slide in slides %} {% if slide_images %}
+      <div class="swiper-slide"><img src="{{slide}}" alt="Slide Image" /></div>
+    {% elif slide_videos %}
+      <div class="swiper-slide">
+        <iframe src="{{slide}}" allowfullscreen frameborder="0" scrolling="no" title="Slide Video"></iframe>
+      </div>
+    {% endif %} {%endfor%}
+  </div>
+  <div class="swiper-pagination"></div>
+  <div class="swiper-button-prev"></div>
+  <div class="swiper-button-next"></div>
+</div>
 <!--to do: videos shouldn't be playable unless its on the active slide-->
+<script src="{% static 'js/swiperGallery.js' %}"></script>
