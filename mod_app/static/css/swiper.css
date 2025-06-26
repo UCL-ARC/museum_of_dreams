@@ -1,39 +1,4 @@
-swiper-container {
-  width: 100%;
-
-  &#main {
-    height: clamp(50vh, 80vh, 100vh);
-  }
-  &:not(#vr) {
-    .slide__image {
-      width: 100%;
-      object-fit: contain;
-    }
-  }
-
-  &#vr,
-  &#pm {
-    width: fit-content;
-  }
-  swiper-slide {
-    text-align: center;
-    width: fit-content;
-
-    /* videos or images that fails to load breaks the auto scaling, setting a min width for slide helps to preserve the layout */
-    min-width: 10vw;
-    max-width: 10vw;
-
-    margin: auto;
-
-    iframe {
-      display: block;
-      max-width: 24vw;
-      min-width: 8vw;
-      object-fit: contain;
-    }
-    img {
-      max-width: 10vw;
-      max-height: 10vw;
-    }
-  }
+.swiper {
+  width: 600px;
+  height: 300px;
 }
