@@ -1,4 +1,5 @@
 <div>
+  <h2>Technical Information</h2>
   <dl class="short-technical-info">
     <dt>Duration: {{film.duration}}</dt>
     <dt>Current length: {{film.current_length}}</dt>
@@ -6,9 +7,11 @@
     <dt>{% if film.is_in_colour %}Colour {% else %} Black and White{% endif %}</dt>
     <dt>Format: {{film.format_type}}</dt>
     {% if film.format_other %}
-      <dd>{{film.format_other}}</dd>
+    <dd>{{film.format_other}}</dd>
     {% endif %}
   </dl>
-  <dt>Comments on the print:</dt>
-  <dd>{{film.print_comments|safe}}</dd>
+</div>
+<div>
+  <h2>Comments on the print:</h2>
+  <p>{{film.print_comments|safe}}</p>
 </div>
