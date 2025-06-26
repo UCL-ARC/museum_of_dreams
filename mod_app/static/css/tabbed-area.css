@@ -57,7 +57,9 @@
       padding: 0.5rem;
 
       &.active {
-        display: block;
+        display: grid;
+        justify-content: space-evenly;
+        gap: 4rem;
       }
 
       img {
