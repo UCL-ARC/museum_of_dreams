@@ -92,7 +92,9 @@
     justify-content: space-between;
     text-wrap: wrap;
     flex-wrap: wrap;
-    columns: 2;
+    > dt {
+      margin: 0.4rem 0;
+    }
   }
 }
 
