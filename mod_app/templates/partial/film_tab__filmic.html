@@ -1,5 +1,13 @@
 <div class="top-level">
   <div class="video">{% include "components/swiper_gallery.html" with slides=video_slides id="film__video" slide_videos=True %}</div>
+</div>
+
+<div class="synopsis">
+  <h2>Synopsis</h2>
+  {{film.synopsis|safe}}
+</div>
+<div class="film-info">
+  <h2>Film Information</h2>
   <dl class="triple-c">
     <dt>Production Country: {{ film.production_country }}</dt>
 
@@ -10,12 +18,6 @@
     <dt>Source: {% for source in film.sources.all %}<a href="{{source.url}}"> {{source.description}} </a> {% endfor %}</dt>
   </dl>
 </div>
-<div class="synopsis">
-  <h3>Synopsis</h3>
-
-  {{film.synopsis|safe}}
-</div>
-<hr />
 <div class="cast-credits">
   <div class="column">
     <h3>Cast</h3>
