@@ -24,6 +24,9 @@ DJANGO_SETTINGS_MODULE = "museum_of_dreams_project.settings.local"
 
 We have included a `.env.example` file in the repository root which includes the same setting listed above, you can rename this as `.env` for a quicker setup.
 
+> [!IMPORTANT]
+> When using VSCode as your IDE, make sure to select your Python Interpreter matches the environment you're using for this project - This is because VSCode supports `.env` files only for Python scripts run via the Python extension, not directly from the terminal.
+
 ## Running tests
 
 ```bash
