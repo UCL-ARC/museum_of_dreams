@@ -6,7 +6,8 @@
     "doc": "docs"
   },
   "dependencies": {
-    "fuse.js": "^7.0.0"
+    "fuse.js": "^7.0.0",
+    "swiper":"^11.2.8"
   },
   "devDependencies": {
     "eslint": "^8.56.0",
