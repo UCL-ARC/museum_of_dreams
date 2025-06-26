@@ -201,6 +201,13 @@ class TestViewContextData(TestCase):
         self.assertEqual(data[0]["full_citation"], "Test Bibliography1")
 
     @patch("mod_app.views.boto3.Session")
+    @patch.dict(
+        "os.environ",
+        {
+            "AWS_ACCESS_KEY_ID": "test-key",
+            "AWS_SECRET_ACCESS_KEY": "test-secret",
+        },
+    )
     def test_s3_bucket_view(self, mock_boto_session):
         # set up authenticated user access for testing
         User.objects.create_user(username="testuser", password="testpass")
