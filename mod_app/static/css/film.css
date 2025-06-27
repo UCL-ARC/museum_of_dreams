@@ -1,4 +1,35 @@
+/* top level grid wrapper*/
+
+.test-film-wrapper {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  grid-template-rows: auto 1fr;
+}
+
+/* secondary level grid layout wrappers */
+.columnar-area {
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.film__content-wrapper {
+  padding: 1rem;
+  display: grid;
+  gap: 1rem;
+  img {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+    object-fit: contain;
+  }
+
+  .info > div {
+    margin-bottom: 2rem;
+  }
+}
+
 /* for film detail page */
+
 .film__heading {
   display: grid;
   grid-template-columns: 1fr 3fr;

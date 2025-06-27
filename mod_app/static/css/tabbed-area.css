@@ -1,5 +1,4 @@
-.teaching-analysis__content-wrapper,
-.film__content-wrapper {
+.teaching-analysis__content-wrapper {
   padding: 1rem;
   display: grid;
   gap: 1rem;
@@ -19,56 +18,55 @@
       margin-bottom: 2rem;
     }
   }
+} /* to be revised */
 
-  .tabbed-area {
-    --underline-colour: var(--coral);
+.tabbed-area {
+  --underline-colour: var(--coral);
 
-    /* set min-width to prevent width 100% scaling down width when there's not enough content in that tab */
-    min-width: 80rem;
-    width: 100%;
+  /* set min-width to prevent width 100% scaling down width when there's not enough content in that tab */
+  min-width: 80rem;
 
-    .tab-selection {
-      overflow: hidden;
-      justify-content: start;
-      display: flex;
-      gap: 1rem;
-      margin-inline-start: 2.2rem;
+  .tab-selection {
+    overflow: hidden;
+    justify-content: start;
+    display: flex;
+    gap: 1rem;
+    margin-inline-start: 2.2rem;
+  }
+  .tab__link {
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--contrast-text);
+    transition: border-bottom 0.4s ease-out;
+    padding-bottom: 0;
+
+    &.active {
+      border-bottom: 1px solid var(--underline-colour);
     }
-    .tab__link {
-      background-color: transparent;
-      border: none;
-      border-bottom: 2px solid transparent;
-      color: var(--contrast-text);
-      transition: border-bottom 0.4s ease-out;
-      padding-bottom: 0;
 
-      &.active {
-        border-bottom: 1px solid var(--underline-colour);
-      }
-
-      &:hover:not(.active) {
-        border-bottom: 2px solid var(--underline-colour);
-      }
+    &:hover:not(.active) {
+      border-bottom: 2px solid var(--underline-colour);
     }
-    .tab__content {
+  }
+  .tab__content {
+    display: none;
+    margin-top: 1.4rem;
+    margin-inline-start: 2.2rem;
+    margin-inline-end: 3.2rem;
+    padding: 0.5rem;
+
+    &.active {
+      display: grid;
+      gap: 4rem;
+    }
+
+    img {
+      max-width: 100% !important;
+      object-fit: contain;
+    }
+    section.footnotes {
       display: none;
-      margin-top: 1.4rem;
-      margin-inline-start: 2.2rem;
-      margin-inline-end: 3.2rem;
-      padding: 0.5rem;
-
-      &.active {
-        display: grid;
-        gap: 4rem;
-      }
-
-      img {
-        max-width: 100% !important;
-        object-fit: contain;
-      }
-      section.footnotes {
-        display: none;
-      }
     }
   }
 }
