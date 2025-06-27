@@ -23,7 +23,8 @@
     <!-- Slides -->
     {%for slide in slides %} {% if slide_images %}
     <div class="swiper-slide">
-      <!-- displays fallback-text when image fails to load-->
+      <!-- displays fallback-text when image fails to load, a div element is used instead of the image's alt text 
+      because the latter doesn't center itself well within the swiper slide-->
       <img src="{{slide}}" alt="Slide Image" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
       <div class="fallback-text">Image failed to load: {{slide}}</div>
     </div>
