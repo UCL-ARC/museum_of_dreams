@@ -1,4 +1,4 @@
-# Styling Options for Web Component Mode
+<!-- # Styling Options for Web Component Mode
 
 ## Use Swiper’s CSS variables
 
@@ -57,4 +57,17 @@ But this will work if you target children inside:
 swiper-slide > div {
   padding: 20px;
 }
-```
+``` -->
+
+^ content above needs revision
+
+# Using Swiper
+
+Important notes:
+
+- CSS style of swiper is imported in `foundation.html` within `<head>`
+- The Swiper ESModuel is said to be scoped to the file, so it is import within the JavaScript file that Initialise the Swiper Gallery `static/js/swiperGallery.js`
+
+## Swiper CSS hierachy (project-specific)
+
+`.swiper` > `.swiper-wrapper` > `.swiper-slide`> `img`, `.fallback`
