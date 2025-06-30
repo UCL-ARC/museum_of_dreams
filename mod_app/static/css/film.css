@@ -4,24 +4,26 @@
   display: grid;
   grid-template-columns: auto 1fr;
   grid-template-rows: auto 1fr;
+  column-gap: 3rem;
+  margin-left: 3rem;
+  margin-right: 3rem;
+  /* add horizontal margin so that elements are not squashed to the edge page*/
 }
 
 /* secondary level grid layout wrappers */
 .columnar-area {
-  display: grid;
-  grid-template-rows: auto 1fr;
+  display: flex;
+  /*flex might be a better usecase since there's only 1 direction*/
+
+  .info > div {
+    margin-bottom: 2rem;
+  }
 }
 
 .film__content-wrapper {
-  padding: 1rem;
-  display: grid;
+  /*padding: 1rem; not sure if we need padding here*/
+  display: flex; /* flex for one direction here as well*/
   gap: 1rem;
-  img {
-    width: 100% !important;
-    height: auto !important;
-    max-width: 100% !important;
-    object-fit: contain;
-  }
 
   .info > div {
     margin-bottom: 2rem;
@@ -44,17 +46,23 @@
 
 .title-release {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: start;
   text-align: left;
-  padding-inline: 2rem;
-  margin-inline-start: 1.4rem;
+  margin-inline-start: 2.2rem; /* makes film title section align with the tabbed area*/
+  /* padding-inline: 2rem;
+  margin-inline-start: 1.4rem; # not sure if inline margin/padding are necessary, could potentially make alignmnet weird */
 
   h1,
   h2 {
     display: inline-flex;
     padding-inline-start: 2vw;
+  }
+  /*crop film's cardimage*/
+  img {
+    max-height: 10rem !important;
+    max-width: 15rem !important;
+    object-fit: cover;
   }
 }
 #film__info {
