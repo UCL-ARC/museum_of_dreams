@@ -21,4 +21,6 @@
   font-size: 0.8rem;
   display: block;
   margin-bottom: 0.5rem;
+  align-self: center;
+  text-align: center;
 }
