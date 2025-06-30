@@ -1,5 +1,3 @@
-<img src="{% if film.cardimages.first.url %}{{film.cardimages.first.url}}{% elif film.cardimages.first.file.url %}{{film.cardimages.first.file.url}}{% endif %}" />
-
 <div class="tabbed-area">
   {% comment %} tabs the user clicks to navigate {% endcomment %}
   <div class="tab-selection">

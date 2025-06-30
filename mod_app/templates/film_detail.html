@@ -2,6 +2,7 @@
 <div class="test-film-wrapper">
   <a href="{% url 'film_list' %}" class="back-to">&larr; Back to all films</a>
   <div class="title-release">
+    <img src="{% if film.cardimages.first.url %}{{film.cardimages.first.url}}{% elif film.cardimages.first.file.url %}{{film.cardimages.first.file.url}}{% endif %}" />
     <h1>{{film.title}}</h1>
     <h2>{{film.release_date}}</h2>
   </div>
