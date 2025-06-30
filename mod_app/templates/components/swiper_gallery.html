@@ -17,7 +17,7 @@
   </swiper-slide>
   {% endif %} {% endfor %}
 </swiper-container>
-{% endcomment %}
+{% endcomment %} {%if slides%}
 <div class="swiper">
   <div class="swiper-wrapper">
     <!-- Slides -->
@@ -40,3 +40,4 @@
 </div>
 <!--to do: videos shouldn't be playable unless its on the active slide-->
 <script type="module" src="{% static 'js/swiperGallery.js' %}"></script>
+{%endif%}
