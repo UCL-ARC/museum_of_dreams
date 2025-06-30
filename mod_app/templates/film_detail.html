@@ -37,13 +37,6 @@
   </div>
 
   <div class="film__content-wrapper">
-    <div class="title-release">
-      <h1>{{film.title}}</h1>
-      <h2>{{film.release_date}}</h2>
-    </div>
-    <div>
-      <img src="{% if film.cardimages.first.url %}{{film.cardimages.first.url}}{% elif film.cardimages.first.file.url %}{{film.cardimages.first.file.url}}{% endif %}" />
-    </div>
     {% include "partial/film_tab_area.html" %}
     {% endblock %}
     </div>
