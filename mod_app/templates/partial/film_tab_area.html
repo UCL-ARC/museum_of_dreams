@@ -1,3 +1,10 @@
+<div class="title-release">
+  <h1>{{film.title}}</h1>
+  <h2>{{film.release_date}}</h2>
+</div>
+
+<img src="{% if film.cardimages.first.url %}{{film.cardimages.first.url}}{% elif film.cardimages.first.file.url %}{{film.cardimages.first.file.url}}{% endif %}" />
+
 <div class="tabbed-area">
   {% comment %} tabs the user clicks to navigate {% endcomment %}
   <div class="tab-selection">
@@ -22,9 +29,9 @@
 
   <div id="analyses" class="tab__content" name="analyses">
     {% if film.analyses.all %} {% include "partial/analysis_card_grid.html" with analysis_list=film.analyses.all %} {% else %}
-      <dl>
-        <dt>Sorry, we don't have any analyses for this film. Instead, check out our topics for other related materials!</dt>
-      </dl>
+    <dl>
+      <dt>Sorry, we don't have any analyses for this film. Instead, check out our topics for other related materials!</dt>
+    </dl>
     {% endif %}
   </div>
 
