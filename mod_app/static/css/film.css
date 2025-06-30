@@ -2,7 +2,7 @@
 
 .test-film-wrapper {
   display: grid;
-  grid-template-columns: 250px 1fr;
+  grid-template-columns: auto 1fr;
   grid-template-rows: auto 1fr;
 }
 
@@ -40,24 +40,23 @@
     min-width: 10vw;
     max-width: 20vw;
   }
-
-  .title-release {
-    grid-column: 2;
-    display: flex;
-    align-items: center;
-    justify-content: start;
-    text-align: left;
-    padding-inline: 2rem;
-    margin-inline-start: 1.4rem;
-
-    h1,
-    h2 {
-      display: inline-flex;
-      padding-inline-start: 2vw;
-    }
-  }
 }
 
+.title-release {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  text-align: left;
+  padding-inline: 2rem;
+  margin-inline-start: 1.4rem;
+
+  h1,
+  h2 {
+    display: inline-flex;
+    padding-inline-start: 2vw;
+  }
+}
 #film__info {
   margin-top: 1rem;
   margin-bottom: 1.2rem;
