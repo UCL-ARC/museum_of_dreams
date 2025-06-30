@@ -1,7 +1,11 @@
 {% extends "base.html" %} {% load i18n %} {% block title %}{{ film.title }} (Film) {% endblock %} {% block content %}
 <div class="test-film-wrapper">
+  <a href="{% url 'film_list' %}" class="back-to">&larr; Back to all films</a>
+  <div class="title-release">
+    <h1>{{film.title}}</h1>
+    <h2>{{film.release_date}}</h2>
+  </div>
   <div class="columnar-area">
-    <a href="{% url 'film_list' %}" class="back-to">&larr; Back to all films</a>
     <div id="film__info" class="info">
       <div id="alt-titles">
         <h4>Alternative Titles</h4>
@@ -35,6 +39,7 @@
       </div>
     </div>
   </div>
+  
 
   <div class="film__content-wrapper">
     {% include "partial/film_tab_area.html" %}

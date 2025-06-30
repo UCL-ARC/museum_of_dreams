@@ -1,8 +1,3 @@
-<div class="title-release">
-  <h1>{{film.title}}</h1>
-  <h2>{{film.release_date}}</h2>
-</div>
-
 <img src="{% if film.cardimages.first.url %}{{film.cardimages.first.url}}{% elif film.cardimages.first.file.url %}{{film.cardimages.first.file.url}}{% endif %}" />
 
 <div class="tabbed-area">
