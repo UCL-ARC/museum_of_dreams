@@ -47,25 +47,20 @@
 #filmic {
   .top-level {
     display: flex;
-  }
-  .video {
-    display: inline;
-    > video {
-      height: 40vh;
-      width: 40vw;
+    gap: 1rem;
+      }
     }
-  }
-  .triple-c {
-    /* country, company & category */
-    display: inline-flex;
-    /* justify-content: space-between; */
-    flex-direction: column;
-    align-content: center;
-    margin-left: 0.4rem;
-    > dt {
-      margin: 0.4rem 0;
+    .triple-c {
+      /* country, company & category */
+      display: inline-flex;
+      /* justify-content: space-between; */
+      flex-direction: column;
+      align-content: center;
+      margin-left: 0.4rem;
+      > dt {
+        margin: 0.4rem 0;
+      }
     }
-  }
   .synopsis {
     padding: 0.5rem 0;
     p {
