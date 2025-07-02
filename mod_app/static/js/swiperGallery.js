@@ -5,7 +5,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const swiper = new Swiper(".swiper", {
     grabCursor: true,
     centeredSlides: true,
-    loop: slides.length > 1,
+
+    // loop and rewind conflicts with each other, so it shouldn't be set to true at the same time
+    loop: slides.length > 2,
+    rewind: slides.length === 2,
     slidesPerView: 1,
     spaceBetween: 0,
     effect: "coverflow",
