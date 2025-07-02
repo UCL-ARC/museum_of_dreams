@@ -34,6 +34,9 @@ div <class="swiper">
       <div class="swiper-slide">
         <iframe src="{{slide}}" allowfullscreen frameborder="0" scrolling="no" title="Slide Video"></iframe>
       </div>
+      
+    {% else %}
+    <div class="slide__content">{{slide}}</div>
     {% endif %} {%endfor%}
   </div>
   <div class="swiper-pagination"></div>
