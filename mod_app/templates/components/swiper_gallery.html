@@ -1,25 +1,4 @@
-{% comment %}
-<swiper-container id="{{id}}" auto-height="true" navigation="true" pagination="true" {% if loop %} rewind="true" {% endif %} pagination-clickable="true" initial-slide="2" {% if coverflow %} effect="coverflow" grab-cursor="true" centered-slides="true" slides-per-view="auto" lazy-preload-prev-next="1" {% endif %}>
-  <!-- Slides -->
-  define slides[] in the view and ref in the include {% for slide in slides %}
-  <swiper-slide lazy="true">
-    {% if slide_images %}
-    <img loading="lazy" src="{{slide}}" class="slide__image" />
-
-    {% elif slide_videos %}
-    <video controls>
-      <source src="{{slide}}" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
-
-    {% else %}
-    <div class="slide__content">{{slide}}</div>
-    {% endif %}
-  </swiper-slide>
-  {% endfor %}
-</swiper-container>
-<!-- Slider main container -->
-{% endcomment %} {% if not slides %}
+{% if not slides %}
   <div class="fallback-text">
     <h4>
       Sorry, no relevant video/images can be found.
