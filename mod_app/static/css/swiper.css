@@ -1,8 +1,6 @@
 .swiper {
-  height: 30vh;
-  &#main {
-    height: clamp(50vh, 80vh, 100vh);
-  }
+  height: 60vh;
+  width: 90vw;
 
   &#vr,
   &#pm {
@@ -27,6 +25,7 @@ iframe {
   /* make images/videos scale down to fit within the slide area, prevents large images overflowing into the next slide(s)*/
   object-fit: contain;
 }
-.fallback-text {
+
+.swiper-slide .fallback-text {
   display: none;
 }
