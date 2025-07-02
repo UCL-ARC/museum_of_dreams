@@ -18,11 +18,11 @@
   </swiper-slide>
   {% endfor %}
 </swiper-container>
-{% endcomment %} {%if slides %} {% for slide in slides%}
 <!-- Slider main container -->
+{% endcomment %} {%if slides %}
 <div class="swiper">
   <div class="swiper-wrapper">
-    {% if slide_images %}
+    {% for slide in slides%} {% if slide_images %}
     <!-- Slides -->
     <div class="swiper-slide">
       <!-- displays fallback-text when image fails to load-->
@@ -33,7 +33,6 @@
     <div class="swiper-slide">
       <iframe src="{{slide}}" allowfullscreen frameborder="0" scrolling="no" title="Slide Video"></iframe>
     </div>
-
     {% else %}
     <div class="slide__content">{{slide}}</div>
     {% endif %} {%endfor%}{% endif%}
@@ -43,4 +42,4 @@
   <div class="swiper-button-next"></div>
 </div>
 <!--to do: videos shouldn't be playable unless its on the active slide-->
-<script src="{% static 'js/swiperGallery.js' %}"></script>
+<script type="module" src="{% static 'js/swiperGallery.js' %}"></script>
