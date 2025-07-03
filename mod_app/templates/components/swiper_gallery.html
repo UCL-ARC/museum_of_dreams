@@ -30,4 +30,4 @@
   </div>
     <!--to do: videos shouldn't be playable unless its on the active slide-->
   <script type="module" src="{% static 'js/swiperGallery.js' %}"></script>
-{%elif slides|length == 1 %} {% if slide_images %}<img src="{{slides|join:","}}" alt="Slide Image: {{slides|join:","}}" /> {%elif slide_videos%}<iframe src="{{slides|join:","}}" allowfullscreen frameborder="0" scrolling="no" title="Slide Video"></iframe> {% endif%}{% endif%}
+{%elif slides|length == 1 %} {% if slide_images %}<img src="{{slides|join:','}}" alt="Slide Image: {{slides|join:','}}" /> {%elif slide_videos%}<iframe src="{{slides|join:','}}" allowfullscreen frameborder="0" scrolling="no" title="Slide Video"></iframe> {% endif%}{% endif%}
