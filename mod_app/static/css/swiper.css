@@ -6,26 +6,31 @@
   &#pm {
     width: fit-content;
   }
-}
 
-/* display: flex doesn't crop the image, whilst using display:grid does*/
-.swiper-wrapper .swiper-slide {
-  display: flex;
+  /* display: flex doesn't crop the image, whilst using display:grid does*/
+  .swiper-wrapper > .swiper-slide {
+    display: flex;
 
-  /* centers any element that is displayed within the slide fallback text,
+    /* centers any element that is displayed within the slide fallback text,
 this is because centerSlides=true often doesn't apply correctly when intialising swiper in javascript*/
-  justify-content: center;
-  align-items: center;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .swiper-wrapper img,
+  iframe {
+    width: 100%;
+    height: 100%;
+    /* make images/videos scale down to fit within the slide area, prevents large images overflowing into the next slide(s)*/
+    object-fit: contain;
+  }
+
+  .swiper-slide .fallback-text {
+    display: none;
+  }
 }
 
-.swiper-wrapper img,
-iframe {
-  width: 100%;
-  height: 100%;
-  /* make images/videos scale down to fit within the slide area, prevents large images overflowing into the next slide(s)*/
-  object-fit: contain;
-}
-
-.swiper-slide .fallback-text {
-  display: none;
+.video > .swiper {
+  height: 15rem;
+  width: 32rem;
 }
