@@ -30,5 +30,9 @@
     <!--to do: videos shouldn't be playable unless its on the active slide-->
 {%elif slides|length == 1 %} {% if slide_images %}<img src="{{slides|join:','}}" alt="Slide Image: {{slides|join:','}}" /> {%elif slide_videos%}<iframe src="{{slides|join:','}}" allowfullscreen frameborder="0" scrolling="no" title="Slide Video"></iframe> {% endif%}{% endif%}
 
-{% include "./swiper_modal.html"%}
+<div class="swiper-modal">
+  <img class="modal-image"/>
+  <!-- can include other metadata -->
+</div>
+
 <script type="module" src="{% static 'js/swiperGallery.js' %}"></script>
