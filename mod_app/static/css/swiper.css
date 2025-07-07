@@ -34,3 +34,7 @@ this is because centerSlides=true often doesn't apply correctly when intialising
   height: 15rem;
   width: 32rem;
 }
+
+.swiper-image-modal {
+  display: none;
+}
