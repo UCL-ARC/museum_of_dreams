@@ -35,6 +35,15 @@ this is because centerSlides=true often doesn't apply correctly when intialising
   width: 32rem;
 }
 
-.swiper-image-modal {
+.swiper-modal {
+  width: 80vw;
+  height: 80vh;
   display: none;
+  .swiper-modal__image {
+    object-fit: contain;
+  }
+  @media screen and (max-width: 767px) {
+    width: 100vw;
+    height: 100vw;
+  }
 }
