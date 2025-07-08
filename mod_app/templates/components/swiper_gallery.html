@@ -11,7 +11,7 @@
         {% if slide_images %}
           <div class="swiper-slide">
           <!-- displays fallback-text when image fails to load-->
-            <img src="{{slide}}" alt="Slide Image" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+            <img class="slide__image" src="{{slide}}" alt="Slide Image" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
             <div class="fallback-text">Image failed to load: {{slide}}</div>
           </div>
         {% elif slide_videos %}
@@ -31,8 +31,9 @@
 {%elif slides|length == 1 %} {% if slide_images %}<img src="{{slides|join:','}}" alt="Slide Image: {{slides|join:','}}" /> {%elif slide_videos%}<iframe src="{{slides|join:','}}" allowfullscreen frameborder="0" scrolling="no" title="Slide Video"></iframe> {% endif%}{% endif%}
 
 
-<dialog class="swiper-modal">
-  <span class="swiper-modal__btn--close">&times;</span>
+<dialog id="swiper-modal" class="swiper-modal">
+  <button class="swiper-modal__btn--close">✖</button>
+  <img class="swiper-modal__image" src="" alt="Modal Image" />
 </dialog>
 
 
