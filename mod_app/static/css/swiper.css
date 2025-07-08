@@ -38,8 +38,8 @@ this is because centerSlides=true often doesn't apply correctly when intialising
 .swiper-modal {
   width: 80vw;
   height: 80vh;
-  display: none;
-  .swiper-modal__image {
+
+  .slide_image {
     object-fit: contain;
   }
   @media screen and (max-width: 767px) {
