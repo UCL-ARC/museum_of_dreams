@@ -6,9 +6,10 @@
     grid-template-columns: 1fr;
   }
 }
+.back-to {
+  grid-column: 1/-1;
+}
 .film__heading {
-  display: flex;
-  flex-direction: row;
   gap: 1rem;
   text-align: left;
 
@@ -31,7 +32,7 @@
       padding-inline-start: 2vw;
     } */
   }
-  @media screen and (width < 767px) {
+  @media screen and (max-width: 767px) {
     flex-direction: column;
   }
 }
@@ -50,6 +51,13 @@
   #alt-titles > :not(h4) {
     font-size: 0.8rem;
   }
+}
+.film__content-wrapper {
+  grid-column: 2;
+}
+
+.columnar-area {
+  grid-column: 1;
 }
 
 /***************** tabs ***************/
