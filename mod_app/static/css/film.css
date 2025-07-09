@@ -52,6 +52,8 @@
     font-size: 0.8rem;
   }
 }
+
+/* .film__content-wrapper feels redundant as .tabbed-area already wraps the tab content, maybe something can be done to reduce div nesting*/
 .film__content-wrapper {
   grid-column: 2;
   @media screen and (width < 767px) {
