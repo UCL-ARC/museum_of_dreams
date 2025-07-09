@@ -2,16 +2,9 @@
 
 <div class="film-detail-container">
   <a href="{% url 'film_list' %}" class="back-to">&larr; Back to all films</a>
-  <div class="film__heading">
-    <img src="{% if film.cardimages.first.url %}{{film.cardimages.first.url}}{% elif film.cardimages.first.file.url %}{{film.cardimages.first.file.url}}{% endif %}" />
-
-    <div class="title-release">
-      <h1>{{film.title}}</h1>
-      <h2>{{film.release_date}}</h2>
-    </div>
-  </div>
 
   <div class="columnar-area">
+    <img src="{% if film.cardimages.first.url %}{{film.cardimages.first.url}}{% elif film.cardimages.first.file.url %}{{film.cardimages.first.file.url}}{% endif %}" />
     <div id="film__info" class="info">
       <div id="alt-titles">
         <h4>Alternative Titles</h4>
@@ -41,6 +34,14 @@
       </div>
     </div>
   </div>
-  <div class="film__content-wrapper">{% include "partial/film_tab_area.html" %}</div>
+  <div class="film__content-wrapper">
+    <div class="film__heading">
+      <div class="title-release">
+        <h1>{{film.title}}</h1>
+        <h2>{{film.release_date}}</h2>
+      </div>
+    </div>
+    {% include "partial/film_tab_area.html" %}
+  </div>
 </div>
 {% endblock %}
