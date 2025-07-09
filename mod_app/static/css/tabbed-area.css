@@ -2,12 +2,13 @@
 .film__content-wrapper {
   /* padding: 1rem; */
   display: flex;
+  flex-direction: column;
   /* need to make one column for mobile */
 
   gap: 1rem;
 }
 .columnar-area {
-  position: sticky;
+  /* position: sticky; */
   top: 1rem;
 
   img {
@@ -23,8 +24,9 @@
 }
 
 .tabbed-area {
+  display: flex;
+  flex-direction: column;
   --underline-colour: var(--coral);
-
   .tab-selection {
     overflow: hidden;
     justify-content: start;
@@ -71,6 +73,7 @@
     }
   }
 }
+
 .teaching-analysis__content-wrapper .tab__content {
   max-height: 90vh;
   overflow-y: scroll;
