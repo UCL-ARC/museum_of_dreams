@@ -1,32 +1,38 @@
 /* for film detail page */
 .film-detail-container {
   display: grid;
+  grid-template-columns: 1fr 3fr;
+  @media screen and (width < 767px) {
+    grid-template-columns: 1fr;
+  }
 }
 .film__heading {
-  display: grid;
-  grid-template-columns: 1fr 3fr;
+  display: flex;
+  flex-direction: row;
   gap: 1rem;
   text-align: left;
 
-  img {
-    min-width: 10vw;
-    max-width: 20vw;
-  }
+  /* img {
+    min-width: 10rem;
+    max-width: 20rem;
+  } */
 
   .title-release {
-    grid-column: 2;
     display: flex;
     align-items: center;
     justify-content: start;
     text-align: left;
-    padding-inline: 2rem;
-    margin-inline-start: 1.4rem;
+    /* padding-inline: 2rem;
+    margin-inline-start: 1.4rem; */
 
-    h1,
+    /* h1,
     h2 {
       display: inline-flex;
       padding-inline-start: 2vw;
-    }
+    } */
+  }
+  @media screen and (width < 767px) {
+    flex-direction: column;
   }
 }
 
