@@ -54,10 +54,16 @@
 }
 .film__content-wrapper {
   grid-column: 2;
+  @media screen and (width < 767px) {
+    grid-column: 1/-1;
+  }
 }
 
 .columnar-area {
   grid-column: 1;
+  @media screen and (width < 767px) {
+    grid-template-columns: 1/-1;
+  }
 }
 
 /***************** tabs ***************/
