@@ -1,5 +1,6 @@
 {% extends "base.html" %} {% load i18n %} {% block title %}{{ film.title }} (Film) {% endblock %} {% block content %}
 
+<div class="film-detail-container">
   <a href="{% url 'film_list' %}" class="back-to">&larr; Back to all films</a>
   <div class="film__heading">
     <img src="{% if film.cardimages.first.url %}{{film.cardimages.first.url}}{% elif film.cardimages.first.file.url %}{{film.cardimages.first.file.url}}{% endif %}" />
@@ -24,19 +25,19 @@
         <div id="genres">
           <h4>Genres</h4>
           {% for g in film.genre.all %}
-            <span class="tag">{{g.name}}</span>
+          <span class="tag">{{g.name}}</span>
           {% endfor %}
         </div>
         <div id="topics">
           <h4>Topics</h4>
           {% for topic in film.topic.all %}
-            <span class="tag">{{topic.name}}</span>
+          <span class="tag">{{topic.name}}</span>
           {% endfor %}
         </div>
         <div id="locations">
           <h4>Locations</h4>
           {% for loc in film.location.all %}
-            <span class="tag">{{g.name}}</span>
+          <span class="tag">{{g.name}}</span>
           {% endfor %}
         </div>
       </div>
@@ -44,5 +45,5 @@
 
     {% include "partial/film_tab_area.html" %}
   </div>
-
+</div>
 {% endblock %}

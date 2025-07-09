@@ -1,4 +1,7 @@
 /* for film detail page */
+.film-detail-container {
+  display: grid;
+}
 .film__heading {
   display: grid;
   grid-template-columns: 1fr 3fr;
