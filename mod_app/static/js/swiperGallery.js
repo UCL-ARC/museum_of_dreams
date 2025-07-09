@@ -2,7 +2,7 @@ import Swiper from "https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs
 
 document.addEventListener("DOMContentLoaded", function () {
   const slides = document.querySelectorAll(".swiper-slide");
-  const swiper = new Swiper(".swiper", {
+  new Swiper(".swiper", {
     grabCursor: true,
     centeredSlides: true,
 
