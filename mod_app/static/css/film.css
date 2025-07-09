@@ -68,9 +68,6 @@
 
 /***************** tabs ***************/
 #filmic {
-  .top-level {
-    display: flex;
-  }
   .video {
     display: inline;
     > video {
