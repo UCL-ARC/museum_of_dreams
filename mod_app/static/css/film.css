@@ -67,10 +67,9 @@
 }
 
 /***************** tabs ***************/
+
+/*avoid setting flex box here because this will override the display:none property, breaking tab selection*/
 #filmic {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
   gap: 2rem;
   .video {
     display: inline;
