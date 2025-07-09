@@ -68,12 +68,19 @@
 
 /***************** tabs ***************/
 #filmic {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  gap: 2rem;
   .video {
     display: inline;
     > video {
       height: 40vh;
       width: 40vw;
     }
+  }
+  hr {
+    width: 100%;
   }
   .triple-c {
     /* country, company & category */
