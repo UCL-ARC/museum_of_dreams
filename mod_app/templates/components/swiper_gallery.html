@@ -1,20 +1,33 @@
-<!-- Slider main container -->
-<swiper-container id="{{id}}" auto-height="true" navigation="true" pagination="true" {% if loop %} rewind="true" {% endif %} pagination-clickable="true" initial-slide="2" {% if coverflow %} effect="coverflow" grab-cursor="true" centered-slides="true" slides-per-view="auto" lazy-preload-prev-next="1" {% endif %}>
-  <!-- Slides -->
-  {% comment %} define slides[] in the view and ref in the include {% endcomment %} {% for slide in slides %}
-    <swiper-slide lazy="true">
-      {% if slide_images %}
-        <img loading="lazy" src="{{slide}}" class="slide__image" />
-
-      {% elif slide_videos %}
-        <video controls>
-          <source src="{{slide}}" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-
-      {% else %}
-        <div class="slide__content">{{slide}}</div>
-      {% endif %}
-    </swiper-slide>
-  {% endfor %}
-</swiper-container>
+{% if not slides %}
+  <div class="fallback-text">
+    <h4>
+      Sorry, no relevant video/images can be found.
+      <h4>
+      </div>
+{% elif slides|length > 1 %}
+  <div class="swiper">
+    <div class="swiper-wrapper">
+      {% for slide in slides%}
+        {% if slide_images %}
+        <!-- Slides -->
+          <div class="swiper-slide">
+          <!-- displays fallback-text when image fails to load-->
+            <img src="{{slide}}" alt="Slide Image" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+            <div class="fallback-text">Image failed to load: {{slide}}</div>
+          </div>
+        {% elif slide_videos %}
+          <div class="swiper-slide">
+            <iframe src="{{slide}}" allowfullscreen frameborder="0" scrolling="no" title="Slide Video"></iframe>
+          </div>
+        {% else %}
+          <div class="slide__content">{{slide}}</div>
+        {% endif %}
+      {%endfor %}
+    </div>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
+    <!--to do: videos shouldn't be playable unless its on the active slide-->
+  <script type="module" src="{% static 'js/swiperGallery.js' %}"></script>
+{%elif slides|length == 1 %} {% if slide_images %}<img src="{{slides|join:','}}" alt="Slide Image: {{slides|join:','}}" /> {%elif slide_videos%}<iframe src="{{slides|join:','}}" allowfullscreen frameborder="0" scrolling="no" title="Slide Video"></iframe> {% endif%}{% endif%}

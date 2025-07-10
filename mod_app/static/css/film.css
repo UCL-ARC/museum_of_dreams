@@ -47,13 +47,7 @@
 #filmic {
   .top-level {
     display: flex;
-  }
-  .video {
-    display: inline;
-    > video {
-      height: 40vh;
-      width: 40vw;
-    }
+    gap: 1rem;
   }
   .triple-c {
     /* country, company & category */
