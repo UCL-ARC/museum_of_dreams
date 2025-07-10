@@ -10,16 +10,12 @@
   grid-column: 1/-1;
 }
 .film__image {
-  max-width: min-content;
+  min-width: 10rem;
+  max-width: 20rem;
 }
 .film__heading {
   gap: 1rem;
   text-align: left;
-
-  /* img {
-    min-width: 10rem;
-    max-width: 20rem;
-  } */
 
   .title-release {
     display: flex;
