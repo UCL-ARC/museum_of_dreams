@@ -9,6 +9,9 @@
 .back-to {
   grid-column: 1/-1;
 }
+.film__image {
+  max-width: min-content;
+}
 .film__heading {
   gap: 1rem;
   text-align: left;
