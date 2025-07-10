@@ -24,8 +24,6 @@
 }
 
 .tabbed-area {
-  display: flex;
-  flex-direction: column;
   --underline-colour: var(--coral);
   .tab-selection {
     overflow: hidden;
@@ -61,7 +59,7 @@
       padding: 0.5rem; */
 
     &.active {
-      display: block;
+      display: flex;
     }
 
     img {
