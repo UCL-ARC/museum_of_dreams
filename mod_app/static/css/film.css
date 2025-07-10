@@ -2,6 +2,7 @@
 .film-detail-container {
   display: grid;
   grid-template-columns: 1fr 3fr;
+  column-gap: 3rem;
   @media screen and (width < 767px) {
     grid-template-columns: 1fr;
   }
@@ -11,6 +12,7 @@
 }
 .film__image {
   max-width: 100%;
+  border-radius: 5px;
 }
 .film__heading {
   gap: 1rem;
