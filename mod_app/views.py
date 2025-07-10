@@ -78,10 +78,11 @@ class FilmDetailView(DetailView):
             + list(film.posters.all())
             + list(film.postcards.all())
         )
-        context["pm_slides"] = printed_material_slides
-        context["vr_slides"] = visual_resources_slides
 
-        context["video_slides"] = list(film.videos.all())
+        context["pm_slides"] = [pm_slide.url for pm_slide in printed_material_slides]
+        context["vr_slides"] = [vr_slide.url for vr_slide in visual_resources_slides]
+
+        context["video_slides"] = [video_slide.url for video_slide in film.videos.all()]
         return context
 
 
