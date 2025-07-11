@@ -71,10 +71,14 @@
 /*avoid setting flex box here because this will override the display:none property, breaking tab selection*/
 #filmic {
   gap: 2rem;
-  .film_video {
+  .film__video {
     @media screen and (max-width: 767px) {
       width: 100%;
     }
+  }
+  .film__video--fallback {
+    width: 600px;
+    height: 338px;
   }
   hr {
     width: 100%;
