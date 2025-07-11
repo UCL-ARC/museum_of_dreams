@@ -84,10 +84,10 @@
   hr {
     width: 100%;
   }
-  .triple-c {
+  /* .triple-c {
     text-align: left;
     margin-left: 0.4rem;
-  }
+  } needs to be revised for alignment*/
   .synopsis {
     padding: 0.5rem 0;
     p {
