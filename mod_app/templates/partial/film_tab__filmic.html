@@ -6,23 +6,15 @@
   <h2>Synopsis</h2>
   {{film.synopsis|safe|default:"N/A"}}
 </div>
-<hr />
-<table class="triple-c">
-  <tr>
-    <th>Production Company:</th>
-    <td>{{ film.production_company|default:"N/A" }}</td>
-  </tr>
-  <tr>
-    <th>BFI Category:</th>
-    <td>{{ film.bfi_category|default:"N/A" }}</td>
-  </tr>
-  <tr>
-    <th>Source:</th>
-    <td>{% for source in film.sources.all %}<a href="{{source.url}}"> {{source.description}} </a> {%empty%} N/A {% endfor %}</td>
-  </tr>
-</table>
+<dl class="triple-c">
+  <dt>Production Country: {{ film.production_country }}</dt>
 
-<hr />
+  <dt>Production Company: {{ film.production_company }}</dt>
+
+  <dt>BFI Category: {{ film.bfi_category }}</dt>
+
+  <dt>Source: {% for source in film.sources.all %}<a href="{{source.url}}"> {{source.description}} </a> {% endfor %}</dt>
+</dl>
 <div class="cast-credits">
   <div class="column">
     <h3>Cast</h3>
