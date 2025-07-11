@@ -83,7 +83,7 @@
     @media screen and (max-width: 767px) {
       width: 100%;
       /*revert-layer scales the video/fallback image to fill up available space*/
-      height: revert-layer;
+      height: fit-content;
     }
   }
 
