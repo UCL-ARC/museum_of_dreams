@@ -1,4 +1,4 @@
-<div id="film__video" class="video">{% include "components/swiper_gallery.html" with slides=video_slides slide_videos=True %}</div>
+{% if video_slides%} {% include "components/swiper_gallery.html" with slides=video_slides slide_videos=True %} {% else %} <img src="{% static 'images\video-unavailable.png' %}" alt="Video unavailable" /> {%endif%}
 <div class="synopsis">
   <h2>Synopsis</h2>
   {{film.synopsis|safe|default:"N/A"}}
