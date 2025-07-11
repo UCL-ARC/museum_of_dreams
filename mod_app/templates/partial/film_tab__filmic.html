@@ -6,6 +6,7 @@
   <h2>Synopsis</h2>
   {{film.synopsis|safe|default:"N/A"}}
 </div>
+<hr />
 <dl class="triple-c">
   <dt>Production Country: {{ film.production_country }}</dt>
 
@@ -15,6 +16,7 @@
 
   <dt>Source: {% for source in film.sources.all %}<a href="{{source.url}}"> {{source.description}} </a> {% endfor %}</dt>
 </dl>
+<hr />
 <div class="cast-credits">
   <div class="column">
     <h3>Cast</h3>
