@@ -2,12 +2,10 @@
 
 <div class="film-detail-container">
   <a href="{% url 'film_list' %}" class="back-to">&larr; Back to all films</a>
-  <img class="film__image" src="{% if film.cardimages.first.url %}{{film.cardimages.first.url}}{% elif film.cardimages.first.file.url %}{{film.cardimages.first.file.url}}{% endif %}" />
+  <img class="film__image" src="{% if film.cardimages.first.url %}{{film.cardimages.first.url}}{% elif film.cardimages.first.file.url %}{{film.cardimages.first.file.url}}{% endif %}" alt="Film CardImage" />
   <div class="film__heading">
-    <div class="title-release">
-      <h1>{{film.title}}</h1>
-      <h2>{{film.release_date}}</h2>
-    </div>
+    <h1>{{film.title}}</h1>
+    <h2>{{film.release_date}}</h2>
   </div>
 
   <div class="columnar-area">
