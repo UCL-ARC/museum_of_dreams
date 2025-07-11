@@ -1,4 +1,8 @@
-{% if video_slides%} {% include "components/swiper_gallery.html" with slides=video_slides slide_videos=True %} {% else %} <img src="{% static 'images\video-unavailable.png' %}" alt="Video unavailable" /> {%endif%}
+{% if video_slides|length == 1 %}
+<iframe class="film_video" src="{{video_slides.first}}" title="Film Video"></iframe>
+{% elif video_slides|length > 1 %} {% include "components/swiper_gallery.html" with slides=video_slides slide_videos=True %} {% else %}
+<img class="film_video--fallback" src="{% static 'images/video-unavailable.png' %}" alt="Video unavailable" /> {%endif%}
+
 <div class="synopsis">
   <h2>Synopsis</h2>
   {{film.synopsis|safe|default:"N/A"}}
