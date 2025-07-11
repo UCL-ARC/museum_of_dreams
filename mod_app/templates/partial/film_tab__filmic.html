@@ -1,7 +1,7 @@
 <div id="film__video" class="video">{% include "components/swiper_gallery.html" with slides=video_slides slide_videos=True %}</div>
 <div class="synopsis">
   <h2>Synopsis</h2>
-  {{film.synopsis|safe}}
+  {{film.synopsis|safe|default:"N/A"}}
 </div>
 <hr />
 <table class="triple-c">
@@ -23,11 +23,11 @@
 <div class="cast-credits">
   <div class="column">
     <h3>Cast</h3>
-    {{film.cast | safe }}
+    {{film.cast | safe |default:"N/A"}}
   </div>
 
   <div class="column">
     <h3>Credits</h3>
-    {{film.crew | safe }}
+    {{film.crew | safe |default:"N/A"}}
   </div>
 </div>
