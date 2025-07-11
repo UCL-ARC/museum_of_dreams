@@ -71,16 +71,18 @@
 /*avoid setting flex box here because this will override the display:none property, breaking tab selection*/
 #filmic {
   gap: 2rem;
-  .film__video {
-    @media screen and (max-width: 767px) {
-      width: 100%;
-    }
-  }
+  .film__video,
   .film__video--fallback {
     /* to match default iframe inline size for consistency*/
     width: 600px;
     height: 338px;
+    @media screen and (max-width: 767px) {
+      width: 100%;
+      /*revert-layer scales the video to fill up available space*/
+      height: revert-layer;
+    }
   }
+
   hr {
     width: 100%;
   }
