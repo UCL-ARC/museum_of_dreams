@@ -14,7 +14,7 @@
 .film__image {
   width: 100%;
   max-width: 100%;
-  border-radius: 5px;
+  border-radius: 10px;
 }
 .film__heading {
   display: flex;
@@ -76,9 +76,12 @@
     /* to match default iframe inline size for consistency*/
     width: 600px;
     height: 338px;
+
+    /* border-radius will only apply to the fallback image*/
+    border-radius: 10px;
     @media screen and (max-width: 767px) {
       width: 100%;
-      /*revert-layer scales the video to fill up available space*/
+      /*revert-layer scales the video/fallback image to fill up available space*/
       height: revert-layer;
     }
   }
