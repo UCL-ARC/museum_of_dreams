@@ -88,15 +88,8 @@
     width: 100%;
   }
   .triple-c {
-    /* country, company & category */
-    display: inline-flex;
-    /* justify-content: space-between; */
-    flex-direction: column;
-    align-content: center;
+    text-align: left;
     margin-left: 0.4rem;
-    > dt {
-      margin: 0.4rem 0;
-    }
   }
   .synopsis {
     padding: 0.5rem 0;
@@ -121,10 +114,9 @@
 
 #technical {
   .short-technical-info {
-    justify-content: space-between;
+    /* justify-content: space-between;
     text-wrap: wrap;
-    flex-wrap: wrap;
-    columns: 2;
+    flex-wrap: wrap; */
   }
 }
 
