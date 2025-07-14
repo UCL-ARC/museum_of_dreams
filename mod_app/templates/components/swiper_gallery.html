@@ -1,9 +1,8 @@
 <div class="swiper">
   <div class="swiper-wrapper">
-    {% for slide in slides%} {% if slide_images %}
     <!-- Slides -->
+    {% for slide in slides%} {% if slide_images %}
     <div class="swiper-slide">
-      <!-- displays fallback-text when image fails to load-->
       <img src="{{slide}}" alt="Slide Image" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
       <div class="fallback-text">Image failed to load: {{slide}}</div>
     </div>
