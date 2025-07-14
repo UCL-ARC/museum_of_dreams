@@ -3,10 +3,6 @@
   display: grid;
   grid-template-columns: 1fr 4fr;
   column-gap: 3rem;
-  @media screen and (width < 767px) {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
 }
 .back-to {
   grid-column: 1/-1;
@@ -25,14 +21,6 @@
   h2 {
     display: inline-flex;
     padding-inline-start: 2vw;
-  }
-  @media screen and (max-width: 767px) {
-    flex-direction: column;
-    text-align: center;
-    h2 {
-      display: inline-flex;
-      padding-inline-start: 0;
-    }
   }
 }
 
@@ -55,16 +43,10 @@
 /* .film__content-wrapper feels redundant as .tabbed-area already wraps the tab content, maybe something can be done to reduce div nesting*/
 .film__content-wrapper {
   grid-column: 2;
-  @media screen and (width < 767px) {
-    grid-column: 1/-1;
-  }
 }
 
 .columnar-area {
   grid-column: 1;
-  @media screen and (width < 767px) {
-    grid-template-columns: 1/-1;
-  }
 }
 
 /***************** tabs ***************/
@@ -75,9 +57,6 @@
   .film__video {
     width: 600px;
     height: 338px;
-    @media screen and (max-width: 767px) {
-      width: 100%;
-    }
   }
   .film__video--fallback {
     /* to match default iframe inline size for consistency*/
@@ -86,10 +65,6 @@
 
     /* border-radius will only apply to the fallback image*/
     border-radius: 10px;
-    @media screen and (max-width: 767px) {
-      width: 100%;
-      height: auto;
-    }
   }
 
   hr {
@@ -133,3 +108,34 @@
 } */
 
 /* general & initial column */
+
+@media screen and (max-width: 767px) {
+  .film-detail-container {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .film__heading {
+    flex-direction: column;
+    text-align: center;
+    h2 {
+      display: inline-flex;
+      padding-inline-start: 0;
+    }
+  }
+  .film__content-wrapper {
+    grid-column: 1/-1;
+  }
+  .columnar-area {
+    grid-template-columns: 1/-1;
+  }
+
+  #filmic {
+    .film__video {
+      width: 100%;
+    }
+    .film__video--fallback {
+      width: 100%;
+      height: auto;
+    }
+  }
+}
