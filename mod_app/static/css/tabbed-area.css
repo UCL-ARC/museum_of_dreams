@@ -1,14 +1,3 @@
-.teaching-analysis__content-wrapper {
-  display: flex;
-}
-.film__content-wrapper {
-  /* padding: 1rem; */
-  display: flex;
-  flex-direction: column;
-  /* need to make one column for mobile */
-
-  gap: 1rem;
-}
 .columnar-area {
   /* position: sticky; */
   top: 1rem;
