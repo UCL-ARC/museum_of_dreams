@@ -1,5 +1,5 @@
 {% if video_slides|length == 1 %}
-<iframe class="film__video" src="{{video_slides|join:','}}" title="Film Video" width="600" height="338" allowfullscreen frameborder="0" scrolling="no"></iframe>
+<iframe class="film__video" src="{{video_slides|join:','}}" title="Film Video" allowfullscreen frameborder="0" scrolling="no"></iframe>
 {% elif video_slides|length > 1 %} {% include "components/swiper_gallery.html" with slides=video_slides slide_videos=True %} {% else %}
 <img class="film__video--fallback" src="{% static 'images/video-unavailable.png' %}" alt="Video unavailable" /> {%endif%}
 <div class="synopsis">

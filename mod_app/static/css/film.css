@@ -73,6 +73,8 @@
 #filmic {
   gap: 2rem;
   .film__video {
+    width: 600px;
+    height: 338px;
     @media screen and (max-width: 767px) {
       width: 100%;
     }
