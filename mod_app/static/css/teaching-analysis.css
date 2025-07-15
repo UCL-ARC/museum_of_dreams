@@ -7,6 +7,10 @@
 .teaching-analysis__content-wrapper {
   display: grid;
 }
+
+.columnar-area {
+  padding-top: 2rem;
+}
 /* 
 .heading {
   display: grid;
