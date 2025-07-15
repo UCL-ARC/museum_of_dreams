@@ -1,5 +1,5 @@
-.columnar-area {
-  /* position: sticky; */
+/* .columnar-area {
+  position: sticky;
   top: 1rem;
 
   img {
@@ -12,55 +12,68 @@
   .info > div {
     margin-bottom: 2rem;
   }
-}
+} */
 
 .tabbed-area {
   --underline-colour: var(--coral);
-  .tab-selection {
-    overflow: hidden;
-    justify-content: start;
-    display: flex;
-    gap: 1rem;
-    padding-bottom: 2rem;
+}
+.tab-selection {
+  overflow: hidden;
+  justify-content: start;
+  display: flex;
+  gap: 1rem;
+  padding-bottom: 2rem;
+}
 
-    @media screen and (max-width: 767px) {
-      flex-wrap: wrap;
-    }
+.tab__link {
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--contrast-text);
+  transition: border-bottom 0.4s ease-out;
+  padding-bottom: 0;
+
+  &.active {
+    border-bottom: 1px solid var(--underline-colour);
   }
-  .tab__link {
-    background-color: transparent;
-    border: none;
-    border-bottom: 2px solid transparent;
-    color: var(--contrast-text);
-    transition: border-bottom 0.4s ease-out;
-    padding-bottom: 0;
 
-    &.active {
-      border-bottom: 1px solid var(--underline-colour);
-    }
-
-    &:hover:not(.active) {
-      border-bottom: 2px solid var(--underline-colour);
-    }
+  &:hover:not(.active) {
+    border-bottom: 2px solid var(--underline-colour);
   }
-  .tab__content {
-    display: none;
-    /* margin-top: 1.4rem;
-      margin-inline-start: 2.2rem;
-      margin-inline-end: 3.2rem;
+}
+
+.tab__content {
+  display: none;
+  /* margin-top: 1.4rem;
+  margin-inline-start: 2.2rem;
+  margin-inline-end: 3.2rem;
       padding: 0.5rem; */
 
-    &.active {
-      display: flex;
-      flex-direction: column;
-    }
-    section.footnotes {
-      display: none;
-    }
+  &.active {
+    display: flex;
+    flex-direction: column;
+    object-fit: contain;
+  }
+
+  section.footnotes {
+    display: none;
   }
 }
 
 .teaching-analysis__content-wrapper .tab__content {
-  max-height: 90vh;
-  overflow-y: scroll;
+  /* max-height: 90vh; */
+  /* overflow-y: scroll; */
+}
+
+@media screen and (max-width: 767px) {
+  .tab-selection {
+    flex-wrap: wrap;
+  }
+  &.active[name="content"] {
+    img {
+      max-width: 100% !important;
+      max-height: 100% !important;
+      object-fit: contain;
+    }
+  }
 }
