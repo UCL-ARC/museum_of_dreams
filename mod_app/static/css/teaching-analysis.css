@@ -3,9 +3,11 @@
 .teaching-analysis-detail-container {
   display: grid;
   grid-template-columns: 1fr 4fr;
+  column-gap: 1rem;
 }
 .teaching-analysis__content-wrapper {
-  display: grid;
+  display: flex;
+  flex-direction: column;
 }
 
 .columnar-area {
