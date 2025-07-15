@@ -2,16 +2,16 @@
   <div class="swiper-wrapper">
     <!-- Slides -->
     {% for slide in slides%} {% if slide_images %}
-    <div class="swiper-slide">
-      <img src="{{slide}}" alt="Slide Image" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
-      <div class="fallback-text">Image failed to load: {{slide}}</div>
-    </div>
+      <div class="swiper-slide">
+        <img src="{{slide}}" alt="Slide Image" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+        <div class="fallback-text">Image failed to load: {{slide}}</div>
+      </div>
     {% elif slide_videos %}
-    <div class="swiper-slide">
-      <iframe src="{{slide}}" allowfullscreen frameborder="0" scrolling="no" title="Slide Video"></iframe>
-    </div>
+      <div class="swiper-slide">
+        <iframe src="{{slide}}" allowfullscreen frameborder="0" scrolling="no" title="Slide Video"></iframe>
+      </div>
     {% else %}
-    <div class="slide__content">{{slide}}</div>
+      <div class="slide__content">{{slide}}</div>
     {% endif %} {%endfor %}
   </div>
   <div class="swiper-pagination"></div>
