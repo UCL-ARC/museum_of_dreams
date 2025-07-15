@@ -69,7 +69,7 @@
   .tab-selection {
     flex-wrap: wrap;
   }
-  &.active[name="content"] {
+  .active[name="content"] {
     img {
       max-width: 100% !important;
       max-height: 100% !important;
