@@ -1,5 +1,5 @@
 function openTab(evt, tabName) {
-  var selected, content, tab;
+  var selected;
   selected = evt.currentTarget.name;
   contentElems = document.getElementsByClassName("tab__content");
   tabs = document.getElementsByClassName("tab__link");
@@ -14,4 +14,8 @@ function openTab(evt, tabName) {
   selectedTabNContent = document.querySelectorAll(`[name="${CSS.escape(selected)}"]`);
 
   selectedTabNContent.forEach((elem) => elem.classList.add("active"));
+
+  if (tabName === "collections") {
+    // stuff here
+  }
 }
