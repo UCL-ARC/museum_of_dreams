@@ -35,15 +35,15 @@ this is because centerSlides=true often doesn't apply correctly when intialising
   width: 32rem;
 }
 
-.swiper-modal {
-  width: 80vw;
-  height: 80vh;
+.swiper-slide__description {
+  visibility: hidden;
+  position: absolute;
+  bottom: 20%;
+  max-width: 40vw;
+}
 
-  .slide_image {
-    object-fit: contain;
-  }
-  @media screen and (max-width: 767px) {
-    width: 100vw;
-    height: 100vw;
+.swiper-slide-active:hover {
+  .swiper-slide__description {
+    visibility: visible;
   }
 }
