@@ -42,9 +42,4 @@
 {%elif slides|length == 1 %} {% if slide_images %}<img src="{{slides|join:','}}" alt="Slide Image: {{slides|join:','}}" /> {%elif slide_videos%}<iframe src="{{slides|join:','}}" allowfullscreen frameborder="0" scrolling="no" title="Slide Video"></iframe> {% endif%}{% endif%}
 
 
-<dialog id="swiper-modal" class="swiper-modal">
-  <button class="swiper-modal__btn--close">✖</button>
-</dialog>
-
-
 <script type="module" src="{% static 'js/swiperGallery.js' %}"></script>
