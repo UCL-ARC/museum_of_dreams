@@ -1,5 +1,26 @@
-{% extends "base.html" %} {% load i18n %} {% block title %}{{ analysis.title }} (Analysis) {% endblock %} {% block content %} <a href="{% url 'analysis_list' %}" class="back-to">&larr; Back to all analyses</a>
-  <div class="heading"><h1 id="title">{{analysis.title}}</h1></div>
+{% extends "base.html" %} {% load i18n %} {% block title %}{{ analysis.title }} (Analysis) {% endblock %} {% block content %}
+  <div class="teaching-analysis-detail-container">
+    <a href="{% url 'analysis_list' %}" class="back-to">&larr; Back to all analyses</a>
+    <div class="columnar-area">
+      <div>
+        <button class="btn teaching-analysis__download" onclick="downloadAnalysis({{analysis.pk}})" type="button">Download PDF</button>
+      </div>
+
+      <div id="analysis__info" class="info">
+        <div id="topics">
+          <h4>Topics</h4>
+          {% for topic in analysis.topics.all %}
+            <span class="tag">{{topic.name}}</span>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <div class="teaching-analysis__content-wrapper">
+      <div class="heading"><h1 id="title">{{analysis.title}}</h1></div>
+      {% include "partial/teaching_analysis_tab_area.html" with model=analysis modelname="analysis" %}
+    </div>
+  </div>
   <script>
     async function downloadAnalysis(pk) {
       const url = `/download-analysis/${pk}`;
@@ -36,22 +57,4 @@
       }
     }
   </script>
-
-  <div class="teaching-analysis__content-wrapper">
-    <div class="columnar-area">
-      <div>
-        <button class="btn teaching-analysis__download" onclick="downloadAnalysis({{analysis.pk}})" type="button">Download PDF</button>
-      </div>
-
-      <div id="analysis__info" class="info">
-        <div id="topics">
-          <h4>Topics</h4>
-          {% for topic in analysis.topics.all %}
-            <span class="tag">{{topic.name}}</span>
-          {% endfor %}
-        </div>
-      </div>
-    </div>
-    {% include "partial/teaching_analysis_tab_area.html" with model=analysis modelname="analysis" %}
-  </div>
 {% endblock %}
