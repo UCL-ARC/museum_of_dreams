@@ -14,7 +14,7 @@
             <img class="slide__image" src="{{slide.url}}" alt="{{slide.description}}" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
             <div class="fallback-text">Image failed to load: {{slide}}</div>
             <div class="swiper-slide__description">
-              <div >{{slide.description}}</div>
+              <div class="swiper-slide__description__content">{{slide.description}}</div>
               <button class="btn" type="button" onclick="openImageLink('{{ slide.url }}')">See Image Source</button>
             </div>
           </div>
@@ -22,7 +22,7 @@
           <div class="swiper-slide">
             <iframe src="{{slide}}" allowfullscreen frameborder="0" scrolling="no" title="{{slide.description}}"></iframe>
             <div class="swiper-slide__description">
-              <div>{{slide.description}}</div>
+              <div class="swiper-slide__description__content">{{slide.description}}</div>
               <button class="btn" type="button" onclick="openImageLink('{{ slide.url }}')">See Image Source</button>
             </div>
           </div>
