@@ -1,15 +1,6 @@
 function openImageLink(url) {
   window.open(url, "_blank").focus();
 }
-function getActiveSlide() {
-  const activeSlides = document.querySelectorAll("div.swiper-slide.swiper-slide-active");
-
-  for (let i = 0; i < activeSlides.length; i++) {
-    let activeSlideImage = activeSlides[i].querySelector("img.slide__image");
-    let button = activeSlides[i].querySelector("button.swiper-slide__description__button");
-    button.addEventListener("click", window.open(activeSlideImage.src, "_blank").focus());
-  }
-}
 
 function openTab(evt, tabName) {
   var selected;
@@ -27,24 +18,4 @@ function openTab(evt, tabName) {
   selectedTabNContent = document.querySelectorAll(`[name="${CSS.escape(selected)}"]`);
 
   selectedTabNContent.forEach((elem) => elem.classList.add("active"));
-
-  if (tabName === "collections") {
-    console.log("collection is clicked");
-
-    setTimeout(() => {
-      getActiveSlide();
-    }, 500);
-
-    const swipers = document.querySelectorAll(".swiper");
-    swipers.forEach(function (swiper) {
-      // selects swiper instance from swiper DOM elements
-      const swiperInstance = swiper.swiper;
-
-      swiperInstance.on("slideChange", () => {
-        console.log("slide changed");
-
-        getActiveSlide();
-      });
-    });
-  }
 }
