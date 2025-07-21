@@ -1,5 +1,11 @@
-async function downloadAnalysis(pk) {
+async function downloadAnalysis(event, pk) {
+  const downloadBtn = event.currentTarget;
+  const downloadBtnText = downloadBtn.querySelector("p");
+  const downloadLoader = downloadBtn.querySelector(".loader");
   const url = `/download-analysis/${pk}`;
+
+  downloadBtnText.classList.toggle("hidden");
+  downloadLoader.classList.toggle("hidden");
 
   const response = await fetch(url);
 
@@ -32,4 +38,7 @@ async function downloadAnalysis(pk) {
     // Handle errors or unsuccessful responses
     console.error("Failed to download PDF:", response.statusText);
   }
+
+  downloadBtnText.classList.toggle("hidden");
+  downloadLoader.classList.toggle("hidden");
 }
