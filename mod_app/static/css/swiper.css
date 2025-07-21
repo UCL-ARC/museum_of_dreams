@@ -21,6 +21,7 @@ iframe {
 }
 
 .swiper-slide .fallback-text {
+  text-align: center;
   display: none;
 }
 
@@ -75,6 +76,5 @@ iframe {
   }
   .fallback-text {
     width: 60vw;
-    text-align: center;
   }
 }
