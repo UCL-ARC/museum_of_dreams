@@ -73,10 +73,9 @@
   }
 }
 
-@media screen and (max-width: 767px) {
-  .teaching-analysis-detail-container {
-    grid-template-columns: 1fr;
-  }
+.bibliography__item:hover {
+  color: var(--coral);
+  cursor: default;
 }
 
 .hidden {
@@ -125,5 +124,11 @@
   }
   100% {
     transform: scaleY(-1) rotate(-135deg);
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .teaching-analysis-detail-container {
+    grid-template-columns: 1fr;
   }
 }
