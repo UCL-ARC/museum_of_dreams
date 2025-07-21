@@ -48,7 +48,7 @@
   display: none;
   /* margin-top: 1.4rem;
   margin-inline-start: 2.2rem; */
-  margin-inline-end: 4rem;
+  margin-inline-end: 6rem;
 
   &.active {
     display: flex;

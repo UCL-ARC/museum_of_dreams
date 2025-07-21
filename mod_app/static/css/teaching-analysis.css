@@ -2,7 +2,7 @@
 
 .teaching-analysis-detail-container {
   display: grid;
-  grid-template-columns: 1fr 7fr;
+  grid-template-columns: 1fr 6fr;
   column-gap: 1rem;
 }
 .teaching-analysis__content-wrapper {
