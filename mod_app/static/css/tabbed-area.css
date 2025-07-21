@@ -15,6 +15,8 @@
 } */
 
 .tabbed-area {
+  display: flex;
+  flex-direction: column;
   --underline-colour: var(--coral);
 }
 .tab-selection {
@@ -45,9 +47,8 @@
 .tab__content {
   display: none;
   /* margin-top: 1.4rem;
-  margin-inline-start: 2.2rem;
-  margin-inline-end: 3.2rem;
-      padding: 0.5rem; */
+  margin-inline-start: 2.2rem; */
+  margin-inline-end: 4rem;
 
   &.active {
     display: flex;
@@ -67,7 +68,13 @@
 
 @media screen and (max-width: 767px) {
   .tab-selection {
-    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    left: 0;
+    align-self: start;
+  }
+  .tab__content {
+    margin-inline-end: initial;
   }
   .active[name="content"] {
     img {
