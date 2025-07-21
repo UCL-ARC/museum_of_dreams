@@ -3,6 +3,7 @@
   display: grid;
   grid-template-columns: 1fr 4fr;
   column-gap: 3rem;
+  margin-right: 4rem;
 }
 .back-to {
   grid-column: 1/-1;
@@ -120,6 +121,7 @@
   .film-detail-container {
     grid-template-columns: 1fr;
     gap: 1rem;
+    margin-right: revert;
   }
   .film__heading {
     flex-direction: column;
