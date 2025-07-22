@@ -41,7 +41,7 @@
   }
 }
 
-#reference-modal,
+#footnote-modal,
 #bibliography-modal {
   color: var(--contrast-text);
   background-color: var(--background-colour);
@@ -53,7 +53,8 @@
     backdrop-filter: blur(3px);
   }
 
-  .modal__content {
+  .footnote-modal__content,
+  .bib-modal__content {
     margin: 1vw 2vw;
   }
 

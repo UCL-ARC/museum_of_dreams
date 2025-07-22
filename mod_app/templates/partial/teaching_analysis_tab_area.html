@@ -6,9 +6,9 @@
     <button class="tab__link" type="button" name="films" onclick="openTab(event, 'films')"><h3>Films</h3></button>
 
     {% if modelname == "analysis" %}
-      <button class="tab__link" type="button" name="teaching-resources" onclick="openTab(event, 'teaching-resources')"><h3>Teaching Resources</h3></button>
+    <button class="tab__link" type="button" name="teaching-resources" onclick="openTab(event, 'teaching-resources')"><h3>Teaching Resources</h3></button>
     {% else %}
-      <button class="tab__link" type="button" name="clips" onclick="openTab(event, 'clips')"><h3>Clips</h3></button>
+    <button class="tab__link" type="button" name="clips" onclick="openTab(event, 'clips')"><h3>Clips</h3></button>
     {% endif %}
 
     <button class="tab__link" type="button" name="bibliography" onclick="openTab(event, 'bibliography')"><h3>Bibliography</h3></button>
@@ -17,16 +17,16 @@
   {% comment %} content of those tabs {% endcomment %}
 
   <!-- Modal -->
-  <dialog id="reference-modal" class="modal">
+  <dialog id="footnote-modal" class="modal">
     <span class="modal__btn--close">&times;</span>
-    <div class="modal__content">
-      <div class="modal__text"></div>
+    <div class="footnote-modal__content">
+      <div class="footnote-modal__text"></div>
     </div>
   </dialog>
 
   <dialog id="bibliography-modal" class="modal">
     <span class="modal__btn--close">&times;</span>
-    <div class="modal__content"></div>
+    <div class="bib-modal__content"></div>
   </dialog>
 
   <div id="{{model}}__content" class="lh-15 tab__content active" name="content">{{ model.content | safe }}</div>
@@ -34,9 +34,9 @@
   <div id="films" class="tab__content" name="films">{% include "partial/film_card_grid.html" with film_list=model.films.all %}</div>
 
   {% if modelname == "analysis" %}
-    <div id="teaching-resources" class="tab__content" name="teaching-resources"></div>
+  <div id="teaching-resources" class="tab__content" name="teaching-resources"></div>
   {% else %}
-    <div id="clips" class="tab__content" name="clips"></div>
+  <div id="clips" class="tab__content" name="clips"></div>
   {% endif %}
 
   <div id="bibliography" class="tab__content bibliography-area" name="bibliography">{% include "partial/individual_bib.html" with bib_list=model.bibliography.all %}</div>

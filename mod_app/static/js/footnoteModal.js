@@ -17,14 +17,30 @@ function closeModalOnOutsideClick(modal) {
   });
 }
 
+function showBibModal(bibModal, bibModalContent) {
+  const mentions = document.querySelectorAll(".bib-mention");
+  mentions.forEach((mention) => {
+    mention.addEventListener("click", function (e) {
+      e.preventDefault();
+      const id = e.target.getAttribute("data-bib-id");
+      console.log("Bib ID:", id);
+      const bib = document.querySelector(`[data-bib-citation-id="${id}"]`);
+      console.log("Bibliography:", bib, "Bib Modal content", bibModalContent);
+      bibModalContent.innerHTML = bib.innerHTML;
+      bibModal.showModal();
+    });
+  });
+}
+
 // opening references as modal
 document.addEventListener("DOMContentLoaded", function () {
   const markers = document.querySelector(".tabbed-area").querySelectorAll("sup>a[rel='footnote']");
-  const referenceModal = document.getElementById("reference-modal");
-  const referenceModalText = referenceModal.querySelector(".modal__text");
+  const referenceModal = document.getElementById("footnote-modal");
+  const referenceModalText = referenceModal.querySelector(".footnote-modal__text");
 
   const bibModal = document.getElementById("bibliography-modal");
-  const bibModalContent = bibModal.querySelector(".modal__content");
+  const bibModalContent = bibModal.querySelector(".bib-modal__content");
+  console.log(bibModalContent);
   const closeBtn = document.querySelectorAll(".modal__btn--close");
 
   closeBtn.forEach((button) => {
@@ -56,21 +72,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
       referenceModalText.innerHTML = cite.innerHTML;
       referenceModal.showModal();
-
-      const mentions = document.querySelectorAll(".bib-mention");
-      mentions.forEach((mention) => {
-        mention.addEventListener("click", function (e) {
-          e.preventDefault();
-          const id = e.target.getAttribute("data-bib-id");
-          const bib = document.querySelector(`[data-bib-citation-id="${id}"]`);
-          bibModalContent.innerHTML = bib.innerHTML;
-          bibModal.showModal();
-        });
-      });
+      showBibModal(bibModal, bibModalContent);
 
       closeBtn.onclick = function () {
         e.target.parentNode.close();
       };
     });
   });
+  showBibModal(bibModal, bibModalContent);
 });
