@@ -1,7 +1,3 @@
-// hide footnote
-const footnoteSection = document.querySelector("section.footnotes");
-
-// closing modal function
 function closeModalOnOutsideClick(modal) {
   modal.addEventListener("click", function (event) {
     // get modal box's boundaries
@@ -17,30 +13,32 @@ function closeModalOnOutsideClick(modal) {
   });
 }
 
-function showBibModal(bibModal, bibModalContent) {
-  const mentions = document.querySelectorAll(".bib-mention");
-  mentions.forEach((mention) => {
-    mention.addEventListener("click", function (e) {
-      e.preventDefault();
-      const id = e.target.getAttribute("data-bib-id");
-      console.log("Bib ID:", id);
+function bibModalHandler(bibMentions, bibModal, bibModalContent) {
+  bibMentions.forEach((bibMention) => {
+    bibMention.addEventListener("click", function (event) {
+      event.preventDefault();
+
+      const id = event.target.getAttribute("data-bib-id");
       const bib = document.querySelector(`[data-bib-citation-id="${id}"]`);
-      console.log("Bibliography:", bib, "Bib Modal content", bibModalContent);
+
       bibModalContent.innerHTML = bib.innerHTML;
       bibModal.showModal();
     });
   });
 }
 
+function footnoteModalHandler(footnoteModal) {}
+
 // opening references as modal
 document.addEventListener("DOMContentLoaded", function () {
-  const markers = document.querySelector(".tabbed-area").querySelectorAll("sup>a[rel='footnote']");
-  const referenceModal = document.getElementById("footnote-modal");
-  const referenceModalText = referenceModal.querySelector(".footnote-modal__text");
+  const footnoteReferences = document.querySelector(".tabbed-area").querySelectorAll("sup>a[rel='footnote']");
+  const footnoteModal = document.getElementById("footnote-modal");
+  const footnoteModalText = footnoteModal.querySelector(".footnote-modal__text");
 
+  const bibMentions = document.querySelectorAll(".bib-mention");
   const bibModal = document.getElementById("bibliography-modal");
   const bibModalContent = bibModal.querySelector(".bib-modal__content");
-  console.log(bibModalContent);
+
   const closeBtn = document.querySelectorAll(".modal__btn--close");
 
   closeBtn.forEach((button) => {
@@ -49,11 +47,11 @@ document.addEventListener("DOMContentLoaded", function () {
     };
   });
 
-  closeModalOnOutsideClick(referenceModal);
+  closeModalOnOutsideClick(footnoteModal);
   closeModalOnOutsideClick(bibModal);
 
-  markers.forEach((link) => {
-    link.addEventListener("click", function (e) {
+  footnoteReferences.forEach((footnoteReference) => {
+    footnoteReference.addEventListener("click", function (e) {
       e.preventDefault();
 
       const id = e.target.id;
@@ -70,14 +68,14 @@ document.addEventListener("DOMContentLoaded", function () {
       // Get the citation text from the footnote
       let cite = footnoteItem.querySelector("cite");
 
-      referenceModalText.innerHTML = cite.innerHTML;
-      referenceModal.showModal();
-      showBibModal(bibModal, bibModalContent);
+      footnoteModalText.innerHTML = cite.innerHTML;
+      footnoteModal.showModal();
+      bibModalHandler(bibModal, bibModalContent);
 
       closeBtn.onclick = function () {
         e.target.parentNode.close();
       };
     });
   });
-  showBibModal(bibModal, bibModalContent);
+  bibModalHandler(bibMentions, bibModal, bibModalContent);
 });
