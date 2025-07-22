@@ -20,6 +20,10 @@
   --underline-colour: var(--coral);
 }
 .tab-selection {
+  position: sticky;
+  top: 0;
+  left: 0;
+  align-self: start;
   overflow: hidden;
   justify-content: start;
   display: flex;
@@ -33,7 +37,6 @@
   border-bottom: 2px solid transparent;
   color: var(--contrast-text);
   transition: border-bottom 0.4s ease-out;
-  padding-bottom: 0;
 
   &.active {
     border-bottom: 1px solid var(--underline-colour);
@@ -68,10 +71,6 @@
 
 @media screen and (max-width: 767px) {
   .tab-selection {
-    position: sticky;
-    top: 0;
-    left: 0;
-    align-self: start;
   }
   .tab__content {
     margin-inline-end: initial;
