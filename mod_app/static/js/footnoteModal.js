@@ -18,58 +18,42 @@ function bibModalHandler(bibMentions, bibModal, bibModalContent) {
     bibMention.addEventListener("click", function (event) {
       event.preventDefault();
 
-      const id = event.target.getAttribute("data-bib-id");
-      const bib = document.querySelector(`[data-bib-citation-id="${id}"]`);
+      const bibReferenceId = event.target.getAttribute("data-bib-id");
+      const bibCitationId = document.querySelector(`[data-bib-citation-id="${bibReferenceId}"]`);
+      const closeBtn = bibModal.querySelector(".modal__btn--close");
 
-      bibModalContent.innerHTML = bib.innerHTML;
+      bibModalContent.innerHTML = bibCitationId.innerHTML;
       bibModal.showModal();
+      closeModalOnOutsideClick(bibModal);
+      closeBtn.onclick = function (e) {
+        e.target.parentNode.close();
+      };
     });
   });
 }
 
-function footnoteModalHandler(footnoteModal) {}
-
-// opening references as modal
-document.addEventListener("DOMContentLoaded", function () {
-  const footnoteReferences = document.querySelector(".tabbed-area").querySelectorAll("sup>a[rel='footnote']");
-  const footnoteModal = document.getElementById("footnote-modal");
-  const footnoteModalText = footnoteModal.querySelector(".footnote-modal__text");
-
-  const bibMentions = document.querySelectorAll(".bib-mention");
-  const bibModal = document.getElementById("bibliography-modal");
-  const bibModalContent = bibModal.querySelector(".bib-modal__content");
-
-  const closeBtn = document.querySelectorAll(".modal__btn--close");
-
-  closeBtn.forEach((button) => {
-    button.onclick = function (e) {
-      e.target.parentNode.close();
-    };
-  });
-
-  closeModalOnOutsideClick(footnoteModal);
-  closeModalOnOutsideClick(bibModal);
-
+function footnoteModalHandler(footnoteReferences, footnoteModal, footnoteModalContent) {
   footnoteReferences.forEach((footnoteReference) => {
-    footnoteReference.addEventListener("click", function (e) {
-      e.preventDefault();
+    footnoteReference.addEventListener("click", function (event) {
+      event.preventDefault();
 
-      const id = e.target.id;
-
-      // get the tag information of element that was clicked on
-      const anchor = document.getElementById(id);
+      const footnoteReferenceId = event.target.id;
+      const referencedAnchor = document.getElementById(footnoteReferenceId);
 
       // trace back to the href attribute (e.g., "#footnote-1")
-      const footnoteId = anchor.getAttribute("href").substring(1); // removes '#'
+      const footnoteItemId = referencedAnchor.getAttribute("href").substring(1); // removes '#'
 
       // Find the footnote associated with that id ref
-      const footnoteItem = document.getElementById(footnoteId);
+      const footnoteItem = document.getElementById(footnoteItemId);
 
-      // Get the citation text from the footnote
-      let cite = footnoteItem.querySelector("cite");
+      // Get content from the footnote anchor
+      const footnoteContent = footnoteItem.querySelector("cite");
 
-      footnoteModalText.innerHTML = cite.innerHTML;
+      const closeBtn = bibModal.querySelector(".modal__btn--close");
+
+      footnoteModalContent.innerHTML = footnoteContent.innerHTML;
       footnoteModal.showModal();
+      closeModalOnOutsideClick(footnoteModal);
       bibModalHandler(bibModal, bibModalContent);
 
       closeBtn.onclick = function () {
@@ -77,5 +61,17 @@ document.addEventListener("DOMContentLoaded", function () {
       };
     });
   });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  const footnoteReferences = document.querySelector(".tabbed-area").querySelectorAll("sup>a[rel='footnote']");
+  const footnoteModal = document.getElementById("footnote-modal");
+  const footnoteModalContent = footnoteModal.querySelector(".footnote-modal__content");
+
+  const bibMentions = document.querySelectorAll(".bib-mention");
+  const bibModal = document.getElementById("bibliography-modal");
+  const bibModalContent = bibModal.querySelector(".bib-modal__content");
+
+  footnoteModalHandler(footnoteReferences, footnoteModal, footnoteModalContent);
   bibModalHandler(bibMentions, bibModal, bibModalContent);
 });
