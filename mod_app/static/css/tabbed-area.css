@@ -77,6 +77,7 @@ body:has(.tab-selection.is-sticky) .tab-selection {
 
 @media screen and (max-width: 767px) {
   .tab-selection {
+    flex-wrap: wrap;
   }
   .tab__content {
     margin-inline-end: initial;
