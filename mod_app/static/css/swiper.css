@@ -22,6 +22,7 @@ iframe {
 
 .swiper-slide .fallback-text {
   display: none;
+  text-align: center;
 }
 
 /*Film detail Filmic video swiper*/
@@ -41,6 +42,5 @@ iframe {
   }
   .fallback-text {
     width: 60vw;
-    text-align: center;
   }
 }
