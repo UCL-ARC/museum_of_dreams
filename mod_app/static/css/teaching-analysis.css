@@ -26,6 +26,8 @@
 } */
 
 .teaching-analysis__download {
+  width: 130px;
+  height: 50px;
   transition: all 0.3s ease;
   background-image: none;
 
@@ -88,7 +90,9 @@
 }
 
 .loader {
-  width: 50px;
+  object-fit: contain;
+  justify-self: center;
+  width: 10px;
   aspect-ratio: 1;
   border-radius: 50%;
   border: 8px solid var(--turquoise);
