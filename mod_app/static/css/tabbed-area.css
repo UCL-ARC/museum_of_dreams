@@ -20,10 +20,10 @@
   --underline-colour: var(--coral);
 }
 .tab-selection {
-  position: sticky;
+  /* position: sticky;
   top: 0;
   left: 0;
-  align-self: start;
+  align-self: start; */
   overflow: hidden;
   justify-content: start;
   display: flex;
