@@ -16,7 +16,7 @@
             <div class="swiper-slide__description">
               <div class="swiper-slide__description__content">{{slide.description| default:'Slide Image'}}</div>
               {%if slide.url %}
-                <button class="btn" type="button" onclick="window.open('{{slide.url}}', '_blank').focus()">See Image Source</button>
+                <button class="btn" type="button" onclick="window.open('{{slide.url}}', '_blank').focus()">See Source Image</button>
               {% elif slide.file.url %}
                 <p>This item is specially provided to us and can be only viewed on this site</p>
               {%endif %}
