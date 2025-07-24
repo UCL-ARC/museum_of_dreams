@@ -1,7 +1,3 @@
-function openImageLink(url) {
-  window.open(url, "_blank").focus();
-}
-
 function openTab(evt, tabName) {
   var selected;
   selected = evt.currentTarget.name;
