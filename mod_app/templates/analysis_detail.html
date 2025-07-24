@@ -14,6 +14,8 @@
           <h4>Topics</h4>
           {% for topic in analysis.topics.all %}
             <span class="tag">{{topic.name}}</span>
+          {%empty%}
+            <p>N/A</p>
           {% endfor %}
         </div>
       </div>
