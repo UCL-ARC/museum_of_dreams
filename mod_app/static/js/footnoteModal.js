@@ -48,16 +48,20 @@ function footnoteModalHandler(footnoteReferences, footnoteModal, footnoteModalCo
 
       // Get content from the footnote anchor
       const footnoteContent = footnoteItem.querySelector("cite");
-
       const closeBtn = footnoteModal.querySelector(".modal__btn--close");
 
       footnoteModalContent.innerHTML = footnoteContent.innerHTML;
       footnoteModal.showModal();
       closeModalOnOutsideClick(footnoteModal);
-      bibModalHandler(bibModal, bibModalContent);
 
-      closeBtn.onclick = function () {
-        e.target.parentNode.close();
+      const nestedBibMention = footnoteModal.querySelectorAll(".bib-mention");
+      console.log(nestedBibMention);
+      const nestedBibModal = document.getElementById("bibliography-modal");
+      const nestedBibModalContent = nestedBibModal.querySelector(".bib-modal__content");
+      bibModalHandler(nestedBibMention, nestedBibModal, nestedBibModalContent);
+
+      closeBtn.onclick = function (event) {
+        event.target.parentNode.close();
       };
     });
   });
