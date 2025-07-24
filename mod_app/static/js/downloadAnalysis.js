@@ -5,6 +5,7 @@ async function downloadAnalysis(event, pk) {
   const url = `/download-analysis/${pk}`;
 
   downloadBtn.disabled = true;
+  downloadBtn.classList.toggle("in-progress");
   downloadBtnText.classList.toggle("hidden");
   downloadLoader.classList.toggle("hidden");
 
@@ -41,6 +42,7 @@ async function downloadAnalysis(event, pk) {
   }
 
   downloadBtn.disabled = false;
+  downloadBtn.classList.toggle("in-progress");
   downloadBtnText.classList.toggle("hidden");
   downloadLoader.classList.toggle("hidden");
 }

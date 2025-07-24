@@ -44,6 +44,10 @@
   }
 }
 
+.teaching-analysis__download.in-progress:hover {
+  cursor: not-allowed;
+}
+
 #footnote-modal,
 #bibliography-modal {
   color: var(--contrast-text);
