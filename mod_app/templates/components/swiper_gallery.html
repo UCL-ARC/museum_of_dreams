@@ -11,11 +11,15 @@
         {% if slide_images %}
           <div class="swiper-slide">
           <!-- displays fallback-text when image fails to load-->
-            <img class="slide__image" src="{{slide.url}}" alt="{{slide.description}}" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
-            <div class="fallback-text">Slide Image failed to load {{slide.description}}</div>
+            <img class="slide__image" src="{{slide}}" alt={{slide.description| default:'Slide Image'}} onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+            <div class="fallback-text">Slide Image failed to load: {{slide.description|default:slide}}</div>
             <div class="swiper-slide__description">
-              <div class="swiper-slide__description__content">{{slide.description}}</div>
-              <button class="btn" type="button" onclick="openImageLink('{{ slide.url }}')">See Image Source</button>
+              <div class="swiper-slide__description__content">{{slide.description| default:'Slide Image'}}</div>
+              {%if slide.url %}
+                <button class="btn" type="button" onclick="window.open('{{slide.url}}', '_blank').focus()">See Image Source</button>
+              {% elif slide.file.url %}
+                <p>This item is specially provided to us and can be only viewed on this site</p>
+              {%endif %}
             </div>
           </div>
         {% elif slide_videos %}
