@@ -1,11 +1,17 @@
-<dl class="short-technical-info">
-  <dt>Duration: {{film.duration|default:"N/A"}}</dt>
-  <dt>Current length: {{film.current_length|default:"N/A"}}</dt>
-  <dt>Support: {{film.support|default:"N/A"}}</dt>
-  <dt>{% if film.is_in_colour %}Colour {% else %} Black and White{% endif %}</dt>
-  <dt>Format: {{film.format_type}}</dt>
-  {% if film.format_other %}
+<div>
+  <h2>Film Technical Information</h2>
+  <dl class="short-technical-info">
+    <dt>Duration: {{film.duration|default:"N/A"}}</dt>
+    <dt>Current length: {{film.current_length|default:"N/A"}}</dt>
+    <dt>Support: {{film.support|default:"N/A"}}</dt>
+    <dt>{% if film.is_in_colour %}Colour {% else %} Black and White{% endif %}</dt>
+    <dt>Format: {{film.format_type}}</dt>
+    {% if film.format_other %}
     <dd>{{film.format_other}}</dd>
-  {% endif %}
-</dl>
-<div>Comments on the print: {{film.print_comments|safe|default:"N/A"}}</div>
+    {% endif %}
+  </dl>
+</div>
+<div>
+  <h2>Comments on the print:</h2>
+  {{film.print_comments|safe|default:"N/A"}}
+</div>
