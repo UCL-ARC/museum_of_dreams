@@ -5,10 +5,7 @@
     <dt>Current length: {{film.current_length|default:"N/A"}}</dt>
     <dt>Support: {{film.support|default:"N/A"}}</dt>
     <dt>{% if film.is_in_colour %}Colour {% else %} Black and White{% endif %}</dt>
-    <dt>Format: {{film.format_type}}</dt>
-    {% if film.format_other %}
-    <dd>{{film.format_other}}</dd>
-    {% endif %}
+    <dt>Format: {{film.format_type}} {% if film.format_other %}, {{film.format_other}} {% endif %}</dt>
   </dl>
 </div>
 <div>
