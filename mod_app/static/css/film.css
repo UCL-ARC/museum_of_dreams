@@ -108,13 +108,13 @@
   }
 }
 
-#technical {
+/* #technical {
   .short-technical-info {
-    /* justify-content: space-between;
+    justify-content: space-between;
     text-wrap: wrap;
-    flex-wrap: wrap; */
+    flex-wrap: wrap;
   }
-}
+} */
 
 /* #non-filmic{
 
@@ -127,6 +127,9 @@
     grid-template-columns: 1fr;
     gap: 1rem;
     margin-inline: 0;
+  }
+  .film__image {
+    grid-row: 3;
   }
   .film__heading {
     flex-direction: column;
