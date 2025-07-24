@@ -49,7 +49,7 @@ function footnoteModalHandler(footnoteReferences, footnoteModal, footnoteModalCo
       // Get content from the footnote anchor
       const footnoteContent = footnoteItem.querySelector("cite");
 
-      const closeBtn = bibModal.querySelector(".modal__btn--close");
+      const closeBtn = footnoteModal.querySelector(".modal__btn--close");
 
       footnoteModalContent.innerHTML = footnoteContent.innerHTML;
       footnoteModal.showModal();
