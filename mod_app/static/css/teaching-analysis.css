@@ -140,5 +140,9 @@
 @media screen and (max-width: 767px) {
   .teaching-analysis-detail-container {
     grid-template-columns: 1fr;
+    margin-inline: 0;
+  }
+  .heading {
+    text-align: center;
   }
 }
