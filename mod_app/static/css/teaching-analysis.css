@@ -3,7 +3,8 @@
 .teaching-analysis-detail-container {
   display: grid;
   grid-template-columns: 1fr 6fr;
-  column-gap: 1rem;
+  column-gap: 3rem;
+  margin-inline: 2rem;
 }
 .teaching-analysis__content-wrapper {
   display: flex;
