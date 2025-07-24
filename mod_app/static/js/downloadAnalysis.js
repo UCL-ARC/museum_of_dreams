@@ -4,6 +4,7 @@ async function downloadAnalysis(event, pk) {
   const downloadLoader = downloadBtn.querySelector(".loader");
   const url = `/download-analysis/${pk}`;
 
+  downloadBtn.disabled = true;
   downloadBtnText.classList.toggle("hidden");
   downloadLoader.classList.toggle("hidden");
 
@@ -39,6 +40,7 @@ async function downloadAnalysis(event, pk) {
     console.error("Failed to download PDF:", response.statusText);
   }
 
+  downloadBtn.disabled = false;
   downloadBtnText.classList.toggle("hidden");
   downloadLoader.classList.toggle("hidden");
 }
