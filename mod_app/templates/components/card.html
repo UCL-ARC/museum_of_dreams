@@ -1,7 +1,7 @@
 <div class="card">
   {% if obj.cardimages.first %}
 
-    <div class="card__header" style="background-image:url({% if obj.cardimages.first.url %}{{obj.cardimages.first.url}}{% elif obj.cardimages.first.file.url %}{{obj.cardimages.first.file.url}}{% endif %})"></div>
+  <div class="card__header" style="background-image:url({% if obj.cardimages.first.url %}{{obj.cardimages.first.url}}{% elif obj.cardimages.first.file.url %}{{obj.cardimages.first.file.url}}{% endif %})"></div>
 
   {% endif %}
 
@@ -9,17 +9,17 @@
     <div class="card__body__heading">
       <h1 class="card__body__title">{{obj.title}}</h1>
       {% if obj.release_date %}
-        <h3 class="card__release-date">{{obj.release_date}}</h3>
+      <h3 class="card__release-date">{{obj.release_date}}</h3>
       {% endif %}
     </div>
     <div class="card__body__tags">
       {% if obj.genre.all %} {% for g in obj.genre.all %}
-        <span class="tag tag--list">{{ g.name }}</span>
+      <span class="tag tag--list">{{ g.name }}</span>
       {% endfor %} {% else %} {% for tag in obj.tags.all %}
-        <span class="tag tag--list">{{ tag.name }}</span>
+      <span class="tag tag--list">{{ tag.name }}</span>
       {% endfor %} {% endif %}
     </div>
-    <div class="card__body__description">{{ obj.synopsis|truncatechars_html:150|safe }} {{ obj.content|truncatechars_html:250|safe }} {{ obj.material|truncatechars_html:250|safe }}</div>
+    <div class="card__body__description">{{ obj.synopsis|truncatechars_html:150|safe }} {{ obj.summary|safe }} {{ obj.material|truncatechars_html:250|safe }}</div>
   </div>
   <button type="button" class="btn card__button--see-more mobile-view-only">See more</button>
 </div>
