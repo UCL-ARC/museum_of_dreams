@@ -44,6 +44,14 @@ class FileLink(BaseLinkModel):
     class Meta:
         abstract = True
 
+    def __str__(self):
+        if self.url:
+            return self.url
+        elif self.file.url:
+            return self.file.url
+        else:
+            return self.description
+
     def upload_to(instance, filename):
         return f"files/{instance.__class__.__name__}/{filename}"
 
