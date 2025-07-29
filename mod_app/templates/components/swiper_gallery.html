@@ -12,7 +12,7 @@
           <div class="swiper-slide">
           <!-- displays fallback-text when image fails to load-->
             <img class="slide__image" src="{{slide}}" alt={{slide.description| default:'Slide Image'}} onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
-            <div class="fallback-text">Slide Image failed to load: {{slide.description|default:slide}}</div>
+            <div class="fallback-text">Slide Image failed to load...</div>
             <div class="swiper-slide__description">
               <div class="swiper-slide__description__content">{{slide.description| default:'Slide Image'}}</div>
               {%if slide.url %}
