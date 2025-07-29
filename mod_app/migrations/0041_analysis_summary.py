@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("mod_app", "0040_data_migration_transfer_keyword_to_topic"),
     ]
