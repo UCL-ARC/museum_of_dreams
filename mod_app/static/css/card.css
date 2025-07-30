@@ -82,7 +82,9 @@
       font-size: 0.9rem;
     }
 
-    .card__body__description,
+    .card__body__description {
+      word-break: break-all;
+    }
     .card__body__description span {
       color: var(--contrast-text) !important;
     }

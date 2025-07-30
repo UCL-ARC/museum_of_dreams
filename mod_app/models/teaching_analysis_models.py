@@ -26,6 +26,8 @@ class Analysis(models.Model):
 
     title = models.CharField(max_length=255, default=default_title)
 
+    summary = models.TextField(max_length=1000, null=True, blank=True)
+
     content = RichTextUploadingField(
         null=True,
         blank=True,
