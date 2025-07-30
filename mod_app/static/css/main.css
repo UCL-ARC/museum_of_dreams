@@ -84,7 +84,6 @@ footer {
 
   .footer__nav {
     display: flex;
-    flex-direction: column;
     justify-content: space-around;
     color: var(--contrast-text);
     height: 100%;
@@ -108,7 +107,8 @@ footer {
   }
   .footer__nav ul {
     list-style-type: none;
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
     padding-inline-start: 0;
 
     li {
@@ -131,11 +131,11 @@ footer {
   }
 
   .footer-logo {
-    width: 30vw;
+    /* width: 30vw; */
   }
 
   .footer__logo-text {
-    width: 10vw;
+    /* width: 10vw; */
     font-size: 80%;
     color: var(--footer-text-colour);
     &:hover {
