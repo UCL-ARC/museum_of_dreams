@@ -164,5 +164,9 @@
     .film__video {
       width: 450px;
     }
+    .film__video--fallback {
+      width: 450px;
+      height: auto;
+    }
   }
 }
