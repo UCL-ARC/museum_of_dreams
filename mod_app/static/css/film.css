@@ -107,7 +107,8 @@
   }
 }
 #technical {
-  max-width: 70vw;
+  max-width: 60vw;
+  word-break: break-word;
 }
 /* #technical {
   .short-technical-info {
