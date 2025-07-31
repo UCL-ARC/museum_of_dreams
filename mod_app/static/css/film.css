@@ -106,7 +106,9 @@
     }
   }
 }
-
+#technical {
+  max-width: 70vw;
+}
 /* #technical {
   .short-technical-info {
     justify-content: space-between;
