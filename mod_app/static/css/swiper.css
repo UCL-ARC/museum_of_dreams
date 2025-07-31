@@ -45,7 +45,7 @@ iframe {
   }
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (min-width: 767px) and (max-width: 1000px) {
   .swiper {
     width: 50vw;
   }
