@@ -17,16 +17,14 @@
   {% comment %} content of those tabs {% endcomment %}
 
   <!-- Modal -->
-  <dialog id="reference-modal" class="modal">
+  <dialog id="footnote-modal" class="modal">
     <span class="modal__btn--close">&times;</span>
-    <div class="modal__content">
-      <div class="modal__text"></div>
-    </div>
+    <div class="footnote-modal__content"></div>
   </dialog>
 
   <dialog id="bibliography-modal" class="modal">
     <span class="modal__btn--close">&times;</span>
-    <div class="modal__content"></div>
+    <div class="bib-modal__content"></div>
   </dialog>
 
   <div id="{{model}}__content" class="lh-15 tab__content active" name="content">{{ model.content | safe }}</div>
@@ -43,4 +41,4 @@
 </div>
 
 <script src="{% static 'js/openTab.js' %}"></script>
-<script src="{% static 'js/footnote_modal.js' %}"></script>
+<script src="{% static 'js/footnoteModal.js' %}"></script>

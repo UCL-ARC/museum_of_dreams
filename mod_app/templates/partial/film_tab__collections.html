@@ -12,10 +12,11 @@
   {% endif %}
 </section>
 
-<hr />
 <section>
-  <h3>You may also want to look at...</h3>
+  <h2>You may also want to look at...</h2>
   {% comment %} other links {% endcomment %} {% for link in film.otherlinks.all %}
     <li>{{link}}</li>
+  {% empty %}
+    <p>No Other Links found for this film</p>
   {% endfor %}
 </section>

@@ -1,5 +1,6 @@
 <div class="tabbed-area">
   {% comment %} tabs the user clicks to navigate {% endcomment %}
+  <div class="tab-selection__sentinel"></div>
   <div class="tab-selection">
     <button class="tab__link active" type="button" name="filmic" onclick="openTab(event, 'filmic')"><h3>Filmic</h3></button>
 
@@ -32,3 +33,6 @@
 </div>
 
 <script src="{% static 'js/openTab.js' %}"></script>
+{% comment %}
+<script src="{% static 'js/dimStickyMenu.js' %}"></script>
+{% endcomment %}

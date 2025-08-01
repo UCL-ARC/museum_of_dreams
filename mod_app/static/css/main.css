@@ -74,8 +74,10 @@ footer {
   align-items: center;
   min-height: max-content;
   background-color: var(--footer-colour);
+  gap: 20px;
 
   @media screen and (max-width: 767px) {
+    gap: 0;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -84,14 +86,14 @@ footer {
 
   .footer__nav {
     display: flex;
-    flex-direction: column;
     justify-content: space-around;
     color: var(--contrast-text);
     height: 100%;
     align-items: flex-start;
-    width: 40vw;
+    width: 20vw;
 
     @media screen and (max-width: 767px) {
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
@@ -108,7 +110,8 @@ footer {
   }
   .footer__nav ul {
     list-style-type: none;
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
     padding-inline-start: 0;
 
     li {
@@ -131,11 +134,10 @@ footer {
   }
 
   .footer-logo {
-    width: 30vw;
   }
 
   .footer__logo-text {
-    width: 10vw;
+    width: 100%;
     font-size: 80%;
     color: var(--footer-text-colour);
     &:hover {
@@ -152,9 +154,10 @@ footer {
   }
 
   .footer__collab-logos-area {
+    width: 50vw;
     display: grid;
-    grid-template-columns: repeat(3, minmax(4vw, 6vw));
-    justify-items: center;
+    grid-template-columns: repeat(7, minmax(4vw, 6vw));
+    justify-content: space-around;
     align-items: center;
 
     img {

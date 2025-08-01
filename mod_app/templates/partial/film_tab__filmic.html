@@ -8,13 +8,13 @@
 </div>
 <hr />
 <dl class="triple-c">
-  <dt>Production Country: {{ film.production_country }}</dt>
+  <dt>Production Country: {{ film.production_country |default:"N/A"}}</dt>
 
-  <dt>Production Company: {{ film.production_company }}</dt>
+  <dt>Production Company: {{ film.production_company |default:"N/A"}}</dt>
 
-  <dt>BFI Category: {{ film.bfi_category }}</dt>
+  <dt>BFI Category: {{ film.bfi_category |default:"N/A"}}</dt>
 
-  <dt>Source: {% for source in film.sources.all %}<a href="{{source.url}}"> {{source.description}} </a> {% endfor %}</dt>
+  <dt>Source: {% for source in film.sources.all %}<a href="{{source.url}}"> {{source.description}} </a> {%empty%}N/A{% endfor %}</dt>
 </dl>
 <hr />
 <div class="cast-credits">

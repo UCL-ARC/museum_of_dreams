@@ -2,4 +2,6 @@
   <div class="bibliography__item {% cycle 'ro' 're' %}">
     <div data-bib-citation-id="{{ bib.id }}">{{bib.full_citation|safe}}</div>
   </div>
-{% endfor %}
+{% empty %}
+  <p>Sorry, no bibliographies are avaliable for this content at the moment.</p>
+  <p>{% endfor %}</p>

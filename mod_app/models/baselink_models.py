@@ -41,6 +41,14 @@ class Source(BaseLinkModel):
 
 
 class FileLink(BaseLinkModel):
+    def __str__(self):
+        if self.url:
+            return self.url
+        elif self.file.url:
+            return self.file.url
+        else:
+            return self.description
+
     class Meta:
         abstract = True
 

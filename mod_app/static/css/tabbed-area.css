@@ -15,14 +15,26 @@
 } */
 
 .tabbed-area {
+  display: flex;
+  flex-direction: column;
   --underline-colour: var(--coral);
 }
 .tab-selection {
+  /* position: sticky;
+  top: 0;
+  left: 0;
+  align-self: start; */
   overflow: hidden;
   justify-content: start;
   display: flex;
   gap: 1rem;
   padding-bottom: 2rem;
+}
+
+body:has(.tab-selection.is-sticky) .tab-selection {
+  background-color: rgba(0, 0, 0, 0.5); /* dimmed background */
+  width: 100%;
+  padding-bottom: 0;
 }
 
 .tab__link {
@@ -31,7 +43,6 @@
   border-bottom: 2px solid transparent;
   color: var(--contrast-text);
   transition: border-bottom 0.4s ease-out;
-  padding-bottom: 0;
 
   &.active {
     border-bottom: 1px solid var(--underline-colour);
@@ -45,9 +56,8 @@
 .tab__content {
   display: none;
   /* margin-top: 1.4rem;
-  margin-inline-start: 2.2rem;
-  margin-inline-end: 3.2rem;
-      padding: 0.5rem; */
+  margin-inline-start: 2.2rem; */
+  /* margin-inline-end: 6rem; */
 
   &.active {
     display: flex;
@@ -68,6 +78,9 @@
 @media screen and (max-width: 767px) {
   .tab-selection {
     flex-wrap: wrap;
+  }
+  .tab__content {
+    margin-inline-end: initial;
   }
   .active[name="content"] {
     img {
