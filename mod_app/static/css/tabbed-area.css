@@ -91,7 +91,7 @@ body:has(.tab-selection.is-sticky) .tab-selection {
   .active[name="content"] {
     img {
       max-width: 200px;
-      max-height: 500px;
+      max-height: 250px;
       object-fit: contain;
     }
   }
@@ -101,7 +101,7 @@ body:has(.tab-selection.is-sticky) .tab-selection {
   .active[name="content"] {
     img {
       max-width: 250px;
-      max-height: 600px;
+      max-height: 300px;
       object-fit: contain;
     }
   }
