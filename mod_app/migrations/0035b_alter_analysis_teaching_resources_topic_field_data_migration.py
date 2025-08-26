@@ -8,7 +8,6 @@ def transfer_topics(apps, schema_editor):
     topic = apps.get_model("mod_app", "Topic")
     tag = apps.get_model("mod_app", "Tag")
     existing_topics = tag.objects.filter((Q(topic__isnull=False))).distinct()
-    print("existing_topics", existing_topics)
 
     for e_t in existing_topics:
         topic.objects.create(name=e_t.name, is_genre=False)

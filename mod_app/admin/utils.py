@@ -10,7 +10,9 @@ from django.contrib.admin.sites import AlreadyRegistered
 def safe_bibliography(obj):
     bib_items = obj.bibliography.all()
     formatted_items = [
-        format_html("<li>{}</li>", format_html(html.unescape(bib_item.full_citation)))
+        format_html(
+            "<li>{}</li> <br/>", format_html(html.unescape(bib_item.full_citation))
+        )
         for bib_item in bib_items
     ]
     return format_html("<ul>{}</ul>", format_html("".join(formatted_items)))

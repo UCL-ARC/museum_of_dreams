@@ -50,9 +50,9 @@ class AnalysisAdmin(admin.ModelAdmin):
         js = ("admin/js/mentionsPluginConfig.js",)
 
     form = AnalysisAdminForm
-    autocomplete_fields = ["films", "keywords", "genre", "teaching_resources", "topics"]
+    autocomplete_fields = ["films", "teaching_resources", "topics"]
     readonly_fields = ("safe_bib",)
-    exclude = ["bibliography"]
+    exclude = ["bibliography", "keywords", "genre"]
     list_display = [
         "dynamic_title",
         "related_films",
@@ -105,9 +105,9 @@ class TeachingResourcesAdmin(AnalysisAdmin):
 
     form = TRAdminForm
     inlines = [TRAnalysisInline]
-    autocomplete_fields = ["films", "keywords", "tags", "clips", "topics"]
+    autocomplete_fields = ["films", "tags", "clips", "topics"]
     readonly_fields = ("safe_bib",)
-    exclude = ["bibliography"]
+    exclude = ["bibliography", "keywords"]
     filter_horizontal = ("films",)
 
     list_display = [

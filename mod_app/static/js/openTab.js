@@ -1,5 +1,5 @@
 function openTab(evt, tabName) {
-  var selected, content, tab;
+  var selected;
   selected = evt.currentTarget.name;
   contentElems = document.getElementsByClassName("tab__content");
   tabs = document.getElementsByClassName("tab__link");

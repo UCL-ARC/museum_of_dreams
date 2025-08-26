@@ -1,17 +1,34 @@
 /* for analysis list and detail pages */
 
+.teaching-analysis-detail-container {
+  display: grid;
+  grid-template-columns: 1fr 6fr;
+  column-gap: 3rem;
+  margin-inline: 2rem;
+}
+.teaching-analysis__content-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.columnar-area {
+  padding-top: 2rem;
+}
+/*
 .heading {
   display: grid;
   grid-template-columns: 1fr 3fr;
   gap: 1rem;
-}
-#title {
+} */
+/* #title {
   grid-column: 2;
   padding-inline-start: 1rem;
   margin-inline-start: 2.2rem;
-}
+} */
 
 .teaching-analysis__download {
+  width: 130px;
+  height: 50px;
   transition: all 0.3s ease;
   background-image: none;
 
@@ -27,7 +44,11 @@
   }
 }
 
-#reference-modal,
+.teaching-analysis__download.in-progress:hover {
+  cursor: not-allowed;
+}
+
+#footnote-modal,
 #bibliography-modal {
   color: var(--contrast-text);
   background-color: var(--background-colour);
@@ -39,7 +60,8 @@
     backdrop-filter: blur(3px);
   }
 
-  .modal__content {
+  .footnote-modal__content,
+  .bib-modal__content {
     margin: 1vw 2vw;
   }
 
@@ -53,8 +75,78 @@
       color: var(--coral);
     }
   }
+}
 
-  .bib-mention {
-    cursor: pointer;
+.bibliography__item:hover {
+  color: var(--coral);
+  cursor: default;
+}
+
+.bib-mention {
+  color: var(--turquoise);
+  cursor: pointer;
+  &:hover {
+    color: var(--coral);
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.loader {
+  object-fit: contain;
+  justify-self: center;
+  width: 10px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 8px solid var(--turquoise);
+  animation: l20-1 0.8s infinite linear alternate, l20-2 1.6s infinite linear;
+}
+@keyframes l20-1 {
+  0% {
+    clip-path: polygon(50% 50%, 0 0, 50% 0%, 50% 0%, 50% 0%, 50% 0%, 50% 0%);
+  }
+  12.5% {
+    clip-path: polygon(50% 50%, 0 0, 50% 0%, 100% 0%, 100% 0%, 100% 0%, 100% 0%);
+  }
+  25% {
+    clip-path: polygon(50% 50%, 0 0, 50% 0%, 100% 0%, 100% 100%, 100% 100%, 100% 100%);
+  }
+  50% {
+    clip-path: polygon(50% 50%, 0 0, 50% 0%, 100% 0%, 100% 100%, 50% 100%, 0% 100%);
+  }
+  62.5% {
+    clip-path: polygon(50% 50%, 100% 0, 100% 0%, 100% 0%, 100% 100%, 50% 100%, 0% 100%);
+  }
+  75% {
+    clip-path: polygon(50% 50%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 50% 100%, 0% 100%);
+  }
+  100% {
+    clip-path: polygon(50% 50%, 50% 100%, 50% 100%, 50% 100%, 50% 100%, 50% 100%, 0% 100%);
+  }
+}
+@keyframes l20-2 {
+  0% {
+    transform: scaleY(1) rotate(0deg);
+  }
+  49.99% {
+    transform: scaleY(1) rotate(135deg);
+  }
+  50% {
+    transform: scaleY(-1) rotate(0deg);
+  }
+  100% {
+    transform: scaleY(-1) rotate(-135deg);
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .teaching-analysis-detail-container {
+    grid-template-columns: 1fr;
+    margin-inline: 0;
+  }
+  .heading {
+    text-align: center;
   }
 }

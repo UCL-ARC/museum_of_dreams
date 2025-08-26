@@ -1,76 +1,92 @@
-.teaching-analysis__content-wrapper,
-.film__content-wrapper {
-  padding: 1rem;
-  display: grid;
-  /* need to make one column for mobile */
-  grid-template-columns: 1fr 3fr;
-  gap: 1rem;
+/* .columnar-area {
+  position: sticky;
+  top: 1rem;
 
-  .columnar-area {
-    position: sticky;
-    top: 1rem;
-
-    img {
-      width: 100% !important;
-      height: auto !important;
-      max-width: 100% !important;
-      object-fit: contain;
-    }
-
-    .info > div {
-      margin-bottom: 2rem;
-    }
+  img {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+    object-fit: contain;
   }
 
-  .tabbed-area {
-    --underline-colour: var(--coral);
-    width: 100%;
+  .info > div {
+    margin-bottom: 2rem;
+  }
+} */
 
-    .tab-selection {
-      overflow: hidden;
-      justify-content: start;
-      display: flex;
-      gap: 1rem;
-      margin-inline-start: 2.2rem;
-    }
-    .tab__link {
-      background-color: transparent;
-      border: none;
-      border-bottom: 2px solid transparent;
-      color: var(--contrast-text);
-      transition: border-bottom 0.4s ease-out;
-      padding-bottom: 0;
+.tabbed-area {
+  display: flex;
+  flex-direction: column;
+  --underline-colour: var(--coral);
+}
+.tab-selection {
+  /* position: sticky;
+  top: 0;
+  left: 0;
+  align-self: start; */
+  overflow: hidden;
+  justify-content: start;
+  display: flex;
+  gap: 1rem;
+  padding-bottom: 2rem;
+}
 
-      &.active {
-        border-bottom: 1px solid var(--underline-colour);
-      }
+body:has(.tab-selection.is-sticky) .tab-selection {
+  background-color: rgba(0, 0, 0, 0.5); /* dimmed background */
+  width: 100%;
+  padding-bottom: 0;
+}
 
-      &:hover:not(.active) {
-        border-bottom: 2px solid var(--underline-colour);
-      }
-    }
-    .tab__content {
-      display: none;
-      margin-top: 1.4rem;
-      margin-inline-start: 2.2rem;
-      margin-inline-end: 3.2rem;
-      padding: 0.5rem;
+.tab__link {
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--contrast-text);
+  transition: border-bottom 0.4s ease-out;
 
-      &.active {
-        display: block;
-      }
+  &.active {
+    border-bottom: 1px solid var(--underline-colour);
+  }
 
-      img {
-        max-width: 100% !important;
-        object-fit: contain;
-      }
-      section.footnotes {
-        display: none;
-      }
-    }
+  &:hover:not(.active) {
+    border-bottom: 2px solid var(--underline-colour);
   }
 }
+
+.tab__content {
+  display: none;
+  /* margin-top: 1.4rem;
+  margin-inline-start: 2.2rem; */
+  /* margin-inline-end: 6rem; */
+
+  &.active {
+    display: flex;
+    flex-direction: column;
+    object-fit: contain;
+  }
+
+  section.footnotes {
+    display: none;
+  }
+}
+
 .teaching-analysis__content-wrapper .tab__content {
-  max-height: 90vh;
-  overflow-y: scroll;
+  /* max-height: 90vh; */
+  /* overflow-y: scroll; */
+}
+
+@media screen and (max-width: 767px) {
+  .tab-selection {
+    flex-wrap: wrap;
+  }
+  .tab__content {
+    margin-inline-end: initial;
+  }
+  .active[name="content"] {
+    img {
+      max-width: 100% !important;
+      max-height: 100% !important;
+      object-fit: contain;
+    }
+  }
 }

@@ -136,6 +136,7 @@ CKEDITOR_CONFIGS = {
                 "footnotes",
                 "popout",
                 "pastefromword",
+                "html5video",
             ]
         ),
         "toolbar": [
@@ -151,7 +152,7 @@ CKEDITOR_CONFIGS = {
                 "Redo",
             ],
             ["Link", "Unlink", "Anchor", "Footnotes", "FindFootnotes"],
-            ["Image", "Flash", "Table", "HorizontalRule"],
+            ["Image", "Html5video", "Table", "HorizontalRule"],
             ["TextColor", "BGColor"],
             ["Smiley", "SpecialChar"],
             ["Popout"],

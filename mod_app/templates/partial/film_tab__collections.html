@@ -1,16 +1,22 @@
 <section>
   <h2>Printed Materials</h2>
-  {% include "components/swiper_gallery.html" with slides=pm_slides id="pm" coverflow=True loop=True %}
+  {% if pm_slides%} {% include "components/swiper_gallery.html" with slides=pm_slides id="pm" slide_images=True coverflow=True loop=True %} {% else %}
+    <p>No Printed Materials found for this film</p>
+  {% endif %}
 </section>
 
 <section>
   <h2>Visual Resources</h2>
-  {% include "components/swiper_gallery.html" with slides=vr_slides id="vr" slide_images=True coverflow=True loop=True %}
+  {%if vr_slides%} {% include "components/swiper_gallery.html" with slides=vr_slides id="vr" slide_images=True coverflow=True loop=True %} {% else %}
+    <p>No Visual Resources found for this film</p>
+  {% endif %}
 </section>
-<hr />
+
 <section>
-  <h3>You may also want to look at...</h3>
+  <h2>You may also want to look at...</h2>
   {% comment %} other links {% endcomment %} {% for link in film.otherlinks.all %}
     <li>{{link}}</li>
+  {% empty %}
+    <p>No Other Links found for this film</p>
   {% endfor %}
 </section>

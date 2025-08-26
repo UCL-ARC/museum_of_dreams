@@ -8,6 +8,10 @@
 - [Adding CK Editor plugins](./addingCKEPlugins.md)
 - [Troubleshooting](./troubleshooting.md)
 
+### Testing
+
+- [Setting up Pytest](./setting_up_pytest.md)
+
 ## AWS
 
 ### AWS Code Development Cloudkit (CDK)
