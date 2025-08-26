@@ -1,18 +1,3 @@
-/* .columnar-area {
-  position: sticky;
-  top: 1rem;
-
-  img {
-    width: 100% !important;
-    height: auto !important;
-    max-width: 100% !important;
-    object-fit: contain;
-  }
-
-  .info > div {
-    margin-bottom: 2rem;
-  }
-} */
 .columnar-area {
   grid-column: 1;
   position: sticky;
