@@ -3,7 +3,7 @@
   position: sticky;
   align-self: start;
   top: 0;
-  left: 0;
+  left: auto; /*auto prevents sticky menu on the x-axis when scrolling horizontally*/
 }
 
 .tabbed-area {
