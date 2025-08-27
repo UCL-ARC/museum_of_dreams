@@ -1,8 +1,14 @@
 {% extends "base.html" %} {% load i18n %} {% block title %}{% trans "search" %}{% endblock %} {% block content %}
 
-<h1>Film Search</h1>
+<h1>Search In:</h1>
+<input type="radio" id="film-search" name="search" checked="checked"/>
+<label for="film-search">Films</label><br>
+<input type="radio" id="analysis-search" name="search"/>
+<label for="analysis-search">Analyses</label><br>
 
-<form id="film-search-form" method="get">
+<h1>Search Filters:</h1>
+
+<form id="film-search-form" class="search-form" method="get">
   <label for="film-title">Film Title:</label>
   <input type="text" id="film-title" /><br /><br />
   <label for="film-year">Year of release:</label>
@@ -12,9 +18,7 @@
   <input type="submit" value="Submit" />
 </form>
 
-<h1>Analyses Search</h1>
-
-<form id="analysis-search-form" method="get">
+<form id="analysis-search-form" class="search-form" method="get">
   <label for="analysis-title">Analysis Title:</label>
   <input type="text" id="analysis-title" /><br /><br />
   <label for="analysis-author">Author:</label>
