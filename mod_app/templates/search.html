@@ -1,0 +1,26 @@
+{% extends "base.html" %} {% load i18n %} {% block title %}{% trans "search" %}{% endblock %} {% block content %}
+
+<h1>Film Search</h1>
+
+<form>
+  <label for="film_title">Film Title:</label>
+  <input type="text" id="film_title" /><br /><br />
+  <label for="film_year">Year of release:</label>
+  <input type="text" id="film_year" /><br /><br />
+  <label for="film_keyword">Keywords:</label>
+  <input type="text" id="film_keyword" /><br /><br />
+  <input type="submit" value="Submit" />
+</form>
+
+<h1>Analyses Search</h1>
+
+<form>
+  <label for="analysis_title">Analysis Title:</label>
+  <input type="text" id="analysis_title" /><br /><br />
+  <label for="analysis_author">Author:</label>
+  <input type="text" id="author" /><br /><br />
+  <label for="analysis_keywords">Keywords:</label>
+  <input type="text" id="analysis_keywords" /><br /><br />
+  <input type="submit" value="Submit" />
+</form>
+{% endblock %}
