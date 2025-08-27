@@ -2,25 +2,27 @@
 
 <h1>Film Search</h1>
 
-<form>
-  <label for="film_title">Film Title:</label>
-  <input type="text" id="film_title" /><br /><br />
-  <label for="film_year">Year of release:</label>
-  <input type="text" id="film_year" /><br /><br />
-  <label for="film_keyword">Keywords:</label>
-  <input type="text" id="film_keyword" /><br /><br />
+<form id="film-search-form" method="get">
+  <label for="film-title">Film Title:</label>
+  <input type="text" id="film-title" /><br /><br />
+  <label for="film-year">Year of release:</label>
+  <input type="text" id="film-year" /><br /><br />
+  <label for="film-keyword">Keywords:</label>
+  <input type="text" id="film-keyword" /><br /><br />
   <input type="submit" value="Submit" />
 </form>
 
 <h1>Analyses Search</h1>
 
-<form>
-  <label for="analysis_title">Analysis Title:</label>
-  <input type="text" id="analysis_title" /><br /><br />
-  <label for="analysis_author">Author:</label>
-  <input type="text" id="author" /><br /><br />
-  <label for="analysis_keywords">Keywords:</label>
-  <input type="text" id="analysis_keywords" /><br /><br />
+<form id="analysis-search-form" method="get">
+  <label for="analysis-title">Analysis Title:</label>
+  <input type="text" id="analysis-title" /><br /><br />
+  <label for="analysis-author">Author:</label>
+  <input type="text" id="analysis-author" /><br /><br />
+  <label for="analysis-keywords">Keywords:</label>
+  <input type="text" id="analysis-keywords" /><br /><br />
   <input type="submit" value="Submit" />
 </form>
 {% endblock %}
+
+<script type="module">{% static "js/fuseSearch.js" %}<script/>
