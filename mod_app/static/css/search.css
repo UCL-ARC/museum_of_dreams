@@ -1,0 +1,11 @@
+.search-form {
+  display: none;
+}
+
+#film-search:checked ~ #film-search-form {
+  display: block;
+}
+
+#analysis-search:checked ~ #analysis-search-form {
+  display: block;
+}
