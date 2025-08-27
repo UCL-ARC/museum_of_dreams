@@ -201,6 +201,10 @@ class BucketItemsView(View):
         return render(request, "bucket_items.html", context)
 
 
+class SearchView(TemplateView):
+    template_name = "search.html"
+
+
 def custom_404(request, exception=None):
     return render(request, "404.html", {}, status=404)
 

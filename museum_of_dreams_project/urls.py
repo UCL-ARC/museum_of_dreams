@@ -82,7 +82,7 @@ urlpatterns = (
         ),
         distill_path(
             "search",
-            views.custom_404,
+            views.SearchView.as_view(),
             name="search",
         ),
         distill_path(
