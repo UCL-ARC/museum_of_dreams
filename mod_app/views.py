@@ -206,8 +206,8 @@ class SearchView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["films"] = Film.object.all()
-        context["analyses"] = Analysis.object.all()
+        context["films"] = Film.objects.all()
+        context["analyses"] = Analysis.objects.all()
         return context
 
 
