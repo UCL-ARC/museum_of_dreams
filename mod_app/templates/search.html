@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% load i18n %} {% block title %}{% trans "search" %}{% endblock %} {% block content %}
-<p hidden>{{ films|json_script:"films" }}</p>
-<p hidden>{{ analyses|json_script:"analyses" }}</p>
+<p hidden>{{ films}}</p>
+<p hidden>{{ analyses }}</p>
 <h1>Search In:</h1>
 <input type="radio" id="film-search" name="search" checked="checked" />
 <label for="film-search">Films</label><br />
@@ -30,6 +30,4 @@
 </form>
 {% endblock %}
 
-<script type="module">
-  {% static "js/fuseSearch.js" %}
-</script>
+<script type="module" src="{% static 'js/fuseSearch.js'%}"></script>
