@@ -204,6 +204,12 @@ class BucketItemsView(View):
 class SearchView(TemplateView):
     template_name = "search.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["films"] = Film.object.all()
+        context["analyses"] = Analysis.object.all()
+        return context
+
 
 def custom_404(request, exception=None):
     return render(request, "404.html", {}, status=404)
