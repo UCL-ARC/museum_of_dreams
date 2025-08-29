@@ -12,7 +12,7 @@
 @import url("card.css");
 @import url("tabbed-area.css");
 @import url("button.css");
-@import url("search.css");
+@import url("search-bar.css");
 
 /* open props */
 @import url("open-props.min.css");
@@ -24,6 +24,7 @@
 /* Material Design (for icons) */
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0");
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,100,1,200");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
 
 /**************** Agency FB Font *******************/
 @font-face {
