@@ -4,10 +4,12 @@
   {{description}}
   <div class="utility__wrapper">
     <div class="filter__wrapper">
-      <form>
-        <input type="text" placeholder="Search.." id="search-bar" />
+      {% if model == "film" %}
+      <form id ="film-search">
+        <input type="text" placeholder="Search Films..." id="search-bar" required/>
         <button type="submit"><i class="fa fa-search"></i></button>
       </form>
+      {% endif %}
     </div>
     <div class="viewby">
       {% if is_paginated %} Showing {{ page_obj.start_index }} to {{ page_obj.end_index }} of {{ page_obj.paginator.count }} {{ model }}s
@@ -19,3 +21,5 @@
     </div>
   </div>
 </div>
+
+<script type="module" src="{% static "js/fuseSearch.js" %}"></script>
