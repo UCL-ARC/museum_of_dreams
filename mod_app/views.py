@@ -48,6 +48,16 @@ class FilmListView(ListView):
     template_name = "film_list.html"
     paginate_by = 20
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["film_data"] = Film.objects.values(
+            "pk",
+            "title",
+            "release_date",
+            "synopsis",
+        )
+        return context
+
     def get_paginate_by(self, queryset):
         page = self.request.GET.get(self.page_kwarg)
         if page:
