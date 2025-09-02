@@ -48,15 +48,14 @@ class FilmListView(ListView):
     template_name = "film_list.html"
     paginate_by = 20
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["film_data"] = Film.objects.values(
-            "pk",
-            "title",
-            "release_date",
-            "synopsis",
-        )
-        return context
+    def render_to_response(self, context, **response_kwargs):
+        # returns films in json for uses in fuse searchs
+        if self.request.GET.get("film_data") == "json":
+            films = list(Film.objects.values("pk", "title", "release_date", "synopsis"))
+            return JsonResponse(films, safe=False)
+        else:
+            # Default: render template
+            return super().render_to_response(context, **response_kwargs)
 
     def get_paginate_by(self, queryset):
         page = self.request.GET.get(self.page_kwarg)
