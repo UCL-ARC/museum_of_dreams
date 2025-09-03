@@ -60,32 +60,3 @@ filmSearchForm.addEventListener("submit", async (event) => {
     console.error("Fetch error:", error);
   }
 });
-
-//fire request to get film data
-
-// gets a json response
-
-// fuse sort through the response and display the films
-
-// if theres 4 digit numbers
-// film title
-// film synopsis
-
-// analysisSearchForm.addEventListener("submit", (event) => {});
-const fuseTestData = [
-  {
-    title: "Old Man's War",
-    author: "John Scalzi",
-    tags: ["fiction"],
-  },
-  {
-    title: "The Lock Artist",
-    author: "Steve",
-    tags: ["thriller"],
-  },
-];
-console.log(fuseTestData);
-// const fuse = new Fuse(fuseTestData, fuseOptions);
-// const result = fuse.search("old");
-// console.log(result);
-search(fuseTestData, "old", fuseOptions);
