@@ -86,6 +86,9 @@ urlpatterns = (
             name="search",
         ),
         distill_path(
+            "films/cards-partial/", views.obj_cards_partial, name="obj_cards_partial"
+        ),
+        distill_path(
             "locations",
             views.custom_404,
             name="location_list",

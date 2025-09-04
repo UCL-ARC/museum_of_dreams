@@ -33,10 +33,41 @@ function search(list, query, options) {
   const fuse = new Fuse(list, options);
   const result = fuse.search(query);
   console.log("Search successful:", result);
+  return result;
 }
 
 const filmSearchForm = document.getElementById("film-search");
 console.log(window.location.origin);
+
+function getCSRFToken() {
+  // Standard Django cookie helper
+  const m = document.cookie.match(/(?:^|;\s*)csrftoken=([^;]+)/);
+  return m ? decodeURIComponent(m[1]) : "";
+}
+
+async function renderCardsFromFuseResults(fuseResultsOrItems) {
+  const items = Array.isArray(fuseResultsOrItems) && fuseResultsOrItems.length && fuseResultsOrItems[0].item ? fuseResultsOrItems.map((r) => r.item) : fuseResultsOrItems;
+  const PARTIAL_URL = window.location.origin + "/films/cards-partial/";
+  const ids = items.map((x) => x.pk ?? x.pk); // adapt to your field name
+  console.log("mapped film ids:", ids);
+
+  const res = await fetch(PARTIAL_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-CSRFToken": getCSRFToken(),
+      Accept: "text/html",
+    },
+    body: JSON.stringify({ ids }),
+  });
+
+  const html = await res.text();
+  console.log(html);
+  const cardGrid = document.getElementsByClassName("card-grid");
+  console.log("cardgrid:", cardGrid[0]);
+  cardGrid[0].innerHTML = html;
+  console.log(cardGrid[0]);
+}
 
 filmSearchForm.addEventListener("submit", async (event) => {
   const url = window.location.origin + "/films?film_data=json";
@@ -51,11 +82,12 @@ filmSearchForm.addEventListener("submit", async (event) => {
     console.log("Data received:", filmData);
     console.log(typeof filmData);
     console.log(Array.isArray(filmData));
-    console.log("First film:", filmData[1]);
     const searchValue = document.getElementById("search-bar").value;
     console.log("Search Value:", searchValue);
 
-    search(filmData, searchValue, fuseOptions);
+    const results = search(filmData, searchValue, fuseOptions);
+    console.log("results:", results);
+    await renderCardsFromFuseResults(results);
   } catch (error) {
     console.error("Fetch error:", error);
   }

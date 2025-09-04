@@ -1,13 +1,16 @@
+import json
 import re
 
 import boto3
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 from django.shortcuts import render
 from django.template.defaultfilters import striptags
 from django.template.loader import render_to_string
 from django.utils.decorators import method_decorator
 from django.views import View
+from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.http import require_POST
 from django.views.generic import DetailView, ListView, TemplateView
 from xhtml2pdf import pisa
 
@@ -63,6 +66,28 @@ class FilmListView(ListView):
             return self.paginate_by
         else:
             return None
+
+
+@require_POST
+@csrf_protect
+def obj_cards_partial(request):
+    """
+    Body: {"ids": [1, 5, 3, ...]}
+    Returns: HTML fragment of <a>...{% include 'components/card.html' %}</a> per id.
+    """
+    try:
+        payload = json.loads(request.body.decode("utf-8"))
+        ids = payload.get("ids", [])
+        if not isinstance(ids, list):
+            return HttpResponseBadRequest("ids must be a list")
+    except Exception:
+        return HttpResponseBadRequest("Invalid JSON")
+
+    # Fetch and preserve client order
+    objs_by_id = Film.objects.in_bulk(ids)  # dict {id: obj}
+    ordered_objs = [objs_by_id[i] for i in ids if i in objs_by_id]
+
+    return render(request, "partial/film_card_grid.html", {"film_list": ordered_objs})
 
 
 class FilmDetailView(DetailView):
