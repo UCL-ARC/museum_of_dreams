@@ -65,7 +65,7 @@ async function renderCardsFromFuseResults(fuseResultsOrItems) {
   console.log(html);
   const cardGrid = document.getElementsByClassName("card-grid");
   console.log("cardgrid:", cardGrid[0]);
-  cardGrid[0].innerHTML = html;
+  cardGrid[0].outerHTML = html;
   console.log(cardGrid[0]);
 }
 
