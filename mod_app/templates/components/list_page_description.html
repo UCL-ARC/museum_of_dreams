@@ -5,18 +5,18 @@
   <div class="utility__wrapper">
     <div class="filter__wrapper">
       {% if model == "film" %}
-      <form id ="film-search">
-        <input type="text" placeholder="Search Films..." id="search-bar" required/>
-        <button type="submit"><i class="fa fa-search"></i></button>
-      </form>
+        <form id ="film-search">
+          <input type="text" placeholder="Search Films..." id="search-bar" required/>
+          <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
       {% endif %}
     </div>
     <div class="viewby">
       {% if is_paginated %} Showing {{ page_obj.start_index }} to {{ page_obj.end_index }} of {{ page_obj.paginator.count }} {{ model }}s
 
-      <a href="{% url view %}"><button class="btn--link button--toggle-pagination">View All</button></a>
+        <a href="{% url view %}"><button class="btn--link button--toggle-pagination">View All</button></a>
       {% else %} {% if not no_pagination_available %}
-      <a href="{% url view %}?page=1"><button class="btn--link button--toggle-pagination">View by page</button></a>
+        <a href="{% url view %}?page=1"><button class="btn--link button--toggle-pagination">View by page</button></a>
       {% endif %} {% endif %}
     </div>
   </div>
