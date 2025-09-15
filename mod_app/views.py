@@ -3,7 +3,7 @@ import re
 
 import boto3
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.template.defaultfilters import striptags
 from django.template.loader import render_to_string
@@ -75,13 +75,9 @@ def obj_cards_partial(request):
     Body: {"ids": [1, 5, 3, ...]}
     Returns: HTML fragment of <a>...{% include 'components/card.html' %}</a> per id.
     """
-    try:
-        payload = json.loads(request.body.decode("utf-8"))
-        ids = payload.get("ids", [])
-        if not isinstance(ids, list):
-            return HttpResponseBadRequest("ids must be a list")
-    except Exception:
-        return HttpResponseBadRequest("Invalid JSON")
+
+    payload = json.loads(request.body.decode("utf-8"))
+    ids = payload.get("ids", [])
 
     # Fetch and preserve client order
     objs_by_id = Film.objects.in_bulk(ids)  # dict {id: obj}
