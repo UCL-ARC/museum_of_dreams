@@ -25,8 +25,13 @@ console.log("search script loaded");
 // get search value
 const fuseOptions = {
   // Search in `author` and in `tags` array
-  threshold: 0.3,
-  keys: ["title", "release_date", "synopsis"],
+  threshold: 0.2,
+  includeScore: true,
+  keys: [
+    { name: "title", weight: 0.6 },
+    { name: "release_date", weight: 0.3 },
+    { name: "synopsis", weight: 0.1 },
+  ],
 };
 
 function search(list, query, options) {
