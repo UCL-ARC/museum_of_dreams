@@ -80,7 +80,8 @@ def obj_cards_partial(request):
     ids = payload.get("ids", [])
 
     # Fetch and preserve client order
-    objs_by_id = Film.objects.in_bulk(ids)  # dict {id: obj}
+    objs_by_id = Film.objects.in_bulk(ids)
+    # need to check if post is film or analysis
     ordered_objs = [objs_by_id[i] for i in ids if i in objs_by_id]
 
     return render(request, "partial/film_card_grid.html", {"film_list": ordered_objs})

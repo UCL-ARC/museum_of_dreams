@@ -10,6 +10,12 @@
           <button type="submit"><i class="fa fa-search"></i></button>
         </form>
       {% endif %}
+      {% if model == "analysis" %}
+        <form id ="analysis-search">
+          <input type="text" placeholder="Search Analyses..." id="search-bar" required/>
+          <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+      {% endif %}
     </div>
     <div class="viewby">
       {% if is_paginated %} Showing {{ page_obj.start_index }} to {{ page_obj.end_index }} of {{ page_obj.paginator.count }} {{ model }}s

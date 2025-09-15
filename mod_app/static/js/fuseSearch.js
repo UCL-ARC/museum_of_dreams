@@ -21,6 +21,7 @@ function fuseSearch(array, searchQuery, fuseSearchConfigurations) {
 }
 
 const filmSearchForm = document.getElementById("film-search");
+const analysisSearchForm = document.getElementById("analysis-search");
 console.log(window.location.origin);
 
 function getCSRFToken() {
@@ -45,7 +46,7 @@ async function renderSearchResults(fuseResults) {
     body: JSON.stringify({ ids }),
   });
 
-  // replace cardgrid with card grid of results
+  // replace card grid with search results
   const html = await result.text();
   console.log(html);
   const cardGrid = document.getElementsByClassName("card-grid");
@@ -53,17 +54,24 @@ async function renderSearchResults(fuseResults) {
   cardGrid[0].outerHTML = html;
   console.log(cardGrid[0]);
 }
-
-filmSearchForm.addEventListener("submit", async (event) => {
-  const url = window.location.origin + "/films?film_data=json";
-  event.preventDefault();
-  const response = await fetch(url);
-  // if (!response.ok) {
-  //   throw new Error("Network response was not ok " + response.statusText);
-  // }
-  const filmData = await response.json();
-  const searchValue = document.getElementById("search-bar").value;
-
-  const results = fuseSearch(filmData, searchValue, fuseOptions);
-  await renderSearchResults(results);
-});
+if (filmSearchForm) {
+  filmSearchForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const url = window.location.origin + "/films?film_data=json";
+    const response = await fetch(url);
+    const filmData = await response.json();
+    const searchValue = document.getElementById("search-bar").value;
+    const results = fuseSearch(filmData, searchValue, fuseOptions);
+    await renderSearchResults(results);
+  });
+} else {
+  analysisSearchForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const url = window.location.origin + "/analyses?analysis_data=json";
+    const response = await fetch(url);
+    const analysisData = await response.json();
+    const searchValue = document.getElementById("search-bar").value;
+    const results = fuseSearch(analysisData, searchValue, fuseOptions);
+    await renderSearchResults(results);
+  });
+}
