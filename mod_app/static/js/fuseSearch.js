@@ -30,20 +30,23 @@ function getCSRFToken() {
   return match ? decodeURIComponent(match[1]) : "";
 }
 
-async function renderSearchResults(fuseResults) {
+async function renderSearchResults(isFilm, fuseResults) {
   const items = fuseResults.map((r) => r.item);
-  const PARTIAL_URL = window.location.origin + "/films/cards-partial/";
+  const modelName = isFilm ? "Film" : "Analysis";
+  const url = isFilm ? "films" : "analyses";
+  // const partialURL = isFilm ? window.location.origin + "/filmscards-partial/" : window.location.origin + "/analyses/cards-partial/";
+  console.log(items);
   const ids = items.map((x) => x.pk ?? x.pk);
   console.log("mapped film ids:", ids);
 
-  const result = await fetch(PARTIAL_URL, {
+  const result = await fetch("/cards-partial", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       "X-CSRFToken": getCSRFToken(),
       Accept: "text/html",
     },
-    body: JSON.stringify({ ids }),
+    body: JSON.stringify({ ids, model: { modelName } }),
   });
 
   // replace card grid with search results
@@ -54,24 +57,28 @@ async function renderSearchResults(fuseResults) {
   cardGrid[0].outerHTML = html;
   console.log(cardGrid[0]);
 }
+
 if (filmSearchForm) {
   filmSearchForm.addEventListener("submit", async (event) => {
     event.preventDefault();
+    const isFilm = true;
     const url = window.location.origin + "/films?film_data=json";
     const response = await fetch(url);
     const filmData = await response.json();
     const searchValue = document.getElementById("search-bar").value;
     const results = fuseSearch(filmData, searchValue, fuseOptions);
-    await renderSearchResults(results);
+    console.log(results);
+    await renderSearchResults(isFilm, results);
   });
 } else {
   analysisSearchForm.addEventListener("submit", async (event) => {
     event.preventDefault();
+    const isFilm = false;
     const url = window.location.origin + "/analyses?analysis_data=json";
     const response = await fetch(url);
     const analysisData = await response.json();
     const searchValue = document.getElementById("search-bar").value;
     const results = fuseSearch(analysisData, searchValue, fuseOptions);
-    await renderSearchResults(results);
+    await renderSearchResults(isFilm, results);
   });
 }

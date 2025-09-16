@@ -2,6 +2,7 @@ import json
 import re
 
 import boto3
+
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
@@ -77,14 +78,24 @@ def obj_cards_partial(request):
     """
 
     payload = json.loads(request.body.decode("utf-8"))
-    ids = payload.get("ids", [])
+    isFilm = payload.get("model")
+    ids = payload.get("objects")
+    print(payload)
+    print(ids)
 
     # Fetch and preserve client order
-    objs_by_id = Film.objects.in_bulk(ids)
+    if isFilm:
+        objs_by_id = Film.objects.in_bulk(ids)
+        partial_template_path = "partial/film_card_grid.html"
+        context_name = "film_list"
+    else:
+        objs_by_id = Analysis.objects.in_bulk(ids)
+        partial_template_path = "partial/analysis_card_grid.html"
+        context_name = "analysis_list"
     # need to check if post is film or analysis
     ordered_objs = [objs_by_id[i] for i in ids if i in objs_by_id]
 
-    return render(request, "partial/film_card_grid.html", {"film_list": ordered_objs})
+    return render(request, partial_template_path, {context_name: ordered_objs})
 
 
 class FilmDetailView(DetailView):
@@ -139,6 +150,15 @@ class AnalysisListView(ListView):
     model = Analysis
     template_name = "analysis_list.html"
     paginate_by = 20
+
+    def render_to_response(self, context, **response_kwargs):
+        # returns films in json for uses in fuse searchs
+        if self.request.GET.get("analysis_data") == "json":
+            analyses = list(Analysis.objects.values("pk", "title", "summary"))
+            return JsonResponse(analyses, safe=False)
+        else:
+            # Default: render template
+            return super().render_to_response(context, **response_kwargs)
 
     def get_paginate_by(self, queryset):
         page = self.request.GET.get(self.page_kwarg)
