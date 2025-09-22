@@ -39,23 +39,23 @@ async function renderSearchResults(isFilm, fuseResults) {
   const ids = items.map((x) => x.pk ?? x.pk);
   console.log("mapped film ids:", ids);
 
-  const result = await fetch("/cards-partial", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "X-CSRFToken": getCSRFToken(),
-      Accept: "text/html",
-    },
-    body: JSON.stringify({ ids, model: { modelName } }),
-  });
+  // const result = await fetch("/cards-partial", {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     "X-CSRFToken": getCSRFToken(),
+  //     Accept: "text/html",
+  //   },
+  //   body: JSON.stringify({ ids, model: { modelName } }),
+  // });
 
   // replace card grid with search results
-  const html = await result.text();
-  console.log(html);
-  const cardGrid = document.getElementsByClassName("card-grid");
-  console.log("cardgrid:", cardGrid[0]);
-  cardGrid[0].outerHTML = html;
-  console.log(cardGrid[0]);
+  // const html = await result.text();
+  // console.log(html);
+  // const cardGrid = document.getElementsByClassName("card-grid");
+  // console.log("cardgrid:", cardGrid[0]);
+  // cardGrid[0].outerHTML = html;
+  // console.log(cardGrid[0]);
 }
 
 if (filmSearchForm) {

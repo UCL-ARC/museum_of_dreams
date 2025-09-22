@@ -80,8 +80,6 @@ def obj_cards_partial(request):
     payload = json.loads(request.body.decode("utf-8"))
     isFilm = payload.get("model")
     ids = payload.get("objects")
-    print(payload)
-    print(ids)
 
     # Fetch and preserve client order
     if isFilm:
