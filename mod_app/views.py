@@ -3,6 +3,7 @@ import re
 
 import boto3
 
+from django.db.models import Case, When
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
@@ -10,8 +11,9 @@ from django.template.defaultfilters import striptags
 from django.template.loader import render_to_string
 from django.utils.decorators import method_decorator
 from django.views import View
-from django.views.decorators.csrf import csrf_protect
-from django.views.decorators.http import require_POST
+
+# from django.views.decorators.csrf import csrf_protect
+# from django.views.decorators.http import require_POST
 from django.views.generic import DetailView, ListView, TemplateView
 from xhtml2pdf import pisa
 
@@ -61,6 +63,16 @@ class FilmListView(ListView):
             # Default: render template
             return super().render_to_response(context, **response_kwargs)
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        id_strings = self.request.GET.get("id")
+        if id_strings:
+            film_ids = id_strings.split(",")
+            print(film_ids)
+            queryset = queryset.filter(pk__in=film_ids)
+            print(queryset)
+        return queryset
+
     def get_paginate_by(self, queryset):
         page = self.request.GET.get(self.page_kwarg)
         if page:
@@ -68,44 +80,34 @@ class FilmListView(ListView):
         else:
             return None
 
-    def get_queryset(self):
-        qs = super().get_queryset()
-        id_strings = self.request.GET.get("id")
-        if id_strings:
-            film_ids = id_strings.split(",")
-            print(film_ids)
-            queryset = qs.filter(pk__in=film_ids)
-            print(queryset)
-        return qs
 
+# @require_POST
+# @csrf_protect
+# def cards_partial(request):
+#     """
+#     Body: {"ids": [1, 5, 3, ...]}
+#     Returns: HTML fragment of <a>...{% include 'components/card.html' %}</a> per id.
+#     """
 
-@require_POST
-@csrf_protect
-def cards_partial(request):
-    """
-    Body: {"ids": [1, 5, 3, ...]}
-    Returns: HTML fragment of <a>...{% include 'components/card.html' %}</a> per id.
-    """
+#     payload = json.loads(request.body.decode("utf-8"))
+#     isFilm = payload.get("model")
+#     ids = payload.get("objects")
+#     print("Object IDs:", ids)
 
-    payload = json.loads(request.body.decode("utf-8"))
-    isFilm = payload.get("model")
-    ids = payload.get("objects")
-    print("Object IDs:", ids)
+#     # Fetch and preserve client order
+#     if isFilm:
+#         objs_by_id = Film.objects.in_bulk(ids)
+#         partial_template_path = "partial/film_card_grid.html"
+#         context_name = "film_list"
+#     else:
+#         objs_by_id = Analysis.objects.in_bulk(ids)
+#         partial_template_path = "partial/analysis_card_grid.html"
+#         context_name = "analysis_list"
+#     # need to check if post is film or analysis
+#     print(type(objs_by_id))
+#     ordered_objs = [objs_by_id[i] for i in ids if i in objs_by_id.items()]
 
-    # Fetch and preserve client order
-    if isFilm:
-        objs_by_id = Film.objects.in_bulk(ids)
-        partial_template_path = "partial/film_card_grid.html"
-        context_name = "film_list"
-    else:
-        objs_by_id = Analysis.objects.in_bulk(ids)
-        partial_template_path = "partial/analysis_card_grid.html"
-        context_name = "analysis_list"
-    # need to check if post is film or analysis
-    print(type(objs_by_id))
-    ordered_objs = [objs_by_id[i] for i in ids if i in objs_by_id.items()]
-
-    return render(request, partial_template_path, {context_name: ordered_objs})
+#     return render(request, partial_template_path, {context_name: ordered_objs})
 
 
 class FilmDetailView(DetailView):

@@ -38,6 +38,7 @@ async function renderSearchResults(isFilm, fuseResults) {
     let url = "/films?id=" + ids.join(",");
     console.log("url:", url);
     await fetch(url);
+    window.location = "/films?id=" + ids.join(",");
   } else {
   }
   // const modelName = isFilm ? "Film" : "Analysis";
