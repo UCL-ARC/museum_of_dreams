@@ -68,10 +68,20 @@ class FilmListView(ListView):
         else:
             return None
 
+    def get_queryset(self):
+        qs = super().get_queryset()
+        id_strings = self.request.GET.get("id")
+        if id_strings:
+            film_ids = id_strings.split(",")
+            print(film_ids)
+            queryset = qs.filter(pk__in=film_ids)
+            print(queryset)
+        return qs
+
 
 @require_POST
 @csrf_protect
-def obj_cards_partial(request):
+def cards_partial(request):
     """
     Body: {"ids": [1, 5, 3, ...]}
     Returns: HTML fragment of <a>...{% include 'components/card.html' %}</a> per id.
@@ -80,6 +90,7 @@ def obj_cards_partial(request):
     payload = json.loads(request.body.decode("utf-8"))
     isFilm = payload.get("model")
     ids = payload.get("objects")
+    print("Object IDs:", ids)
 
     # Fetch and preserve client order
     if isFilm:
@@ -91,7 +102,8 @@ def obj_cards_partial(request):
         partial_template_path = "partial/analysis_card_grid.html"
         context_name = "analysis_list"
     # need to check if post is film or analysis
-    ordered_objs = [objs_by_id[i] for i in ids if i in objs_by_id]
+    print(type(objs_by_id))
+    ordered_objs = [objs_by_id[i] for i in ids if i in objs_by_id.items()]
 
     return render(request, partial_template_path, {context_name: ordered_objs})
 

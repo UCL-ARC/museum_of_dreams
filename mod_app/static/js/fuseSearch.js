@@ -32,15 +32,22 @@ function getCSRFToken() {
 
 async function renderSearchResults(isFilm, fuseResults) {
   const items = fuseResults.map((r) => r.item);
-  const modelName = isFilm ? "Film" : "Analysis";
-  const url = isFilm ? "films" : "analyses";
-  // const partialURL = isFilm ? window.location.origin + "/filmscards-partial/" : window.location.origin + "/analyses/cards-partial/";
-  console.log(items);
   const ids = items.map((x) => x.pk ?? x.pk);
   console.log("mapped film ids:", ids);
+  if (isFilm === true) {
+    let url = "/films?id=" + ids.join(",");
+    console.log("url:", url);
+    await fetch(url);
+  } else {
+  }
+  // const modelName = isFilm ? "Film" : "Analysis";
+  // const partialURL = isFilm ? "films" : "analyses";
+  // const partialURL = window.location.origin + "/cards-partial";
+  // console.log(partialURL);
 
+  // const url = window.location.origin + "/" + url + "?id=" + ids.join(",");
   // const result = await fetch("/cards-partial", {
-  //   method: "POST",
+  //   method: "GET",
   //   headers: {
   //     "Content-Type": "application/json",
   //     "X-CSRFToken": getCSRFToken(),
@@ -51,10 +58,10 @@ async function renderSearchResults(isFilm, fuseResults) {
 
   // replace card grid with search results
   // const html = await result.text();
-  // console.log(html);
+  // console.log("HTML response:", html);
   // const cardGrid = document.getElementsByClassName("card-grid");
   // console.log("cardgrid:", cardGrid[0]);
-  // cardGrid[0].outerHTML = html;
+  // // cardGrid[0].outerHTML = html;
   // console.log(cardGrid[0]);
 }
 
