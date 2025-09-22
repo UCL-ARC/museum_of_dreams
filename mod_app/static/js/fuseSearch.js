@@ -3,13 +3,22 @@ import Fuse from "https://cdn.jsdelivr.net/npm/fuse.js@7.1.0/dist/fuse.mjs";
 console.log("search script loaded");
 
 // fuse.js search configurations
-const fuseOptions = {
+const filmOptions = {
   threshold: 0.2, // lower value equals a stricter match
   includeScore: true,
   keys: [
     { name: "title", weight: 0.6 },
     { name: "release_date", weight: 0.3 },
     { name: "synopsis", weight: 0.1 },
+  ],
+};
+
+const analysisOptions = {
+  threshold: 0.2, // lower value equals a stricter match
+  includeScore: true,
+  keys: [
+    { name: "title", weight: 0.6 },
+    { name: "summary", weight: 0.3 },
   ],
 };
 
@@ -24,11 +33,11 @@ const filmSearchForm = document.getElementById("film-search");
 const analysisSearchForm = document.getElementById("analysis-search");
 console.log(window.location.origin);
 
-function getCSRFToken() {
-  // fetches csrf token from cookie for django
-  const match = document.cookie.match(/(?:^|;\s*)csrftoken=([^;]+)/);
-  return match ? decodeURIComponent(match[1]) : "";
-}
+// function getCSRFToken() {
+//   // fetches csrf token from cookie for django
+//   const match = document.cookie.match(/(?:^|;\s*)csrftoken=([^;]+)/);
+//   return match ? decodeURIComponent(match[1]) : "";
+// }
 
 async function renderSearchResults(isFilm, fuseResults) {
   const items = fuseResults.map((r) => r.item);
@@ -38,8 +47,12 @@ async function renderSearchResults(isFilm, fuseResults) {
     let url = "/films?id=" + ids.join(",");
     console.log("url:", url);
     await fetch(url);
-    window.location = "/films?id=" + ids.join(",");
+    window.location = url;
   } else {
+    let url = "/analyses?id=" + ids.join(",");
+    console.log("url:", url);
+    await fetch(url);
+    window.location = url;
   }
   // const modelName = isFilm ? "Film" : "Analysis";
   // const partialURL = isFilm ? "films" : "analyses";
@@ -74,7 +87,7 @@ if (filmSearchForm) {
     const response = await fetch(url);
     const filmData = await response.json();
     const searchValue = document.getElementById("search-bar").value;
-    const results = fuseSearch(filmData, searchValue, fuseOptions);
+    const results = fuseSearch(filmData, searchValue, filmOptions);
     console.log(results);
     await renderSearchResults(isFilm, results);
   });
@@ -86,7 +99,7 @@ if (filmSearchForm) {
     const response = await fetch(url);
     const analysisData = await response.json();
     const searchValue = document.getElementById("search-bar").value;
-    const results = fuseSearch(analysisData, searchValue, fuseOptions);
+    const results = fuseSearch(analysisData, searchValue, analysisOptions);
     await renderSearchResults(isFilm, results);
   });
 }

@@ -1,9 +1,7 @@
-import json
 import re
 
 import boto3
 
-from django.db.models import Case, When
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
@@ -171,6 +169,16 @@ class AnalysisListView(ListView):
         else:
             # Default: render template
             return super().render_to_response(context, **response_kwargs)
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        id_strings = self.request.GET.get("id")
+        if id_strings:
+            analysis_ids = id_strings.split(",")
+            print(analysis_ids)
+            queryset = queryset.filter(pk__in=analysis_ids)
+            print(queryset)
+        return queryset
 
     def get_paginate_by(self, queryset):
         page = self.request.GET.get(self.page_kwarg)
