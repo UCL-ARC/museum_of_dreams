@@ -1,6 +1,8 @@
 import Fuse from "https://cdn.jsdelivr.net/npm/fuse.js@7.1.0/dist/fuse.mjs";
 
 console.log("search script loaded");
+const filmSearchForm = document.getElementById("film-search");
+const analysisSearchForm = document.getElementById("analysis-search");
 
 // fuse.js search configurations
 const filmOptions = {
@@ -22,22 +24,13 @@ const analysisOptions = {
   ],
 };
 
+// function components
 function fuseSearch(array, searchQuery, fuseSearchConfigurations) {
   const fuse = new Fuse(array, fuseSearchConfigurations);
   const result = fuse.search(searchQuery);
   console.log("Search successful:", result);
   return result;
 }
-
-const filmSearchForm = document.getElementById("film-search");
-const analysisSearchForm = document.getElementById("analysis-search");
-console.log(window.location.origin);
-
-// function getCSRFToken() {
-//   // fetches csrf token from cookie for django
-//   const match = document.cookie.match(/(?:^|;\s*)csrftoken=([^;]+)/);
-//   return match ? decodeURIComponent(match[1]) : "";
-// }
 
 async function renderSearchResults(isFilm, fuseResults) {
   const items = fuseResults.map((r) => r.item);
@@ -54,30 +47,9 @@ async function renderSearchResults(isFilm, fuseResults) {
     await fetch(url);
     window.location = url;
   }
-  // const modelName = isFilm ? "Film" : "Analysis";
-  // const partialURL = isFilm ? "films" : "analyses";
-  // const partialURL = window.location.origin + "/cards-partial";
-  // console.log(partialURL);
-
-  // const url = window.location.origin + "/" + url + "?id=" + ids.join(",");
-  // const result = await fetch("/cards-partial", {
-  //   method: "GET",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //     "X-CSRFToken": getCSRFToken(),
-  //     Accept: "text/html",
-  //   },
-  //   body: JSON.stringify({ ids, model: { modelName } }),
-  // });
-
-  // replace card grid with search results
-  // const html = await result.text();
-  // console.log("HTML response:", html);
-  // const cardGrid = document.getElementsByClassName("card-grid");
-  // console.log("cardgrid:", cardGrid[0]);
-  // // cardGrid[0].outerHTML = html;
-  // console.log(cardGrid[0]);
 }
+
+// Main script
 
 if (filmSearchForm) {
   filmSearchForm.addEventListener("submit", async (event) => {
