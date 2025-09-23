@@ -81,16 +81,6 @@ urlpatterns = (
             name="bibliography",
         ),
         distill_path(
-            "search",
-            views.SearchView.as_view(),
-            name="search",
-        ),
-        # path(
-        #     "cards-partial",
-        #     views.cards_partial,
-        #     name="cards_partial",
-        # ),
-        distill_path(
             "locations",
             views.custom_404,
             name="location_list",
