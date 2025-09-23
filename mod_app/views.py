@@ -9,13 +9,10 @@ from django.template.defaultfilters import striptags
 from django.template.loader import render_to_string
 from django.utils.decorators import method_decorator
 from django.views import View
-
-# from django.views.decorators.csrf import csrf_protect
-# from django.views.decorators.http import require_POST
 from django.views.generic import DetailView, ListView, TemplateView
 from xhtml2pdf import pisa
 
-# you may need to comment out the bwlow import when running locally if you get a socket error
+# you may need to comment out the below import when running locally if you get a socket error
 from museum_of_dreams_project.settings.aws import (
     AWS_ACCESS_KEY_ID,
     AWS_SECRET_ACCESS_KEY,
@@ -62,13 +59,13 @@ class FilmListView(ListView):
             return super().render_to_response(context, **response_kwargs)
 
     def get_queryset(self):
+        """rerender template to display search results"""
         queryset = super().get_queryset()
         id_strings = self.request.GET.get("id")
         if id_strings:
             film_ids = id_strings.split(",")
-            print(film_ids)
             queryset = queryset.filter(pk__in=film_ids)
-            print(queryset)
+            # note: still need to tweak it so the original order is preserved
         return queryset
 
     def get_paginate_by(self, queryset):
@@ -77,35 +74,6 @@ class FilmListView(ListView):
             return self.paginate_by
         else:
             return None
-
-
-# @require_POST
-# @csrf_protect
-# def cards_partial(request):
-#     """
-#     Body: {"ids": [1, 5, 3, ...]}
-#     Returns: HTML fragment of <a>...{% include 'components/card.html' %}</a> per id.
-#     """
-
-#     payload = json.loads(request.body.decode("utf-8"))
-#     isFilm = payload.get("model")
-#     ids = payload.get("objects")
-#     print("Object IDs:", ids)
-
-#     # Fetch and preserve client order
-#     if isFilm:
-#         objs_by_id = Film.objects.in_bulk(ids)
-#         partial_template_path = "partial/film_card_grid.html"
-#         context_name = "film_list"
-#     else:
-#         objs_by_id = Analysis.objects.in_bulk(ids)
-#         partial_template_path = "partial/analysis_card_grid.html"
-#         context_name = "analysis_list"
-#     # need to check if post is film or analysis
-#     print(type(objs_by_id))
-#     ordered_objs = [objs_by_id[i] for i in ids if i in objs_by_id.items()]
-
-#     return render(request, partial_template_path, {context_name: ordered_objs})
 
 
 class FilmDetailView(DetailView):
@@ -175,9 +143,7 @@ class AnalysisListView(ListView):
         id_strings = self.request.GET.get("id")
         if id_strings:
             analysis_ids = id_strings.split(",")
-            print(analysis_ids)
             queryset = queryset.filter(pk__in=analysis_ids)
-            print(queryset)
         return queryset
 
     def get_paginate_by(self, queryset):
@@ -270,16 +236,6 @@ class BucketItemsView(View):
         }
 
         return render(request, "bucket_items.html", context)
-
-
-class SearchView(TemplateView):
-    template_name = "search.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["films"] = Film.objects.all()
-        context["analyses"] = Analysis.objects.all()
-        return context
 
 
 def custom_404(request, exception=None):
