@@ -46,14 +46,6 @@
   grid-column: 2;
 }
 
-.columnar-area {
-  grid-column: 1;
-  position: sticky;
-  align-self: start;
-  top: 0;
-  left: 0;
-}
-
 .film__content-wrapper {
   /* padding: 1rem; */
   display: flex;
@@ -144,10 +136,6 @@
   .film__content-wrapper {
     grid-column: 1/-1;
   }
-  .columnar-area {
-    position: static;
-    grid-template-columns: 1/-1;
-  }
 
   #filmic {
     .film__video {
@@ -160,7 +148,7 @@
   }
 }
 
-@media screen and (min-width: 767px) and (max-width: 1000px) {
+@media screen and (min-width: 767px) and (max-width: 992px) {
   #filmic {
     .film__video {
       width: 450px;
