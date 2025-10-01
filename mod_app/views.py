@@ -1,5 +1,5 @@
 import re
-
+from django.db.models import Case, When
 import boto3
 
 from django.contrib.auth.decorators import login_required
@@ -64,8 +64,10 @@ class FilmListView(ListView):
         id_strings = self.request.GET.get("id")
         if id_strings:
             film_ids = id_strings.split(",")
-            queryset = queryset.filter(pk__in=film_ids)
-            # note: still need to tweak it so the original order is preserved
+            preserved = Case(
+                *[When(pk=pk, then=position) for position, pk in enumerate(film_ids)]
+            )
+            queryset = Film.objects.filter(pk__in=film_ids).order_by(preserved)
         return queryset
 
     def get_paginate_by(self, queryset):
