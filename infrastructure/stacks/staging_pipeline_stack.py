@@ -14,10 +14,7 @@ from aws_cdk import (
 from aws_cdk import (
     aws_s3 as s3,
 )
-from aws_cdk import (
-    aws_ssm as ssm,
-    aws_codebuild as codebuild,
-)
+from aws_cdk import aws_ssm as ssm
 from constructs import Construct
 
 from stacks.staging_stack import STAGING_APP_NAME, STAGING_ENV_NAME
@@ -39,8 +36,6 @@ class StagingPipelineStack(Stack):
             auto_delete_objects=True,
         )
         source_output = codepipeline.Artifact()
-        # build_output = codepipeline.Artifact()
-        # build_spec = codebuild.BuildSpec.from_source_filename("buildspec.yaml")
 
         # Grant Permission via IAM Role to Pipeline for Elastic Beanstalk Deployment
 
@@ -66,12 +61,6 @@ class StagingPipelineStack(Stack):
             execution_mode=codepipeline.ExecutionMode.QUEUED,
         )
 
-        # # Code build project, can be customised with env var, buildspec, ect.
-        # build_project = codebuild.PipelineProject(
-        #     self, "StagingBuildProject", build_spec=build_spec
-        # )
-
-        # Source stage - to be configured differently for production/staging/dev branches
         pipeline.add_stage(
             stage_name="Source",
             actions=[
@@ -87,19 +76,6 @@ class StagingPipelineStack(Stack):
                 )
             ],
         )
-
-        # # Build stage
-        # pipeline.add_stage(
-        #     stage_name="Build",
-        #     actions=[
-        #         cpactions.CodeBuildAction(
-        #             action_name="CodeBuild",
-        #             project=build_project,
-        #             input=source_output,
-        #             outputs=[build_output],
-        #         )
-        #     ],
-        # )
 
         # Deploy stage
 
