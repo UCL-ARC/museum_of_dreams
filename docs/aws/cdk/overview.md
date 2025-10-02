@@ -1,19 +1,17 @@
-# Stacks (wip)
-
-(Subject to change)
+# Cloudformation Stacks
 
 - VpcStack
 - DatabaseStack
-- StagingStack/ProductionStack (environment)
+- StagingStack/ProductionStack (Elastic Beanstalk environment)
 - CodePipelineStack
 
-## Deployment order (wip)
+## Deployment order
 
 Vpc > Database > Environment > CodePipeline
 
-## Naming conventions (wip)
+## Naming conventions
 
-construct ID should be PascalCase or camelCase(this matches with how cloudformation generates resource name)
+Construct IDs should be in PascalCase or camelCase (this matches with how cloudformation generates resource name)
 
 PascalCase is used in MOD:
 
