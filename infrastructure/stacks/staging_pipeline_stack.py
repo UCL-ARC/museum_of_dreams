@@ -39,8 +39,8 @@ class StagingPipelineStack(Stack):
             auto_delete_objects=True,
         )
         source_output = codepipeline.Artifact()
-        build_output = codepipeline.Artifact()
-        build_spec = codebuild.BuildSpec.from_source_filename("buildspec.yaml")
+        # build_output = codepipeline.Artifact()
+        # build_spec = codebuild.BuildSpec.from_source_filename("buildspec.yaml")
 
         # Grant Permission via IAM Role to Pipeline for Elastic Beanstalk Deployment
 
@@ -66,10 +66,10 @@ class StagingPipelineStack(Stack):
             execution_mode=codepipeline.ExecutionMode.QUEUED,
         )
 
-        # Code build project, can be customised with env var, buildspec, ect.
-        build_project = codebuild.PipelineProject(
-            self, "StagingBuildProject", build_spec=build_spec
-        )
+        # # Code build project, can be customised with env var, buildspec, ect.
+        # build_project = codebuild.PipelineProject(
+        #     self, "StagingBuildProject", build_spec=build_spec
+        # )
 
         # Source stage - to be configured differently for production/staging/dev branches
         pipeline.add_stage(
@@ -79,7 +79,7 @@ class StagingPipelineStack(Stack):
                     action_name="GitHub_Source",
                     owner="UCL-ARC",
                     repo="museum_of_dreams",
-                    branch="feature/cdk-staging-env",
+                    branch="development",
                     output=source_output,
                     connection_arn=ssm.StringParameter.value_for_string_parameter(
                         self, "/pipeline/github-connection-arn"
@@ -88,18 +88,18 @@ class StagingPipelineStack(Stack):
             ],
         )
 
-        # Build stage
-        pipeline.add_stage(
-            stage_name="Build",
-            actions=[
-                cpactions.CodeBuildAction(
-                    action_name="CodeBuild",
-                    project=build_project,
-                    input=source_output,
-                    outputs=[build_output],
-                )
-            ],
-        )
+        # # Build stage
+        # pipeline.add_stage(
+        #     stage_name="Build",
+        #     actions=[
+        #         cpactions.CodeBuildAction(
+        #             action_name="CodeBuild",
+        #             project=build_project,
+        #             input=source_output,
+        #             outputs=[build_output],
+        #         )
+        #     ],
+        # )
 
         # Deploy stage
 
@@ -110,7 +110,7 @@ class StagingPipelineStack(Stack):
                     action_name="DeployToElasticBeanstalk",
                     application_name=STAGING_APP_NAME,
                     environment_name=STAGING_ENV_NAME,
-                    input=build_output,
+                    input=source_output,
                 )
             ],
         )
