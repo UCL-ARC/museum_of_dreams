@@ -81,7 +81,7 @@ class StagingStack(Stack):
                         s3.HttpMethods.HEAD,
                     ],
                     allowed_origins=[
-                        re.compile(rf"^https:\/\/\{STAGING_ENV_NAME}\.eu-west-2\.com$")
+                        rf"^https://{re.escape(STAGING_ENV_NAME)}\.eu-west-2\.com$"
                     ],
                     allowed_headers=["*"],
                 )
