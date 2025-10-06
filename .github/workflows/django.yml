@@ -49,6 +49,7 @@ jobs:
       - name: Install xhtml2pdf (no cairo)
         run: |
           pip install --no-deps xhtml2pdf
+          pip install "reportlab<4" Pillow html5lib pypdf2
 
       - name: Check no migrations are missing
         run: |
