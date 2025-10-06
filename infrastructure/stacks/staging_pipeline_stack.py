@@ -19,6 +19,8 @@ from constructs import Construct
 
 from stacks.staging_stack import STAGING_APP_NAME, STAGING_ENV_NAME
 
+STAGING_BRANCH_NAME = "feature/cdk-staging-env"
+
 
 class StagingPipelineStack(Stack):
     def __init__(
@@ -68,7 +70,7 @@ class StagingPipelineStack(Stack):
                     action_name="GitHub_Source",
                     owner="UCL-ARC",
                     repo="museum_of_dreams",
-                    branch="development",
+                    branch=STAGING_BRANCH_NAME,
                     output=source_output,
                     connection_arn=ssm.StringParameter.value_for_string_parameter(
                         self, "/pipeline/github-connection-arn"
