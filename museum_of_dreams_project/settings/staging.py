@@ -1,8 +1,10 @@
 from .aws import *
+from infrastructure.stacks.staging_stack import STAGING_ENV_NAME
+import re
 
 ENVIRONMENT = "staging"
 ALLOWED_HOSTS = [
-    ".elasticbeanstalk.com",
+    re.compile(rf"^{STAGING_ENV_NAME}\.[a-zA-Z0-9]\.eu-west-2\.elasticbeanstalk\.com$"),
     "museumofdreams.eu-west-2.elasticbeanstalk.com",
     "staging.museumofdreamworlds.org",
     LOCAL_IP,
