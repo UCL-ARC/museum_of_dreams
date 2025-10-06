@@ -1,3 +1,5 @@
+import re
+
 from aws_cdk import (
     RemovalPolicy,
     Stack,
@@ -78,7 +80,9 @@ class StagingStack(Stack):
                         s3.HttpMethods.GET,
                         s3.HttpMethods.HEAD,
                     ],
-                    allowed_origins=["*"],
+                    allowed_origins=[
+                        re.compile(rf"^https:\/\/\{STAGING_ENV_NAME}\.eu-west-2\.com$")
+                    ],
                     allowed_headers=["*"],
                 )
             ],
@@ -101,7 +105,7 @@ class StagingStack(Stack):
                 sid="PublicReadGetObject",
                 effect=iam.Effect.ALLOW,
                 actions=["s3:GetObject"],
-                resources=[f"{staging_bucket.bucket_arn}/*"],
+                resources=[f"{staging_bucket.bucket_arn}/public/*"],
                 principals=[iam.AnyPrincipal()],
             )
         )
