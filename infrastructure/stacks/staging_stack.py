@@ -192,6 +192,11 @@ class StagingStack(Stack):
                 option_name="SECRET_KEY",
                 value="",
             ),
+            eb.CfnEnvironment.OptionSettingProperty(
+                namespace="aws:elasticbeanstalk:application:environment",
+                option_name="AWS_STAGING_ENV_NAME",
+                value=STAGING_ENV_NAME,
+            ),
         ]
 
         # Environment creation
