@@ -42,6 +42,10 @@ p {
   font-weight: normal;
 }
 
+strong {
+  font-weight: 600;
+}
+
 a {
   font-family: "Mulish", "Open Sans", "Montserrat";
   color: inherit;
@@ -131,9 +135,6 @@ footer {
       margin-right: unset;
       margin-bottom: 0.5rem;
     }
-  }
-
-  .footer-logo {
   }
 
   .footer__logo-text {
