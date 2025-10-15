@@ -213,10 +213,12 @@ def downloadAnalysis(request, pk):
 
     # Render the template with the context data
     html = render_to_string(template_name, {"analysis": analysis})
-    soup = BeautifulSoup(html, "html.parser")
 
+    # Remove images when creating the PDF
+    soup = BeautifulSoup(html, "html.parser")
     for image in soup.find_all("img"):
         image.decompose()
+
     # Create an HTTP response with the PDF file
     response = HttpResponse(content_type="application/pdf")
 
