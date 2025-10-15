@@ -5,19 +5,22 @@
     <h2>Genres</h2>
     <p>associated Films, Analyses and Teaching Resources</p>
     <div>
-      {% for tag in tags %} {%if tag.is_genre %}
+      {% for tag in tags%} {%if tag.is_genre%}
       <a href="{% url 'tag_detail' pk=tag.pk %}" class="tag tag--list">{{tag.name}}</a>
-      {% endif %} {% endfor %}
+      {% endif%} {% empty %}
+      <h3>Sorry, no Genres are available at the moment.</h3>
+      {% endfor %}
     </div>
   </div>
-
   <div class="column">
     <h2>Topics</h2>
     <p>associated Analyses and Teaching Resources</p>
     <div>
-      {% for tag in tags %}{% if tag.topic %}
-      <a href="{% url 'tag_detail' pk=tag.pk %}" class="tag tag--list">{{tag}}</a>
-      {% endif %}{% endfor %}
+      {% for topic in topics %}
+      <a href="{% url 'tag_detail' pk=topic.pk %}" class="tag tag--list">{{topic}}</a>
+      {% empty %}
+      <h3>Sorry, no topics are available at the moment.</h3>
+      {% endfor %}
     </div>
   </div>
 </div>

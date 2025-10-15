@@ -18,7 +18,7 @@ from museum_of_dreams_project.settings.aws import (
     AWS_STORAGE_BUCKET_NAME,
 )
 
-from .models import Analysis, BibliographyItem, Film, Tag, TeachingResources
+from .models import Analysis, BibliographyItem, Film, Tag, TeachingResources, Topic
 
 
 class HomeView(TemplateView):
@@ -146,6 +146,11 @@ class TagListView(ListView):
     model = Tag
     template_name = "tag_list.html"
     context_object_name = "tags"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["topics"] = Topic.objects.all()
+        return context
 
 
 class TagDetailView(DetailView):
