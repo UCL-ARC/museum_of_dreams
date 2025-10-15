@@ -220,9 +220,9 @@ def downloadAnalysis(request, pk):
     # Create an HTTP response with the PDF file
     response = HttpResponse(content_type="application/pdf")
 
-    response["Content-Disposition"] = (
-        f"attachment; filename*=UTF-8''{quote(analysis.title)}.pdf;filename={analysis.title}.pdf"
-    )
+    response[
+        "Content-Disposition"
+    ] = f"attachment; filename*=UTF-8''{quote(analysis.title)}.pdf;filename={analysis.title}.pdf"
 
     status = pisa.CreatePDF(str(soup), dest=response)
 
