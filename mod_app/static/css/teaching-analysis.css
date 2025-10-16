@@ -70,23 +70,26 @@
     float: right;
     font-size: 2rem;
     transition: color 0.3s ease;
-  }
-}
 
-.bibliography__item:hover {
-  cursor: default;
-}
-
-.tab__content[name="content"] {
-  a,
-  .bib-mention {
-    cursor: pointer;
-    color: var(--deep-blue);
     &:hover {
       color: var(--coral);
     }
   }
 }
+
+.bibliography__item:hover {
+  color: var(--coral);
+  cursor: default;
+}
+
+.bib-mention {
+  color: var(--turquoise);
+  cursor: pointer;
+  &:hover {
+    color: var(--coral);
+  }
+}
+
 .hidden {
   display: none;
 }
@@ -145,23 +148,5 @@
   }
   .heading {
     text-align: center;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .modal__btn--close {
-    &:hover {
-      color: var(--coral);
-    }
-  }
-
-  .bibliography__item:hover {
-    color: var(--coral);
-  }
-  .tab__content[name="content"] {
-    a,
-    .bib-mention {
-      color: var(--turquoise);
-    }
   }
 }
