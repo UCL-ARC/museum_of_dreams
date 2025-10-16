@@ -1,0 +1,94 @@
+from aws_cdk import (
+    RemovalPolicy,
+    Stack,
+)
+from aws_cdk import (
+    aws_codepipeline as codepipeline,
+)
+from aws_cdk import (
+    aws_codepipeline_actions as cpactions,
+)
+from aws_cdk import (
+    aws_iam as iam,
+)
+from aws_cdk import (
+    aws_s3 as s3,
+)
+from aws_cdk import aws_ssm as ssm
+from constructs import Construct
+
+from stacks.staging_stack import STAGING_APP_NAME, STAGING_ENV_NAME
+
+STAGING_BRANCH_NAME = "feature/cdk-staging-env"
+
+
+class StagingPipelineStack(Stack):
+    def __init__(
+        self,
+        scope: Construct,
+        construct_id: str,
+        **kwargs,
+    ) -> None:
+        super().__init__(scope, construct_id, **kwargs)
+
+        artifact_bucket = s3.Bucket(
+            self,
+            "StagingArtifactBucket",
+            removal_policy=RemovalPolicy.DESTROY,
+            auto_delete_objects=True,
+        )
+        source_output = codepipeline.Artifact()
+
+        # Grant Permission via IAM Role to Pipeline for Elastic Beanstalk Deployment
+
+        pipeline_role = iam.Role(
+            self,
+            "EBDeployRole",
+            assumed_by=iam.ServicePrincipal("codepipeline.amazonaws.com"),
+            managed_policies=[
+                iam.ManagedPolicy.from_aws_managed_policy_name(
+                    "AWSElasticBeanstalkManagedUpdatesCustomerRolePolicy"
+                ),
+                iam.ManagedPolicy.from_aws_managed_policy_name(
+                    "CloudWatchLogsFullAccess"
+                ),
+            ],
+        )
+        # Pipeline
+        pipeline = codepipeline.Pipeline(
+            self,
+            "StagingPipeline",
+            role=pipeline_role,
+            artifact_bucket=artifact_bucket,
+            execution_mode=codepipeline.ExecutionMode.QUEUED,
+        )
+
+        pipeline.add_stage(
+            stage_name="Source",
+            actions=[
+                cpactions.CodeStarConnectionsSourceAction(
+                    action_name="GitHub_Source",
+                    owner="UCL-ARC",
+                    repo="museum_of_dreams",
+                    branch=STAGING_BRANCH_NAME,
+                    output=source_output,
+                    connection_arn=ssm.StringParameter.value_for_string_parameter(
+                        self, "/pipeline/github-connection-arn"
+                    ),
+                )
+            ],
+        )
+
+        # Deploy stage
+
+        pipeline.add_stage(
+            stage_name="Deploy",
+            actions=[
+                cpactions.ElasticBeanstalkDeployAction(
+                    action_name="DeployToElasticBeanstalk",
+                    application_name=STAGING_APP_NAME,
+                    environment_name=STAGING_ENV_NAME,
+                    input=source_output,
+                )
+            ],
+        )
