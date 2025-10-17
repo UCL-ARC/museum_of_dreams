@@ -8,7 +8,9 @@
       <h2>Films</h2>
       {% if films %}
         <section class="scroller">
-          {% include "partial/film_card_grid.html" with film_list=films %}
+          {% for film in films %}
+          <a href="{% url 'film_detail' pk=film.pk %}" class="card-wrapper"> {% include "components/card.html" with obj=film %} </a>
+          {% endfor %}
         </section >
       {%else%}
         <section>
