@@ -1,6 +1,5 @@
 {% extends "base.html" %} {% load i18n %} {% block title %}{{ tag.name }}{% endblock %} {% block content %}
 
-
   <a href="{% url 'tag_list' %}" class="back-to">&larr; Back to all tags</a>
   <h2 class="tag__name">{{tag.name}}</h2>
   <div class="tag__related__wrapper">
@@ -8,23 +7,26 @@
       <h2>Films</h2>
       {% if films %}
         <section class="scroller">
-          {% include "partial/film_card_grid.html" with film_list=films %}
-        </section >
+          {% for film in films %}
+            <a href="{% url 'film_detail' pk=film.pk %}" class="card-wrapper"> {% include "components/card.html" with obj=film %} </a>
+          {% endfor %}
+        </section>
       {%else%}
         <section>
-          <p>No films found with this tag </p>
+          <p>No films found with this tag</p>
         </section>
-      {% endif%}
-    {% endif %}
+      {% endif%} {% endif %}
 
     <h2>Analyses</h2>
     {% if analyses %}
       <section class="scroller">
-        {% include "partial/analysis_card_grid.html" with analysis_list=analyses %}
+        {% for analysis in analyses %}
+          <a href="{% url 'analysis_detail' pk=analysis.pk %}" class="card-wrapper"> {% include "components/card.html" with obj=analysis %} </a>
+        {% endfor %}
       </section>
     {%else%}
       <section>
-        <p> No analyses found with this tag </p>
+        <p>No analyses found with this tag</p>
       </section>
     {% endif%}
 
@@ -32,17 +34,15 @@
 
     {% if tr %}
       <section class="scroller">
-        <div class="card-grid">
-          {% for tr in teaching_resources %}
-            <a href="{% url 'tr_detail' pk=tr.pk %}" class="card-wrapper"> {% include "components/card.html" with obj=tr %} </a>
-          {% endfor %}
-        </section>
+        {% for tr in teaching_resources %}
+          <a href="{% url 'tr_detail' pk=tr.pk %}" class="card-wrapper"> {% include "components/card.html" with obj=tr %} </a>
+        {% endfor %}
+      </section>
     {% else %}
       <section>
-        <p>No analyses found with this tag </p>
+        <p>No analyses found with this tag</p>
       </section>
     {% endif %}
-  </div>
   </div>
 
 {% endblock %}
