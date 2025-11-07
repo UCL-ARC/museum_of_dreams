@@ -58,30 +58,34 @@
                       Bibliography
                     </a>
                   </li>
-                  <li>
-                    <a href="{% url 'tr_list' %}"
-                    ><span class="material-symbols-outlined">topic</span>
-                      Teaching Resources Available
-                    </a>
-                  </li>
-                  <li>
-                    <a href="{% url 'location_list' %}"
-                    ><span class="material-symbols-outlined">map</span>
-                      Locations
-                    </a>
-                  </li>
+            {% comment %}
+            <li>
+              <a href="{% url 'tr_list' %}"
+                ><span class="material-symbols-outlined">topic</span>
+                Teaching Resources Available
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'location_list' %}"
+                ><span class="material-symbols-outlined">map</span>
+                Locations
+              </a>
+            </li>
+            {% endcomment %}
                   <li>
                     <a href="{% url 'tag_list' %}"
                     ><span class="material-symbols-outlined">label</span>
                       Tags
                     </a>
                   </li>
-                  <li>
-                    <a href="{% url 'search' %}"
-                    ><span class="material-symbols-outlined">search</span>
-                      Search
-                    </a>
-                  </li>
+            {% comment %}
+            <li>
+              <a href="{% url 'search' %}"
+                ><span class="material-symbols-outlined">search</span>
+                Search
+              </a>
+            </li>
+            {% endcomment %}
                 </ul>
               </div>
             </div>
@@ -136,17 +140,26 @@
       <ul class="footer__nav--top-row">
         <h5>Explore</h5>
         <li><a href="{% url 'film_list' %}">Films</a></li>
-        <li><a href="#">Search</a></li>
+      {% comment %}
+      <li><a href="#">Search</a></li>
+      {% endcomment %}
         <li><a href="{% url 'analysis_list' %}">Analyses</a></li>
-        <li><a href="{% url 'tr_list' %}">Teaching Resources</a></li>
-        <li><a href="#">Locations</a></li>
+      {% comment %}
+      <li><a href="{% url 'tr_list' %}">Teaching Resources</a></li>
+      {% endcomment %} {% comment %}
+      <li><a href="#">Locations</a></li>
+      {% endcomment %}
         <li><a href="#">Tags</a></li>
       </ul>
       <ul class="footer__nav--bottom-row">
         <h5>About</h5>
-        <li><a href="#">About us</a></li>
-        <li><a href="#">Blog </a></li>
-        <li><a href="#">Collaborators</a></li>
+      {% comment %}
+      <li><a href="#">About us</a></li>
+      {% endcomment %} {% comment %}
+      <li><a href="#">Blog </a></li>
+      {% endcomment %} {% comment %}
+      <li><a href="#">Collaborators</a></li>
+      {% endcomment %}
         <li><a href="mailto:museumofdreamworlds@ucl.ac.uk">Contact</a></li>
       </ul>
     </div>
