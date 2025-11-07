@@ -64,7 +64,7 @@ button {
 
 main {
   margin: 1rem;
-  margin-bottom: 10vh;
+  margin-bottom: 5vh;
   min-height: 60vh;
 }
 
@@ -507,5 +507,12 @@ footer {
     &:hover {
       background-color: var(--pink-9);
     }
+  }
+}
+
+.intro-card__wrapper {
+  max-width: 100vw;
+  img {
+    width: 100%;
   }
 }
