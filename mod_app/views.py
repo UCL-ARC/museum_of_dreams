@@ -1,6 +1,8 @@
 import re
+from urllib.parse import quote
 
 import boto3
+from bs4 import BeautifulSoup
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
@@ -212,11 +214,19 @@ def downloadAnalysis(request, pk):
     # Render the template with the context data
     html = render_to_string(template_name, {"analysis": analysis})
 
+    # Remove images when creating the PDF
+    soup = BeautifulSoup(html, "html.parser")
+    for image in soup.find_all("img"):
+        image.decompose()
+
     # Create an HTTP response with the PDF file
     response = HttpResponse(content_type="application/pdf")
-    response["Content-Disposition"] = f'attachment; filename="{analysis.title}.pdf"'
 
-    status = pisa.CreatePDF(html, dest=response)
+    response[
+        "Content-Disposition"
+    ] = f"attachment; filename*=UTF-8''{quote(analysis.title)}.pdf;filename={analysis.title}.pdf"
+
+    status = pisa.CreatePDF(str(soup), dest=response)
 
     if not status.err:
         return response

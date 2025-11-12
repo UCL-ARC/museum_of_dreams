@@ -41,6 +41,13 @@ jobs:
           key: ${{ runner.os }}-pip-${{ hashFiles('**/*.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
+      - name: Installing Cairo for xhtml2pdf
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            pkg-config libcairo2 libcairo2-dev \
+            libpango1.0-dev libgdk-pixbuf2.0-dev \
+            libffi-dev libjpeg-dev zlib1g-dev
 
       - name: Install Dependencies
         run: |

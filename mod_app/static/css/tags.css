@@ -50,6 +50,7 @@
 .tag-list__container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  row-gap: 10vh;
   .column {
     padding: 1vw;
     text-align: center;
@@ -70,49 +71,59 @@
 }
 
 .tag__related__wrapper {
+  display: flex;
+  flex-direction: column;
   margin-inline: 3vw;
 
   .scroller {
-    .card-grid {
-      padding: 1vw;
-      display: grid;
-      grid-auto-flow: column;
-      grid-auto-columns: 23%;
-      overflow-x: auto;
-      overflow-y: hidden;
-      overscroll-behavior-inline: contain;
-      margin-inline: 1vw;
-    }
-    .card-wrapper {
-      min-height: 20vh;
-    }
-    .card {
-      overflow: hidden;
-      height: clamp(10vw, 20vw, 30vw);
-    }
-  }
-
-  section {
+    padding: 1vw;
+    display: flex;
+    flex-direction: row;
+    gap: 3vw;
+    flex-grow: 0;
+    flex-shrink: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-inline: contain;
     padding-bottom: 2vw;
-  }
-
-  /* when screen is less than 300px
-disable grid auto flow for card grid*/
-  @media screen and (max-width: 500px) {
-    .scroller {
-      .card-grid {
-        grid-auto-flow: row;
-        overflow: unset;
-        margin-inline: 2vw;
-      }
-      .card {
-        height: 50vw;
-      }
-    }
   }
 }
 
 .columnar-area .tag {
   font-size: 0.6rem;
   background-color: color-mix(in srgb, var(--card-shadow) 20%, transparent 50%);
+}
+
+@media screen and (max-width: 479px) {
+  .tag__related__wrapper {
+    .scroller {
+      flex-direction: column;
+      flex-shrink: 0;
+      row-gap: 30px;
+    }
+    .card {
+      height: 400px;
+    }
+  }
+}
+
+@media screen and (min-width: 480px) and (max-width: 1199px) {
+  .tag__related__wrapper {
+    .scroller {
+      flex-direction: row;
+    }
+    .card {
+      height: 400px;
+      width: 250px;
+    }
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .tag__related__wrapper {
+    .card {
+      height: 500px;
+      width: 300px;
+    }
+  }
 }

@@ -1,18 +1,10 @@
-/* .columnar-area {
+.columnar-area {
+  grid-column: 1;
   position: sticky;
-  top: 1rem;
-
-  img {
-    width: 100% !important;
-    height: auto !important;
-    max-width: 100% !important;
-    object-fit: contain;
-  }
-
-  .info > div {
-    margin-bottom: 2rem;
-  }
-} */
+  align-self: start;
+  top: 0;
+  left: auto; /*auto prevents sticky menu on the x-axis when scrolling horizontally*/
+}
 
 .tabbed-area {
   display: flex;
@@ -76,6 +68,10 @@ body:has(.tab-selection.is-sticky) .tab-selection {
 }
 
 @media screen and (max-width: 767px) {
+  .columnar-area {
+    position: static;
+    grid-template-columns: 1/-1;
+  }
   .tab-selection {
     flex-wrap: wrap;
   }
@@ -86,6 +82,26 @@ body:has(.tab-selection.is-sticky) .tab-selection {
     img {
       max-width: 100% !important;
       max-height: 100% !important;
+      object-fit: contain;
+    }
+  }
+}
+
+@media screen and (min-width: 767px) and (max-width: 992px) {
+  .active[name="content"] {
+    img {
+      max-width: 500px;
+      max-height: 650px;
+      object-fit: contain;
+    }
+  }
+}
+
+@media screen and (min-width: 992px) and (max-width: 1200px) {
+  .active[name="content"] {
+    img {
+      max-width: 550px;
+      max-height: 700px;
       object-fit: contain;
     }
   }

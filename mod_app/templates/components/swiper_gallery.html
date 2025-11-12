@@ -25,10 +25,6 @@
         {% elif slide_videos %}
           <div class="swiper-slide">
             <iframe src="{{slide.url}}" allowfullscreen frameborder="0" scrolling="no" title="{{slide.description}}"></iframe>
-            <div class="swiper-slide__description">
-              <div class="swiper-slide__description__content">{{slide.description}}</div>
-              <button class="btn" type="button" onclick="openImageLink('{{ slide.url }}')">See Image Source</button>
-            </div>
           </div>
         {% else %}
           <div class="slide__content">{{slide}}</div>
