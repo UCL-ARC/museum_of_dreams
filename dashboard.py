@@ -56,7 +56,7 @@ class CustomIndexDashboard(Dashboard):
                             "mod_app.models.film_model.*",
                             "mod_app.models.teaching_analysis_models.*",
                             "mod_app.models.bibliography_model.*",
-                            "mod_app.models.project_note_model.ProjectNote",
+                            "mod_app.models.note_and_feedback_models.ProjectNote",
                         ),
                     ),
                     modules.ModelList(
@@ -91,7 +91,7 @@ class CustomIndexDashboard(Dashboard):
                             "mod_app.models.support_models.Tag",
                             "mod_app.models.support_models.Keyword",
                             "mod_app.models.support_models.Topic",
-                            "mod_app.models.feedback_model.Feedback",
+                            "mod_app.models.note_and_feedback_models.Feedback",
                             "mod_app.models.visual_written_influences_model.VisualInfluences",
                             "mod_app.models.visual_written_influences_model.WrittenInfluences",
                             "mod_app.models.support_models.Archive",
