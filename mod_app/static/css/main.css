@@ -524,3 +524,50 @@ footer {
     display: flex;
   }
 }
+
+.content-wrapper {
+  margin-top: 8vh;
+  margin-inline: 6.5vw;
+  text-align: center;
+  align-content: center;
+
+  .buttons-wrapper {
+    margin-top: 3vh;
+    margin-bottom: 8vh;
+    padding: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20vw;
+  }
+  button {
+    font-family: "Arima";
+    font-weight: bold;
+    background-color: var(--dark-grey);
+    color: var(--light-blue);
+    border: none;
+    font-size: 1.25rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 2px;
+
+    transition: all 0.3s ease;
+    &:hover {
+      background-color: var(--light-blue);
+      color: var(--dark-grey);
+    }
+  }
+
+  .team {
+    ul {
+      list-style-type: none;
+    }
+  }
+
+  .contact-us {
+    margin-top: 8vh;
+    h4 {
+      margin-bottom: 0.8rem;
+      font-size: 1.2rem;
+    }
+  }
+}
