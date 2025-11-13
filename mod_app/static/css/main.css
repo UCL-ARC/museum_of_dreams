@@ -510,9 +510,17 @@ footer {
   }
 }
 
-.intro-card__wrapper {
+.intro-trailer__wrapper {
   max-width: 100vw;
-  img {
+  width: 100%;
+  height: 60vh;
+  object-fit: cover;
+
+  #trailer {
     width: 100%;
+    height: 100%;
+    max-width: 100vw;
+    max-height: 100vh;
+    display: flex;
   }
 }
