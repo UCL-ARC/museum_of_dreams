@@ -6,11 +6,12 @@
 
     <button class="tab__link" type="button" name="technical" onclick="openTab(event, 'technical')"><h3>Technical</h3></button>
 
-    <button class="tab__link" type="button" name="collections" onclick="openTab(event, 'collections')"><h3>Collections</h3></button>
-
-    <button class="tab__link" type="button" name="analyses" onclick="openTab(event, 'analyses')"><h3>Analyses</h3></button>
-
-    <button class="tab__link" type="button" name="bibliography" onclick="openTab(event, 'bibliography')"><h3>Bibliography</h3></button>
+    {% if film.otherlinks.all or vr_slides or pm_slides %} <button class="tab__link" type="button" name="collections" onclick="openTab(event, 'collections')"><h3>Collections</h3></button>
+    {% endif %} {% if film.analyses.all %}
+      <button class="tab__link" type="button" name="analyses" onclick="openTab(event, 'analyses')"><h3>Analyses</h3></button>
+    {% endif %} {% if film.bibliography.all %}
+      <button class="tab__link" type="button" name="bibliography" onclick="openTab(event, 'bibliography')"><h3>Bibliography</h3></button>
+    {% endif %}
   </div>
 
   {% comment %} content of those tabs {% endcomment %}
@@ -19,17 +20,13 @@
 
   <div id="technical" class="tab__content" name="technical">{% include "partial/film_tab__technical.html" %}</div>
 
-  <div id="collections" class="tab__content" name="collections">{% include "partial/film_tab__collections.html" %}</div>
-
-  <div id="analyses" class="tab__content" name="analyses">
-    {% if film.analyses.all %} {% include "partial/analysis_card_grid.html" with analysis_list=film.analyses.all %} {% else %}
-      <dl>
-        <dt>Sorry, we don't have any analyses for this film. Instead, check out our topics for other related materials!</dt>
-      </dl>
-    {% endif %}
-  </div>
-
-  <div id="bibliography" class="tab__content" name="bibliography">{% include "partial/individual_bib.html" with bib_list=film.bibliography.all %}</div>
+  {% if film.otherlinks.all or vr_slides or pm_slides %}
+    <div id="collections" class="tab__content" name="collections">{% include "partial/film_tab__collections.html" %}</div>
+  {% endif %} {% if film.analyses.all %}
+    <div id="analyses" class="tab__content" name="analyses">{% include "partial/analysis_card_grid.html" with analysis_list=film.analyses.all %}</div>
+  {% endif %} {% if film.bibliography.all %}
+    <div id="bibliography" class="tab__content" name="bibliography">{% include "partial/individual_bib.html" with bib_list=film.bibliography.all %}</div>
+  {% endif %}
 </div>
 
 <script src="{% static 'js/openTab.js' %}"></script>
