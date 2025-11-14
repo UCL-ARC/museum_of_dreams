@@ -538,7 +538,7 @@ footer {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 20vw;
+    gap: 10vw;
   }
   button {
     font-family: "Arima";
