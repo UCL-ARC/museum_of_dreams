@@ -532,6 +532,7 @@ footer {
   align-content: center;
 
   .buttons-wrapper {
+    margin-inline-start: 3vw;
     margin-top: 3vh;
     margin-bottom: 8vh;
     padding: 1rem;
