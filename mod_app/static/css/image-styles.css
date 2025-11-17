@@ -24,9 +24,8 @@
   width: 8vw;
 }
 
-.dlm {
-  filter: invert(1);
-}
-body.lm .dlm {
-  filter: none;
+@media (prefer-color-scheme: dark) {
+  .dlm {
+    filter: invert(1);
+  }
 }

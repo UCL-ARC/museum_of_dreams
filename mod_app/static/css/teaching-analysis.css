@@ -86,6 +86,9 @@
       color: var(--coral);
     }
   }
+  sup {
+    vertical-align: top;
+  }
 }
 .hidden {
   display: none;
