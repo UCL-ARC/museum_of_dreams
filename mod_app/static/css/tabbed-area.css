@@ -55,6 +55,7 @@ body:has(.tab-selection.is-sticky) .tab-selection {
     display: flex;
     flex-direction: column;
     object-fit: contain;
+    word-break: break-word;
   }
 
   section.footnotes {
