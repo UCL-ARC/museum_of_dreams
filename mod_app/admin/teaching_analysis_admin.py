@@ -15,7 +15,7 @@ from mod_app.admin.utils import (
 class AnalysisAdminForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(AnalysisAdminForm, self).__init__(*args, **kwargs)
-        self.fields["summary"].help_text = "Limited to 1000 characters."
+        self.fields["summary"].help_text = "Limited to 1500 characters."
 
     class Meta:
         model = Analysis
