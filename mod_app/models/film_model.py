@@ -86,13 +86,12 @@ class Film(models.Model):
 
     # Technical section
 
-    duration = models.DecimalField(
+    duration = models.CharField(
         blank=True,
         null=True,
         verbose_name="Original Runtime",
-        max_digits=5,
-        decimal_places=2,
-        help_text="Enter the original run time in minutes. Please use a period (.) to denote fractions, eg. 10.5 meaning 10 mins 30 seconds",
+        max_length=12,
+        help_text="Enter the original run time in ft or m, eg. 3000 ft or 500 m",
     )
     current_length = models.CharField(
         blank=True,
