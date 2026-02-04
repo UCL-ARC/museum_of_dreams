@@ -1,8 +1,8 @@
 <div>
   <h2>Film Technical Information</h2>
   <dl class="short-technical-info">
-    <dt>Original Runtime: {{film.duration|default:"N/A"}}</dt>
-    <dt>Length of BFI Viewing Print: {{film.current_length|default:"N/A"}}</dt>
+    <dt>Duration: {{film.duration|default:"N/A"}}</dt>
+    <dt>Current length: {{film.current_length|default:"N/A"}}</dt>
     <dt>Support: {{film.support|default:"N/A"}}</dt>
     <dt>{% if film.is_in_colour %}Colour {% else %} Black and White{% endif %}</dt>
     <dt>Format: {{film.format_type}} {% if film.format_other %}, {{film.format_other}} {% endif %}</dt>

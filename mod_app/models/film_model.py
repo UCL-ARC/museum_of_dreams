@@ -89,17 +89,16 @@ class Film(models.Model):
     duration = models.DecimalField(
         blank=True,
         null=True,
-        verbose_name="Original Runtime",
         max_digits=5,
         decimal_places=2,
         help_text="Enter the original run time in minutes. Please use a period (.) to denote fractions, eg. 10.5 meaning 10 mins 30 seconds",
     )
-    current_length = models.CharField(
+    current_length = models.DecimalField(
         blank=True,
         null=True,
-        max_length=12,
-        verbose_name="BFI Print Length",
-        help_text="Enter the length of the print and the units in m or ft, eg. 3000 ft or 500 m",
+        max_digits=5,
+        decimal_places=2,
+        help_text="Enter the run time of the BFI copy in minutes. Please use a period (.) to denote fractions, eg. 10.5 meaning 10 mins 30 seconds",
     )
     support = models.CharField(
         max_length=1,
