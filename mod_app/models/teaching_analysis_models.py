@@ -34,11 +34,16 @@ def strip_empty_paragraphs(content):
             ):
                 next_element = next_element.next_sibling
 
-            # Check if next element is <p>&nbsp;</p>
+            # Check if next element is <p>&nbsp;</p> or <p></p>
             if (
                 next_element
                 and next_element.name == "p"
-                and next_element.encode_contents() == b"&nbsp;"
+                and (
+                    next_element.encode_contents() == b"&nbsp;"
+                    or next_element.get_text() == "\xa0"
+                    or next_element.string == "\xa0"
+                    or not next_element.contents
+                )
             ):
                 # Store the next sibling before removing the current element
                 next_to_check = next_element.next_sibling
@@ -99,8 +104,8 @@ class Analysis(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-
-        self.content = strip_empty_paragraphs(self.content)
+        if self.content is not None and len(self.content) > 0:
+            self.content = strip_empty_paragraphs(self.content)
 
         update_bibliography(self, [self.content])
 
