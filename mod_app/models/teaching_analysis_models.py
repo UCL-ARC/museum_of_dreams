@@ -1,3 +1,4 @@
+from bs4 import BeautifulSoup
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 
@@ -12,6 +13,49 @@ def display_list(list):
     else:
         display_list = str(list[0])
     return display_list
+
+
+def strip_empty_paragraphs(content):
+    """There seems to be some weird behaviour wherein CKEditor is adding empty paragraphs after videos. We don't want this on the front end nor in the actual content field, so this function removes any <p>&nbsp;</p> that immediately follow a video div."""
+    soup = BeautifulSoup(content, "html.parser")
+
+    video_divs = soup.find_all("div", class_="ckeditor-html5-video")
+
+    for div in video_divs:
+        next_element = div.next_sibling
+
+        # Keep checking and removing consecutive <p>&nbsp;</p> elements
+        while True:
+            # Skip whitespace text nodes
+            while (
+                next_element
+                and isinstance(next_element, str)
+                and next_element.strip() == ""
+            ):
+                next_element = next_element.next_sibling
+
+            # Check if next element is <p>&nbsp;</p> or <p></p>
+            if (
+                next_element
+                and next_element.name == "p"
+                and (
+                    next_element.encode_contents() == b"&nbsp;"
+                    or next_element.get_text() == "\xa0"
+                    or next_element.string == "\xa0"
+                    or not next_element.contents
+                )
+            ):
+                # Store the next sibling before removing the current element
+                next_to_check = next_element.next_sibling
+                # Remove the <p>&nbsp;</p> element and move to the next
+                next_element.decompose()
+                next_element = next_to_check
+            else:
+                # Break loop when we get back to real content
+                break
+
+    cleaned_html = str(soup)
+    return cleaned_html
 
 
 class Analysis(models.Model):
@@ -60,6 +104,8 @@ class Analysis(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
+        if self.content is not None and len(self.content) > 0:
+            self.content = strip_empty_paragraphs(self.content)
 
         update_bibliography(self, [self.content])
 

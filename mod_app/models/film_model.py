@@ -89,7 +89,7 @@ class Film(models.Model):
     duration = models.CharField(
         blank=True,
         null=True,
-        verbose_name="Original Runtime",
+        verbose_name="Original Length",
         max_length=12,
         help_text="Enter the original run time in ft or m, eg. 3000 ft or 500 m",
     )
