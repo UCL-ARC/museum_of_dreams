@@ -109,6 +109,29 @@ class TestAnalysis(TestCase):
         self.assertEqual(analysis.films.first(), film)
         self.assertEqual(analysis.teaching_resources.first(), tr)
 
+    def test_analysis_content_has_no_empty_paragraphs_after_video(self):
+        content_with_empty_paragraphs = """
+            <p>This is the first paragraph.</p>
+            <div class="ckeditor-html5-video">Video Content</div>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>This is the second paragraph.</p>
+        """
+
+        analysis = Analysis.objects.create(
+            title="a2", content=content_with_empty_paragraphs
+        )
+        analysis.save()
+
+        expected_content = """
+            <p>This is the first paragraph.</p>
+            <div class="ckeditor-html5-video">Video Content</div>
+            <p>This is the second paragraph.</p>
+        """
+
+        self.assertTrue(analysis)
+        self.assertHTMLEqual(analysis.content, expected_content)
+
 
 class TestTeachingResources(TestCase):
     def test_tr_creation(self):
