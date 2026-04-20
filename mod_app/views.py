@@ -207,6 +207,10 @@ def custom_404(request, exception=None):
     return render(request, "404.html", {}, status=404)
 
 
+def events_view(request):
+    return render(request, "events.html")
+
+
 def downloadAnalysis(request, pk):
     analysis = Analysis.objects.get(pk=pk)
     template_name = "downloads/analysis.html"
