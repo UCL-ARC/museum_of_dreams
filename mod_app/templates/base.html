@@ -13,59 +13,8 @@
           <a href="{% url 'admin:index' %}">
             <span title="Log in" class="material-symbols-outlined"> login </span>
           </a>
-        {% endif %} {% if user.is_authenticated%}
-          <span class="material-symbols-outlined" id="menu-icon"> menu </span>
-
-          <div class="drawer" id="drawer">
-        <!-- Content of drawer goes here -->
-            <div class="drawer__content">
-              <div class="drawer__menu-icons">
-                <span title="dark mode: on" class="material-symbols-outlined sm darkmode"> dark_mode </span>
-                {% if user.is_authenticated %} {% if user.is_staff %}
-                  <a href="/admin">
-                    <span title="Admin dashboard" class="material-symbols-outlined sm"> dashboard </span>
-                  </a>
-                {% endif %}
-                  <a href="{% url 'logout' %}">
-                    <span title="Log out" class="material-symbols-outlined sm"> logout </span>
-                  </a>
-
-                {% endif %}
-              </div>
-              <button id="drawer__button--close" aria-label="Close Menu">&times;</button>
-              <h2 class="drawer__heading">Explore</h2>
-              <ul class="drawer__list-nav">
-                <li>
-                  <a href="{% url 'film_list' %}?page=1"><span class="material-symbols-outlined">theaters</span> Films</a>
-                </li>
-                <li>
-                  <a href="{% url 'analysis_list' %}">
-                    <span class="material-symbols-outlined">description</span>
-                    Analyses: Critical Essays and Discussions</a
-                    >
-                  </li>
-                  <li>
-                    <a href="{% url 'bibliography' %}"
-                    ><span class="material-symbols-outlined">menu_book</span>
-                      Bibliography
-                    </a>
-                  </li>
-                  <li>
-                    <a href="{% url 'tag_list' %}"
-                    ><span class="material-symbols-outlined">label</span>
-                      Tags
-                    </a>
-                  </li>
-                  <li>
-                    <a href="{% url 'events' %}"
-                    ><span class="material-symbols-outlined">event</span>
-                      Events
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
         {% endif %}
+        <span title="dark mode: on" class="material-symbols-outlined sm darkmode"> dark_mode </span>
       </div>
       <a href="{% url 'home' %}" class="link--home">
         <div class="title-logo">
@@ -78,6 +27,26 @@
         <span style="color: orange; padding: 10px; position: absolute; left: 2vw; top: 10px"> STAGING </span>
       {% endif %} {% endblock %} {% include "components/logo_text.html" with extra_classes="title__logo-text" %}
     </div>
+
+    <nav>
+      <ul class="banner-nav">
+        <li>
+          <a href="{% url 'film_list' %}?page=1">Films</a>
+        </li>
+        <li>
+          <a href="{% url 'analysis_list' %}">Analyses</a>
+        </li>
+        <li>
+          <a href="{% url 'bibliography' %}">Bibliography</a>
+        </li>
+        <li>
+          <a href="{% url 'tag_list' %}">Tags</a>
+        </li>
+        <li>
+          <a href="{% url 'events' %}">Events</a>
+        </li>
+      </ul>
+    </nav>
 
     {% block notice %} {% if not user.is_authenticated %}
       <div class="title--construction">
