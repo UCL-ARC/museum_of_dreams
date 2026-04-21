@@ -20,14 +20,6 @@
         <!-- Content of drawer goes here -->
             <div class="drawer__content">
               <div class="drawer__menu-icons">
-            {% comment %}
-            <div class="toggle-container">
-              <span class="toggle-label">Toggle Dark Mode:</span>
-              <label class="switch">
-                <input type="checkbox" id="toggle" />
-              </label>
-            </div>
-            {% endcomment %}
                 <span title="dark mode: on" class="material-symbols-outlined sm darkmode"> dark_mode </span>
                 {% if user.is_authenticated %} {% if user.is_staff %}
                   <a href="/admin">
@@ -58,34 +50,18 @@
                       Bibliography
                     </a>
                   </li>
-            {% comment %}
-            <li>
-              <a href="{% url 'tr_list' %}"
-                ><span class="material-symbols-outlined">topic</span>
-                Teaching Resources Available
-              </a>
-            </li>
-            <li>
-              <a href="{% url 'location_list' %}"
-                ><span class="material-symbols-outlined">map</span>
-                Locations
-              </a>
-            </li>
-            {% endcomment %}
                   <li>
                     <a href="{% url 'tag_list' %}"
                     ><span class="material-symbols-outlined">label</span>
                       Tags
                     </a>
                   </li>
-            {% comment %}
-            <li>
-              <a href="{% url 'search' %}"
-                ><span class="material-symbols-outlined">search</span>
-                Search
-              </a>
-            </li>
-            {% endcomment %}
+                  <li>
+                    <a href="{% url 'events' %}"
+                    ><span class="material-symbols-outlined">event</span>
+                      Events
+                    </a>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -119,8 +95,7 @@
         <p>If you'd like to get in touch, send us an email at <a href="mailto:museumofdreamworlds@ucl.ac.uk">museumofdreamworlds@ucl.ac.uk</a></p>
       </div>
     {% endif %} {% endblock %} {% block heading %} {% endblock %}
-  <!--[if lt IE 7]>
-    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p> <!
+  <!--[if lt IE 7]> <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p> <!
   [endif]-->{% block trailer %}{% endblock %}
     <main>{% if user.is_authenticated %} {% block content %} {% endblock %} {% endif %}</main>
   {% comment %} javascript imports {% endcomment %}
@@ -140,26 +115,12 @@
       <ul class="footer__nav--top-row">
         <h5>Explore</h5>
         <li><a href="{% url 'film_list' %}">Films</a></li>
-      {% comment %}
-      <li><a href="#">Search</a></li>
-      {% endcomment %}
         <li><a href="{% url 'analysis_list' %}">Analyses</a></li>
-      {% comment %}
-      <li><a href="{% url 'tr_list' %}">Teaching Resources</a></li>
-      {% endcomment %} {% comment %}
-      <li><a href="#">Locations</a></li>
-      {% endcomment %}
-        <li><a href="#">Tags</a></li>
+        <li><a href="{% url 'tag_list' %}">Tags</a></li>
       </ul>
       <ul class="footer__nav--bottom-row">
         <h5>About</h5>
-      {% comment %}
-      <li><a href="#">About us</a></li>
-      {% endcomment %} {% comment %}
-      <li><a href="#">Blog </a></li>
-      {% endcomment %} {% comment %}
-      <li><a href="#">Collaborators</a></li>
-      {% endcomment %}
+        <li><a href="{% url 'events' %}">Events</a></li>
         <li><a href="mailto:museumofdreamworlds@ucl.ac.uk">Contact</a></li>
       </ul>
     </div>
