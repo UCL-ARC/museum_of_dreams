@@ -5,11 +5,7 @@ from django.db.models.functions import Substr, Lower, Trim
 from django.core.exceptions import ValidationError
 from django.urls import reverse
 
-from mod_app.models.support_models import (
-    Keyword,
-    Tag,
-    Topic,
-)
+from mod_app.models.support_models import Keyword, Tag, Topic
 from .bibliography_model import BibliographyItem
 from mod_app.utils.extract_citations import update_bibliography
 
@@ -83,6 +79,15 @@ class Film(models.Model):
         null=True,
     )
     crew = models.TextField(blank=True, null=True, verbose_name="Credits")
+
+    date_of_representation = models.CharField(
+        blank=True,
+        null=True,
+        max_length=255,
+        help_text="The time period the film represents or was set in",
+    )
+
+    # locations exist on films but the relationship is defined on the Location model
 
     # Technical section
 
