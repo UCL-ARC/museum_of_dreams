@@ -5,7 +5,7 @@ from django.db.models.functions import Substr, Lower, Trim
 from django.core.exceptions import ValidationError
 from django.urls import reverse
 
-from mod_app.models.support_models import Keyword, Tag, Topic
+from mod_app.models.support_models import Keyword, Location, Tag, Topic
 from .bibliography_model import BibliographyItem
 from mod_app.utils.extract_citations import update_bibliography
 
@@ -67,6 +67,7 @@ class Film(models.Model):
     keyword = models.ManyToManyField(Keyword, related_name="films_keyword", blank=True)
     topic = models.ManyToManyField(Topic, related_name="films_topic", blank=True)
     genre = models.ManyToManyField(Tag, related_name="films", blank=True)
+    location = models.ManyToManyField(Location, related_name="films", blank=True)
 
     bfi_category = models.CharField(
         max_length=100, blank=True, null=True
@@ -86,8 +87,6 @@ class Film(models.Model):
         max_length=255,
         help_text="The time period the film represents or was set in",
     )
-
-    # locations exist on films but the relationship is defined on the Location model
 
     # Technical section
 

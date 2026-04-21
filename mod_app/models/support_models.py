@@ -41,5 +41,3 @@ class Location(models.Model):
         return f"{self.name}"
 
     name = models.CharField(max_length=200)
-    # could use a geo package for more specific stuff, might help with google maps
-    films = models.ManyToManyField("Film", blank=True, related_name="locations")
