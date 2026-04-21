@@ -33,7 +33,7 @@
         <div id="locations">
           <h4>Locations</h4>
           {% for loc in film.location.all %}
-            <span class="tag">{{g.name}}</span>
+            <span class="tag">{{loc.name}}</span>
           {%empty%} N/A {% endfor %}
         </div>
       </div>

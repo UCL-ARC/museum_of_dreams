@@ -2,6 +2,10 @@ from django.db import models
 
 
 class Tag(models.Model):
+    class Meta:
+        verbose_name = "Genre"
+        verbose_name_plural = "Genres"
+
     def __str__(self):
         return self.name
 
@@ -38,12 +42,6 @@ class Archive(models.Model):
 
 class Location(models.Model):
     def __str__(self):
-        return f"{self.address}"
+        return f"{self.name}"
 
-    address = models.CharField(max_length=200)
-    # could use a geo package for more specific stuff, might help with google maps
-    associated_films = models.ManyToManyField(
-        "Film", blank=True, related_name="locations"
-    )
-
-    is_setting = models.BooleanField(default=False)
+    name = models.CharField(max_length=200)
