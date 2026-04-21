@@ -95,27 +95,12 @@ class CustomIndexDashboard(Dashboard):
                             "mod_app.models.visual_written_influences_model.VisualInfluences",
                             "mod_app.models.visual_written_influences_model.WrittenInfluences",
                             "mod_app.models.support_models.Archive",
+                            "mod_app.models.support_models.Location",
                         ),
                     ),
                 ],
             )
         )
-
-        # # append another link list module for "support"
-        # # this needs some extra setup, possibly Pillow
-        # self.children.append(
-        #     modules.LinkList(
-        #         _("Media Management"),
-        #         column=2,
-        #         children=[
-        #             {
-        #                 "title": _("FileBrowser"),
-        #                 "url": "/admin/filebrowser/browse/",
-        #                 "external": False,
-        #             },
-        #         ],
-        #     )
-        # )
 
         # append another link list module for "support".
         self.children.append(
