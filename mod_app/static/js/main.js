@@ -1,11 +1,12 @@
-import { logToConsole } from "../second.js";
 import { setTagColours } from "./dynamicTagColours.js";
 import { prevSlide, nextSlide } from "./carousel.js";
+import { addPreventMenuListener } from "./preventMenu.js";
 
 setTagColours();
 
 document.addEventListener("DOMContentLoaded", function () {
   // const lightDarkToggle = document.querySelector(".toggle-container");
+  addPreventMenuListener();
   // lightDarkToggle.addEventListener("click", toggleMode());
   // function toggleMode() {
   // 	const body = document.body;
