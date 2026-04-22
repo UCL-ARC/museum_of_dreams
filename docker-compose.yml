@@ -1,0 +1,63 @@
+version: "3.9"
+
+services:
+  nginx:
+    image: nginx:1.25
+    container_name: nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - static_volume:/app/static
+      - media_volume:/app/media
+      - certs:/etc/letsencrypt
+    depends_on:
+      - django
+
+  django:
+    image: your-ecr-repo/django:latest
+    container_name: django
+    restart: always
+    env_file:
+      - ./env/production.env
+    command: >
+      gunicorn yourproject.wsgi:application
+      --bind 0.0.0.0:8000
+      --workers 3
+    volumes:
+      - static_volume:/app/static
+      - media_volume:/app/media
+    depends_on:
+      - mysql
+
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - certs:/etc/letsencrypt
+      - static_volume:/app/static
+    entrypoint: >
+      sh -c "trap exit TERM;
+             while :; do
+               certbot renew --webroot -w /app/static --quiet;
+               sleep 12h;
+             done"
+    depends_on:
+      - nginx
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: always
+    env_file:
+      - ./env/mysql.env
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - /data/mysql:/var/lib/mysql
+
+volumes:
+  static_volume:
+  media_volume:
+  certs:
