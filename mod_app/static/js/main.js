@@ -6,7 +6,6 @@ setTagColours();
 
 document.addEventListener("DOMContentLoaded", function () {
   // const lightDarkToggle = document.querySelector(".toggle-container");
-  addPreventMenuListener();
   // lightDarkToggle.addEventListener("click", toggleMode());
   // function toggleMode() {
   // 	const body = document.body;
@@ -17,6 +16,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // 	body.classList.remove(currentMode);
   // 	body.classList.add(currentMode);
   // }
+
+  addPreventMenuListener();
 
   if (document.querySelector(".carousel")) {
     const carouselButtonNext = document.querySelector(".carousel__buttons--next");
