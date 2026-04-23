@@ -157,7 +157,10 @@ class TagDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["analyses"] = self.object.analysis_genres.all()
+        if hasattr(self.object, "topic"):
+            context["analyses"] = self.object.topic.analysis_topics.all()
+        else:
+            context["analyses"] = self.object.analysis_genres.all()
         context["films"] = self.object.films.all()
         context["teaching_resources"] = self.object.tr_tags.all()
         return context
