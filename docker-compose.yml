@@ -1,63 +1,56 @@
 version: "3.9"
 
 services:
-  nginx:
-    image: nginx:1.25
-    container_name: nginx
-    restart: always
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d:ro
-      - static_volume:/app/static
-      - media_volume:/app/media
-      - certs:/etc/letsencrypt
-    depends_on:
-      - django
-
   django:
-    image: your-ecr-repo/django:latest
-    container_name: django
+    build:
+      context: .
+      dockerfile: ./compose/django/Dockerfile
+    image: mod_django
     restart: always
     env_file:
-      - ./env/production.env
-    command: >
-      gunicorn yourproject.wsgi:application
-      --bind 0.0.0.0:8000
-      --workers 3
-    volumes:
-      - static_volume:/app/static
-      - media_volume:/app/media
+      - ./.env/django.env
+      - ./.env/mysql.env
+    command: /start
     depends_on:
       - mysql
-
-  certbot:
-    image: certbot/certbot
-    container_name: certbot
-    volumes:
-      - certs:/etc/letsencrypt
-      - static_volume:/app/static
-    entrypoint: >
-      sh -c "trap exit TERM;
-             while :; do
-               certbot renew --webroot -w /app/static --quiet;
-               sleep 12h;
-             done"
-    depends_on:
-      - nginx
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.backend.rule=Host(`museumofdreamworlds.org`)"
+      - "traefik.http.routers.backend.entrypoints=websecure"
+      - "traefik.http.routers.backend.priority=10"
+      - "traefik.http.routers.backend.tls.certresolver=letsencrypt"
+      - "traefik.http.services.backend.loadbalancer.server.port=8000"
 
   mysql:
     image: mysql:8.0
     container_name: mysql
     restart: always
     env_file:
-      - ./env/mysql.env
+      - ./.env/mysql.env
     command: --default-authentication-plugin=mysql_native_password
     volumes:
       - /data/mysql:/var/lib/mysql
 
-volumes:
-  static_volume:
-  media_volume:
-  certs:
+  # traefik:
+  #   image: traefik:v3.5
+  #   command:
+  #     - "--api=true"
+  #     - "--api.dashboard=false"
+  #     - "--providers.docker=true"
+  #     - "--providers.docker.exposedbydefault=false"
+  #     - "--entrypoints.web.address=:80"
+  #     - "--entrypoints.websecure.address=:443"
+  #     - "--certificatesresolvers.letsencrypt.acme.httpchallenge=true"
+  #     - "--certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web"
+  #     - "--certificatesresolvers.letsencrypt.acme.email=${LETSENCRYPT_EMAIL}"
+  #     - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
+  #     - "--entrypoints.websecure.http.tls.certresolver=letsencrypt"
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock:ro
+  #     - ./traefik/certs:/letsencrypt
+  #   env_file:
+  #     - ./.env/traefik.env
+
