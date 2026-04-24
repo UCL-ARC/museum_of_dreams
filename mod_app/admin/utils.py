@@ -34,9 +34,9 @@ def list_genres(obj):
     return ", ".join(str(g) for g in genres)
 
 
-def list_tags(obj):
-    tags = obj.tags.all()
-    return ", ".join(str(t) for t in tags)
+def list_topics(obj):
+    topics = obj.topics.all()
+    return ", ".join(str(t) for t in topics)
 
 
 def register_custom_admin(model, mixins=(), **options):

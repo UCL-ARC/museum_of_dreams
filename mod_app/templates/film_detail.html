@@ -21,13 +21,13 @@
         <div id="genres">
           <h4>Genres</h4>
           {% for g in film.genre.all %}
-            <span class="tag">{{g.name}}</span>
+            <a href="{% url 'tag_detail' pk=g.pk %}"><span class="tag">{{g.name}}</span></a>
           {%empty%} N/A {% endfor %}
         </div>
         <div id="topics">
           <h4>Topics</h4>
           {% for topic in film.topic.all %}
-            <span class="tag">{{topic.name}}</span>
+            <a href="{% url 'tag_detail' pk=topic.pk %}"><span class="tag">{{topic.name}}</span></a>
           {%empty%} N/A {% endfor %}
         </div>
         <div id="locations">

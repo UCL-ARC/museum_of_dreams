@@ -4,9 +4,7 @@ from django.contrib import admin
 
 from ..models import Analysis, TeachingResources
 from mod_app.admin.utils import (
-    list_genres,
-    list_keywords,
-    list_tags,
+    list_topics,
     safe_bibliography,
     safe_content,
 )
@@ -60,8 +58,7 @@ class AnalysisAdmin(admin.ModelAdmin):
     list_display = [
         "dynamic_title",
         "related_films",
-        "list_keywords_display",
-        "list_genres_display",
+        "list_topics_display",
         "safe_content_display",
     ]
     filter_horizontal = ("films",)
@@ -78,15 +75,10 @@ class AnalysisAdmin(admin.ModelAdmin):
 
     related_films.short_description = "Films"
 
-    def list_keywords_display(self, obj):
-        return list_keywords(obj)
+    def list_topics_display(self, obj):
+        return list_topics(obj)
 
-    list_keywords_display.short_description = "Keywords"
-
-    def list_genres_display(self, obj):
-        return list_genres(obj)
-
-    list_genres_display.short_description = "Genres"
+    list_topics_display.short_description = "Topics"
 
     def safe_content_display(self, obj):
         return safe_content(obj)
@@ -111,14 +103,13 @@ class TeachingResourcesAdmin(AnalysisAdmin):
     inlines = [TRAnalysisInline]
     autocomplete_fields = ["films", "tags", "clips", "topics"]
     readonly_fields = ("safe_bib",)
-    exclude = ["bibliography", "keywords"]
+    exclude = ["bibliography", "keywords", "tags"]
     filter_horizontal = ("films",)
 
     list_display = [
         "dynamic_title",
         "related_films",
-        "list_keywords_display",
-        "list_tags_display",
+        "list_topics_display",
     ]
     search_fields = ["title", "tags", "keywords"]
 
@@ -127,12 +118,7 @@ class TeachingResourcesAdmin(AnalysisAdmin):
 
     safe_bib.short_description = "Bibliography"
 
-    def list_keywords_display(self, obj):
-        return list_keywords(obj)
+    def list_topics_display(self, obj):
+        return list_topics(obj)
 
-    list_keywords_display.short_description = "Keywords"
-
-    def list_tags_display(self, obj):
-        return list_tags(obj)
-
-    list_tags_display.short_description = "Tags"
+    list_topics_display.short_description = "Topics"
