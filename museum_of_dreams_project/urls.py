@@ -86,6 +86,16 @@ urlpatterns = (
             name="events",
         ),
         distill_path(
+            "about",
+            views.about_view,
+            name="about",
+        ),
+        distill_path(
+            "team",
+            views.team_view,
+            name="team",
+        ),
+        distill_path(
             "locations",
             views.custom_404,
             name="location_list",
