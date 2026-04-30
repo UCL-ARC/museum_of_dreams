@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   django:
     build:
@@ -8,8 +6,8 @@ services:
     image: mod_django
     restart: always
     env_file:
-      - ./.env/django.env
-      - ./.env/mysql.env
+      - ./compose/.env/django.env
+      - ./compose/.env/mysql.env
     command: /start
     depends_on:
       - mysql
@@ -26,31 +24,30 @@ services:
     container_name: mysql
     restart: always
     env_file:
-      - ./.env/mysql.env
+      - ./compose/.env/mysql.env
     command: --default-authentication-plugin=mysql_native_password
     volumes:
       - /data/mysql:/var/lib/mysql
 
-  # traefik:
-  #   image: traefik:v3.5
-  #   command:
-  #     - "--api=true"
-  #     - "--api.dashboard=false"
-  #     - "--providers.docker=true"
-  #     - "--providers.docker.exposedbydefault=false"
-  #     - "--entrypoints.web.address=:80"
-  #     - "--entrypoints.websecure.address=:443"
-  #     - "--certificatesresolvers.letsencrypt.acme.httpchallenge=true"
-  #     - "--certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web"
-  #     - "--certificatesresolvers.letsencrypt.acme.email=${LETSENCRYPT_EMAIL}"
-  #     - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
-  #     - "--entrypoints.websecure.http.tls.certresolver=letsencrypt"
-  #   ports:
-  #     - "80:80"
-  #     - "443:443"
-  #   volumes:
-  #     - /var/run/docker.sock:/var/run/docker.sock:ro
-  #     - ./traefik/certs:/letsencrypt
-  #   env_file:
-  #     - ./.env/traefik.env
-
+  traefik:
+    image: traefik:v3.5
+    command:
+      - "--api=true"
+      - "--api.dashboard=false"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.letsencrypt.acme.httpchallenge=true"
+      - "--certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web"
+      - "--certificatesresolvers.letsencrypt.acme.email=${LETS_ENCRYPT_EMAIL}"
+      - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
+      - "--entrypoints.websecure.http.tls.certresolver=letsencrypt"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik/certs:/letsencrypt
+    env_file:
+      - ./compose/.env/traefik.env
