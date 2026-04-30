@@ -513,6 +513,12 @@ footer {
       align-items: center;
     }
   }
+  .team-members {
+    margin-bottom: 10vh;
+  }
+  .contributors {
+    list-style-type: none;
+  }
 
   .contact-us {
     margin-top: 8vh;
