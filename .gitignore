@@ -87,3 +87,5 @@ node_modules/
 !mod_app/templates/downloads/
 
 !compose/.env
+
+traefik/certs/acme.json
