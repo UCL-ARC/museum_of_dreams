@@ -3,7 +3,6 @@ services:
     build:
       context: .
       dockerfile: ./compose/django/Dockerfile
-    image: mod_django
     restart: always
     env_file:
       - ./compose/.env/django.env
