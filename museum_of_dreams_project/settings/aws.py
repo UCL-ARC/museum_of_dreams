@@ -24,11 +24,11 @@ ALLOWED_HOSTS = [
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": os.environ.get("RDS_DB_NAME", "none"),
-        "USER": os.environ.get("RDS_USERNAME", "none"),
-        "PASSWORD": os.environ.get("RDS_PASSWORD", "none"),
-        "HOST": os.environ.get("RDS_HOSTNAME", "none"),
-        "PORT": os.environ.get("RDS_PORT", "none"),
+        "NAME": os.environ.get("MYSQL_DATABASE", "none"),
+        "USER": os.environ.get("MYSQL_USER", "none"),
+        "PASSWORD": os.environ.get("MYSQL_PASSWORD", "none"),
+        "HOST": os.environ.get("MYSQL_HOST", "none"),
+        "PORT": os.environ.get("MYSQL_PORT", "none"),
     }
 }
 GRAPPELLI_ADMIN_TITLE = "Museum of Dreamworlds"
