@@ -77,7 +77,6 @@ pytest_cache/
 
 secrets.py
 .env
-/compose/.env/
 
 # ESLint
 node_modules/
@@ -87,5 +86,6 @@ node_modules/
 # making sure download templates are tracked
 !mod_app/templates/downloads/
 
+compose/.env
 
 traefik/certs/acme.json
