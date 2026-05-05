@@ -77,7 +77,7 @@ pytest_cache/
 
 secrets.py
 .env
-compose/.env/
+/compose/.env/
 
 # ESLint
 node_modules/
