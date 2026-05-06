@@ -2,7 +2,7 @@ In 2026 we changed the build to live on a single EC2 instance and run docker.
 
 To do this, we created a new EC2 instance in the public subnet of the VPC with an Ubuntu AMI. We connected to it via the AWS GUI.
 
-We attached the Elastic IP we already had to this instance. (13...147)
+We attached the Elastic IP we already had to this instance (13...147) and associated the A record in route 53 for the URL we wanted to use
 
 We had to install Docker on the machine following [Docker's instructions](https://docs.docker.com/engine/install/ubuntu/), it should install v29. We then added docker to the user group to avoid using sudo
 
@@ -32,5 +32,28 @@ Ensure the IP is in the list of ALLOWED_HOSTS
 Then build
 
 ```
-sudo docker compose build
+docker compose build
 ```
+
+If no errors, spin up
+
+```
+docker compose up -d
+```
+
+To load data from a dump, you'll need to copy it into the docker system from the host machine, we'll put it in the root dir
+
+```
+docker cp ./prod-dump-060526.json museum_of_dreams-django-1:/
+```
+
+From inside the django container, you can then load the data
+
+```
+docker exec -it museum_of_dreams_django-1 bash
+python manage.py loaddata /prod-dump-060526.json
+```
+
+> [!WARNING]
+> if there is already data, you will want to flush the db
+> `python manage.py flush`
