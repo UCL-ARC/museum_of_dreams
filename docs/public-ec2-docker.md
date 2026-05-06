@@ -57,3 +57,31 @@ python manage.py loaddata /prod-dump-060526.json
 > [!WARNING]
 > if there is already data, you will want to flush the db
 > `python manage.py flush`
+
+## Updating
+
+Ensure you have env files and an acme file that persist on the EC2 instance
+
+```
+mkdir ~/persist
+mv compose/.env/*.env traefik/certs/acme.json ~/persist
+```
+
+When updating from git, you'll need to reapply the env files and acme file after pulling in changes
+
+If the traefik/certs dir doesn't exist
+
+```
+mkdir -p traefik/certs
+```
+
+```
+cp ../persist/*.env compose/.env
+cp ../persist/acme.json traefik/certs/
+```
+
+and then rebuild
+
+```
+docker compose up -d --build
+```
