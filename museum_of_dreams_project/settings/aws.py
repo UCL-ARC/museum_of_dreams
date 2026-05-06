@@ -22,6 +22,11 @@ ALLOWED_HOSTS = [
     LOCAL_IP,
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.museumofdreamworlds.org",
+    f"https://{EIP_IP}",
+]
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
