@@ -1,0 +1,52 @@
+services:
+  django:
+    build:
+      context: .
+      dockerfile: ./compose/django/Dockerfile
+    restart: always
+    env_file:
+      - ./compose/.env/django.env
+      - ./compose/.env/mysql.env
+    command: /start
+    depends_on:
+      - mysql
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.backend.rule=Host(`museumofdreamworlds.org`)"
+      - "traefik.http.routers.backend.entrypoints=websecure"
+      - "traefik.http.routers.backend.priority=10"
+      - "traefik.http.routers.backend.tls.certresolver=letsencrypt"
+      - "traefik.http.services.backend.loadbalancer.server.port=8000"
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: always
+    env_file:
+      - ./compose/.env/mysql.env
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - /data/mysql:/var/lib/mysql
+
+  traefik:
+    image: traefik:v3.6.15
+    command:
+      - "--api=true"
+      - "--api.dashboard=false"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.letsencrypt.acme.httpchallenge=true"
+      - "--certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web"
+      - "--certificatesresolvers.letsencrypt.acme.email=${LETS_ENCRYPT_EMAIL}"
+      - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
+      - "--entrypoints.websecure.http.tls.certresolver=letsencrypt"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik/certs:/letsencrypt
+    env_file:
+      - ./compose/.env/traefik.env
