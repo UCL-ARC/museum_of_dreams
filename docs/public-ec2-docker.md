@@ -85,3 +85,19 @@ and then rebuild
 ```
 docker compose up -d --build
 ```
+
+---
+
+### Other commands
+
+if you need to access the django container shell:
+
+```
+docker exec -it museum_of_dreams-django-1 bash
+```
+
+you can see variables with
+
+```
+python -c "import django; import django.conf;  print(django.conf.settings.ALLOWED_HOSTS)"
+```
