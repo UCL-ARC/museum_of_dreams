@@ -2,3 +2,4 @@
 
 mysqlclient==2.1.0
 django-ses==3.5.2
+gunicorn==21.2.0
