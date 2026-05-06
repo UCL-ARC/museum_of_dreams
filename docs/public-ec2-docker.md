@@ -41,16 +41,17 @@ If no errors, spin up
 docker compose up -d
 ```
 
-To load data from a dump, you'll need to copy it into the docker system from the host machine, we'll put it in the root dir
+To load data from a dump, you'll need to copy it into the docker system from the host machine, we'll put it in the root dir, make the `persist` dir if you haven't got one
 
 ```
-docker cp ./prod-dump-060526.json museum_of_dreams-django-1:/
+mkdir persist
+docker cp ./persist/prod-dump-060526.json museum_of_dreams-django-1:/
 ```
 
 From inside the django container, you can then load the data
 
 ```
-docker exec -it museum_of_dreams_django-1 bash
+docker exec -it museum_of_dreams-django-1 bash
 python manage.py loaddata /prod-dump-060526.json
 ```
 
@@ -63,7 +64,6 @@ python manage.py loaddata /prod-dump-060526.json
 Ensure you have env files and an acme file that persist on the EC2 instance
 
 ```
-mkdir ~/persist
 mv compose/.env/*.env traefik/certs/acme.json ~/persist
 ```
 
@@ -101,3 +101,10 @@ you can see variables with
 ```
 python -c "import django; import django.conf;  print(django.conf.settings.ALLOWED_HOSTS)"
 ```
+
+---
+
+### Backups
+
+upload of dumps via VPC into S3 bucket
+automated on a cron job
