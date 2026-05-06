@@ -503,9 +503,21 @@ footer {
   }
 
   .team {
-    ul {
-      list-style-type: none;
+    list-style-type: none;
+    li {
+      margin-bottom: 1.5rem;
+      text-align: left;
+      display: grid;
+      grid-template-columns: 1fr 3fr;
+      gap: 0.6rem;
+      align-items: center;
     }
+  }
+  .team-members {
+    margin-bottom: 10vh;
+  }
+  .contributors {
+    list-style-type: none;
   }
 
   .contact-us {
