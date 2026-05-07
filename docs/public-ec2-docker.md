@@ -80,10 +80,14 @@ cp ../persist/*.env compose/.env
 cp ../persist/acme.json traefik/certs/
 ```
 
-and then rebuild
+and then rebuild and spin up after confirming no errors on the build. This also reduces downtime on the site
 
 ```
-docker compose up -d --build
+docker compose build
+```
+
+```
+docker compose up -d
 ```
 
 ---
