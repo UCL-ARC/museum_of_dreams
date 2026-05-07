@@ -1,7 +1,6 @@
 from .base import *
 import socket
 
-
 SECRET_KEY = os.environ.get("SECRET_KEY", "none")
 
 DEBUG = False
@@ -14,21 +13,28 @@ ENVIRONMENT = "production"
 # the health checks come from a local instance private IP
 # and fail if not recognised as a valid host
 LOCAL_IP = str(socket.gethostbyname(socket.gethostname()))
+EIP_IP = os.environ.get("EIP_IP", "none")
 
 ALLOWED_HOSTS = [
     "museumofdreamworlds.eu-west-2.elasticbeanstalk.com",
     "museumofdreamworlds.org",
+    EIP_IP,
     LOCAL_IP,
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.museumofdreamworlds.org",
+    f"https://{EIP_IP}",
 ]
 
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": os.environ.get("RDS_DB_NAME", "none"),
-        "USER": os.environ.get("RDS_USERNAME", "none"),
-        "PASSWORD": os.environ.get("RDS_PASSWORD", "none"),
-        "HOST": os.environ.get("RDS_HOSTNAME", "none"),
-        "PORT": os.environ.get("RDS_PORT", "none"),
+        "NAME": os.environ.get("MYSQL_DATABASE", "none"),
+        "USER": os.environ.get("MYSQL_USER", "none"),
+        "PASSWORD": os.environ.get("MYSQL_PASSWORD", "none"),
+        "HOST": os.environ.get("MYSQL_HOST", "none"),
+        "PORT": os.environ.get("MYSQL_PORT", "none"),
     }
 }
 GRAPPELLI_ADMIN_TITLE = "Museum of Dreamworlds"

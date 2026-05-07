@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+
+python manage.py collectstatic --noinput
+exec gunicorn museum_of_dreams_project.settings.wsgi --bind 0.0.0.0:8000 --chdir=/app

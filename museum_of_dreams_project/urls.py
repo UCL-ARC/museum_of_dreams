@@ -81,9 +81,19 @@ urlpatterns = (
             name="bibliography",
         ),
         distill_path(
-            "search",
-            views.custom_404,
-            name="search",
+            "events",
+            views.events_view,
+            name="events",
+        ),
+        distill_path(
+            "about",
+            views.about_view,
+            name="about",
+        ),
+        distill_path(
+            "team",
+            views.team_view,
+            name="team",
         ),
         distill_path(
             "locations",

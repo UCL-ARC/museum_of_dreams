@@ -3,44 +3,26 @@
   <a href="{% url 'tag_list' %}" class="back-to">&larr; Back to all tags</a>
   <h2 class="tag__name">{{tag.name}}</h2>
   <div class="tag__related__wrapper">
-    {% if tag.is_genre %}
+    {% if tag.is_genre %} {% if films %}
       <h2>Films</h2>
-      {% if films %}
-        <section class="scroller">
-          {% for film in films %}
-            <a href="{% url 'film_detail' pk=film.pk %}" class="card-wrapper"> {% include "components/card.html" with obj=film %} </a>
-          {% endfor %}
-        </section>
-      {%else%}
-        <section>
-          <p>No films found with this tag</p>
-        </section>
-      {% endif%} {% endif %}
-
-    <h2>Analyses</h2>
-    {% if analyses %}
+      <section class="scroller">
+        {% for film in films %}
+          <a href="{% url 'film_detail' pk=film.pk %}" class="card-wrapper"> {% include "components/card.html" with obj=film %} </a>
+        {% endfor %}
+      </section>
+    {% endif %} {% endif%} {% if analyses %}
+      <h2>Analyses</h2>
       <section class="scroller">
         {% for analysis in analyses %}
           <a href="{% url 'analysis_detail' pk=analysis.pk %}" class="card-wrapper"> {% include "components/card.html" with obj=analysis %} </a>
         {% endfor %}
       </section>
-    {%else%}
-      <section>
-        <p>No analyses found with this tag</p>
-      </section>
-    {% endif%}
-
-    <h2>Teaching Resources</h2>
-
-    {% if tr %}
+    {% endif%} {% if teaching_resources %}
+      <h2>Teaching Resources</h2>
       <section class="scroller">
         {% for tr in teaching_resources %}
           <a href="{% url 'tr_detail' pk=tr.pk %}" class="card-wrapper"> {% include "components/card.html" with obj=tr %} </a>
         {% endfor %}
-      </section>
-    {% else %}
-      <section>
-        <p>No analyses found with this tag</p>
       </section>
     {% endif %}
   </div>

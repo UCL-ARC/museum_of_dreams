@@ -1,11 +1,8 @@
-import { logToConsole } from "../second.js";
 import { setTagColours } from "./dynamicTagColours.js";
 import { prevSlide, nextSlide } from "./carousel.js";
-import { toggleMenuDrawer } from "./menuDrawer.js";
+import { addPreventMenuListener } from "./preventMenu.js";
 
-logToConsole("js ready");
 setTagColours();
-toggleMenuDrawer();
 
 document.addEventListener("DOMContentLoaded", function () {
   // const lightDarkToggle = document.querySelector(".toggle-container");
@@ -19,6 +16,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // 	body.classList.remove(currentMode);
   // 	body.classList.add(currentMode);
   // }
+
+  addPreventMenuListener();
 
   if (document.querySelector(".carousel")) {
     const carouselButtonNext = document.querySelector(".carousel__buttons--next");

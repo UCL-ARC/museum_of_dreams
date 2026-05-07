@@ -148,8 +148,7 @@ class TestTeachingResources(TestCase):
 
 class TestLocation(TestCase):
     def test_location_creation(self):
-        loc = Location.objects.create(address="London, UK")
+        loc = Location.objects.create(name="London, UK")
 
         self.assertTrue(loc)
-        self.assertEqual(loc.address, "London, UK")
-        self.assertFalse(loc.is_setting)
+        self.assertEqual(loc.name, "London, UK")

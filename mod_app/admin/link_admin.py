@@ -18,6 +18,7 @@ from mod_app.models import (
     Tag,
     Topic,
     Video,
+    Location,
 )
 from mod_app.admin.utils import register_custom_admin, custom_inline
 from mod_app.utils.mixins import (
@@ -183,3 +184,8 @@ class KeywordAdmin(admin.ModelAdmin):
 class TopicAdmin(admin.ModelAdmin):
     search_fields = ["name"]
     exclude = ["is_genre"]
+
+
+@admin.register(Location)
+class LocationAdmin(admin.ModelAdmin):
+    search_fields = ["name"]

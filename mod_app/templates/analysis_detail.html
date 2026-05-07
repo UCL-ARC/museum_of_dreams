@@ -13,7 +13,7 @@
         <div id="topics">
           <h4>Topics</h4>
           {% for topic in analysis.topics.all %}
-            <span class="tag">{{topic.name}}</span>
+            <a href="{% url 'tag_detail' pk=topic.pk %}"><span class="tag">{{topic.name}}</span></a>
           {%empty%}
             <p>N/A</p>
           {% endfor %}

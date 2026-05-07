@@ -85,3 +85,7 @@ node_modules/
 
 # making sure download templates are tracked
 !mod_app/templates/downloads/
+
+compose/.env
+
+traefik/certs/acme.json
