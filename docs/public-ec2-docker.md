@@ -80,10 +80,14 @@ cp ../persist/*.env compose/.env
 cp ../persist/acme.json traefik/certs/
 ```
 
-and then rebuild
+and then rebuild and spin up after confirming no errors on the build. This also reduces downtime on the site
 
 ```
-docker compose up -d --build
+docker compose build
+```
+
+```
+docker compose up -d
 ```
 
 ---
@@ -96,7 +100,7 @@ if you need to access the django container shell:
 docker exec -it museum_of_dreams-django-1 bash
 ```
 
-you can see variables with
+you can then see variables with
 
 ```
 python -c "import django; import django.conf;  print(django.conf.settings.ALLOWED_HOSTS)"
