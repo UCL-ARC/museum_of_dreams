@@ -67,7 +67,7 @@ Ensure you have env files and an acme file that persist on the EC2 instance
 mv compose/.env/*.env traefik/certs/acme.json ~/persist
 ```
 
-When updating from git, you'll need to reapply the env files and acme file after pulling in changes
+When updating from git, you'll need to reapply the env files and acme file after pulling in changes. If you get a Bad Gateway error, it's likely due to the empty env files
 
 If the traefik/certs dir doesn't exist
 
