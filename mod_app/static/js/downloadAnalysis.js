@@ -36,6 +36,14 @@ async function downloadAnalysis(event, pk) {
     // Clean up by revoking the object URL and removing the temporary anchor element
     window.URL.revokeObjectURL(blobUrl);
     document.body.removeChild(a);
+
+    // use GOATCounter for analytics
+    if (window.goatcounter) {
+      window.goatcounter.count({
+        path: `/analysis-download/${pk}`,
+        title: document.title,
+      });
+    }
   } else {
     // Handle errors or unsuccessful responses
     console.error("Failed to download PDF:", response.statusText);
