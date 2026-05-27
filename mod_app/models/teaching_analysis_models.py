@@ -1,6 +1,8 @@
 from bs4 import BeautifulSoup
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
+from django.db.models import Case, IntegerField, Value, When
+from django.db.models.functions import Lower, Trim
 
 from ..utils.extract_citations import update_bibliography
 
@@ -58,6 +60,28 @@ def strip_empty_paragraphs(content):
     return cleaned_html
 
 
+class AnalysisManager(models.Manager):
+    def get_queryset(self):
+        """Order analyses first by special character, then number, then alphabetically"""
+        return (
+            super()
+            .get_queryset()
+            .annotate(
+                sort_title=Lower(Trim("title")),
+                sort_group=Case(
+                    # special characters first
+                    When(title__regex=r"^[^A-Za-z0-9]", then=Value(0)),
+                    # numbers second
+                    When(title__regex=r"^[0-9]", then=Value(1)),
+                    # letters last
+                    default=Value(2),
+                    output_field=IntegerField(),
+                ),
+            )
+            .order_by("sort_group", "sort_title")
+        )
+
+
 class Analysis(models.Model):
     class Meta:
         verbose_name_plural = "Analyses"
@@ -68,6 +92,7 @@ class Analysis(models.Model):
     def default_title():
         return f"Analysis {Analysis.objects.count() + 1}"
 
+    objects = AnalysisManager()
     title = models.CharField(max_length=255, default=default_title)
 
     summary = models.TextField(max_length=1500, null=True, blank=True)
