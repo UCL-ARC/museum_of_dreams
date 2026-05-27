@@ -12,13 +12,6 @@
         <h3 class="card__release-date">{{obj.release_date}}</h3>
       {% endif %}
     </div>
-    <div class="card__body__tags">
-      {% if obj.genre.all %} {% for g in obj.genre.all %}
-        <span class="tag tag--list">{{ g.name }}</span>
-      {% endfor %} {% else %} {% for tag in obj.tags.all %}
-        <span class="tag tag--list">{{ tag.name }}</span>
-      {% endfor %} {% endif %}
-    </div>
     <div class="card__body__description">{{ obj.synopsis|truncatechars_html:150|safe }} {{ obj.summary|safe }} {{ obj.material|truncatechars_html:250|safe }}</div>
   </div>
   <button type="button" class="btn card__button--see-more mobile-view-only">See more</button>
