@@ -26,6 +26,12 @@
     <nav>
       <ul class="banner-nav">
         <li>
+          <a href="{% url 'about' %}">About</a>
+        </li>
+        <li>
+          <a href="{% url 'team' %}">Team</a>
+        </li>
+        <li>
           <a href="{% url 'film_list' %}?page=1">Films</a>
         </li>
         <li>
@@ -39,12 +45,6 @@
         </li>
         <li>
           <a href="{% url 'events' %}">Events</a>
-        </li>
-        <li>
-          <a href="{% url 'about' %}">About</a>
-        </li>
-        <li>
-          <a href="{% url 'team' %}">Team</a>
         </li>
       </ul>
     </nav>
