@@ -515,6 +515,10 @@ footer {
   }
   .team-members {
     margin-bottom: 10vh;
+
+    .team__image {
+      height: clamp(30vh, 35vh, 40vh);
+    }
   }
   .contributors {
     list-style-type: none;
