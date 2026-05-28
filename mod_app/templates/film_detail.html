@@ -18,12 +18,6 @@
           <h4>BFI identifier</h4>
           {{film.bfi_identifier|default:"N/A"}}
         </div>
-        <div id="genres">
-          <h4>Genres</h4>
-          {% for g in film.genre.all %}
-            <a href="{% url 'tag_detail' pk=g.pk %}"><span class="tag">{{g.name}}</span></a>
-          {%empty%} N/A {% endfor %}
-        </div>
         <div id="topics">
           <h4>Topics</h4>
           {% for topic in film.topic.all %}

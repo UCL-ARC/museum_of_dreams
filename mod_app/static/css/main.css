@@ -74,7 +74,8 @@ nav {
   width: 100%;
   align-items: center;
   justify-content: space-evenly;
-  background-color: white;
+  background-color: var(--nav-background-colour);
+  color: var(--contrast-text);
 
   .banner-nav {
     display: flex;
@@ -515,6 +516,10 @@ footer {
   }
   .team-members {
     margin-bottom: 10vh;
+
+    .team__image {
+      height: clamp(30vh, 35vh, 40vh);
+    }
   }
   .contributors {
     list-style-type: none;

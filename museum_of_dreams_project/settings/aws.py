@@ -16,7 +16,6 @@ LOCAL_IP = str(socket.gethostbyname(socket.gethostname()))
 EIP_IP = os.environ.get("EIP_IP", "none")
 
 ALLOWED_HOSTS = [
-    "museumofdreamworlds.eu-west-2.elasticbeanstalk.com",
     "museumofdreamworlds.org",
     EIP_IP,
     LOCAL_IP,
