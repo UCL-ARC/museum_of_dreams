@@ -74,7 +74,8 @@ nav {
   width: 100%;
   align-items: center;
   justify-content: space-evenly;
-  background-color: white;
+  background-color: var(--nav-background-colour);
+  color: var(--contrast-text);
 
   .banner-nav {
     display: flex;
