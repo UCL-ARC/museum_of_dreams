@@ -3,14 +3,7 @@
   <a href="{% url 'tag_list' %}" class="back-to">&larr; Back to all tags</a>
   <h2 class="tag__name">{{tag.name}}</h2>
   <div class="tag__related__wrapper">
-    {% if tag.is_genre %} {% if films %}
-      <h2>Films</h2>
-      <section class="scroller">
-        {% for film in films %}
-          <a href="{% url 'film_detail' pk=film.pk %}" class="card-wrapper"> {% include "components/card.html" with obj=film %} </a>
-        {% endfor %}
-      </section>
-    {% endif %} {% endif%} {% if analyses %}
+    {% if analyses %}
       <h2>Analyses</h2>
       <section class="scroller">
         {% for analysis in analyses %}

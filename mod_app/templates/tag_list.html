@@ -2,18 +2,8 @@
 
   <div class="tag-list__container">
     <div class="column">
-      <h2>Genres</h2>
-      <p>associated Films, Analyses and Teaching Resources</p>
-      <div>
-        {% for tag in tags %} {%if tag.is_genre %}
-          <a href="{% url 'tag_detail' pk=tag.pk %}" class="tag tag--list">{{tag.name}}</a>
-        {% endif %} {% endfor %}
-      </div>
-    </div>
-
-    <div class="column">
       <h2>Topics</h2>
-      <p>associated Analyses and Teaching Resources</p>
+      <p>Associated Analyses</p>
       <div>
         {% for tag in tags %}{% if tag.topic %}
           <a href="{% url 'tag_detail' pk=tag.pk %}" class="tag tag--list">{{tag}}</a>
