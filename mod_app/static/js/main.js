@@ -5,18 +5,13 @@ import { addPreventMenuListener } from "./preventMenu.js";
 setTagColours();
 
 document.addEventListener("DOMContentLoaded", function () {
-  // const lightDarkToggle = document.querySelector(".toggle-container");
-  // lightDarkToggle.addEventListener("click", toggleMode());
-  // function toggleMode() {
-  // 	const body = document.body;
-  // 	const currentMode = body.classList.contains("dark-mode")
-  // 		? "light-mode"
-  // 		: "dark-mode";
-  // 	console.log("chanigng mode");
-  // 	body.classList.remove(currentMode);
-  // 	body.classList.add(currentMode);
-  // }
+  const toggle = document.querySelector(".menu-toggle");
+  const menu = document.querySelector(".menu-items");
 
+  toggle.addEventListener("click", () => {
+    const isOpen = menu.classList.toggle("open");
+    toggle.setAttribute("aria-expanded", isOpen);
+  });
   addPreventMenuListener();
 
   if (document.querySelector(".carousel")) {

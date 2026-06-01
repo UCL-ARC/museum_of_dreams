@@ -106,7 +106,7 @@ class Film(models.Model):
     )
     support = models.CharField(
         max_length=1,
-        choices=[("V", "Viewable"), ("M", "Master")],
+        choices=[("V", "Viewable"), ("M", "Non-Viewable Master")],
         default="V",
     )
 
