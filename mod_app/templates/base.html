@@ -27,7 +27,8 @@
     </div>
     {% if user.is_authenticated %}
       <nav>
-        <ul class="banner-nav">
+        <button class="menu-toggle" aria-expanded="false">Menu</button>
+        <ul class="menu-items">
           <li>
             <a href="{% url 'about' %}">About</a>
           </li>
