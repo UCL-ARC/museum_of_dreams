@@ -77,7 +77,17 @@ nav {
   background-color: var(--nav-background-colour);
   color: var(--contrast-text);
 
-  .banner-nav {
+  .menu-toggle {
+    display: none;
+    background-color: transparent;
+    border: none;
+    color: var(--contrast-text);
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    cursor: pointer;
+  }
+
+  .menu-items {
     display: flex;
     flex-direction: row;
     width: 90%;
@@ -89,6 +99,21 @@ nav {
 
     a {
       text-decoration: none;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    flex-direction: column;
+    .menu-toggle {
+      display: block;
+    }
+    .menu-items {
+      display: none;
+      flex-direction: column;
+
+      &.open {
+        display: flex;
+      }
     }
   }
 }
@@ -337,15 +362,6 @@ footer {
     }
   }
 
-  .darkmode {
-    /*   this doesn't work   */
-    font-variation-settings:
-      "FILL" 1,
-      "wght" 400,
-      "GRAD" 0,
-      "opsz" 24;
-  }
-
   margin-right: 1vw;
   min-width: 8vw;
 
@@ -363,7 +379,6 @@ footer {
 
 .title--construction {
   color: var(--dark-grey);
-
   display: flex;
   padding: 0.4rem;
   background-color: var(--pink-2);
@@ -401,7 +416,6 @@ footer {
   .utility__wrapper {
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
-    /* justify-content: space-around; */
     margin-bottom: 2rem;
 
     .viewby {
@@ -414,14 +428,11 @@ footer {
 
 /* pagination */
 .button--toggle-pagination {
-  /* float: right; */
   background-color: transparent;
   color: var(--cyan-6);
   font-weight: 600;
   padding: 0.5vw 1vw;
   font-size: inherit;
-  /* border-color: var(--light-blue); */
-
   transition: color 0.3s ease;
   &:hover {
     color: var(--light-blue);
@@ -476,6 +487,10 @@ footer {
   text-align: center;
   align-content: center;
 
+  @media screen and (max-width: 767px) {
+    margin-block: 4vh;
+  }
+
   .buttons-wrapper {
     margin-inline-start: 3vw;
     margin-top: 3vh;
@@ -503,7 +518,8 @@ footer {
     }
   }
 
-  .team {
+  .team-members {
+    margin-bottom: 10vh;
     list-style-type: none;
     li {
       margin-bottom: 1.5rem;
@@ -513,16 +529,26 @@ footer {
       gap: 0.6rem;
       align-items: center;
     }
-  }
-  .team-members {
-    margin-bottom: 10vh;
 
     .team__image {
       height: clamp(30vh, 35vh, 40vh);
     }
+
+    @media screen and (max-width: 767px) {
+      padding: 0;
+      li {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .team__image {
+        height: clamp(20vh, 25vh, 30vh);
+        justify-self: center;
+      }
+    }
   }
   .contributors {
     list-style-type: none;
+    padding: 0;
   }
 
   .contact-us {
