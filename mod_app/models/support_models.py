@@ -5,6 +5,7 @@ class Tag(models.Model):
     class Meta:
         verbose_name = "Genre"
         verbose_name_plural = "Genres"
+        ordering = ["name"]
 
     def __str__(self):
         return self.name

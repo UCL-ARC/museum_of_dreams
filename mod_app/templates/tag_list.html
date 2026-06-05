@@ -3,7 +3,7 @@
   <div class="tag-list__container">
     <div class="column">
       <h2>Keywords</h2>
-      <p>Associated Analyses</p>
+      <p>Associated with Analyses</p>
       <div>
         {% for tag in tags %}{% if tag.topic %}
           <a href="{% url 'tag_detail' pk=tag.pk %}" class="tag tag--list">{{tag}}</a>
