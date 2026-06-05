@@ -109,7 +109,7 @@ class Analysis(models.Model):
 
     keywords = models.ManyToManyField(
         Keyword, related_name="analysis_keywords", blank=True
-    )
+    )  # currently not used but they keep changing their minds
 
     genre = models.ManyToManyField(Tag, related_name="analysis_genres", blank=True)
 
