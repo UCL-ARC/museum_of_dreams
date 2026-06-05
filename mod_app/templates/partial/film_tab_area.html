@@ -2,9 +2,9 @@
   {% comment %} tabs the user clicks to navigate {% endcomment %}
   <div class="tab-selection__sentinel"></div>
   <div class="tab-selection">
-    <button class="tab__link active" type="button" name="filmic" onclick="openTab(event, 'filmic')"><h3>Filmic</h3></button>
+    <button class="tab__link active" type="button" name="filmic" onclick="openTab(event, 'filmic')"><h3>Filmographic Data</h3></button>
 
-    <button class="tab__link" type="button" name="technical" onclick="openTab(event, 'technical')"><h3>Technical</h3></button>
+    <button class="tab__link" type="button" name="technical" onclick="openTab(event, 'technical')"><h3>Technical Data</h3></button>
 
     {% if film.otherlinks.all or vr_slides or pm_slides %} <button class="tab__link" type="button" name="collections" onclick="openTab(event, 'collections')"><h3>Collections</h3></button>
     {% endif %} {% if film.analyses.all %}
