@@ -1,10 +1,19 @@
 from django.db import models
+from django.db.models.functions import Lower
+
+
+class TagManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().order_by(Lower("name"))
 
 
 class Tag(models.Model):
+    objects = TagManager()
+
     class Meta:
         verbose_name = "Genre"
         verbose_name_plural = "Genres"
+        ordering = ["name"]
 
     def __str__(self):
         return self.name

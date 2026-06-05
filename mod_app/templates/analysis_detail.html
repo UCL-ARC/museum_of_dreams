@@ -10,8 +10,8 @@
       </div>
 
       <div id="analysis__info" class="info">
-        <div id="topics">
-          <h4>Topics</h4>
+        <div id="tags">
+          <h4>Keywords</h4>
           {% for topic in analysis.topics.all %}
             <a href="{% url 'tag_detail' pk=topic.pk %}"><span class="tag">{{topic.name}}</span></a>
           {%empty%}
