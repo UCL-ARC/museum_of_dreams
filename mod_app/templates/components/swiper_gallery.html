@@ -4,7 +4,7 @@
       No relevant video/images available for this item.
       <h4>
       </div>
-{% elif slides|length > 1 %}
+{% elif slides|length > 0 %}
   <div class="swiper">
     <div class="swiper-wrapper">
       {% for slide in slides%}
@@ -32,9 +32,11 @@
 
       {%endfor %}
     </div>
-    <div class="swiper-pagination"></div>
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-button-next"></div>
+    {% if slides|length > 1 %}
+      <div class="swiper-pagination"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+    {% endif %}
   </div>
 
 
