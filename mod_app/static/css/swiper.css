@@ -69,8 +69,8 @@ iframe {
 }
 
 /*Film detail Collection image swiper*/
-.collections .swiper,
-.collections img {
+#collections .swiper,
+#collections img {
   width: clamp(20vw, 40vw, 30rem);
 }
 
