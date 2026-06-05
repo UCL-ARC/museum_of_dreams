@@ -4,7 +4,7 @@
       No relevant video/images available for this item.
       <h4>
       </div>
-{% elif slides|length > 1 %}
+{% elif slides|length > 0 %}
   <div class="swiper">
     <div class="swiper-wrapper">
       {% for slide in slides%}
@@ -18,7 +18,7 @@
               {%if slide.url %}
                 <button class="btn" type="button" onclick="window.open('{{slide.url}}', '_blank').focus()">See Source Image</button>
               {% elif slide.file.url %}
-                <p>This item has been specially provided to us by the BFI and can be only viewed on this website</p>
+                <p>This item has been specially provided to us by {{slide.file.archive}} and can be only viewed on this website</p>
               {%endif %}
             </div>
           </div>
@@ -32,9 +32,11 @@
 
       {%endfor %}
     </div>
-    <div class="swiper-pagination"></div>
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-button-next"></div>
+    {% if slides|length > 1 %}
+      <div class="swiper-pagination"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+    {% endif %}
   </div>
 
 
