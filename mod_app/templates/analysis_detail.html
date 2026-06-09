@@ -1,6 +1,7 @@
-{% extends "base.html" %} {% load i18n %} {% block title %}{{ analysis.title }} (Analysis) {% endblock %} {% block content %}
+{% extends "base.html" %} {% load i18n %} {% block title %}{{ analysis.title }} (Analysis) {% endblock %} {% block content %} {% if "introduction to website" not in analysis.title|lower %}
   <div class="teaching-analysis-detail-container">
     <a href="{% url 'analysis_list' %}" class="back-to">&larr; Back to all analyses</a>
+
     <div class="columnar-area">
       <div>
         <button class="btn teaching-analysis__download" onclick="downloadAnalysis(event,{{analysis.pk}})" type="button">
@@ -8,7 +9,6 @@
           <div class="loader hidden"></div>
         </button>
       </div>
-
       <div id="analysis__info" class="info">
         <div id="tags">
           <h4>Keywords</h4>
@@ -27,4 +27,6 @@
     </div>
   </div>
   <script src="{% static 'js/downloadAnalysis.js' %}"></script>
-{% endblock %}
+{% else %}
+  <div id="introduction__content" name="content">{{ analysis.content | safe }}</div>
+{% endif %} {% endblock %}
