@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% load i18n %} {% block title %}{{ analysis.title }} (Analysis) {% endblock %} {% block content %} {% if "introduction to website" not in analysis.title|lower %}
+{% extends "base.html" %} {% load i18n %} {% block title %}{{ analysis.title }} (Analysis) {% endblock %} {% block content %}
   <div class="teaching-analysis-detail-container">
     <a href="{% url 'analysis_list' %}" class="back-to">&larr; Back to all analyses</a>
 
@@ -9,24 +9,27 @@
           <div class="loader hidden"></div>
         </button>
       </div>
-      <div id="analysis__info" class="info">
-        <div id="tags">
-          <h4>Keywords</h4>
-          {% for topic in analysis.topics.all %}
-            <a href="{% url 'tag_detail' pk=topic.pk %}"><span class="tag">{{topic.name}}</span></a>
-          {%empty%}
-            <p>N/A</p>
-          {% endfor %}
+      {% if "introduction to website" not in analysis.title|lower %}
+        <div id="analysis__info" class="info">
+          <div id="tags">
+            <h4>Keywords</h4>
+            {% for topic in analysis.topics.all %}
+              <a href="{% url 'tag_detail' pk=topic.pk %}"><span class="tag">{{topic.name}}</span></a>
+            {%empty%}
+              <p>N/A</p>
+            {% endfor %}
+          </div>
         </div>
+      {% endif %}
+    </div>
+    {% if "introduction to website" not in analysis.title|lower %}
+      <div class="teaching-analysis__content-wrapper">
+        <div class="heading"><h1 id="title">{{analysis.title}}</h1></div>
+        {% include "partial/teaching_analysis_tab_area.html" with model=analysis modelname="analysis" %}
       </div>
-    </div>
-
-    <div class="teaching-analysis__content-wrapper">
-      <div class="heading"><h1 id="title">{{analysis.title}}</h1></div>
-      {% include "partial/teaching_analysis_tab_area.html" with model=analysis modelname="analysis" %}
-    </div>
+    {% else %}
+      <div id="introduction__content" name="content">{{ analysis.content | safe }}</div>
+    {% endif %}
   </div>
   <script src="{% static 'js/downloadAnalysis.js' %}"></script>
-{% else %}
-  <div id="introduction__content" name="content">{{ analysis.content | safe }}</div>
-{% endif %} {% endblock %}
+{% endblock %}
