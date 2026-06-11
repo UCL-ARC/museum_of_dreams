@@ -77,6 +77,5 @@ RUN chown -R django:django ${APP_HOME}
 
 USER django
 
-RUN python manage.py collectstatic --no-input
 
 ENTRYPOINT ["/entrypoint"]

@@ -551,6 +551,10 @@ footer {
     padding: 0;
   }
 
+  .about {
+    text-align: left;
+  }
+
   .contact-us {
     margin-top: 8vh;
     h4 {

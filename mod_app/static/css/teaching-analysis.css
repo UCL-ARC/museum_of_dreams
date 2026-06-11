@@ -14,17 +14,6 @@
 .columnar-area {
   padding-top: 2rem;
 }
-/*
-.heading {
-  display: grid;
-  grid-template-columns: 1fr 3fr;
-  gap: 1rem;
-} */
-/* #title {
-  grid-column: 2;
-  padding-inline-start: 1rem;
-  margin-inline-start: 2.2rem;
-} */
 
 .teaching-analysis__download {
   width: 130px;
@@ -101,7 +90,9 @@
   aspect-ratio: 1;
   border-radius: 50%;
   border: 8px solid var(--turquoise);
-  animation: l20-1 0.8s infinite linear alternate, l20-2 1.6s infinite linear;
+  animation:
+    l20-1 0.8s infinite linear alternate,
+    l20-2 1.6s infinite linear;
 }
 @keyframes l20-1 {
   0% {

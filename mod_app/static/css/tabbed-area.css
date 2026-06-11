@@ -12,10 +12,6 @@
   --underline-colour: var(--coral);
 }
 .tab-selection {
-  /* position: sticky;
-  top: 0;
-  left: 0;
-  align-self: start; */
   overflow: hidden;
   justify-content: start;
   display: flex;
@@ -47,9 +43,6 @@ body:has(.tab-selection.is-sticky) .tab-selection {
 
 .tab__content {
   display: none;
-  /* margin-top: 1.4rem;
-  margin-inline-start: 2.2rem; */
-  /* margin-inline-end: 6rem; */
 
   &.active {
     display: flex;
@@ -61,11 +54,6 @@ body:has(.tab-selection.is-sticky) .tab-selection {
   section.footnotes {
     display: none;
   }
-}
-
-.teaching-analysis__content-wrapper .tab__content {
-  /* max-height: 90vh; */
-  /* overflow-y: scroll; */
 }
 
 @media screen and (max-width: 767px) {

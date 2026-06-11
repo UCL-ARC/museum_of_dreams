@@ -106,6 +106,12 @@ you can then see variables with
 python -c "import django; import django.conf;  print(django.conf.settings.ALLOWED_HOSTS)"
 ```
 
+You can also run collectatatic with
+
+```
+docker exec museum_of_dreams-django-1 python manage.py collectstatic --no-input
+```
+
 ---
 
 ### Backups
