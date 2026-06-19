@@ -25,34 +25,33 @@
         <span style="color: orange; padding: 10px; position: absolute; left: 2vw; top: 10px"> STAGING </span>
       {% endif %} {% endblock %} {% include "components/logo_text.html" with extra_classes="title__logo-text" %}
     </div>
-    {% if user.is_authenticated %}
-      <nav>
-        <button class="menu-toggle" aria-expanded="false">Menu</button>
-        <ul class="menu-items">
-          <li>
-            <a href="{% url 'about' %}">About</a>
-          </li>
-          <li>
-            <a href="{% url 'team' %}">Team</a>
-          </li>
-          <li>
-            <a href="{% url 'film_list' %}?page=1">Films</a>
-          </li>
-          <li>
-            <a href="{% url 'analysis_list' %}">Analyses</a>
-          </li>
-          <li>
-            <a href="{% url 'bibliography' %}">Bibliography</a>
-          </li>
-          <li>
-            <a href="{% url 'tag_list' %}">Tags</a>
-          </li>
-          <li>
-            <a href="{% url 'events' %}">Events</a>
-          </li>
-        </ul>
-      </nav>
-    {% endif %} {% block heading %} {% endblock %}
+    <nav>
+      <button class="menu-toggle" aria-expanded="false">Menu</button>
+      <ul class="menu-items">
+        <li>
+          <a href="{% url 'about' %}">About</a>
+        </li>
+        <li>
+          <a href="{% url 'team' %}">Team</a>
+        </li>
+        <li>
+          <a href="{% url 'film_list' %}?page=1">Films</a>
+        </li>
+        <li>
+          <a href="{% url 'analysis_list' %}">Analyses</a>
+        </li>
+        <li>
+          <a href="{% url 'bibliography' %}">Bibliography</a>
+        </li>
+        <li>
+          <a href="{% url 'tag_list' %}">Tags</a>
+        </li>
+        <li>
+          <a href="{% url 'events' %}">Events</a>
+        </li>
+      </ul>
+    </nav>
+    {% block heading %} {% endblock %}
   <!--[if lt IE 7]> <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p> <![endif]-->
     <main>{% block content %} {% endblock %}</main>
   {% comment %} javascript imports {% endcomment %}
