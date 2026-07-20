@@ -42,6 +42,8 @@ async function downloadAnalysis(event, pk) {
       window.goatcounter.count({
         path: `/analysis-download/${pk}`,
         title: document.title,
+        event: true,
+        no_branding: true,
       });
     }
   } else {
