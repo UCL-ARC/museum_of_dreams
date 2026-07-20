@@ -43,6 +43,7 @@ async function downloadAnalysis(event, pk) {
         path: `/analysis-download/${pk}`,
         title: document.title,
         event: true,
+        no_branding: true,
       });
     }
   } else {
