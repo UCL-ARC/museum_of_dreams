@@ -252,6 +252,10 @@ footer {
     text-decoration: none;
   }
 }
+img.footer__social-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
 
 /* class level */
 
