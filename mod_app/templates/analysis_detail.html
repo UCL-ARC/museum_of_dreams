@@ -9,18 +9,16 @@
           <div class="loader hidden"></div>
         </button>
       </div>
-      {% if "introduction to website" not in analysis.title|lower %}
-        <div id="analysis__info" class="info">
-          <div id="tags">
-            <h4>Keywords</h4>
-            {% for topic in analysis.topics.all %}
-              <a href="{% url 'tag_detail' pk=topic.pk %}"><span class="tag">{{topic.name}}</span></a>
-            {%empty%}
-              <p>N/A</p>
-            {% endfor %}
-          </div>
+      <div id="analysis__info" class="info">
+        <div id="tags">
+          <h4>Keywords</h4>
+          {% for topic in analysis.topics.all %}
+            <a href="{% url 'tag_detail' pk=topic.pk %}"><span class="tag">{{topic.name}}</span></a>
+          {%empty%}
+            <p>N/A</p>
+          {% endfor %}
         </div>
-      {% endif %}
+      </div>
     </div>
     <div class="teaching-analysis__content-wrapper">
       {% if "introduction to website" not in analysis.title|lower %}
