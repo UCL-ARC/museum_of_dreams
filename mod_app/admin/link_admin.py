@@ -19,6 +19,7 @@ from mod_app.models import (
     Topic,
     Video,
     Location,
+    GoogleCalendarLink,
 )
 from mod_app.admin.utils import register_custom_admin, custom_inline
 from mod_app.utils.mixins import (
@@ -189,3 +190,8 @@ class TopicAdmin(admin.ModelAdmin):
 @admin.register(Location)
 class LocationAdmin(admin.ModelAdmin):
     search_fields = ["name"]
+
+
+@admin.register(GoogleCalendarLink)
+class GoogleCalendarLinkAdmin(admin.ModelAdmin):
+    search_fields = ["link"]
