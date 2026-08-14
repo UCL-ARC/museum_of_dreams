@@ -20,7 +20,14 @@ from museum_of_dreams_project.settings.aws import (
     AWS_STORAGE_BUCKET_NAME,
 )
 
-from .models import Analysis, BibliographyItem, Film, Tag, TeachingResources
+from .models import (
+    Analysis,
+    BibliographyItem,
+    Film,
+    Tag,
+    TeachingResources,
+    GoogleCalendarLink,
+)
 
 
 class HomeView(TemplateView):
@@ -211,7 +218,10 @@ def custom_404(request, exception=None):
 
 
 def events_view(request):
-    return render(request, "events.html")
+    google_calendar_link = GoogleCalendarLink.objects.first()
+    return render(
+        request, "events.html", {"google_calendar_link": google_calendar_link}
+    )
 
 
 def about_view(request):
