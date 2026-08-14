@@ -54,3 +54,7 @@ class Location(models.Model):
         return f"{self.name}"
 
     name = models.CharField(max_length=200)
+
+
+class GoogleCalendarLink(models.Model):
+    link = models.URLField()

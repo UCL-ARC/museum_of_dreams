@@ -1,13 +1,7 @@
 from .bibliography_model import BibliographyItem
 from .note_and_feedback_models import Feedback, ProjectNote
 from .film_model import Film
-from .support_models import (
-    Location,
-    Tag,
-    Keyword,
-    Topic,
-    Archive,
-)
+from .support_models import Location, Tag, Keyword, Topic, Archive, GoogleCalendarLink
 from .baselink_models import (
     BaseLinkModel,
     FileLink,
@@ -60,4 +54,5 @@ __all__ = [
     "PublicVisualInfluence",
     "Topic",
     "Archive",
+    "GoogleCalendarLink",
 ]
