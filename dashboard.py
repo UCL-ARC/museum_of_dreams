@@ -96,6 +96,7 @@ class CustomIndexDashboard(Dashboard):
                             "mod_app.models.visual_written_influences_model.WrittenInfluences",
                             "mod_app.models.support_models.Archive",
                             "mod_app.models.support_models.Location",
+                            "mod_app.models.support_models.GoogleCalendarLink",
                         ),
                     ),
                 ],
