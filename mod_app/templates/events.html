@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% load i18n %} {% block title %}Events {% endblock%} {% block heading %} {% endblock %} {% block content %}
   <div class="content-wrapper">
     <p>We are planning a series of events to share our research and engage with different audiences. Please check back here for updates on upcoming events, including lectures, workshops, and screenings related to the Museum of Dreamworlds project.</p>
-    <iframe src="{{ google_calendar_link.link }}" style="border-width: 0; height: 60vh !important" width="800" frameborder="0" scrolling="no"></iframe>
+    <iframe src="{{ google_calendar_link.first.link }}" style="border-width: 0; height: 60vh !important" width="800" frameborder="0" scrolling="no"></iframe>
   </div>
 {% endblock %}
