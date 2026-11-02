@@ -40,7 +40,7 @@ async function downloadAnalysis(event, pk) {
     // use GOATCounter for analytics
     if (window.goatcounter) {
       window.goatcounter.count({
-        path: `/analysis-download/${pk}`,
+        path: `analysis-download-${pk}`,
         title: document.title,
         event: true,
         no_branding: true,
