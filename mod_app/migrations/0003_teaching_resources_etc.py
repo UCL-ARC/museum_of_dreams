@@ -2,6 +2,7 @@
 
 from django.db import migrations, models
 import ckeditor.fields
+import mod_app.models
 
 
 class Migration(migrations.Migration):
