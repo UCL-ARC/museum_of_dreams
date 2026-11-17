@@ -567,36 +567,3 @@ img.footer__social-icon {
     }
   }
 }
-
-.additional-resources__wrapper {
-  gap: 2rem;
-
-  h2 {
-    text-align: center;
-  }
-
-  .card-grid {
-    overflow-x: auto;
-    overflow-y: hidden;
-    grid-auto-flow: column;
-    grid-auto-columns: minmax(30vw, 1fr);
-    grid-template-columns: none;
-    grid-template-rows: 1fr;
-    padding: 1rem;
-
-    @media screen and (max-width: 767px) {
-      grid-auto-columns: minmax(40vw, 1fr);
-    }
-
-    @media screen and (max-width: 400px) {
-      grid-auto-columns: minmax(80vw, 1fr);
-    }
-  }
-}
-
-.additional-resources__content-wrapper {
-  display: grid;
-  grid-template-columns: 1fr 4fr;
-  column-gap: 3rem;
-  margin-inline: 2rem;
-}
