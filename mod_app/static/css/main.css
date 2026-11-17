@@ -567,3 +567,11 @@ img.footer__social-icon {
     }
   }
 }
+
+.additional-resources__wrapper {
+  gap: 2rem;
+
+  h2 {
+    text-align: center;
+  }
+}

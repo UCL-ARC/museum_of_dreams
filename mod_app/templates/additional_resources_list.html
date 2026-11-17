@@ -1,0 +1,21 @@
+{% extends "base.html" %} {% load i18n %} {% block title %}{% trans 'Additional Resources' %} {% endblock %} {% block content %}
+
+  <div class="additional-resources__wrapper">
+    <h2>Additional Resources</h2>
+    {% if exhibition_resources %}
+      <h3>Exhibition Resources</h3>
+      <div class="card-grid">
+        {% for er in exhibition_resources %}
+          <a href="{% url 'er_detail' pk=er.pk %}" class="card-wrapper"> {% include "components/card.html" with obj=er %} </a>
+        {% endfor %}
+      </div>
+    {% endif %} {% if edited_collections %}
+      <h3>Edited Collections</h3>
+      <div class="card-grid">
+        {% for ec in edited_collections %}
+          <a href="{% url 'ec_detail' pk=ec.pk %}" class="card-wrapper"> {% include "components/card.html" with obj=ec %} </a>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

@@ -66,16 +66,6 @@ urlpatterns = (
             name="analysis_detail",
         ),
         distill_path(
-            "teaching-resources",
-            views.TRListView.as_view(),
-            name="tr_list",
-        ),
-        distill_path(
-            "teaching-resources/<pk>",
-            views.TRDetailView.as_view(),
-            name="tr_detail",
-        ),
-        distill_path(
             "bibliography",
             views.BibliographyListView.as_view(),
             name="bibliography",
@@ -112,6 +102,26 @@ urlpatterns = (
         ),
         path(
             "download-analysis/<pk>", views.downloadAnalysis, name="download_analysis"
+        ),
+        distill_path(
+            "additional-resources",
+            views.additional_resources_list,
+            name="additional_resources_list",
+        ),
+        distill_path(
+            "teaching-resources/<pk>",
+            views.TRDetailView.as_view(),
+            name="tr_detail",
+        ),
+        distill_path(
+            "exhibition-resources/<pk>",
+            views.ExhibitionResourcesDetailView.as_view(),
+            name="er_detail",
+        ),
+        distill_path(
+            "edited-collection/<pk>",
+            views.EditedCollectionDetailView.as_view(),
+            name="ec_detail",
         ),
     ]
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -9,7 +9,7 @@ from ..models import TeachingResources, EditedCollection, ExhibitionResources
 from mod_app.admin.utils import (
     list_topics,
     safe_bibliography,
-    safe_content,
+    safe_material,
 )
 
 
@@ -41,7 +41,7 @@ class TeachingResourcesAdmin(AnalysisAdmin):
         "dynamic_title",
         "related_films",
         "list_topics_display",
-        "safe_content_display",
+        "safe_material_display",
     ]
     search_fields = ["title", "tags"]
 
@@ -55,10 +55,10 @@ class TeachingResourcesAdmin(AnalysisAdmin):
 
     list_topics_display.short_description = "Topics"
 
-    def safe_content_display(self, obj):
-        return safe_content(obj)
+    def safe_material_display(self, obj):
+        return safe_material(obj)
 
-    safe_content_display.short_description = "Content"
+    safe_material_display.short_description = "Content"
 
 
 @admin.register(ExhibitionResources)
@@ -79,7 +79,7 @@ class ExhibitionResourcesAdmin(AnalysisAdmin):
         "dynamic_title",
         "related_films",
         "list_topics_display",
-        "safe_content_display",
+        "safe_material_display",
     ]
     search_fields = ["title", "tags"]
 
@@ -93,10 +93,10 @@ class ExhibitionResourcesAdmin(AnalysisAdmin):
 
     list_topics_display.short_description = "Topics"
 
-    def safe_content_display(self, obj):
-        return safe_content(obj)
+    def safe_material_display(self, obj):
+        return safe_material(obj)
 
-    safe_content_display.short_description = "Content"
+    safe_material_display.short_description = "Content"
 
 
 @admin.register(EditedCollection)
@@ -117,7 +117,7 @@ class EditedCollectionAdmin(AnalysisAdmin):
         "dynamic_title",
         "related_films",
         "list_topics_display",
-        "safe_content_display",
+        "safe_material_display",
     ]
     search_fields = ["title", "tags"]
 
@@ -131,7 +131,7 @@ class EditedCollectionAdmin(AnalysisAdmin):
 
     list_topics_display.short_description = "Topics"
 
-    def safe_content_display(self, obj):
-        return safe_content(obj)
+    def safe_material_display(self, obj):
+        return safe_material(obj)
 
-    safe_content_display.short_description = "Content"
+    safe_material_display.short_description = "Content"
