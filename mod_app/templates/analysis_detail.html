@@ -23,7 +23,7 @@
     <div class="teaching-analysis__content-wrapper">
       {% if "introduction to website" not in analysis.title|lower %}
         <div class="heading"><h1 id="title">{{analysis.title}}</h1></div>
-      {% endif %} {% include "partial/teaching_analysis_tab_area.html" with model=analysis modelname="analysis" %}
+      {% endif %} {% include "partial/analysis_tab_area.html" with model=analysis modelname="analysis" %}
     </div>
   </div>
   <script src="{% static 'js/downloadAnalysis.js' %}"></script>

@@ -153,7 +153,7 @@ class TRListView(ListView):
 class TRDetailView(DetailView):
     model = TeachingResources
     template_name = "additional_resource_detail.html"
-    context_object_name = "tr"
+    context_object_name = "ar"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -165,7 +165,7 @@ class TRDetailView(DetailView):
 class ExhibitionResourcesDetailView(DetailView):
     model = ExhibitionResources
     template_name = "additional_resource_detail.html"
-    context_object_name = "tr"
+    context_object_name = "ar"
 
 
 class EditedCollectionListView(ListView):
@@ -184,7 +184,7 @@ class EditedCollectionListView(ListView):
 class EditedCollectionDetailView(DetailView):
     model = EditedCollection
     template_name = "additional_resource_detail.html"
-    context_object_name = "tr"
+    context_object_name = "ar"
 
 
 class TagListView(ListView):
