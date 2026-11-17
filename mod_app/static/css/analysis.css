@@ -1,12 +1,12 @@
 /* for analysis list and detail pages */
 
-.teaching-analysis-detail-container {
+.analysis-detail-container {
   display: grid;
   grid-template-columns: 1fr 6fr;
   column-gap: 3rem;
   margin-inline: 2rem;
 }
-.teaching-analysis__content-wrapper {
+.analysis__content-wrapper {
   display: flex;
   flex-direction: column;
 }
@@ -15,7 +15,7 @@
   padding-top: 2rem;
 }
 
-.teaching-analysis__download {
+.analysis__download {
   width: 130px;
   height: 50px;
   transition: all 0.3s ease;
@@ -33,7 +33,7 @@
   }
 }
 
-.teaching-analysis__download.in-progress:hover {
+.analysis__download.in-progress:hover {
   cursor: not-allowed;
 }
 
@@ -133,7 +133,7 @@
 }
 
 @media screen and (max-width: 767px) {
-  .teaching-analysis-detail-container {
+  .analysis-detail-container {
     grid-template-columns: 1fr;
     margin-inline: 0;
   }
