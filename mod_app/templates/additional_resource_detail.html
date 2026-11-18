@@ -1,0 +1,20 @@
+{% extends "base.html" %} {% load i18n %} {% block title %}{{ ar.title }} (Additional Resources) {% endblock %} {% block content %}
+  <a href="{% url 'additional_resources_list' %}" class="back-to">&larr; Back to all Additional Resources</a>
+
+  <div class="heading">
+    <h1 id="title">{{ar.title}}</h1>
+  </div>
+  <div class="additional-resources__content-wrapper">
+    <div class="columnar-area">
+      <div id="ar__info" class="info">
+        <div id="topics">
+          <h4>Topics</h4>
+          {% for topic in ar.topics.all %}
+            <span class="tag">{{topic.name}}</span>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% include "partial/additional_resource_tab_area.html" with model=ar %}
+  </div>
+{% endblock %}
