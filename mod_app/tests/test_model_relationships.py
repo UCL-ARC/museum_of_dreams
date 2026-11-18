@@ -10,6 +10,8 @@ from mod_app.models import (
     Source,
     Tag,
     TeachingResources,
+    EditedCollection,
+    ExhibitionResources,
     Topic,
     Video,
     VisualInfluences,
@@ -22,7 +24,9 @@ class TestModelRelationships(TestCase):
         # class-wide fixtures
         cls.film = Film.objects.create(title="Test Film", release_date=2025)
         cls.analysis = Analysis.objects.create(title="Test Analysis")
-        cls.tr = TeachingResources.objects.create(title="Test Resource")
+        cls.tr = TeachingResources.objects.create(title="Test Teaching Resource")
+        cls.er = ExhibitionResources.objects.create(title="Test Exhibition Resource")
+        cls.ec = EditedCollection.objects.create(title="Test Edited Collection")
         cls.vi = VisualInfluences.objects.create(title="Test VisualInfluences")
         cls.baselinkmodel = OtherLink.objects.create(
             description="Test BaseLinkModel"
