@@ -152,7 +152,7 @@ class TRListView(ListView):
 
 class TRDetailView(DetailView):
     model = TeachingResources
-    template_name = "additional_resource_detail.html"
+    template_name = "additional_resources_detail.html"
     context_object_name = "ar"
 
     def get_context_data(self, **kwargs):
@@ -164,26 +164,13 @@ class TRDetailView(DetailView):
 
 class ExhibitionResourcesDetailView(DetailView):
     model = ExhibitionResources
-    template_name = "additional_resource_detail.html"
+    template_name = "additional_resources_detail.html"
     context_object_name = "ar"
-
-
-class EditedCollectionListView(ListView):
-    model = EditedCollection
-    template_name = "tr_list.html"
-    paginate_by = 20
-
-    def get_paginate_by(self, queryset):
-        page = self.request.GET.get(self.page_kwarg)
-        if page:
-            return self.paginate_by
-        else:
-            return None
 
 
 class EditedCollectionDetailView(DetailView):
     model = EditedCollection
-    template_name = "additional_resource_detail.html"
+    template_name = "additional_resources_detail.html"
     context_object_name = "ar"
 
 

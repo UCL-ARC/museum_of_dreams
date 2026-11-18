@@ -21,14 +21,14 @@
       <h2>Exhibition Resources</h2>
       <section class="scroller">
         {% for er in exhibition_resources %}
-          <a href="{% url 'exhibition_resources_detail' pk=er.pk %}" class="card-wrapper"> {% include "components/card.html" with obj=er %} </a>
+          <a href="{% url 'er_detail' pk=er.pk %}" class="card-wrapper"> {% include "components/card.html" with obj=er %} </a>
         {% endfor %}
       </section>
     {% endif %} {% if edited_collections %}
       <h2>Edited Collections</h2>
       <section class="scroller">
         {% for ec in edited_collections %}
-          <a href="{% url 'edited_collection_detail' pk=ec.pk %}" class="card-wrapper"> {% include "components/card.html" with obj=ec %} </a>
+          <a href="{% url 'ec_detail' pk=ec.pk %}" class="card-wrapper"> {% include "components/card.html" with obj=ec %} </a>
         {% endfor %}
       </section>
     {% endif %}

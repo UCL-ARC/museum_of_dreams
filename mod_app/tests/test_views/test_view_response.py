@@ -13,7 +13,7 @@ class TestViewResponse(TestCase):
             "home",
             "film_list",
             "analysis_list",
-            "tr_list",
+            "additional_resources_list",
             "tag_list",
             "bibliography",
             "mentions_api",
@@ -22,6 +22,8 @@ class TestViewResponse(TestCase):
             "film_detail",
             "analysis_detail",
             "tr_detail",
+            "er_detail",
+            "ec_detail",
             "tag_detail",
         ]
         cls.bibilography = BibliographyItem.objects.create(
