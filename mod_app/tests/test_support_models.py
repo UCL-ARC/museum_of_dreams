@@ -132,6 +132,28 @@ class TestAnalysis(TestCase):
         self.assertTrue(analysis)
         self.assertHTMLEqual(analysis.content, expected_content)
 
+    def test_analysis_removes_inline_color_from_spans(self):
+        analysis = Analysis.objects.create(
+            title="a3",
+            content="""
+                <span style="color: #fff; font-weight: bold">Colored text</span>
+                <span style=" COLOR : red !important ">Only colored text</span>
+                <span style="background-color: black">Background color</span>
+                <p style="color: red">Non-span color</p>
+            """,
+        )
+
+        expected_content = """
+            <span style="font-weight: bold">Colored text</span>
+            <span>Only colored text</span>
+            <span style="background-color: black">Background color</span>
+            <p style="color: red">Non-span color</p>
+        """
+
+        self.assertHTMLEqual(analysis.content, expected_content)
+        analysis.refresh_from_db()
+        self.assertHTMLEqual(analysis.content, expected_content)
+
 
 class TestTeachingResources(TestCase):
     def test_tr_creation(self):

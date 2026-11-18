@@ -17,6 +17,28 @@ def display_list(list):
     return display_list
 
 
+def remove_inline_span_colors(content):
+    """Remove inline color declarations from span elements."""
+    soup = BeautifulSoup(content, "html.parser")
+
+    for span in soup.find_all("span", style=True):
+        declarations = span["style"].split(";")
+        retained_declarations = []
+        for declaration in declarations:
+            property_name, separator, _ = declaration.partition(":")
+            if separator and property_name.strip().lower() == "color":
+                continue
+            if declaration.strip():
+                retained_declarations.append(declaration.strip())
+
+        if retained_declarations:
+            span["style"] = "; ".join(retained_declarations)
+        else:
+            del span["style"]
+
+    return str(soup)
+
+
 def strip_empty_paragraphs(content):
     """There seems to be some weird behaviour wherein CKEditor is adding empty paragraphs after videos. We don't want this on the front end nor in the actual content field, so this function removes any <p>&nbsp;</p> that immediately follow a video div."""
     soup = BeautifulSoup(content, "html.parser")
@@ -128,8 +150,11 @@ class Analysis(models.Model):
     )
 
     def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-        if self.content is not None and len(self.content) > 0:
-            self.content = strip_empty_paragraphs(self.content)
+        if self.content:
+            self.content = remove_inline_span_colors(self.content)
 
+        super().save(*args, **kwargs)
+        if self.content:
+            self.content = strip_empty_paragraphs(self.content)
+            self.content = remove_inline_span_colors(self.content)
         update_bibliography(self, [self.content])
