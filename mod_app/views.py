@@ -13,12 +13,17 @@ from django.views import View
 from django.views.generic import DetailView, ListView, TemplateView
 from xhtml2pdf import pisa
 
-# you may need to comment out the bwlow import when running locally if you get a socket error
-from museum_of_dreams_project.settings.aws import (
-    AWS_ACCESS_KEY_ID,
-    AWS_SECRET_ACCESS_KEY,
-    AWS_STORAGE_BUCKET_NAME,
+from mod_app.models.additional_resources_models import (
+    EditedCollection,
+    ExhibitionResources,
 )
+
+# # you may need to comment out the bwlow import when running locally if you get a socket error
+# from museum_of_dreams_project.settings.aws import (
+#     AWS_ACCESS_KEY_ID,
+#     AWS_SECRET_ACCESS_KEY,
+#     AWS_STORAGE_BUCKET_NAME,
+# )
 
 from .models import (
     Analysis,
@@ -147,8 +152,26 @@ class TRListView(ListView):
 
 class TRDetailView(DetailView):
     model = TeachingResources
-    template_name = "tr_detail.html"
-    context_object_name = "tr"
+    template_name = "additional_resources_detail.html"
+    context_object_name = "ar"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["exhibition_resources"] = ExhibitionResources.objects.all()
+        context["edited_collections"] = EditedCollection.objects.all()
+        return context
+
+
+class ExhibitionResourcesDetailView(DetailView):
+    model = ExhibitionResources
+    template_name = "additional_resources_detail.html"
+    context_object_name = "ar"
+
+
+class EditedCollectionDetailView(DetailView):
+    model = EditedCollection
+    template_name = "additional_resources_detail.html"
+    context_object_name = "ar"
 
 
 class TagListView(ListView):
@@ -166,10 +189,13 @@ class TagDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         if hasattr(self.object, "topic"):
             context["analyses"] = self.object.topic.analysis_topics.all()
-        else:
-            context["analyses"] = self.object.analysis_genres.all()
+            context["teaching_resources"] = self.object.topic.teaching_resources.all()
+            context[
+                "exhibition_resources"
+            ] = self.object.topic.exhibition_resources.all()
+            context["edited_collections"] = self.object.topic.edited_collections.all()
+
         context["films"] = self.object.films.all()
-        context["teaching_resources"] = self.object.tr_tags.all()
         return context
 
 
@@ -255,3 +281,13 @@ def downloadAnalysis(request, pk):
 
     if not status.err:
         return response
+
+
+def additional_resources_list(request):
+    context = {
+        "teaching_resources": TeachingResources.objects.all(),
+        "exhibition_resources": ExhibitionResources.objects.all(),
+        "edited_collections": EditedCollection.objects.all(),
+    }
+
+    return render(request, "additional_resources_list.html", context)

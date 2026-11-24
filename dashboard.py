@@ -54,10 +54,15 @@ class CustomIndexDashboard(Dashboard):
                         collapsible=False,
                         models=(
                             "mod_app.models.film_model.*",
-                            "mod_app.models.teaching_analysis_models.*",
+                            "mod_app.models.analysis_model.*",
                             "mod_app.models.bibliography_model.*",
-                            "mod_app.models.note_and_feedback_models.ProjectNote",
                         ),
+                    ),
+                    modules.ModelList(
+                        _("Additional Resources"),
+                        column=1,
+                        collapsible=False,
+                        models=("mod_app.models.additional_resources_models.*",),
                     ),
                     modules.ModelList(
                         _("Printed Material"),
@@ -81,7 +86,7 @@ class CustomIndexDashboard(Dashboard):
                         ),
                     ),
                     modules.ModelList(
-                        _("Extras"),
+                        _("Extra Fields"),
                         column=1,
                         collapsible=False,
                         models=(
@@ -91,12 +96,20 @@ class CustomIndexDashboard(Dashboard):
                             "mod_app.models.support_models.Tag",
                             "mod_app.models.support_models.Keyword",
                             "mod_app.models.support_models.Topic",
-                            "mod_app.models.note_and_feedback_models.Feedback",
                             "mod_app.models.visual_written_influences_model.VisualInfluences",
                             "mod_app.models.visual_written_influences_model.WrittenInfluences",
                             "mod_app.models.support_models.Archive",
                             "mod_app.models.support_models.Location",
+                        ),
+                    ),
+                    modules.ModelList(
+                        _("Internal/Utilities"),
+                        column=1,
+                        collapsible=False,
+                        models=(
                             "mod_app.models.support_models.GoogleCalendarLink",
+                            "mod_app.models.note_and_feedback_models.Feedback",
+                            "mod_app.models.note_and_feedback_models.ProjectNote",
                         ),
                     ),
                 ],

@@ -19,9 +19,13 @@ from .baselink_models import (
     CardImage,
     PublicVisualInfluence,
 )
-from .teaching_analysis_models import (
+from .analysis_model import (
     Analysis,
+)
+from .additional_resources_models import (
     TeachingResources,
+    ExhibitionResources,
+    EditedCollection,
 )
 from .visual_written_influences_models import VisualInfluences, WrittenInfluences
 
@@ -55,4 +59,6 @@ __all__ = [
     "Topic",
     "Archive",
     "GoogleCalendarLink",
+    "ExhibitionResources",
+    "EditedCollection",
 ]

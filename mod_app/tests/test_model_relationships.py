@@ -10,6 +10,8 @@ from mod_app.models import (
     Source,
     Tag,
     TeachingResources,
+    EditedCollection,
+    ExhibitionResources,
     Topic,
     Video,
     VisualInfluences,
@@ -22,7 +24,9 @@ class TestModelRelationships(TestCase):
         # class-wide fixtures
         cls.film = Film.objects.create(title="Test Film", release_date=2025)
         cls.analysis = Analysis.objects.create(title="Test Analysis")
-        cls.tr = TeachingResources.objects.create(title="Test Resource")
+        cls.tr = TeachingResources.objects.create(title="Test Teaching Resource")
+        cls.er = ExhibitionResources.objects.create(title="Test Exhibition Resource")
+        cls.ec = EditedCollection.objects.create(title="Test Edited Collection")
         cls.vi = VisualInfluences.objects.create(title="Test VisualInfluences")
         cls.baselinkmodel = OtherLink.objects.create(
             description="Test BaseLinkModel"
@@ -55,8 +59,19 @@ class TestModelRelationships(TestCase):
         }
 
         cls.tr_relationships = {
-            "tags": cls.tag,
             "clips": cls.clip,
+            "topics": cls.topic,
+            "bibliography": cls.bibliography,
+        }
+        cls.er_relationships = {
+            "films": cls.film,
+            "topics": cls.topic,
+            "bibliography": cls.bibliography,
+        }
+        cls.ec_relationships = {
+            "films": cls.film,
+            "topics": cls.topic,
+            "bibliography": cls.bibliography,
         }
 
         cls.vi_relationships = {
@@ -84,6 +99,20 @@ class TestModelRelationships(TestCase):
         for field_name, related_object in self.tr_relationships.items():
             with self.subTest(field=field_name):
                 related_manager = getattr(self.tr, field_name)
+                related_manager.add(related_object)
+                self.assertIn(related_object, related_manager.all())
+
+    def test_er_relationships(self):
+        for field_name, related_object in self.er_relationships.items():
+            with self.subTest(field=field_name):
+                related_manager = getattr(self.er, field_name)
+                related_manager.add(related_object)
+                self.assertIn(related_object, related_manager.all())
+
+    def test_ec_relationships(self):
+        for field_name, related_object in self.ec_relationships.items():
+            with self.subTest(field=field_name):
+                related_manager = getattr(self.ec, field_name)
                 related_manager.add(related_object)
                 self.assertIn(related_object, related_manager.all())
 

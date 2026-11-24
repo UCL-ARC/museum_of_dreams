@@ -24,6 +24,12 @@ def safe_content(obj):
     return format_html(modified_content)
 
 
+def safe_material(obj):
+    truncated_content = truncatechars_html(obj.material, 200)
+    modified_content = truncated_content.replace("{", "(").replace("}", ")")
+    return format_html(modified_content)
+
+
 def list_keywords(obj):
     keywords = obj.keywords.all()
     return ", ".join(str(kw) for kw in keywords)

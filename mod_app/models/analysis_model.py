@@ -17,6 +17,28 @@ def display_list(list):
     return display_list
 
 
+def remove_inline_span_colors(content):
+    """Remove inline color declarations from span elements."""
+    soup = BeautifulSoup(content, "html.parser")
+
+    for span in soup.find_all("span", style=True):
+        declarations = span["style"].split(";")
+        retained_declarations = []
+        for declaration in declarations:
+            property_name, separator, _ = declaration.partition(":")
+            if separator and property_name.strip().lower() == "color":
+                continue
+            if declaration.strip():
+                retained_declarations.append(declaration.strip())
+
+        if retained_declarations:
+            span["style"] = "; ".join(retained_declarations)
+        else:
+            del span["style"]
+
+    return str(soup)
+
+
 def strip_empty_paragraphs(content):
     """There seems to be some weird behaviour wherein CKEditor is adding empty paragraphs after videos. We don't want this on the front end nor in the actual content field, so this function removes any <p>&nbsp;</p> that immediately follow a video div."""
     soup = BeautifulSoup(content, "html.parser")
@@ -128,51 +150,11 @@ class Analysis(models.Model):
     )
 
     def save(self, *args, **kwargs):
+        if self.content:
+            self.content = remove_inline_span_colors(self.content)
+
         super().save(*args, **kwargs)
-        if self.content is not None and len(self.content) > 0:
+        if self.content:
             self.content = strip_empty_paragraphs(self.content)
-
+            self.content = remove_inline_span_colors(self.content)
         update_bibliography(self, [self.content])
-
-
-class TeachingResources(models.Model):
-    class Meta:
-        verbose_name_plural = "Teaching Resources"
-
-    def __str__(self):
-        return self.title
-
-    def default_title():
-        return f"Teaching Resources bundle{TeachingResources.objects.count() + 1}"
-
-    title = models.CharField(max_length=255, default=default_title)
-    material = RichTextUploadingField(
-        null=True,
-        blank=True,
-        help_text="Mentions are available here and will contibute to the bibliography.",
-    )
-
-    films = models.ManyToManyField("Film", related_name="trs", blank=True)
-
-    topics = models.ManyToManyField(Topic, related_name="tr_topics", blank=True)
-
-    keywords = models.ManyToManyField(Keyword, related_name="tr_keywords", blank=True)
-
-    tags = models.ManyToManyField(Tag, related_name="tr_tags", blank=True)
-
-    bibliography = models.ManyToManyField(
-        BibliographyItem,
-        related_name="teaching_resources",
-        help_text="This field updates on save, and some items may not be visible immediately",
-    )
-
-    clips = models.ManyToManyField(
-        "Video",
-        related_name="tr_clips",
-        blank=True,
-    )
-
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-
-        update_bibliography(self, [self.material])

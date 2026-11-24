@@ -1,10 +1,14 @@
 from .film_admin import FilmAdmin, FilmAnalysisInline, TRInline
-from .teaching_analysis_admin import (
+from .analysis_admin import (
     AnalysisAdmin,
     AnalysisAdminForm,
     TRAnalysisInline,
+)
+from .additional_resources_admin import (
     TRAdminForm,
     TeachingResourcesAdmin,
+    ExhibitionResourcesAdmin,
+    EditedCollectionAdmin,
 )
 from .bibliography_admin import BibliographyItemAdmin
 from .link_admin import (
@@ -26,6 +30,8 @@ __all__ = [
     "TRAnalysisInline",
     "TRAdminForm",
     "TeachingResourcesAdmin",
+    "ExhibitionResourcesAdmin",
+    "EditedCollectionAdmin",
     "SourceInline",
     "SourceAdmin",
     "ScriptAdmin",

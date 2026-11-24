@@ -2,7 +2,7 @@
 
 from django.db import migrations, models
 import ckeditor.fields
-import mod_app.models.teaching_analysis_models
+import mod_app.models
 
 
 class Migration(migrations.Migration):
@@ -70,7 +70,7 @@ class Migration(migrations.Migration):
             name="title",
             field=models.CharField(
                 max_length=255,
-                default=mod_app.models.teaching_analysis_models.TeachingResources.default_title,
+                default=mod_app.models.TeachingResources.default_title,
             ),
         ),
         migrations.AlterModelOptions(

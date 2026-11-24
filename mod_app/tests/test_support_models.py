@@ -17,6 +17,8 @@ from mod_app.models import (
     Poster,
     Drawing,
     TeachingResources,
+    EditedCollection,
+    ExhibitionResources,
     OtherLink,
     Source,
 )
@@ -132,8 +134,30 @@ class TestAnalysis(TestCase):
         self.assertTrue(analysis)
         self.assertHTMLEqual(analysis.content, expected_content)
 
+    def test_analysis_removes_inline_color_from_spans(self):
+        analysis = Analysis.objects.create(
+            title="a3",
+            content="""
+                <span style="color: #fff; font-weight: bold">Colored text</span>
+                <span style=" COLOR : red !important ">Only colored text</span>
+                <span style="background-color: black">Background color</span>
+                <p style="color: red">Non-span color</p>
+            """,
+        )
 
-class TestTeachingResources(TestCase):
+        expected_content = """
+            <span style="font-weight: bold">Colored text</span>
+            <span>Only colored text</span>
+            <span style="background-color: black">Background color</span>
+            <p style="color: red">Non-span color</p>
+        """
+
+        self.assertHTMLEqual(analysis.content, expected_content)
+        analysis.refresh_from_db()
+        self.assertHTMLEqual(analysis.content, expected_content)
+
+
+class TestAdditionalResources(TestCase):
     def test_tr_creation(self):
         film = Film.objects.create(title="film title", release_date="1999")
         analysis = Analysis.objects.create(title="test analysis")
@@ -144,6 +168,22 @@ class TestTeachingResources(TestCase):
         self.assertTrue(tr)
         self.assertEqual(tr.films.first(), film)
         self.assertEqual(tr.analyses.first(), analysis)
+
+    def test_er_creation(self):
+        film = Film.objects.create(title="film title", release_date="1999")
+        er = ExhibitionResources.objects.create(title="teaching resource")
+        er.films.add(film)
+
+        self.assertTrue(er)
+        self.assertEqual(er.films.first(), film)
+
+    def test_ec_creation(self):
+        film = Film.objects.create(title="film title", release_date="1999")
+        ec = EditedCollection.objects.create(title="teaching resource")
+        ec.films.add(film)
+
+        self.assertTrue(ec)
+        self.assertEqual(ec.films.first(), film)
 
 
 class TestLocation(TestCase):

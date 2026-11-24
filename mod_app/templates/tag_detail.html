@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% load i18n %} {% block title %}{{ tag.name }}{% endblock %} {% block content %}
 
-  <a href="{% url 'tag_list' %}" class="back-to">&larr; Back to all tags</a>
+  <a href="{% url 'tag_list' %}" class="back-to">&larr; Back to all Topics</a>
   <h2 class="tag__name">{{tag.name}}</h2>
   <div class="tag__related__wrapper">
     {% if analyses %}
@@ -15,6 +15,20 @@
       <section class="scroller">
         {% for tr in teaching_resources %}
           <a href="{% url 'tr_detail' pk=tr.pk %}" class="card-wrapper"> {% include "components/card.html" with obj=tr %} </a>
+        {% endfor %}
+      </section>
+    {% endif %} {% if exhibition_resources %}
+      <h2>Exhibition Resources</h2>
+      <section class="scroller">
+        {% for er in exhibition_resources %}
+          <a href="{% url 'er_detail' pk=er.pk %}" class="card-wrapper"> {% include "components/card.html" with obj=er %} </a>
+        {% endfor %}
+      </section>
+    {% endif %} {% if edited_collections %}
+      <h2>Edited Collections</h2>
+      <section class="scroller">
+        {% for ec in edited_collections %}
+          <a href="{% url 'ec_detail' pk=ec.pk %}" class="card-wrapper"> {% include "components/card.html" with obj=ec %} </a>
         {% endfor %}
       </section>
     {% endif %}
